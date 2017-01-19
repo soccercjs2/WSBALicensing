@@ -1,0 +1,44 @@
+﻿@model Licensing.Web.Models.DashboardVM
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<h2>@Model.Name - #@Model.BarNumber</h2>
+
+<div class="row">
+    <div class="col-lg-3 col-sm-6 dashboard-column">
+        <span class="dashboard-column-title">License Information</span>
+        @Html.Partial("_DashboardContainer", @Model.MembershipType)
+        @Html.Partial("_DashboardContainer", @Model.TrustAccount)
+        @Html.Partial("_DashboardContainer", @Model.ProfessionalLiabilityInsurance)
+        @Html.Partial("_DashboardContainer", @Model.ProBono)
+    </div>
+    <div class="col-lg-3 col-sm-6 dashboard-column">
+        <span class="dashboard-column-title">Contact Information</span>
+        @Html.Partial("_DashboardContainer", @Model.PrimaryAddress)
+        @Html.Partial("_DashboardContainer", @Model.HomeAddress)
+        @Html.Partial("_DashboardContainer", @Model.AgentOfServiceAddress)
+        @Html.Partial("_DashboardContainer", @Model.Emails)
+        @Html.Partial("_DashboardContainer", @Model.PhoneNumbers)
+    </div>
+    <div class="col-lg-3 col-sm-6 dashboard-column">
+        <span class="dashboard-column-title">Practice Information and Demographics</span>
+        @Html.Partial("_DashboardContainer", @Model.AreasOfPractice)
+        @Html.Partial("_DashboardContainer", @Model.FirmSize)
+        @Html.Partial("_DashboardContainer", @Model.Languages)
+        @Html.Partial("_DashboardContainer", @Model.Ethnicity)
+        @Html.Partial("_DashboardContainer", @Model.Gender)
+        @Html.Partial("_DashboardContainer", @Model.Disability)
+        @Html.Partial("_DashboardContainer", @Model.SexualOrientation)
+    </div>
+    <div class="col-lg-3 col-sm-6 dashboard-column">
+        <span class="dashboard-column-title">Payment</span>
+        @Html.Partial("_DashboardContainer", @Model.Sections)
+        @Html.Partial("_DashboardContainer", @Model.Donations)
+
+        <div class="row">
+            <button type="button" class="btn btn-success full-width margin-top">Pay Now!</button>
+        </div>
+    </div>
+</div>

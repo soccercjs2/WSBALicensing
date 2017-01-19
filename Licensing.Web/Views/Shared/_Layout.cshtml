@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WSBA Licensing</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    @*<div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("WSBA Licensing", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Licensing Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("MyWSBA", "About", "Home")</li>
+                    <li>@Html.ActionLink("MyCLE", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("MCLE", "Contact", "Home")</li>
+                </ul>
+            </div>
+        </div>
+    </div>*@
+
+    <div class="row wsba-tone-top">
+        <div class="wsba-header">
+            <a href="http://localhost:6599/">
+                <img alt="WSBA Logo" class="pull-left wsba-icon" src="~/content/images/logo.png" />
+                <div class="wsba-title-container">
+                    <div class="wsba-title">
+                        <span class="wsba-title-right">Licensing</span>
+                    </div>
+                    <div class="wsba-subtitle hidden-xs">Administered by the Washington State Bar Association</div>
+                </div>
+            </a>
+        </div>
+
+        <div class="login-scribble">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="text-right">
+                    <div id="greeting">
+                        Welcome!
+
+                        @*@if (CurrentUser.IsWSBAUser || CurrentUser.IsSponsor)
+                        {
+                            <text>Welcome&nbsp;@CurrentUser.Greeting</text>
+                        }
+                        else
+                        {
+                            <text>
+                                Welcome
+                                <a href="@System.Web.Configuration.WebConfigurationManager.AppSettings["MemberProfileUrl"]" target="_blank" title="You will be redirected to mywsba.org">
+                                    @CurrentUser.Greeting
+                                </a>
+                            </text>
+                        }*@
+
+                        @*@if (CurrentUser.IsImpersonating)
+                        {
+                            @Html.Raw(String.Format(", Assisting {0} - {1} - <strong>{2}</strong>", CurrentUser.ImpersonatedUser.UserTypeName, CurrentUser.ImpersonatedUser.FullName, CurrentUser.ImpersonatedUser.MasterCustomerId))
+                            <text>
+                                &nbsp;-&nbsp;
+                            </text>
+                            <a href="/Home/AssistMember/0">
+                                Exit Assist Mode
+                            </a>
+                        }*@
+                        &nbsp;-&nbsp;<a href="~/auth/logout">Logout</a>&nbsp;
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="text-right login-scribble">
+                    <a href="~/auth/login">Login</a>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="row wsba-tone-middle">
+        <div class="col-lg-12 col-md-12">
+            <nav class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Licensing Home</a></li>
+                    <li><a href="#">MCLE</a></li>
+                    <li><a href="#">MyWSBA</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <div id="HeaderToneBottom" class="row wsba-tone-bottom">
+        <div class="col-md-12 col-lg-12"></div>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

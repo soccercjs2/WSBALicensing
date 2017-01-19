@@ -1,0 +1,32 @@
+﻿@using Licensing.Web.Models.Enums;
+
+@model Licensing.Web.Models.DashboardContainerVM
+
+<div class="dashboard-container">
+    <div class="row dashboard-container-header">
+        <div class="dashboard-container-title">
+            @Model.Title
+            <span class="glyphicon glyphicon-edit"></span>
+        </div>
+        <div class="dashboard-container-label-container">
+            @if (Model.Complete)
+            {
+                <span class="label label-success">Complete</span>
+            }
+            else if (Model.RequirementType == RequirementType.Required)
+            {
+                <span class="label label-danger">Required</span>
+            }
+            else if (Model.RequirementType == RequirementType.Optional)
+            {
+                <span class="label label-warning">Optional</span>
+            }
+        </div>
+    </div>
+    @if (Model.PartialViewName != null)
+    {
+        <div class="row dashboard-container-body">
+            @Html.Partial(Model.PartialViewName, @Model.PartialViewData)
+        </div>
+    }
+</div>

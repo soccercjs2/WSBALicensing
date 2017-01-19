@@ -11,7 +11,7 @@ namespace Licensing.Domain.Ethnicities
     {
         public int EthnicityId { get; set; }
         
-        public EthnicityOption Option { get; set; }
+        public virtual EthnicityOption Option { get; set; }
         public int EthnicityOptionId { get; set; }
     }
 }

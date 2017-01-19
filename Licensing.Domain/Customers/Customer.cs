@@ -12,9 +12,9 @@ namespace Licensing.Domain.Customers
     public class Customer
     {
         public int CustomerId { get; set; }
-        public int BarNumber { get; set; }
+        public string BarNumber { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public ICollection<License> Licenses { get; set; }
+        public virtual ICollection<License> Licenses { get; set; }
     }
 }

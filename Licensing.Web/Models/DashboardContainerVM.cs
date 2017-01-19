@@ -13,5 +13,23 @@ namespace Licensing.Web.Models
         public bool Complete { get; set; }
         public string PartialViewName { get; set; }
         public object PartialViewData { get; set; }
+
+        public DashboardContainerVM(string title, RequirementType requirementType, bool complete, string partialViewName, object partialViewData)
+        {
+            Title = title;
+            RequirementType = requirementType;
+            Complete = complete;
+            PartialViewName = partialViewName;
+            PartialViewData = partialViewData;
+        }
+
+        public DashboardContainerVM(string title, RequirementType requirementType, bool complete)
+        {
+            Title = title;
+            RequirementType = requirementType;
+            Complete = complete;
+            PartialViewName = null;
+            PartialViewData = null;
+        }
     }
 }

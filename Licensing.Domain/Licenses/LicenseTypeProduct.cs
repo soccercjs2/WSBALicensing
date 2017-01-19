@@ -12,7 +12,7 @@ namespace Licensing.Domain.Licenses
         public int LicenseTypeProductId { get; set; }
         public int LicenseTypeId { get; set; }
         
-        public LicensingProduct Product { get; set; }
+        public virtual LicensingProduct Product { get; set; }
         public int LicensingProductId { get; set; }
     }
 }

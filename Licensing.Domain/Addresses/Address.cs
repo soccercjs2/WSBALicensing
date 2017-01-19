@@ -12,7 +12,7 @@ namespace Licensing.Domain.Addresses
         public int AddressId { get; set; }
         public int LicenseId { get; set; }
 
-        public AddressType AddressType { get; set; }
+        public virtual AddressType AddressType { get; set; }
         public int AddressTypeId { get; set; }
 
         public string Address1 { get; set; }

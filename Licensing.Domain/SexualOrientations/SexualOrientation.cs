@@ -11,7 +11,7 @@ namespace Licensing.Domain.SexualOrientations
     {
         public int SexualOrientationId { get; set; }
 
-        public SexualOrientationOption Option { get; set; }
+        public virtual SexualOrientationOption Option { get; set; }
         public int SexualOrientationOptionId { get; set; }
     }
 }

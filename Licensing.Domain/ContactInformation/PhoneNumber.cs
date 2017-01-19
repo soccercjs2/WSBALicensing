@@ -12,7 +12,7 @@ namespace Licensing.Domain.ContactInformation
         public int PhoneNumberId { get; set; }
         public int LicenseId { get; set; }
 
-        public PhoneNumberType PhoneNumberType { get; set; }
+        public virtual PhoneNumberType PhoneNumberType { get; set; }
         public int PhoneNumberTypeId { get; set; }
 
         public int CountryCode { get; set; }

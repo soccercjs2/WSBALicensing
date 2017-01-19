@@ -11,7 +11,7 @@ namespace Licensing.Domain.FirmSizes
     {
         public int FirmSizeId { get; set; }
         
-        public FirmSizeOption Option { get; set; }
+        public virtual FirmSizeOption Option { get; set; }
         public int FirmSizeOptionId { get; set; }
     }
 }

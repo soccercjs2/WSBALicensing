@@ -27,55 +27,55 @@ namespace Licensing.Domain.Licenses
         public int CustomerId { get; set; }
 
         //license details
-        public LicensingPeriod LicensingPeriod { get; set; }
+        public virtual LicensingPeriod LicensingPeriod { get; set; }
         public int LicensingPeriodId { get; set; }
 
-        public LicenseType LicenseType { get; set; }
+        public virtual LicenseType LicenseType { get; set; }
         public int LicenseTypeId { get; set; }
 
         //licensing information
-        public FinancialResponsibility FinancialResponsibility { get; set; }
+        public virtual FinancialResponsibility FinancialResponsibility { get; set; }
         public int FinancialResponsibilityId { get; set; }
 
-        public ProBono ProBono { get; set; }
+        public virtual ProBono ProBono { get; set; }
         public int ProBonoId { get; set; }
 
-        public ProfessionalLiabilityInsurance ProfessionalLiabilityInsurance { get; set; }
+        public virtual ProfessionalLiabilityInsurance ProfessionalLiabilityInsurance { get; set; }
         public int ProfessionalLiabilityInsuranceId { get; set; }
 
-        public TrustAccount TrustAccount { get; set; }
+        public virtual TrustAccount TrustAccount { get; set; }
         public int TrustAccountId { get; set; }
 
         //contact information
-        public ICollection<Address> Addresses { get; set; }
-        public ICollection<Email> Emails { get; set; }
-        public ICollection<PhoneNumber> PhoneNumbers { get; set; }
+        public virtual ICollection<Address> Addresses { get; set; }
+        public virtual ICollection<Email> Emails { get; set; }
+        public virtual ICollection<PhoneNumber> PhoneNumbers { get; set; }
 
         //practice information
-        public ICollection<AreaOfPractice> AreasOfPractice { get; set; }
+        public virtual ICollection<AreaOfPractice> AreasOfPractice { get; set; }
 
-        public FirmSize FirmSize { get; set; }
+        public virtual FirmSize FirmSize { get; set; }
         public int FirmSizeId { get; set; }
 
-        public ICollection<Language> Languages { get; set; }
+        public virtual ICollection<Language> Languages { get; set; }
 
         //demographics
-        public Disability Disability { get; set; }
+        public virtual Disability Disability { get; set; }
         public int DisabilityId { get; set; }
 
-        public Ethnicity Ethnicity { get; set; }
+        public virtual Ethnicity Ethnicity { get; set; }
         public int EthnicityId { get; set; }
 
-        public Gender Gender { get; set; }
+        public virtual Gender Gender { get; set; }
         public int GenderId { get; set; }
 
-        public SexualOrientation SexualOrientation { get; set; }
+        public virtual SexualOrientation SexualOrientation { get; set; }
         public int SexualOrientationId { get; set; }
 
 
         //payment
-        public ICollection<Donation> Donations { get; set; }
-        public ICollection<Section> Sections { get; set; }
+        public virtual ICollection<Donation> Donations { get; set; }
+        public virtual ICollection<Section> Sections { get; set; }
         public bool? BarNews { get; set; }
     }
 }

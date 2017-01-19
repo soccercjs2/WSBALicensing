@@ -51,9 +51,9 @@
   <ItemGroup>
     <Compile Include="Context\LicensingContext.cs" />
     <Compile Include="Initializer\LicensingInitializer.cs" />
-    <Compile Include="Migrations\201701190224202_Inititial.cs" />
-    <Compile Include="Migrations\201701190224202_Inititial.Designer.cs">
-      <DependentUpon>201701190224202_Inititial.cs</DependentUpon>
+    <Compile Include="Migrations\201701192127338_Initial.cs" />
+    <Compile Include="Migrations\201701192127338_Initial.Designer.cs">
+      <DependentUpon>201701192127338_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -71,8 +71,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201701190224202_Inititial.resx">
-      <DependentUpon>201701190224202_Inititial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201701192127338_Initial.resx">
+      <DependentUpon>201701192127338_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

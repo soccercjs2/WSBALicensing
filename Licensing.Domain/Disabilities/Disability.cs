@@ -11,7 +11,7 @@ namespace Licensing.Domain.Disabilities
     {
         public int DisabilityId { get; set; }
         
-        public DisabilityOption Option { get; set; }
+        public virtual DisabilityOption Option { get; set; }
         public int DisabilityOptionId { get; set; }
     }
 }

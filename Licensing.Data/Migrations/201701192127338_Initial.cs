@@ -3,7 +3,7 @@ namespace Licensing.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Inititial : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
@@ -76,7 +76,7 @@ namespace Licensing.Data.Migrations
                 c => new
                     {
                         CustomerId = c.Int(nullable: false, identity: true),
-                        BarNumber = c.Int(nullable: false),
+                        BarNumber = c.String(),
                         FirstName = c.String(),
                         LastName = c.String(),
                     })

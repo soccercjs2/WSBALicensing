@@ -13,7 +13,7 @@ namespace Licensing.Domain.FinancialResponsibilities
         public string Company { get; set; }
         public string PolicyNumber { get; set; }
 
-        public CoveredByOption CoveredByOption { get; set; }
+        public virtual CoveredByOption CoveredByOption { get; set; }
         public int CoveredByOptionId { get; set; }
     }
 }

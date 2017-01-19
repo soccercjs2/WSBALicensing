@@ -289,7 +289,7 @@ namespace Licensing.Data.Migrations
             var customers = new List<Customer>
             {
                 new Customer {
-                    BarNumber = 555,
+                    BarNumber = "555",
                     FirstName = "Charles",
                     LastName = "Brown",
                     Licenses = licenses

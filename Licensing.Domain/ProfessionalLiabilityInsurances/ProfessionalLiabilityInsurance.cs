@@ -11,7 +11,7 @@ namespace Licensing.Domain.ProfessionalLiabilityInsurances
     {
         public int ProfessionalLiabilityInsuranceId { get; set; }
         
-        public ProfessionalLiabilityInsuranceOption Option { get; set; }
+        public virtual ProfessionalLiabilityInsuranceOption Option { get; set; }
         public int ProfessionalLiabilityInsuranceOptionId { get; set; }
     }
 }

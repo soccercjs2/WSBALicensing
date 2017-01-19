@@ -12,6 +12,6 @@ namespace Licensing.Domain.Licenses
         public int LicenseTypeId { get; set; }
         public string Name { get; set; }
         
-        public ICollection<LicenseTypeProduct> LicenseTypeProducts { get; set; }
+        public virtual ICollection<LicenseTypeProduct> LicenseTypeProducts { get; set; }
     }
 }

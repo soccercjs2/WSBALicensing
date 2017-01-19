@@ -11,8 +11,8 @@ namespace Licensing.Domain.AreasOfPractice
     {
         public int AreaOfPracticeId { get; set; }
         public int LicenseId { get; set; }
-        
-        public AreaOfPracticeOption Option { get; set; }
+
+        public virtual AreaOfPracticeOption Option { get; set; }
         public int AreaOfPracticeOptionId { get; set; }
     }
 }

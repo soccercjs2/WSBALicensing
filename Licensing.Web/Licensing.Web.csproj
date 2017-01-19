@@ -204,6 +204,10 @@
       <Project>{53aa497f-b91b-4585-8ce9-d1b78dd09d2e}</Project>
       <Name>Licensing.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Licensing.Domain\Licensing.Domain.csproj">
+      <Project>{F9EBC84D-E8AB-4095-ADDC-BCA43483F6C0}</Project>
+      <Name>Licensing.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -12,7 +12,7 @@ namespace Licensing.Domain.Languages
         public int LanguageId { get; set; }
         public int LicenseId { get; set; }
         
-        public LanguageOption Option { get; set; }
+        public virtual LanguageOption Option { get; set; }
         public int LanguageOptionId { get; set; }
     }
 }

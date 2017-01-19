@@ -11,7 +11,7 @@ namespace Licensing.Domain.Genders
     {
         public int GenderId { get; set; }
         
-        public GenderOption Option { get; set; }
+        public virtual GenderOption Option { get; set; }
         public int GenderOptionId { get; set; }
     }
 }

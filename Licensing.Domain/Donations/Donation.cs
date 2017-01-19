@@ -12,7 +12,7 @@ namespace Licensing.Domain.Donations
         public int DonationId { get; set; }
         public int LicenseId { get; set; }
         
-        public DonationProduct Product { get; set; }
+        public virtual DonationProduct Product { get; set; }
         public int DonationProductId { get; set; }
     }
 }

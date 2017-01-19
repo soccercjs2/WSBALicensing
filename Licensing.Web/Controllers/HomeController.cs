@@ -1,4 +1,7 @@
-﻿using Licensing.Web.Models;
+﻿using Licensing.Data.Context;
+using Licensing.Domain.Customers;
+using Licensing.Domain.Licenses;
+using Licensing.Web.Models;
 using Licensing.Web.Models.Enums;
 using System;
 using System.Collections.Generic;
@@ -14,31 +17,45 @@ namespace Licensing.Web.Controllers
         {
             DashboardVM dashboardVM = new DashboardVM();
 
-            dashboardVM.Name = "Charlie Brown";
-            dashboardVM.BarNumber = "555";
+            LicensingContext context = new LicensingContext();
 
-            dashboardVM.MembershipType = new DashboardContainerVM() { Title = "Membership Type", RequirementType = RequirementType.Required, Complete = true, PartialViewName = "_MembershipType", PartialViewData = "Active Attorney" };
-            dashboardVM.TrustAccount = new DashboardContainerVM() { Title = "Trust Account", RequirementType = RequirementType.Required, Complete = false, PartialViewName = "_TrustAccount", PartialViewData = "Manages Trust Accounts" };
-            dashboardVM.ProfessionalLiabilityInsurance = new DashboardContainerVM() { Title = "Professional Liability Insurance", RequirementType = RequirementType.Required, Complete = false, PartialViewName = "_ProfessionalLiabilityInsurance", PartialViewData = "Option 1" };
-            dashboardVM.ProBono = new DashboardContainerVM() { Title = "Pro Bono", RequirementType = RequirementType.Required, Complete = false, PartialViewName = "_ProBono", PartialViewData = "Did Pro Bono Stuff" };
+            //get customer
+            Customer customer = context.Customers.Where(c => c.BarNumber == "555").FirstOrDefault();
 
-            dashboardVM.PrimaryAddress = new DashboardContainerVM() { Title = "Primary Address", RequirementType = RequirementType.Required, Complete = false, PartialViewName = "_Address", PartialViewData = "1325 4th Ave Seattle WA 98101" };
-            dashboardVM.HomeAddress = new DashboardContainerVM() { Title = "Home Address", RequirementType = RequirementType.Required, Complete = false, PartialViewName = "_Address", PartialViewData = "6421 152nd St. SE Snohomish WA 98296" };
-            dashboardVM.AgentOfServiceAddress = new DashboardContainerVM() { Title = "Agent of Service Address", RequirementType = RequirementType.Required, Complete = false, PartialViewName = "_Address", PartialViewData = "1325 4th Ave Seattle WA 98101" };
-            dashboardVM.Emails = new DashboardContainerVM() { Title = "Emails", RequirementType = RequirementType.Required, Complete = false, PartialViewName = "_Emails", PartialViewData = "Primary: collins@wsba.org" };
-            dashboardVM.PhoneNumbers = new DashboardContainerVM() { Title = "Phone Numbers", RequirementType = RequirementType.Required, Complete = false, PartialViewName = "_PhoneNumbers", PartialViewData = "Primary: (555) 123-4567" };
+            //get current license period
+            LicensingPeriod licensingPeriod = context.LicensingPeriods.FirstOrDefault();
 
-            dashboardVM.AreasOfPractice = new DashboardContainerVM() { Title = "Areas of Practice", RequirementType = RequirementType.Optional, Complete = false, PartialViewName = "_AreasOfPractice", PartialViewData = "Family Law, Business Law" };
-            dashboardVM.FirmSize = new DashboardContainerVM() { Title = "Firm Size", RequirementType = RequirementType.Optional, Complete = false, PartialViewName = "_FirmSize", PartialViewData = "Solo" };
-            dashboardVM.Languages = new DashboardContainerVM() { Title = "Languages", RequirementType = RequirementType.Optional, Complete = false, PartialViewName = "_Languages", PartialViewData = "English, Spanish" };
+            //get license
+            License license = customer.Licenses.Where(l => l.LicensingPeriodId == licensingPeriod.LicensingPeriodId).FirstOrDefault();
 
-            dashboardVM.Ethnicity = new DashboardContainerVM() { Title = "Ethnicity/Race", RequirementType = RequirementType.Optional, Complete = true };
-            dashboardVM.Gender = new DashboardContainerVM() { Title = "Gender", RequirementType = RequirementType.Optional, Complete = true };
-            dashboardVM.Disability = new DashboardContainerVM() { Title = "Disability", RequirementType = RequirementType.Optional, Complete = false };
-            dashboardVM.SexualOrientation = new DashboardContainerVM() { Title = "SexualOrientation", RequirementType = RequirementType.Optional, Complete = false };
+            //dashboardVM.Name = "Charlie Brown";
+            //dashboardVM.BarNumber = "555";
 
-            dashboardVM.Sections = new DashboardContainerVM() { Title = "Sections", RequirementType = RequirementType.Required, Complete = false, PartialViewName = "_Sections", PartialViewData = "Family Law, Business Law" };
-            dashboardVM.Donations = new DashboardContainerVM() { Title = "Donations", RequirementType = RequirementType.Required, Complete = false, PartialViewName = "_Donations", PartialViewData = "BFD: 50, C4EJ: 50" };
+            dashboardVM.Name = customer.FirstName + " " + customer.LastName;
+            dashboardVM.BarNumber = customer.BarNumber;
+
+            dashboardVM.MembershipType = new DashboardContainerVM("Membership Type", RequirementType.Required, true, "_MembershipType", license.LicenseType.Name);
+            dashboardVM.TrustAccount = new DashboardContainerVM("Trust Account", RequirementType.Required, false, "_TrustAccount", "XXX");
+            dashboardVM.ProfessionalLiabilityInsurance = new DashboardContainerVM("Professional Liability Insurance", RequirementType.Required, false, "_ProfessionalLiabilityInsurance", "XXX");
+            dashboardVM.ProBono = new DashboardContainerVM("Pro Bono", RequirementType.Required, false, "_ProBono", "Did Pro Bono Stuff");
+
+            dashboardVM.PrimaryAddress = new DashboardContainerVM("Primary Address", RequirementType.Required, false, "_Address", "XXX");
+            dashboardVM.HomeAddress = new DashboardContainerVM("Home Address", RequirementType.Required, false, "_Address", "XXX");
+            dashboardVM.AgentOfServiceAddress = new DashboardContainerVM("Agent of Service Address", RequirementType.Required, false, "_Address", "XXX");
+            dashboardVM.Emails = new DashboardContainerVM("Emails", RequirementType.Required, false, "_Emails", "XXX");
+            dashboardVM.PhoneNumbers = new DashboardContainerVM("Phone Numbers", RequirementType.Required, false, "_PhoneNumbers", "XXX");
+
+            dashboardVM.AreasOfPractice = new DashboardContainerVM("Areas of Practice", RequirementType.Optional, false, "_AreasOfPractice", "XXX");
+            dashboardVM.FirmSize = new DashboardContainerVM("Firm Size", RequirementType.Optional, false, "_FirmSize", "XXX");
+            dashboardVM.Languages = new DashboardContainerVM("Languages", RequirementType.Optional, false, "_Languages", "XXX");
+
+            dashboardVM.Ethnicity = new DashboardContainerVM("Ethnicity/Race", RequirementType.Optional, false);
+            dashboardVM.Gender = new DashboardContainerVM("Gender", RequirementType.Optional, false);
+            dashboardVM.Disability = new DashboardContainerVM("Disability", RequirementType.Optional, false);
+            dashboardVM.SexualOrientation = new DashboardContainerVM("Sexual Orientation", RequirementType.Optional, false);
+
+            dashboardVM.Sections = new DashboardContainerVM("Sections", RequirementType.Required, false, "_Sections", "XXX");
+            dashboardVM.Donations = new DashboardContainerVM("Donations", RequirementType.Required, false, "_Donations", "XXX");
 
             return View(dashboardVM);
         }

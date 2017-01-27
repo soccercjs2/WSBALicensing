@@ -142,3 +142,11 @@ C:\Users\Collin\Source\Repos\Licensing\Licensing.Web\bin\Licensing.Domain.pdb
 C:\Users\Collin\Source\Repos\Licensing\Licensing.Web\obj\Debug\Licensing.Web.csprojResolveAssemblyReference.cache
 C:\Users\Collin\Source\Repos\Licensing\Licensing.Web\obj\Debug\Licensing.Web.dll
 C:\Users\Collin\Source\Repos\Licensing\Licensing.Web\obj\Debug\Licensing.Web.pdb
+C:\Projects\Licensing\Licensing.Web\bin\Licensing.Business.dll
+C:\Projects\Licensing\Licensing.Web\bin\Licensing.Business.pdb
+C:\Projects\Licensing\Licensing.Web\bin\System.Net.Http.Formatting.dll
+C:\Projects\Licensing\Licensing.Web\bin\System.Web.Http.dll
+C:\Projects\Licensing\Licensing.Web\bin\System.Web.Http.WebHost.dll
+C:\Projects\Licensing\Licensing.Web\bin\System.Net.Http.Formatting.xml
+C:\Projects\Licensing\Licensing.Web\bin\System.Web.Http.xml
+C:\Projects\Licensing\Licensing.Web\bin\System.Web.Http.WebHost.xml

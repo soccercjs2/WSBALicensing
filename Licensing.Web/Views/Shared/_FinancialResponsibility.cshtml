@@ -1,0 +1,19 @@
+﻿@model Licensing.Domain.FinancialResponsibilities.FinancialResponsibility
+
+@if (Model != null)
+{
+    <div class="row">
+        <div class="row padded-small">
+            <div class="inline bold">Covered By:</div>
+            <div class="inline">@Model.CoveredByOption.Name</div>
+        </div>
+        <div class="row padded-small">
+            <div class="inline bold">Company:</div>
+            <div class="inline">@Model.Company</div>
+        </div>
+        <div class="row padded-small">
+            <div class="inline bold">Policy Number:</div>
+            <div class="inline">@Model.PolicyNumber</div>
+        </div>
+    </div>
+}

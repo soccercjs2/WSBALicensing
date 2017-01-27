@@ -51,12 +51,31 @@
   <ItemGroup>
     <Compile Include="Context\LicensingContext.cs" />
     <Compile Include="Initializer\LicensingInitializer.cs" />
-    <Compile Include="Migrations\201701192127338_Initial.cs" />
-    <Compile Include="Migrations\201701192127338_Initial.Designer.cs">
-      <DependentUpon>201701192127338_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201701252032356_Really....cs" />
+    <Compile Include="Migrations\201701252032356_Really....Designer.cs">
+      <DependentUpon>201701252032356_Really....cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701272142361_Adding Bar News.cs" />
+    <Compile Include="Migrations\201701272142361_Adding Bar News.Designer.cs">
+      <DependentUpon>201701272142361_Adding Bar News.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701272212532_Updating BarNews field on Licence.cs" />
+    <Compile Include="Migrations\201701272212532_Updating BarNews field on Licence.Designer.cs">
+      <DependentUpon>201701272212532_Updating BarNews field on Licence.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701272217511_Wrong collection maybe.cs" />
+    <Compile Include="Migrations\201701272217511_Wrong collection maybe.Designer.cs">
+      <DependentUpon>201701272217511_Wrong collection maybe.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Workers\AddressWorker.cs" />
+    <Compile Include="Workers\AreaOfPracticeWorker.cs" />
+    <Compile Include="Workers\DonationWorker.cs" />
+    <Compile Include="Workers\EmailWorker.cs" />
+    <Compile Include="Workers\LanguageWorker.cs" />
+    <Compile Include="Workers\PhoneNumberWorker.cs" />
+    <Compile Include="Workers\SectionWorker.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -71,8 +90,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201701192127338_Initial.resx">
-      <DependentUpon>201701192127338_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201701252032356_Really....resx">
+      <DependentUpon>201701252032356_Really....cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701272142361_Adding Bar News.resx">
+      <DependentUpon>201701272142361_Adding Bar News.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701272212532_Updating BarNews field on Licence.resx">
+      <DependentUpon>201701272212532_Updating BarNews field on Licence.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701272217511_Wrong collection maybe.resx">
+      <DependentUpon>201701272217511_Wrong collection maybe.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

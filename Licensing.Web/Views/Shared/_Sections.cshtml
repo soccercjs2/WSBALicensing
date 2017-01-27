@@ -1,6 +1,11 @@
-﻿<div class="row padded-small">
-    Business Law
-</div>
-<div class="row padded-small">
-    Family Law
-</div>
+﻿@model IEnumerable<Licensing.Domain.Sections.Section>
+
+@if (Model != null)
+{
+    foreach (var sectionProduct in Model)
+    {
+        <div class="row padded-small">
+            @sectionProduct.Product.Name
+        </div>
+    }
+}

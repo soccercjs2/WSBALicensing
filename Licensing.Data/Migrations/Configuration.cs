@@ -8,21 +8,24 @@ namespace Licensing.Data.Migrations
     using Licensing.Domain.Addresses;
     using Licensing.Domain.AreasOfPractice;
     using Licensing.Domain.ContactInformation;
-    using Licensing.Domain.Customers;
+    using Licensing.Domain.Disabilities;
     using Licensing.Domain.Donations;
+    using Licensing.Domain.Ethnicities;
     using Licensing.Domain.FinancialResponsibilities;
     using Licensing.Domain.FirmSizes;
+    using Licensing.Domain.Genders;
+    using Licensing.Domain.Judicial;
     using Licensing.Domain.Languages;
-    using Licensing.Domain.Licenses;
     using Licensing.Domain.ProBonos;
     using Licensing.Domain.ProfessionalLiabilityInsurances;
     using Licensing.Domain.Sections;
-    using Licensing.Domain.TrustAccounts;
-    using Licensing.Domain.Disabilities;
-    using Licensing.Domain.Ethnicities;
-    using Licensing.Domain.Genders;
     using Licensing.Domain.SexualOrientations;
+    using Licensing.Domain.TrustAccounts;
     using System.Collections.Generic;
+    using Domain.Licenses;
+    using Domain.Enums;
+    using Domain.Customers;
+    using Domain.BarNews;
 
     internal sealed class Configuration : DbMigrationsConfiguration<Licensing.Data.Context.LicensingContext>
     {
@@ -41,12 +44,8 @@ namespace Licensing.Data.Migrations
             //license intitializers
             var licensingPeriods = new List<LicensingPeriod>
             {
-                new LicensingPeriod
-                {
-                    StartDate = new DateTime(2017, 10, 16),
-                    EndDate = new DateTime(2018, 5, 1),
-                    LateFeeDate = new DateTime(2018, 2, 1)
-                }
+                new LicensingPeriod { StartDate = new DateTime(2017, 10, 16), EndDate = new DateTime(2018, 5, 1), LateFeeDate = new DateTime(2018, 2, 1) },
+                new LicensingPeriod { StartDate = new DateTime(2018, 10, 16), EndDate = new DateTime(2019, 5, 1), LateFeeDate = new DateTime(2019, 2, 1) }
             };
 
             var licensingProducts = new List<LicensingProduct>
@@ -63,7 +62,34 @@ namespace Licensing.Data.Migrations
 
             var licenseTypes = new List<LicenseType>
             {
-                new LicenseType { Name = "Active Attorney", LicenseTypeProducts = licenseTypeProducts }
+                new LicenseType {
+                    Name = "Active Attorney",
+                    LicenseTypeProducts = licenseTypeProducts,
+                    MembershipType = RequirementType.Required,
+                    JudicialPosition = RequirementType.Optional,
+                    TrustAccount = RequirementType.Required,
+                    ProfessionalLiabilityInsurance = RequirementType.Required,
+                    FinancialResponsibility = RequirementType.Optional,
+                    ProBono = RequirementType.Optional,
+                    PrimaryAddress = RequirementType.Required,
+                    HomeAddress = RequirementType.Required,
+                    AgentOfServiceAddress = RequirementType.Required,
+                    PrimaryEmail = RequirementType.Required,
+                    HomeEmail = RequirementType.Optional,
+                    PrimaryPhoneNumber = RequirementType.Required,
+                    HomePhoneNumber = RequirementType.Optional,
+                    FaxPhoneNumber = RequirementType.Optional,
+                    AreasOfPractice = RequirementType.Optional,
+                    FirmSize = RequirementType.Optional,
+                    Languages = RequirementType.Optional,
+                    Disability = RequirementType.Optional,
+                    Ethnicity = RequirementType.Optional,
+                    Gender = RequirementType.Optional,
+                    SexualOrientation = RequirementType.Optional,
+                    Donations = RequirementType.Required,
+                    Sections = RequirementType.Required,
+                    BarNews = RequirementType.Optional
+                }
             };
 
             //licensing information initializers
@@ -83,6 +109,17 @@ namespace Licensing.Data.Migrations
                 }
             };
 
+            var judicialPositionOptions = new List<JudicialPositionOption>
+            {
+                new JudicialPositionOption { Name = "Tribal Law", AmsCode = "WA_TRIBAL_COURT" },
+                new JudicialPositionOption { Name = "United States Administrative Law", AmsCode = "US_ADMINISTRATIVE_LAW" }
+            };
+
+            var judicialPositions = new List<JudicialPosition>
+            {
+                new JudicialPosition { Option = judicialPositionOptions[0] }
+            };
+
             var proBono = new List<ProBono>
             {
                 new ProBono
@@ -96,8 +133,10 @@ namespace Licensing.Data.Migrations
 
             var professionalLiabilityInsuranceOption = new List<ProfessionalLiabilityInsuranceOption>
             {
-                new ProfessionalLiabilityInsuranceOption { Description = "Option 1" },
-                new ProfessionalLiabilityInsuranceOption { Description = "Option 2" }
+                new ProfessionalLiabilityInsuranceOption { Description = "Engaged in the private practice of law, covered by, and intend to maintain Professional Liability Insurance." },
+                new ProfessionalLiabilityInsuranceOption { Description = "Engaged in the private practice of law, covered by, but DO NOT intend to maintain, Professional Liability Insurance." },
+                new ProfessionalLiabilityInsuranceOption { Description = "Engaged in the private practice of law BUT NOT covered by Professional Liability Insurance." },
+                new ProfessionalLiabilityInsuranceOption { Description = "NOT engaged in the private practice of law because: (1) I do not practice law, or (2) I practice law as a government lawyer, or (3) I am employed by an organizational client, and I do not represent clients outside that capacity." }
             };
 
             var professionalLiabilityInsurances = new List<ProfessionalLiabilityInsurance>
@@ -139,19 +178,22 @@ namespace Licensing.Data.Migrations
 
             var emails = new List<Email>
             {
-                new Email { EmailAddress = "collins@wsba.org", EmailType = emailTypes[0] }
+                new Email { EmailAddress = "collins@wsba.org", EmailType = emailTypes[0] },
+                new Email { EmailAddress = "soccercjs2@gmail.com", EmailType = emailTypes[1] }
             };
 
             var phoneNumberTypes = new List<PhoneNumberType>
             {
                 new PhoneNumberType { Name = "Primary", AmsCode = "OFFICE" },
-                new PhoneNumberType { Name = "Home", AmsCode = "HOME" }
+                new PhoneNumberType { Name = "Home", AmsCode = "HOME" },
+                new PhoneNumberType { Name = "Fax", AmsCode = "FAX" }
             };
 
             var phoneNumbers = new List<PhoneNumber>
             {
-                new PhoneNumber { PhoneNumberType = phoneNumberTypes[0], CountryCode = 1, AreaCode = 555, Number = 1234567 },
-                new PhoneNumber { PhoneNumberType = phoneNumberTypes[1], CountryCode = 1, AreaCode = 555, Number = 1234568 }
+                new PhoneNumber { PhoneNumberType = phoneNumberTypes[0], CountryCode = 1, AreaCode = 555, ExchangeCode = 123, LineNumber = 4567 },
+                new PhoneNumber { PhoneNumberType = phoneNumberTypes[1], CountryCode = 1, AreaCode = 555, ExchangeCode = 123, LineNumber = 4568 },
+                new PhoneNumber { PhoneNumberType = phoneNumberTypes[2], CountryCode = 1, AreaCode = 555, ExchangeCode = 123, LineNumber = 4569 }
             };
 
             //practice information initializers
@@ -260,6 +302,11 @@ namespace Licensing.Data.Migrations
                 new Section { LicenseId = 1, Product = sectionProducts[1] }
             };
 
+            var barNewses = new List<BarNewsResponse>
+            {
+                new BarNewsResponse { Response = true }
+            };
+
             var licenses = new List<License>
             {
                 new License
@@ -267,6 +314,7 @@ namespace Licensing.Data.Migrations
                     LicensingPeriod = licensingPeriods[0],
                     LicenseType = licenseTypes[0],
                     FinancialResponsibility = financialResponsibilities[0],
+                    JudicialPosition = judicialPositions[0],
                     ProBono = proBono[0],
                     ProfessionalLiabilityInsurance = professionalLiabilityInsurances[0],
                     TrustAccount = trustAccounts[0],
@@ -282,7 +330,30 @@ namespace Licensing.Data.Migrations
                     SexualOrientation = sexualOrientations[0],
                     Donations = donations,
                     Sections = sections,
-                    BarNews = true
+                    BarNewsResponse = barNewses[0]
+                },
+                new License
+                {
+                    LicensingPeriod = licensingPeriods[1],
+                    LicenseType = licenseTypes[0],
+                    FinancialResponsibility = null,
+                    JudicialPosition = null,
+                    ProBono = null,
+                    ProfessionalLiabilityInsurance = null,
+                    TrustAccount = null,
+                    Addresses = null,
+                    Emails = null,
+                    PhoneNumbers = null,
+                    AreasOfPractice = null,
+                    FirmSize = null,
+                    Languages = null,
+                    Disability = null,
+                    Ethnicity = null,
+                    Gender = null,
+                    SexualOrientation = null,
+                    Donations = null,
+                    Sections = null,
+                    BarNewsResponse = null
                 }
             };
 

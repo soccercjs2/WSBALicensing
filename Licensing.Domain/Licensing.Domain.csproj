@@ -45,6 +45,7 @@
     <Compile Include="Addresses\AddressType.cs" />
     <Compile Include="AreasOfPractice\AreaOfPractice.cs" />
     <Compile Include="AreasOfPractice\AreaOfPracticeOption.cs" />
+    <Compile Include="Bar News\BarNewsResponse.cs" />
     <Compile Include="ContactInformation\Email.cs" />
     <Compile Include="ContactInformation\EmailType.cs" />
     <Compile Include="ContactInformation\PhoneNumber.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="Disabilities\DisabilityOption.cs" />
     <Compile Include="Donations\Donation.cs" />
     <Compile Include="Donations\DonationProduct.cs" />
+    <Compile Include="Enums\RequirementType.cs" />
     <Compile Include="Ethnicities\Ethnicity.cs" />
     <Compile Include="Ethnicities\EthnicityOption.cs" />
     <Compile Include="FinancialResponsibilities\FinancialResponsibility.cs" />
@@ -62,11 +64,14 @@
     <Compile Include="Firm Sizes\FirmSizeOption.cs" />
     <Compile Include="Genders\Gender.cs" />
     <Compile Include="Genders\GenderOption.cs" />
+    <Compile Include="Judicial\JudicialPosition.cs" />
+    <Compile Include="Judicial\JudicialPositionOption.cs" />
     <Compile Include="Languages\Language.cs" />
     <Compile Include="Languages\LanguageOption.cs" />
     <Compile Include="Licenses\License.cs" />
     <Compile Include="Licenses\LicenseType.cs" />
     <Compile Include="Licenses\LicenseTypeProduct.cs" />
+    <Compile Include="Licenses\LicenseTypeSection.cs" />
     <Compile Include="Licenses\LicensingPeriod.cs" />
     <Compile Include="Licenses\LicensingProduct.cs" />
     <Compile Include="Pro Bonos\ProBono.cs" />

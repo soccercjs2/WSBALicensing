@@ -73,7 +73,20 @@ textarea {
     padding: 5px;
 }
 
+.dashboard-container-button-container {
+    border-top: 2px solid #ddd;
+    padding: 5px;
+}
+
 /* Generic View Styles */
+.complete-border {
+    border: 2px solid #5cb85c !important;
+}
+
+.complete-background-color {
+    background-color: #d6e9d6;
+}
+
 .row-button-container {
     display: inline-block;
     margin-left:auto;
@@ -114,6 +127,10 @@ textarea {
 
 .margin-top {
     margin-top: 15px;
+}
+
+.required {
+    color: red;
 }
 
 /* Table Styles */

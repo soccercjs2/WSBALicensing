@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Licensing.Domain.Licenses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -7,17 +8,19 @@ namespace Licensing.Web.Models
 {
     public class DashboardVM
     {
+        public LicenseType LicenseType { get; set; }
+        
         //customer info
         public string Name { get; set; }
         public string BarNumber { get; set; }
 
         //license information
         public DashboardContainerVM MembershipType { get; set; }
+        public DashboardContainerVM JudicialPosition { get; set; }
         public DashboardContainerVM TrustAccount { get; set; }
         public DashboardContainerVM ProfessionalLiabilityInsurance { get; set; }
         public DashboardContainerVM FinancialResponsibility { get; set; }
         public DashboardContainerVM ProBono { get; set; }
-        public DashboardContainerVM JudicialPosition { get; set; }
 
         //contact information
         public DashboardContainerVM PrimaryAddress { get; set; }

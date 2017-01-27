@@ -1,3 +1,8 @@
-﻿<div class="row">
-    Solo
-</div>
+﻿@model Licensing.Domain.FirmSizes.FirmSize
+
+@if (Model != null)
+{
+    <div class="row">
+        @Model.Option.Name
+    </div>
+}

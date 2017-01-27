@@ -1,0 +1,15 @@
+﻿@model Licensing.Domain.BarNews.BarNewsResponse
+
+@if (Model != null)
+{
+    <div class="row vertical-center">
+        @if (Model.Response)
+        {
+            <span>I would like a complimentary subscription to the Bar News Magazine</span>
+        }
+        else
+        {
+            <span>I do not want a complimentary subscription to the Bar News Magazine</span>
+        }
+    </div>
+}

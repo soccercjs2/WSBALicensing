@@ -1,6 +1,11 @@
-﻿<div class="row padded-small">
-    Business Law
-</div>
-<div class="row padded-small">
-    Family Law
-</div>
+﻿@model IEnumerable<Licensing.Domain.AreasOfPractice.AreaOfPractice>
+
+@if (Model != null)
+{
+    foreach (var areaOfPractice in Model)
+    {
+        <div class="row padded-small">
+            @areaOfPractice.Option.Name
+        </div>
+    }
+}

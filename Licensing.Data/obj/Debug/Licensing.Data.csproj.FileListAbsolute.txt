@@ -24,5 +24,8 @@ C:\Users\Collin\Source\Repos\Licensing\Licensing.Data\obj\Debug\Licensing.Data.d
 C:\Users\Collin\Source\Repos\Licensing\Licensing.Data\obj\Debug\Licensing.Data.pdb
 C:\Users\Collin\Source\Repos\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.Inititial.resources
 C:\Users\Collin\Source\Repos\Licensing\Licensing.Data\obj\Debug\Licensing.Data.csproj.GenerateResource.Cache
-C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.Initial.resources
+C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.Really.resources
 C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.csproj.GenerateResource.Cache
+C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.AddingBarNews.resources
+C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.UpdatingBarNewsfieldonLicence.resources
+C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.Wrongcollectionmaybe.resources

@@ -1,18 +1,35 @@
-﻿<div class="row padded">
-    <div class="inline bold">Provided Pro Bono Services:</div>
-    <div class="inline">Yes</div>
-</div>
-<div class="border-top padded">
-    <div class="row padded-small">
-        <div class="inline bold">RPC 6.1(a) Hours:</div>
-        <div class="inline">5</div>
+﻿@model Licensing.Domain.ProBonos.ProBono
+
+@if (Model != null)
+{
+    <div class="row padded">
+        <div class="inline bold">Provided Pro Bono Services:</div>
+
+        @if ((bool)Model.ProvidesService)
+        {
+            <div class="inline">Yes</div>
+        }
+        else
+        {
+            <div class="inline">No</div>
+        }
     </div>
-    <div class="row padded-small">
-        <div class="inline bold">RPC 6.1(b) Hours:</div>
-        <div class="inline">3</div>
-    </div>
-    <div class="row padded-small">
-        <div class="inline bold">Remain Anonymous:</div>
-        <div class="inline">No</div>
-    </div>
-</div>
+
+    if ((bool)Model.ProvidesService)
+    {
+        <div class="border-top padded">
+            <div class="row padded-small">
+                <div class="inline bold">RPC 6.1(a) Hours:</div>
+                <div class="inline">@Model.FreeServiceHours</div>
+            </div>
+            <div class="row padded-small">
+                <div class="inline bold">RPC 6.1(b) Hours:</div>
+                <div class="inline">@Model.LimitedFeeServiceHours</div>
+            </div>
+            <div class="row padded-small">
+                <div class="inline bold">Remain Anonymous:</div>
+                <div class="inline">@Model.Anonymous</div>
+            </div>
+        </div>
+    }
+}

@@ -1,10 +1,12 @@
-﻿<div class="row">
-    <div class="row padded-small">
-        <div class="inline bold">Bar Foundation:</div>
-        <div class="inline">$50</div>
-    </div>
-    <div class="row padded-small">
-        <div class="inline bold">Campaign for Equal Justice:</div>
-        <div class="inline">$50</div>
-    </div>
-</div>
+﻿@model IEnumerable<Licensing.Domain.Donations.Donation>
+
+@if (Model != null)
+{
+    foreach (var donation in Model)
+    {
+        <div class="row padded-small">
+            <div class="inline bold">@donation.Product.Name:</div>
+            <div class="inline">$@donation.Product.Price</div>
+        </div>
+    }
+}

@@ -24,6 +24,7 @@ using Licensing.Domain.Disabilities;
 using Licensing.Domain.Ethnicities;
 using Licensing.Domain.Genders;
 using Licensing.Domain.SexualOrientations;
+using Licensing.Domain.BarNews;
 
 namespace Licensing.Data.Context
 {
@@ -47,6 +48,7 @@ namespace Licensing.Data.Context
         public DbSet<AddressType> AddressTypes { get; set; }
         public DbSet<AreaOfPractice> AreasOfPractice { get; set; }
         public DbSet<AreaOfPracticeOption> AreaOfPracticeOptions { get; set; }
+        public DbSet<BarNewsResponse> BarNewsResponses { get; set; }
         public DbSet<Email> Emails { get; set; }
         public DbSet<EmailType> EmailTypes { get; set; }
         public DbSet<PhoneNumber> PhoneNumbers { get; set; }

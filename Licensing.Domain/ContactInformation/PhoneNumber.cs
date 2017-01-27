@@ -17,6 +17,7 @@ namespace Licensing.Domain.ContactInformation
 
         public int CountryCode { get; set; }
         public int AreaCode { get; set; }
-        public int Number { get; set; }
+        public int ExchangeCode { get; set; }
+        public int LineNumber { get; set; }
     }
 }

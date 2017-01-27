@@ -7,3 +7,13 @@ C:\Users\Collin\Source\Repos\Licensing\Licensing.Business\bin\Debug\Licensing.Bu
 C:\Users\Collin\Source\Repos\Licensing\Licensing.Business\obj\Debug\Licensing.Business.csprojResolveAssemblyReference.cache
 C:\Users\Collin\Source\Repos\Licensing\Licensing.Business\obj\Debug\Licensing.Business.dll
 C:\Users\Collin\Source\Repos\Licensing\Licensing.Business\obj\Debug\Licensing.Business.pdb
+C:\Projects\Licensing\Licensing.Business\bin\Debug\Licensing.Business.dll.config
+C:\Projects\Licensing\Licensing.Business\bin\Debug\EntityFramework.dll
+C:\Projects\Licensing\Licensing.Business\bin\Debug\EntityFramework.SqlServer.dll
+C:\Projects\Licensing\Licensing.Business\bin\Debug\Licensing.Data.dll
+C:\Projects\Licensing\Licensing.Business\bin\Debug\Licensing.Domain.dll
+C:\Projects\Licensing\Licensing.Business\bin\Debug\Licensing.Data.pdb
+C:\Projects\Licensing\Licensing.Business\bin\Debug\Licensing.Domain.pdb
+C:\Projects\Licensing\Licensing.Business\bin\Debug\EntityFramework.xml
+C:\Projects\Licensing\Licensing.Business\bin\Debug\EntityFramework.SqlServer.xml
+C:\Projects\Licensing\Licensing.Business\obj\Debug\Licensing.Business.csprojResolveAssemblyReference.cache

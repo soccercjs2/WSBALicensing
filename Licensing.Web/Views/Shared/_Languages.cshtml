@@ -1,6 +1,11 @@
-﻿<div class="row padded-small">
-    English
-</div>
-<div class="row padded-small">
-    Spanish
-</div>
+﻿@model IEnumerable<Licensing.Domain.Languages.Language>
+
+@if (Model != null)
+{
+    foreach (var language in Model)
+    {
+        <div class="row padded-small">
+            @language.Option.Name
+        </div>
+    }
+}

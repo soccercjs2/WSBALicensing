@@ -66,17 +66,17 @@ namespace Licensing.Data.Migrations
                     Name = "Active Attorney",
                     LicenseTypeProducts = licenseTypeProducts,
                     MembershipType = RequirementType.Required,
-                    JudicialPosition = RequirementType.Optional,
+                    JudicialPosition = RequirementType.Excluded,
                     TrustAccount = RequirementType.Required,
                     ProfessionalLiabilityInsurance = RequirementType.Required,
-                    FinancialResponsibility = RequirementType.Optional,
+                    FinancialResponsibility = RequirementType.Excluded,
                     ProBono = RequirementType.Optional,
-                    PrimaryAddress = RequirementType.Required,
-                    HomeAddress = RequirementType.Required,
+                    PrimaryAddress = RequirementType.Optional,
+                    HomeAddress = RequirementType.Optional,
                     AgentOfServiceAddress = RequirementType.Required,
-                    PrimaryEmail = RequirementType.Required,
+                    PrimaryEmail = RequirementType.Optional,
                     HomeEmail = RequirementType.Optional,
-                    PrimaryPhoneNumber = RequirementType.Required,
+                    PrimaryPhoneNumber = RequirementType.Optional,
                     HomePhoneNumber = RequirementType.Optional,
                     FaxPhoneNumber = RequirementType.Optional,
                     AreasOfPractice = RequirementType.Optional,
@@ -120,16 +120,16 @@ namespace Licensing.Data.Migrations
                 new JudicialPosition { Option = judicialPositionOptions[0] }
             };
 
-            var proBono = new List<ProBono>
-            {
-                new ProBono
-                {
-                    ProvidesService = true,
-                    FreeServiceHours = 5,
-                    LimitedFeeServiceHours = 3,
-                    Anonymous = false
-                }
-            };
+            //var proBono = new List<ProBono>
+            //{
+            //    new ProBono
+            //    {
+            //        ProvidesService = true,
+            //        FreeServiceHours = 5,
+            //        LimitedFeeServiceHours = 3,
+            //        Anonymous = false
+            //    }
+            //};
 
             var professionalLiabilityInsuranceOption = new List<ProfessionalLiabilityInsuranceOption>
             {
@@ -315,7 +315,7 @@ namespace Licensing.Data.Migrations
                     LicenseType = licenseTypes[0],
                     FinancialResponsibility = financialResponsibilities[0],
                     JudicialPosition = judicialPositions[0],
-                    ProBono = proBono[0],
+                    //ProBono = proBono[0],
                     ProfessionalLiabilityInsurance = professionalLiabilityInsurances[0],
                     TrustAccount = trustAccounts[0],
                     Addresses = addresses,
@@ -373,7 +373,7 @@ namespace Licensing.Data.Migrations
             licenseTypes.ForEach(x => context.LicenseTypes.Add(x));
             coveredByOptions.ForEach(x => context.CoveredByOptions.Add(x));
             financialResponsibilities.ForEach(x => context.FinancialResponsibilities.Add(x));
-            proBono.ForEach(x => context.ProBonos.Add(x));
+            //proBono.ForEach(x => context.ProBonos.Add(x));
             professionalLiabilityInsuranceOption.ForEach(x => context.ProfessionalLiabilityInsuranceOptions.Add(x));
             professionalLiabilityInsurances.ForEach(x => context.ProfessionalLiabilityInsurances.Add(x));
             trustAccountNumbers.ForEach(x => context.TrustAccountNumbers.Add(x));

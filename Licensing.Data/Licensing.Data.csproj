@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\LicensingContext.cs" />
+    <Compile Include="Workers\FinancialResponsibilityWorker.cs" />
     <Compile Include="Initializer\LicensingInitializer.cs" />
     <Compile Include="Migrations\201701252032356_Really....cs" />
     <Compile Include="Migrations\201701252032356_Really....Designer.cs">
@@ -75,15 +76,25 @@
     <Compile Include="Migrations\201701301912469_Adding Preloadables and OptOutables.Designer.cs">
       <DependentUpon>201701301912469_Adding Preloadables and OptOutables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701302209257_LicensingType shouldn%27t be preloadable.cs" />
+    <Compile Include="Migrations\201701302209257_LicensingType shouldn%27t be preloadable.Designer.cs">
+      <DependentUpon>201701302209257_LicensingType shouldn%27t be preloadable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Workers\AddressWorker.cs" />
     <Compile Include="Workers\AreaOfPracticeWorker.cs" />
     <Compile Include="Workers\DonationWorker.cs" />
     <Compile Include="Workers\EmailWorker.cs" />
+    <Compile Include="Workers\JudicialPositionWorker.cs" />
     <Compile Include="Workers\LanguageWorker.cs" />
+    <Compile Include="Workers\LicenseTypeWorker.cs" />
+    <Compile Include="Workers\LicenseWorker.cs" />
     <Compile Include="Workers\PhoneNumberWorker.cs" />
+    <Compile Include="Workers\ProBonoWorker.cs" />
+    <Compile Include="Workers\ProfessionalLiabilityInsuranceWorker.cs" />
     <Compile Include="Workers\SectionWorker.cs" />
+    <Compile Include="Workers\TrustAccountWorker.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -115,6 +126,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701301912469_Adding Preloadables and OptOutables.resx">
       <DependentUpon>201701301912469_Adding Preloadables and OptOutables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701302209257_LicensingType shouldn%27t be preloadable.resx">
+      <DependentUpon>201701302209257_LicensingType shouldn%27t be preloadable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

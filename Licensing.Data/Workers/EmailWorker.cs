@@ -12,17 +12,20 @@ namespace Licensing.Data.Workers
     public class EmailWorker
     {
         private LicensingContext _context;
-        private License _license;
 
-        public EmailWorker(LicensingContext context, License license)
+        public EmailWorker(LicensingContext context)
         {
             _context = context;
-            _license = license;
         }
 
-        public Email GetEmail(EmailType emailType)
+        public Email GetEmail(License license, EmailType emailType)
         {
-            if (_license.Emails == null)
+            if (license == null)
+            {
+                return null;
+            }
+
+            if (license.Emails == null)
             {
                 return null;
             }
@@ -32,7 +35,7 @@ namespace Licensing.Data.Workers
                 return null;
             }
 
-            return _license.Emails.Where(e => e.EmailTypeId == emailType.EmailTypeId).FirstOrDefault();
+            return license.Emails.Where(e => e.EmailTypeId == emailType.EmailTypeId).FirstOrDefault();
         }
     }
 }

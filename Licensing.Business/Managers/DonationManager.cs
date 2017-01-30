@@ -15,15 +15,15 @@ namespace Licensing.Business.Managers
         private LicensingContext _context;
         private DonationWorker _donationWorker;
 
-        public DonationManager(LicensingContext context, License license)
+        public DonationManager(LicensingContext context)
         {
             _context = context;
-            _donationWorker = new DonationWorker(context, license);
+            _donationWorker = new DonationWorker(context);
         }
 
-        public ICollection<Donation> GetDonations()
+        public ICollection<Donation> GetDonations(License license)
         {
-            return _donationWorker.GetDonations();
+            return _donationWorker.GetDonations(license);
         }
     }
 }

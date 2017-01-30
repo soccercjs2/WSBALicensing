@@ -31,3 +31,4 @@ C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.Updatin
 C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.Wrongcollectionmaybe.resources
 C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.TryingtomakeAddressesPreloadable.resources
 C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.AddingPreloadablesandOptOutables.resources
+C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.LicensingTypeshouldntbepreloadable.resources

@@ -12,17 +12,25 @@ namespace Licensing.Data.Workers
     public class LanguageWorker
     {
         private LicensingContext _context;
-        private License _license;
 
-        public LanguageWorker(LicensingContext context, License license)
+        public LanguageWorker(LicensingContext context)
         {
             _context = context;
-            _license = license;
         }
 
-        public ICollection<Language> GetLanguages()
+        public ICollection<Language> GetLanguages(License license)
         {
-            ICollection<Language> languages = _license.Languages;
+            if (license == null)
+            {
+                return null;
+            }
+
+            if (license.Languages == null)
+            {
+                return null;
+            }
+
+            ICollection<Language> languages = license.Languages;
 
             if (languages.Count == 0) { return null; }
             else { return languages; }

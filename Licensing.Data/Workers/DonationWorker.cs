@@ -12,17 +12,25 @@ namespace Licensing.Data.Workers
     public class DonationWorker
     {
         private LicensingContext _context;
-        private License _license;
 
-        public DonationWorker(LicensingContext context, License license)
+        public DonationWorker(LicensingContext context)
         {
             _context = context;
-            _license = license;
         }
 
-        public ICollection<Donation> GetDonations()
+        public ICollection<Donation> GetDonations(License license)
         {
-            ICollection<Donation> donations = _license.Donations;
+            if (license == null)
+            {
+                return null;
+            }
+
+            if (license.Donations == null)
+            {
+                return null;
+            }
+
+            ICollection<Donation> donations = license.Donations;
 
             if (donations.Count == 0) { return null; }
             else { return donations; }

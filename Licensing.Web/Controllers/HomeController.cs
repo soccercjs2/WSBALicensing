@@ -5,7 +5,7 @@ using Licensing.Domain.ContactInformation;
 using Licensing.Domain.Customers;
 using Licensing.Domain.Enums;
 using Licensing.Domain.Licenses;
-using Licensing.Web.Models;
+using Licensing.Business.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,11 +24,32 @@ namespace Licensing.Web.Controllers
             //get customer
             Customer customer = context.Customers.Where(c => c.BarNumber == "555").FirstOrDefault();
 
-            //get current license period
-            LicensingPeriod licensingPeriod = context.LicensingPeriods.Where(lp => lp.EndDate == new DateTime(2019, 5, 1)).FirstOrDefault();
+            //create managers
+            LicenseManager licenseManager = new LicenseManager(context);
+            LicenseTypeManager licenseTypeManager = new LicenseTypeManager(context);
+            JudicialPositionManager judicialPositionManager = new JudicialPositionManager(context);
+            TrustAccountManager trustAccountManager = new TrustAccountManager(context);
+            ProfessionalLiabilityInsuranceManager professionalLiabilityInsuranceManager = new ProfessionalLiabilityInsuranceManager(context);
+            FinancialResponsibilityManager financialResponsibilityManager = new FinancialResponsibilityManager(context);
+            ProBonoManager proBonoManager = new ProBonoManager(context);
+            AddressManager addressManager = new AddressManager(context);
+            EmailManager emailManager = new EmailManager(context);
+            PhoneNumberManager phoneNumberManager = new PhoneNumberManager(context);
+            AreaOfPracticeManager areaOfPracticeManager = new AreaOfPracticeManager(context);
+            LanguageManager languageManager = new LanguageManager(context);
+            SectionManager sectionManager = new SectionManager(context);
+            DonationManager donationManager = new DonationManager(context);
 
             //get license
-            License license = customer.Licenses.Where(l => l.LicensingPeriodId == licensingPeriod.LicensingPeriodId).FirstOrDefault();
+            License license = licenseManager.GetCurrentLicense(customer);
+
+            //create view models
+            EmailsVM emailsVM = new EmailsVM(emailManager.GetPrimaryEmail(license), emailManager.GetHomeEmail(license));
+            PhoneNumbersVM phoneNumbersVM = new PhoneNumbersVM(
+                phoneNumberManager.GetPrimaryPhoneNumber(license), 
+                phoneNumberManager.GetHomePhoneNumber(license), 
+                phoneNumberManager.GetFaxPhoneNumber(license)
+            );
 
             //set license type for displaying dashboard controls
             dashboardVM.LicenseType = license.LicenseType;
@@ -38,73 +59,35 @@ namespace Licensing.Web.Controllers
             dashboardVM.BarNumber = customer.BarNumber;
 
             //set licensing information for dashboard
-            dashboardVM.MembershipType = new DashboardContainerVM("Membership Type", RequirementType.Required, true, false, "_MembershipType", license.LicenseType.Name);
-            dashboardVM.JudicialPosition = new DashboardContainerVM("Judicial Position", RequirementType.Required, false, true, "_JudicialPosition", license.JudicialPosition);
-            dashboardVM.TrustAccount = new DashboardContainerVM("Trust Account", RequirementType.Required, false, true, "_TrustAccount", license.TrustAccount);
-            dashboardVM.ProfessionalLiabilityInsurance = new DashboardContainerVM("Professional Liability Insurance", RequirementType.Required, false, true, "_ProfessionalLiabilityInsurance", license.ProfessionalLiabilityInsurance);
-            dashboardVM.FinancialResponsibility = new DashboardContainerVM("Financial Responsibility", RequirementType.Required, false, true, "_FinancialResponsibility", license.FinancialResponsibility);
-            dashboardVM.ProBono = new DashboardContainerVM("Pro Bono", RequirementType.Required, false, true, "_ProBono", license.ProBono);
+            dashboardVM.MembershipType = licenseTypeManager.GetDashboardContainerVM(license);
+            dashboardVM.JudicialPosition = judicialPositionManager.GetDashboardContainerVM(license);
+            dashboardVM.TrustAccount = trustAccountManager.GetDashboardContainerVM(license);
+            dashboardVM.ProfessionalLiabilityInsurance = professionalLiabilityInsuranceManager.GetDashboardContainerVM(license);
+            dashboardVM.FinancialResponsibility = financialResponsibilityManager.GetDashboardContainerVM(license);
+            dashboardVM.ProBono = proBonoManager.GetDashboardContainerVM(license);
 
             //set contact information for dashboard
-
-            //create Address Manager
-            AddressManager addressManager = new AddressManager(context, license);
-
-            //create Email Manager and EmailsVM
-            EmailManager emailManager = new EmailManager(context, license);
-            Email primaryEmail = emailManager.GetPrimaryEmail();
-            Email homeEmail = emailManager.GetHomeEmail();
-
-            EmailsVM emailsVM = null;
-            if (primaryEmail != null || homeEmail != null)
-            {
-                emailsVM = new EmailsVM();
-                emailsVM.PrimaryEmail = emailManager.GetPrimaryEmail();
-                emailsVM.HomeEmail = emailManager.GetHomeEmail();
-            }
-
-            //create Phone Number Manager and PhoneNumbersVM
-            PhoneNumberManager phoneNumberManager = new PhoneNumberManager(context, license);
-            PhoneNumber primaryPhoneNumber = phoneNumberManager.GetPrimaryPhoneNumber();
-            PhoneNumber homePhoneNumber = phoneNumberManager.GetHomePhoneNumber();
-            PhoneNumber faxPhoneNumber = phoneNumberManager.GetFaxPhoneNumber();
-
-            PhoneNumbersVM phoneNumbersVM = null;
-            if (primaryPhoneNumber != null || homePhoneNumber != null || faxPhoneNumber != null)
-            {
-                phoneNumbersVM = new PhoneNumbersVM();
-                phoneNumbersVM.PrimaryPhoneNumber = phoneNumberManager.GetFormattedPhoneNumber(primaryPhoneNumber);
-                phoneNumbersVM.HomePhoneNumber = phoneNumberManager.GetFormattedPhoneNumber(homePhoneNumber);
-                phoneNumbersVM.FaxPhoneNumber = phoneNumberManager.GetFormattedPhoneNumber(faxPhoneNumber);
-            }
-
-            dashboardVM.PrimaryAddress = new DashboardContainerVM("Primary Address", RequirementType.Required, false, true, "_Address", addressManager.GetPrimaryAddress());
-            dashboardVM.HomeAddress = new DashboardContainerVM("Home Address", RequirementType.Required, false, true, "_Address", addressManager.GetHomeAddress());
-            dashboardVM.AgentOfServiceAddress = new DashboardContainerVM("Agent of Service Address", RequirementType.Required, false, true, "_Address", addressManager.GetAgentOfServiceAddress());
-            dashboardVM.Emails = new DashboardContainerVM("Emails", RequirementType.Required, false, true, "_Emails", emailsVM);
-            dashboardVM.PhoneNumbers = new DashboardContainerVM("Phone Numbers", RequirementType.Required, false, true, "_PhoneNumbers", phoneNumbersVM);
+            dashboardVM.PrimaryAddress = new DashboardContainerVM("Primary Address", license.LicenseType.PrimaryAddress, false, null, null, null, "_Address", addressManager.GetPrimaryAddress(license));
+            dashboardVM.HomeAddress = new DashboardContainerVM("Home Address", license.LicenseType.HomeAddress, false, null, null, null, "_Address", addressManager.GetHomeAddress(license));
+            dashboardVM.AgentOfServiceAddress = new DashboardContainerVM("Agent of Service Address", license.LicenseType.AgentOfServiceAddress, false, null, null, null, "_Address", addressManager.GetAgentOfServiceAddress(license));
+            dashboardVM.Emails = new DashboardContainerVM("Emails", license.LicenseType.PrimaryEmail, false, null, null, null, "_Emails", emailsVM);
+            dashboardVM.PhoneNumbers = new DashboardContainerVM("Phone Numbers", license.LicenseType.PrimaryPhoneNumber, false, null, null, null, "_PhoneNumbers", phoneNumbersVM);
 
             //set practice information for dashboard
-            AreaOfPracticeManager areaOfPracticeManager = new AreaOfPracticeManager(context, license);
-            LanguageManager languageManager = new LanguageManager(context, license);
-
-            dashboardVM.AreasOfPractice = new DashboardContainerVM("Areas of Practice", RequirementType.Optional, false, true, "_AreasOfPractice", areaOfPracticeManager.GetAreasOfPractice());
-            dashboardVM.FirmSize = new DashboardContainerVM("Firm Size", RequirementType.Optional, false, true, "_FirmSize", license.FirmSize);
-            dashboardVM.Languages = new DashboardContainerVM("Languages", RequirementType.Optional, false, true, "_Languages", languageManager.GetLanguages());
+            dashboardVM.AreasOfPractice = new DashboardContainerVM("Areas of Practice", license.LicenseType.AreasOfPractice, false, null, null, null, "_AreasOfPractice", areaOfPracticeManager.GetAreasOfPractice(license));
+            dashboardVM.FirmSize = new DashboardContainerVM("Firm Size", license.LicenseType.FirmSize, false, null, null, null, "_FirmSize", license.FirmSize);
+            dashboardVM.Languages = new DashboardContainerVM("Languages", license.LicenseType.Languages, false, null, null, null, "_Languages", languageManager.GetLanguages(license));
 
             //set demographic information for dashboard
-            dashboardVM.Ethnicity = new DashboardContainerVM("Ethnicity/Race", RequirementType.Optional, false, false);
-            dashboardVM.Gender = new DashboardContainerVM("Gender", RequirementType.Optional, false, false);
-            dashboardVM.Disability = new DashboardContainerVM("Disability", RequirementType.Optional, false, false);
-            dashboardVM.SexualOrientation = new DashboardContainerVM("Sexual Orientation", RequirementType.Optional, false, false);
+            dashboardVM.Ethnicity = new DashboardContainerVM("Ethnicity/Race", license.LicenseType.Ethnicity, false, null, null, null, null, null);
+            dashboardVM.Gender = new DashboardContainerVM("Gender", license.LicenseType.Gender, false, null, null, null, null, null);
+            dashboardVM.Disability = new DashboardContainerVM("Disability", license.LicenseType.Disability, false, null, null, null, null, null);
+            dashboardVM.SexualOrientation = new DashboardContainerVM("Sexual Orientation", license.LicenseType.SexualOrientation, false, null, null, null, null, null);
 
             //set payment information for dashboard
-            SectionManager sectionManager = new SectionManager(context, license);
-            DonationManager donationManager = new DonationManager(context, license);
-
-            dashboardVM.Sections = new DashboardContainerVM("Sections", RequirementType.Required, false, true, "_Sections", sectionManager.GetSections());
-            dashboardVM.Donations = new DashboardContainerVM("Donations", RequirementType.Required, false, true, "_Donations", donationManager.GetDonations());
-            dashboardVM.BarNews = new DashboardContainerVM("Bar News", RequirementType.Required, false, true, "_BarNews", license.BarNewsResponse);
+            dashboardVM.Sections = new DashboardContainerVM("Sections", license.LicenseType.Sections, false, null, null, null, "_Sections", sectionManager.GetSections(license));
+            dashboardVM.Donations = new DashboardContainerVM("Donations", license.LicenseType.Donations, false, null, null, null, "_Donations", donationManager.GetDonations(license));
+            dashboardVM.BarNews = new DashboardContainerVM("Bar News", license.LicenseType.BarNews, false, null, null, null, "_BarNews", license.BarNewsResponse);
 
             return View(dashboardVM);
         }

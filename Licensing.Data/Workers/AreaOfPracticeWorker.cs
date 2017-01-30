@@ -12,17 +12,25 @@ namespace Licensing.Data.Workers
     public class AreaOfPracticeWorker
     {
         private LicensingContext _context;
-        private License _license;
 
-        public AreaOfPracticeWorker(LicensingContext context, License license)
+        public AreaOfPracticeWorker(LicensingContext context)
         {
             _context = context;
-            _license = license;
         }
 
-        public ICollection<AreaOfPractice> GetAreasOfPractice()
+        public ICollection<AreaOfPractice> GetAreasOfPractice(License license)
         {
-            ICollection<AreaOfPractice> areasOfPractice = _license.AreasOfPractice;
+            if (license == null)
+            {
+                return null;
+            }
+
+            if (license.AreasOfPractice == null)
+            {
+                return null;
+            }
+
+            ICollection<AreaOfPractice> areasOfPractice = license.AreasOfPractice;
 
             if (areasOfPractice.Count == 0) { return null; }
             else { return areasOfPractice; }

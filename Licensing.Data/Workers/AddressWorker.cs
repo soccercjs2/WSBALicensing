@@ -11,17 +11,15 @@ namespace Licensing.Data.Workers
     public class AddressWorker
     {
         private LicensingContext _context;
-        private License _license;
 
-        public AddressWorker(LicensingContext context, License license)
+        public AddressWorker(LicensingContext context)
         {
             _context = context;
-            _license = license;
         }
 
-        public Address GetAddress(AddressType addressType)
+        public Address GetAddress(License license, AddressType addressType)
         {
-            if (_license.Addresses == null)
+            if (license == null)
             {
                 return null;
             }
@@ -31,7 +29,7 @@ namespace Licensing.Data.Workers
                 return null;
             }
 
-            return _license.Addresses.Where(a => a.AddressTypeId == addressType.AddressTypeId).FirstOrDefault();
+            return license.Addresses.Where(a => a.AddressTypeId == addressType.AddressTypeId).FirstOrDefault();
         }
     }
 }

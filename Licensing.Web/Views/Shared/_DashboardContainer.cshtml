@@ -1,6 +1,6 @@
 ﻿@using Licensing.Domain.Enums;
 
-@model Licensing.Web.Models.DashboardContainerVM
+@model Licensing.Business.ViewModels.DashboardContainerVM
 
 <div class="dashboard-container @(Model.Complete ? "complete-border":"")">
     <div class="row dashboard-container-header @(Model.Complete ? "complete-background-color":"")">
@@ -13,11 +13,19 @@
             }
         </div>
         <div class="dashboard-container-label-container">
-            <button type="button" class="btn btn-primary btn-xs">Edit</button>
-
-            @if (Model.Confirmable && !Model.Complete && Model.PartialViewData != null)
+            @if (Model.EditRoute != null)
             {
-                <button type="button" class="btn btn-success btn-xs">Confirm</button>
+                @Html.ActionLink("Edit", Model.EditRoute.Action, Model.EditRoute.Controller, new { id = Model.EditRoute.Id }, new { @class = "btn btn-primary btn-xs" })
+            }
+
+            @if (Model.ConfirmRoute != null && !Model.Complete && Model.PartialViewData != null)
+            {
+                @Html.ActionLink("Confirm", Model.ConfirmRoute.Action, Model.ConfirmRoute.Controller, new { id = Model.ConfirmRoute.Id }, new { @class = "btn btn-success btn-xs" })
+            }
+
+            @if (Model.OptOutRoute != null)
+            {
+                @Html.ActionLink("Opt Out", Model.OptOutRoute.Action, Model.OptOutRoute.Controller, new { id = Model.OptOutRoute.Id }, new { @class = "btn btn-warning btn-xs" })
             }
         </div>
     </div>

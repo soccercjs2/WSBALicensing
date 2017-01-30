@@ -15,37 +15,37 @@ namespace Licensing.Business.Managers
         private LicensingContext _context;
         private AddressWorker _addressWorker;
 
-        public AddressManager(LicensingContext context, License license)
+        public AddressManager(LicensingContext context)
         {
             _context = context;
-            _addressWorker = new AddressWorker(context, license);
+            _addressWorker = new AddressWorker(context);
         }
 
-        public Address GetPrimaryAddress()
+        public Address GetPrimaryAddress(License license)
         {
             //get primary address type
             AddressType primaryAddressType = _context.AddressTypes.Where(at => at.Name == "Primary").FirstOrDefault();
 
             //return address
-            return _addressWorker.GetAddress(primaryAddressType);
+            return _addressWorker.GetAddress(license, primaryAddressType);
         }
 
-        public Address GetHomeAddress()
+        public Address GetHomeAddress(License license)
         {
             //get home address type
             AddressType homeAddressType = _context.AddressTypes.Where(at => at.Name == "Home").FirstOrDefault();
 
             //return address
-            return _addressWorker.GetAddress(homeAddressType);
+            return _addressWorker.GetAddress(license, homeAddressType);
         }
 
-        public Address GetAgentOfServiceAddress()
+        public Address GetAgentOfServiceAddress(License license)
         {
             //get agent of service address
             AddressType agentOfServiceAddressType = _context.AddressTypes.Where(at => at.Name == "Agent Of Service").FirstOrDefault();
 
             //return address
-            return _addressWorker.GetAddress(agentOfServiceAddressType);
+            return _addressWorker.GetAddress(license, agentOfServiceAddressType);
         }
     }
 }

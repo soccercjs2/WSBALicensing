@@ -7,4 +7,3 @@ C:\Users\Collin\Source\Repos\Licensing\Licensing.Domain\bin\Debug\Licensing.Doma
 C:\Users\Collin\Source\Repos\Licensing\Licensing.Domain\obj\Debug\Licensing.Domain.csprojResolveAssemblyReference.cache
 C:\Users\Collin\Source\Repos\Licensing\Licensing.Domain\obj\Debug\Licensing.Domain.dll
 C:\Users\Collin\Source\Repos\Licensing\Licensing.Domain\obj\Debug\Licensing.Domain.pdb
-C:\Projects\Licensing\Licensing.Domain\obj\Debug\Licensing.Domain.csprojResolveAssemblyReference.cache

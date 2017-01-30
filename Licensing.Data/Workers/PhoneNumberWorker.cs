@@ -12,17 +12,20 @@ namespace Licensing.Data.Workers
     public class PhoneNumberWorker
     {
         private LicensingContext _context;
-        private License _license;
 
-        public PhoneNumberWorker(LicensingContext context, License license)
+        public PhoneNumberWorker(LicensingContext context)
         {
             _context = context;
-            _license = license;
         }
 
-        public PhoneNumber GetPhoneNumber(PhoneNumberType phoneNumberType)
+        public PhoneNumber GetPhoneNumber(License license, PhoneNumberType phoneNumberType)
         {
-            if (_license.PhoneNumbers == null)
+            if (license == null)
+            {
+                return null;
+            }
+
+            if (license.PhoneNumbers == null)
             {
                 return null;
             }
@@ -32,7 +35,7 @@ namespace Licensing.Data.Workers
                 return null;
             }
 
-            return _license.PhoneNumbers.Where(pn => pn.PhoneNumberTypeId == phoneNumberType.PhoneNumberTypeId).FirstOrDefault();
+            return license.PhoneNumbers.Where(pn => pn.PhoneNumberTypeId == phoneNumberType.PhoneNumberTypeId).FirstOrDefault();
         }
     }
 }

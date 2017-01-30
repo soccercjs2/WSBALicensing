@@ -15,15 +15,15 @@ namespace Licensing.Business.Managers
         private LicensingContext _context;
         private SectionWorker _sectionWorker;
 
-        public SectionManager(LicensingContext context, License license)
+        public SectionManager(LicensingContext context)
         {
             _context = context;
-            _sectionWorker = new SectionWorker(context, license);
+            _sectionWorker = new SectionWorker(context);
         }
 
-        public ICollection<Section> GetSections()
+        public ICollection<Section> GetSections(License license)
         {
-            return _sectionWorker.GetSections();
+            return _sectionWorker.GetSections(license);
         }
     }
 }

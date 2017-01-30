@@ -15,15 +15,15 @@ namespace Licensing.Business.Managers
         private LicensingContext _context;
         private AreaOfPracticeWorker _areaOfPracticeWorker;
 
-        public AreaOfPracticeManager(LicensingContext context, License license)
+        public AreaOfPracticeManager(LicensingContext context)
         {
             _context = context;
-            _areaOfPracticeWorker = new AreaOfPracticeWorker(context, license);
+            _areaOfPracticeWorker = new AreaOfPracticeWorker(context);
         }
 
-        public ICollection<AreaOfPractice> GetAreasOfPractice()
+        public ICollection<AreaOfPractice> GetAreasOfPractice(License license)
         {
-            return _areaOfPracticeWorker.GetAreasOfPractice();
+            return _areaOfPracticeWorker.GetAreasOfPractice(license);
         }
     }
 }

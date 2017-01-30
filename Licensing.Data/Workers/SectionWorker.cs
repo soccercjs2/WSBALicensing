@@ -12,17 +12,25 @@ namespace Licensing.Data.Workers
     public class SectionWorker
     {
         private LicensingContext _context;
-        private License _license;
 
-        public SectionWorker(LicensingContext context, License license)
+        public SectionWorker(LicensingContext context)
         {
             _context = context;
-            _license = license;
         }
 
-        public ICollection<Section> GetSections()
+        public ICollection<Section> GetSections(License license)
         {
-            ICollection<Section> sections = _license.Sections;
+            if (license == null)
+            {
+                return null;
+            }
+
+            if (license.Sections == null)
+            {
+                return null;
+            }
+
+            ICollection<Section> sections = license.Sections;
 
             if (sections.Count == 0) { return null; }
             else { return sections; }

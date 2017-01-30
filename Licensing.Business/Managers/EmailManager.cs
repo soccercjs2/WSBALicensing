@@ -15,28 +15,28 @@ namespace Licensing.Business.Managers
         private LicensingContext _context;
         private EmailWorker _emailWorker;
 
-        public EmailManager(LicensingContext context, License license)
+        public EmailManager(LicensingContext context)
         {
             _context = context;
-            _emailWorker = new EmailWorker(context, license);
+            _emailWorker = new EmailWorker(context);
         }
 
-        public Email GetPrimaryEmail()
+        public Email GetPrimaryEmail(License license)
         {
             //get primary email type
             EmailType primaryEmailType = _context.EmailTypes.Where(et => et.Name == "Primary").FirstOrDefault();
 
             //return email
-            return _emailWorker.GetEmail(primaryEmailType);
+            return _emailWorker.GetEmail(license, primaryEmailType);
         }
 
-        public Email GetHomeEmail()
+        public Email GetHomeEmail(License license)
         {
             //get home email type
             EmailType homeEmailType = _context.EmailTypes.Where(et => et.Name == "Home").FirstOrDefault();
 
             //return email
-            return _emailWorker.GetEmail(homeEmailType);
+            return _emailWorker.GetEmail(license, homeEmailType);
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿@model Licensing.Web.Models.EmailsVM
+﻿@model Licensing.Business.ViewModels.EmailsVM
 
-@if (Model != null)
+@if (Model != null && (Model.PrimaryEmail != null || Model.HomeEmail != null))
 {
     <div class="row">
         <div class="row padded-small">

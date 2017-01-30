@@ -15,15 +15,15 @@ namespace Licensing.Business.Managers
         private LicensingContext _context;
         private LanguageWorker _languageWorker;
 
-        public LanguageManager(LicensingContext context, License license)
+        public LanguageManager(LicensingContext context)
         {
             _context = context;
-            _languageWorker = new LanguageWorker(context, license);
+            _languageWorker = new LanguageWorker(context);
         }
 
-        public ICollection<Language> GetLanguages()
+        public ICollection<Language> GetLanguages(License license)
         {
-            return _languageWorker.GetLanguages();
+            return _languageWorker.GetLanguages(license);
         }
     }
 }

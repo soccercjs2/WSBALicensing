@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Licensing.Domain.Judicial
 {
-    public class JudicialPosition
+    public class JudicialPosition : Preloadable
     {
         public int JudicialPositionId { get; set; }
 

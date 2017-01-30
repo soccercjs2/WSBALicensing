@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Licensing.Domain.ProfessionalLiabilityInsurances
 {
-    public class ProfessionalLiabilityInsurance
+    public class ProfessionalLiabilityInsurance : Preloadable
     {
         public int ProfessionalLiabilityInsuranceId { get; set; }
         

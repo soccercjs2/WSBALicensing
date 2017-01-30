@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Licensing.Domain.TrustAccounts
 {
-    public class TrustAccount
+    public class TrustAccount : Preloadable
     {
         public int TrustAccountId { get; set; }
         public bool HandlesTrustAccount { get; set; }

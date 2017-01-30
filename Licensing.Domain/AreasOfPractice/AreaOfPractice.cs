@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Licensing.Domain.AreasOfPractice
 {
-    public class AreaOfPractice
+    public class AreaOfPractice : Preloadable
     {
         public int AreaOfPracticeId { get; set; }
         public int LicenseId { get; set; }

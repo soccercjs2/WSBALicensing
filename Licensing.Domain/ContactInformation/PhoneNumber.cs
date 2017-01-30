@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Licensing.Domain.ContactInformation
 {
-    public class PhoneNumber
+    public class PhoneNumber : Preloadable
     {
         public int PhoneNumberId { get; set; }
         public int LicenseId { get; set; }

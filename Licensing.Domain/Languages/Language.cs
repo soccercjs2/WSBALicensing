@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Licensing.Domain.Languages
 {
-    public class Language
+    public class Language : Preloadable
     {
         public int LanguageId { get; set; }
         public int LicenseId { get; set; }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Licensing.Domain.SexualOrientations
 {
-    public class SexualOrientation
+    public class SexualOrientation : OptOutable
     {
         public int SexualOrientationId { get; set; }
 

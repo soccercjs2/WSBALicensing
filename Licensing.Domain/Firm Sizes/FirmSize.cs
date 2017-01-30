@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Licensing.Domain.FirmSizes
 {
-    public class FirmSize
+    public class FirmSize : Preloadable
     {
         public int FirmSizeId { get; set; }
         

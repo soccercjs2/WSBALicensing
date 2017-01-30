@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Licensing.Domain.Licenses
 {
-    public class LicenseType
+    public class LicenseType : Preloadable
     {
         public int LicenseTypeId { get; set; }
         public string Name { get; set; }

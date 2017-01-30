@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Licensing.Domain.Ethnicities
 {
-    public class Ethnicity
+    public class Ethnicity : OptOutable
     {
         public int EthnicityId { get; set; }
         

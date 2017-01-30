@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Licensing.Domain.FinancialResponsibilities
 {
-    public class FinancialResponsibility
+    public class FinancialResponsibility : Preloadable
     {
         public int FinancialResponsibilityId { get; set; }
         public string Company { get; set; }

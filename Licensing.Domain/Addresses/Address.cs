@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Licensing.Domain.Addresses
 {
-    public class Address
+    public class Address : Preloadable
     {
         public int AddressId { get; set; }
         public int LicenseId { get; set; }

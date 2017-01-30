@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Licensing.Domain.Donations
 {
-    public class Donation
+    public class Donation : Preloadable
     {
         public int DonationId { get; set; }
         public int LicenseId { get; set; }

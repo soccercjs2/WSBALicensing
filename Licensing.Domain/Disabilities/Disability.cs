@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Licensing.Domain.Disabilities
 {
-    public class Disability
+    public class Disability : OptOutable
     {
         public int DisabilityId { get; set; }
         

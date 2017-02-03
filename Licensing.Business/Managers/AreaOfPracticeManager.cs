@@ -1,4 +1,6 @@
-﻿using Licensing.Data.Context;
+﻿using Licensing.Business.Tools;
+using Licensing.Business.ViewModels;
+using Licensing.Data.Context;
 using Licensing.Data.Workers;
 using Licensing.Domain.AreasOfPractice;
 using Licensing.Domain.Licenses;
@@ -24,6 +26,38 @@ namespace Licensing.Business.Managers
         public ICollection<AreaOfPractice> GetAreasOfPractice(License license)
         {
             return _areaOfPracticeWorker.GetAreasOfPractice(license);
+        }
+
+        public void Confirm(License license)
+        {
+            _areaOfPracticeWorker.Confirm(license);
+        }
+
+        public bool IsComplete(License license)
+        {
+            if (license == null)
+            {
+                return false;
+            }
+
+            return license.AreasOfPracticeConfirmed;
+        }
+
+        public DashboardContainerVM GetDashboardContainerVM(License license)
+        {
+            RouteContainer editRoute = new RouteContainer("AreaOfPractice", "Edit", license.LicenseId);
+            RouteContainer confirmRoute = new RouteContainer("AreaOfPractice", "Confirm", license.LicenseId);
+
+            return new DashboardContainerVM(
+                "Areas of Practice",
+                license.LicenseType.AreasOfPractice,
+                IsComplete(license),
+                editRoute,
+                confirmRoute,
+                null,
+                "_AreasOfPractice",
+                GetAreasOfPractice(license)
+            );
         }
     }
 }

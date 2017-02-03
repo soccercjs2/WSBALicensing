@@ -3,8 +3,8 @@
 @model Licensing.Business.ViewModels.DashboardContainerVM
 
 <div class="dashboard-container @(Model.Complete ? "complete-border":"")">
-    <div class="row dashboard-container-header @(Model.Complete ? "complete-background-color":"")">
-        <div class="dashboard-container-title">
+    <div class="row dashboard-container-header fake-table @(Model.Complete ? "complete-background-color":"")">
+        <div class="dashboard-container-title fake-table-cell">
             @Model.Title
 
             @if (Model.RequirementType == RequirementType.Required)
@@ -12,7 +12,7 @@
                 <span class="required">*</span>
             }
         </div>
-        <div class="dashboard-container-label-container">
+        <div class="dashboard-container-label-container fake-table-cell nowrap button-fix">
             @if (Model.EditRoute != null)
             {
                 @Html.ActionLink("Edit", Model.EditRoute.Action, Model.EditRoute.Controller, new { id = Model.EditRoute.Id }, new { @class = "btn btn-primary btn-xs" })
@@ -23,7 +23,7 @@
                 @Html.ActionLink("Confirm", Model.ConfirmRoute.Action, Model.ConfirmRoute.Controller, new { id = Model.ConfirmRoute.Id }, new { @class = "btn btn-success btn-xs" })
             }
 
-            @if (Model.OptOutRoute != null)
+            @if (Model.OptOutRoute != null && !Model.Complete)
             {
                 @Html.ActionLink("Opt Out", Model.OptOutRoute.Action, Model.OptOutRoute.Controller, new { id = Model.OptOutRoute.Id }, new { @class = "btn btn-warning btn-xs" })
             }

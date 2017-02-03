@@ -2,11 +2,17 @@
 
 @if (Model != null)
 {
-    foreach (var donation in Model)
-    {
-        <div class="row padded-small">
-            <div class="inline bold">@donation.Product.Name:</div>
-            <div class="inline">$@donation.Product.Price</div>
-        </div>
-    }
+    <div class="padded">
+        @foreach (var donation in Model)
+        {
+            <div class="row padded-small fake-table">
+                <div class="inline bold fake-table-cell">
+                    @donation.Product.Name
+                </div>
+                <div class="inline fake-table-cell">
+                    $@donation.Product.Price
+                </div>
+            </div>
+        }
+    </div>
 }

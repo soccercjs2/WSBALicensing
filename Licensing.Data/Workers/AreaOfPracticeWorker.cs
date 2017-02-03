@@ -35,5 +35,14 @@ namespace Licensing.Data.Workers
             if (areasOfPractice.Count == 0) { return null; }
             else { return areasOfPractice; }
         }
+
+        public void Confirm(License license)
+        {
+            if (license != null)
+            {
+                license.AreasOfPracticeConfirmed = true;
+                _context.SaveChanges();
+            }
+        }
     }
 }

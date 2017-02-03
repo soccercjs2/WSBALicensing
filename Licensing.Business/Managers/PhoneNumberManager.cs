@@ -1,6 +1,8 @@
-﻿using Licensing.Data.Context;
+﻿using Licensing.Business.ViewModels;
+using Licensing.Data.Context;
 using Licensing.Data.Workers;
 using Licensing.Domain.ContactInformation;
+using Licensing.Domain.Enums;
 using Licensing.Domain.Licenses;
 using System;
 using System.Collections.Generic;
@@ -19,6 +21,11 @@ namespace Licensing.Business.Managers
         {
             _context = context;
             _phoneNumberWorker = new PhoneNumberWorker(context);
+        }
+
+        public PhoneNumber GetPhoneNumber(int phoneNumberId)
+        {
+            return _phoneNumberWorker.GetPhoneNumber(phoneNumberId);
         }
 
         public PhoneNumber GetPrimaryPhoneNumber(License license)
@@ -46,6 +53,49 @@ namespace Licensing.Business.Managers
 
             //retrun phone number
             return _phoneNumberWorker.GetPhoneNumber(license, faxPhoneNumberType);
+        }
+
+        public void Confirm(PhoneNumber phoneNumber)
+        {
+            _phoneNumberWorker.Confirm(phoneNumber);
+        }
+
+        public bool IsComplete(License license)
+        {
+            if (license == null)
+            {
+                return false;
+            }
+
+            PhoneNumber primaryPhoneNumber = GetPrimaryPhoneNumber(license);
+            PhoneNumber homePhoneNumber = GetHomePhoneNumber(license);
+
+            return IsComplete(primaryPhoneNumber) && IsComplete(homePhoneNumber);
+        }
+
+        public bool IsComplete(PhoneNumber phoneNumber)
+        {
+            return (phoneNumber != null && phoneNumber.Confirmed);
+        }
+
+        public DashboardContainerVM GetDashboardContainerVM(License license)
+        {
+            PhoneNumbersVM phoneNumbersVM = new PhoneNumbersVM(
+                GetPrimaryPhoneNumber(license),
+                GetHomePhoneNumber(license),
+                GetFaxPhoneNumber(license)
+            );
+
+            return new DashboardContainerVM(
+                "Phone Numbers",
+                RequirementType.Optional,
+                IsComplete(license),
+                null,
+                null,
+                null,
+                "_PhoneNumbers",
+                phoneNumbersVM
+            );
         }
     }
 }

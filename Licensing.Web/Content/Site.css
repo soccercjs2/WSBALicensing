@@ -66,16 +66,32 @@ textarea {
 
 .dashboard-container-label-container {
     display: inline-block;
-    float: right;
+    /*float: right;*/
 }
 
 .dashboard-container-body {
-    padding: 5px;
+    /*padding: 5px;*/
 }
 
 .dashboard-container-button-container {
     border-top: 2px solid #ddd;
     padding: 5px;
+}
+
+.status-container {
+    font-size: 22px;
+}
+
+.status {
+    font-weight: bold;
+}
+
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
 }
 
 /* Generic View Styles */
@@ -113,6 +129,10 @@ textarea {
     padding: 5px;
 }
 
+.padded-top {
+    padding-top: 5px !important;
+}
+
 .padded-small {
     padding: 2px;
 }
@@ -125,6 +145,10 @@ textarea {
     width: 100%;
 }
 
+.half-width {
+    width: 50%;
+}
+
 .margin-top {
     margin-top: 15px;
 }
@@ -133,17 +157,48 @@ textarea {
     color: red;
 }
 
-/* Table Styles */
-
-table {
-    border: 2px solid #ddd;
-}
-
-thead {
+.alternate-row {
     background-color: #F5F5F5;
 }
 
-th, td {
+.nowrap {
+    white-space: nowrap;
+}
+
+.wrap {
+    white-space: normal;
+}
+
+.fake-table {
+    width: 100%;
+    display: table;
+}
+
+.fake-table-cell {
+    display: table-cell;
+    padding: 0px;
+    vertical-align: top;
+}
+
+.fake-table-cell:last-child {
+    text-align: right;
+}
+
+.button-fix {
+    padding-top: 1px;
+}
+
+/* Table Styles */
+
+.standard-table {
+    border: 2px solid #ddd;
+}
+
+.standard-table thead {
+    background-color: #F5F5F5;
+}
+
+.standard-table th, .standard-table td {
     padding: 5px;
     border: 1px solid #ddd;
 }

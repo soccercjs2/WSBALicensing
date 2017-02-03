@@ -35,5 +35,14 @@ namespace Licensing.Data.Workers
             if (sections.Count == 0) { return null; }
             else { return sections; }
         }
+
+        public void Confirm(License license)
+        {
+            if (license != null)
+            {
+                license.SectionsConfirmed = true;
+                _context.SaveChanges();
+            }
+        }
     }
 }

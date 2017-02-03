@@ -1,6 +1,9 @@
-﻿using Licensing.Data.Context;
+﻿using Licensing.Business.Tools;
+using Licensing.Business.ViewModels;
+using Licensing.Data.Context;
 using Licensing.Data.Workers;
 using Licensing.Domain.ContactInformation;
+using Licensing.Domain.Enums;
 using Licensing.Domain.Licenses;
 using System;
 using System.Collections.Generic;
@@ -21,22 +24,36 @@ namespace Licensing.Business.Managers
             _emailWorker = new EmailWorker(context);
         }
 
-        public Email GetPrimaryEmail(License license)
+        public void Confirm(Email email)
         {
-            //get primary email type
-            EmailType primaryEmailType = _context.EmailTypes.Where(et => et.Name == "Primary").FirstOrDefault();
-
-            //return email
-            return _emailWorker.GetEmail(license, primaryEmailType);
+            _emailWorker.Confirm(email);
         }
 
-        public Email GetHomeEmail(License license)
+        public bool IsComplete(License license)
         {
-            //get home email type
-            EmailType homeEmailType = _context.EmailTypes.Where(et => et.Name == "Home").FirstOrDefault();
+            if (license == null)
+            {
+                return false;
+            }
 
-            //return email
-            return _emailWorker.GetEmail(license, homeEmailType);
+            return (license.Email != null && license.Email.Confirmed);
+        }
+
+        public DashboardContainerVM GetDashboardContainerVM(License license)
+        {
+            RouteContainer editRoute = new RouteContainer("Email", "Edit", license.LicenseId);
+            RouteContainer confirmRoute = new RouteContainer("Email", "Confirm", license.LicenseId);
+
+            return new DashboardContainerVM(
+                "Primary Email",
+                license.LicenseType.PrimaryEmail,
+                IsComplete(license),
+                editRoute,
+                confirmRoute,
+                null,
+                "_PrimaryEmail",
+                license.Email
+            );
         }
     }
 }

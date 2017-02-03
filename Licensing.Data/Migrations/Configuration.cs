@@ -75,7 +75,6 @@ namespace Licensing.Data.Migrations
                     HomeAddress = RequirementType.Optional,
                     AgentOfServiceAddress = RequirementType.Required,
                     PrimaryEmail = RequirementType.Optional,
-                    HomeEmail = RequirementType.Optional,
                     PrimaryPhoneNumber = RequirementType.Optional,
                     HomePhoneNumber = RequirementType.Optional,
                     FaxPhoneNumber = RequirementType.Optional,
@@ -170,16 +169,10 @@ namespace Licensing.Data.Migrations
                 new Address { LicenseId = 1, AddressType = addressTypes[2], Address1 = "1325 6th Ave NE", City = "Seattle", State = "WA", ZipCode = "98101", Country = "USA" }
             };
 
-            var emailTypes = new List<EmailType>
-            {
-                new EmailType { Name = "Primary", AmsCode = "OFFICE" },
-                new EmailType { Name = "Home", AmsCode = "HOME" }
-            };
-
             var emails = new List<Email>
             {
-                new Email { EmailAddress = "collins@wsba.org", EmailType = emailTypes[0] },
-                new Email { EmailAddress = "soccercjs2@gmail.com", EmailType = emailTypes[1] }
+                new Email { EmailAddress = "collins@wsba.org" },
+                new Email { EmailAddress = "soccercjs2@gmail.com" }
             };
 
             var phoneNumberTypes = new List<PhoneNumberType>
@@ -319,15 +312,15 @@ namespace Licensing.Data.Migrations
                     ProfessionalLiabilityInsurance = professionalLiabilityInsurances[0],
                     TrustAccount = trustAccounts[0],
                     Addresses = addresses,
-                    Emails = emails,
+                    Email = emails[0],
                     PhoneNumbers = phoneNumbers,
                     AreasOfPractice = areasOfPractice,
                     FirmSize = firmSizes[0],
                     Languages = languages,
-                    Disability = disabilities[0],
-                    Ethnicity = ethnicities[0],
-                    Gender = genders[0],
-                    SexualOrientation = sexualOrientations[0],
+                    //Disability = disabilities[0],
+                    //Ethnicity = ethnicities[0],
+                    //Gender = genders[0],
+                    //SexualOrientation = sexualOrientations[0],
                     Donations = donations,
                     Sections = sections,
                     BarNewsResponse = barNewses[0]
@@ -342,7 +335,7 @@ namespace Licensing.Data.Migrations
                     ProfessionalLiabilityInsurance = null,
                     TrustAccount = null,
                     Addresses = null,
-                    Emails = null,
+                    Email = null,
                     PhoneNumbers = null,
                     AreasOfPractice = null,
                     FirmSize = null,
@@ -380,7 +373,6 @@ namespace Licensing.Data.Migrations
             trustAccounts.ForEach(x => context.TrustAccounts.Add(x));
             addressTypes.ForEach(x => context.AddressTypes.Add(x));
             addresses.ForEach(x => context.Addresses.Add(x));
-            emailTypes.ForEach(x => context.EmailTypes.Add(x));
             emails.ForEach(x => context.Emails.Add(x));
             phoneNumberTypes.ForEach(x => context.PhoneNumberTypes.Add(x));
             phoneNumbers.ForEach(x => context.PhoneNumbers.Add(x));

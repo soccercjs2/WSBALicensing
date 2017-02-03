@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Licensing.Domain.BarNews
 {
-    public class BarNewsResponse
+    public class BarNewsResponse : Preloadable
     {
         public int BarNewsResponseId { get; set; }
         public bool Response { get; set; }

@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Licensing.Domain.Genders
 {
-    public class Gender : OptOutable
+    public class Gender
     {
         public int GenderId { get; set; }
         
         public virtual GenderOption Option { get; set; }
-        public int GenderOptionId { get; set; }
+        public int? GenderOptionId { get; set; }
     }
 }

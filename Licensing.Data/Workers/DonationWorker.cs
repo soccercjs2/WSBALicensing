@@ -35,5 +35,18 @@ namespace Licensing.Data.Workers
             if (donations.Count == 0) { return null; }
             else { return donations; }
         }
+
+        public void Confirm(ICollection<Donation> donations)
+        {
+            if (donations != null)
+            {
+                foreach (Donation donation in donations)
+                {
+                    donation.Confirmed = true;
+                }
+
+                _context.SaveChanges();
+            }
+        }
     }
 }

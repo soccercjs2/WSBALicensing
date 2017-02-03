@@ -1,4 +1,5 @@
 ﻿@using Licensing.Domain.Enums
+@using Licensing.Business.Enums
 
 @model Licensing.Business.ViewModels.DashboardVM
 
@@ -7,6 +8,19 @@
 }
 
 <h2>@Model.Name - #@Model.BarNumber</h2>
+
+<span class="status-container">
+    Licensing Status: 
+    @if (Model.LicensingStatus == LicensingStatus.Complete)
+    {
+        <span class="status green">Complete</span>
+    }
+    else
+    {
+        <span class="status red">Incomplete</span>
+    }
+</span>
+
 <h6 class="required">[ * required ]</h6>
 
 <div class="row">
@@ -24,9 +38,7 @@
         @if (Model.LicenseType.PrimaryAddress != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.PrimaryAddress) }
         @if (Model.LicenseType.HomeAddress != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.HomeAddress) }
         @if (Model.LicenseType.AgentOfServiceAddress != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.AgentOfServiceAddress) }
-        
-        @if (Model.LicenseType.PrimaryEmail != RequirementType.Excluded || Model.LicenseType.HomeEmail != RequirementType.Excluded)
-            { @Html.Partial("_DashboardContainer", @Model.Emails) }
+        @if (Model.LicenseType.PrimaryEmail != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.Emails) }
 
         @if (Model.LicenseType.PrimaryPhoneNumber != RequirementType.Excluded || Model.LicenseType.HomePhoneNumber != RequirementType.Excluded || Model.LicenseType.FaxPhoneNumber != RequirementType.Excluded)
             { @Html.Partial("_DashboardContainer", @Model.PhoneNumbers) }
@@ -43,12 +55,22 @@
     </div>
     <div class="col-lg-3 col-sm-6 dashboard-column">
         <span class="dashboard-column-title">Payment</span>
+        @Html.Partial("_DashboardContainer", @Model.MembershipProducts)
         @if (Model.LicenseType.Sections != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.Sections) }
         @if (Model.LicenseType.Donations != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.Donations) }
         @if (Model.LicenseType.BarNews != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.BarNews) }
 
-        <div class="row">
-            <button type="button" class="btn btn-success full-width margin-top">Pay Now!</button>
+        <div class="row margin-top">
+            <table class="full-width">
+                <tr>
+                    <td class="half-width">
+                        <button type="button" class="btn btn-primary full-width">Save and Exit</button>
+                    </td>
+                    <td class="half-width">
+                        <button type="button" class="btn btn-success full-width">Pay Now!</button>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
 </div>

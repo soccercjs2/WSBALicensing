@@ -17,6 +17,11 @@ namespace Licensing.Data.Workers
             _context = context;
         }
 
+        public Address GetAddress(int addressId)
+        {
+            return _context.Addresses.Find(addressId);
+        }
+
         public Address GetAddress(License license, AddressType addressType)
         {
             if (license == null)

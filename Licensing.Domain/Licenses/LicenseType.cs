@@ -29,7 +29,6 @@ namespace Licensing.Domain.Licenses
         public RequirementType HomeAddress { get; set; }
         public RequirementType AgentOfServiceAddress { get; set; }
         public RequirementType PrimaryEmail { get; set; }
-        public RequirementType HomeEmail { get; set; }
         public RequirementType PrimaryPhoneNumber { get; set; }
         public RequirementType HomePhoneNumber { get; set; }
         public RequirementType FaxPhoneNumber { get; set; }

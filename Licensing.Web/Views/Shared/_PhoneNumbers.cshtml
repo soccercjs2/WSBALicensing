@@ -1,16 +1,48 @@
 ﻿@model Licensing.Business.ViewModels.PhoneNumbersVM
 
 <div class="row">
-    <div class="row padded-small">
-        <div class="inline bold">Primary:</div>
-        <div class="inline">@Model.PrimaryPhoneNumber</div>
+    <div class="row padded">
+        <div>
+            <div class="inline bold">Primary:</div>
+            <div class="inline float-right">
+                @Html.ActionLink("Edit", "Edit", "PhoneNumber", new { id = Model.PrimaryPhoneNumber.PhoneNumberId }, new { @class = "btn btn-primary btn-xs" })
+
+                @if (Model.PrimaryPhoneNumber != null && !Model.PrimaryPhoneNumber.Confirmed)
+                {
+                    @Html.ActionLink("Confirm", "Confirm", "PhoneNumber", new { id = Model.PrimaryPhoneNumber.PhoneNumberId }, new { @class = "btn btn-success btn-xs" })
+                }
+            </div>
+        </div>
+        <div class="row">@Model.GetFormattedPhoneNumber(Model.PrimaryPhoneNumber)</div>
     </div>
-    <div class="row padded-small">
-        <div class="inline bold">Home:</div>
-        <div class="inline">@Model.HomePhoneNumber</div>
+
+    <div class="row padded alternate-row">
+        <div>
+            <div class="inline bold">Home:</div>
+            <div class="inline float-right">
+                @Html.ActionLink("Edit", "Edit", "PhoneNumber", new { id = Model.HomePhoneNumber.PhoneNumberId }, new { @class = "btn btn-primary btn-xs" })
+
+                @if (Model.HomePhoneNumber != null && !Model.HomePhoneNumber.Confirmed)
+                {
+                    @Html.ActionLink("Confirm", "Confirm", "PhoneNumber", new { id = Model.HomePhoneNumber.PhoneNumberId }, new { @class = "btn btn-success btn-xs" })
+                }
+            </div>
+        </div>
+        <div class="row">@Model.GetFormattedPhoneNumber(Model.HomePhoneNumber)</div>
     </div>
-    <div class="row padded-small">
-        <div class="inline bold">Fax:</div>
-        <div class="inline">@Model.FaxPhoneNumber</div>
+
+    <div class="row padded">
+        <div>
+            <div class="inline bold">Fax:</div>
+            <div class="inline float-right">
+                @Html.ActionLink("Edit", "Edit", "PhoneNumber", new { id = Model.FaxPhoneNumber.PhoneNumberId }, new { @class = "btn btn-primary btn-xs" })
+
+                @if (Model.FaxPhoneNumber != null && !Model.FaxPhoneNumber.Confirmed)
+                {
+                    @Html.ActionLink("Confirm", "Confirm", "PhoneNumber", new { id = Model.FaxPhoneNumber.PhoneNumberId }, new { @class = "btn btn-success btn-xs" })
+                }
+            </div>
+        </div>
+        <div class="row">@Model.GetFormattedPhoneNumber(Model.FaxPhoneNumber)</div>
     </div>
 </div>

@@ -141,11 +141,24 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AddressController.cs" />
+    <Compile Include="Controllers\AreaOfPracticeController.cs" />
+    <Compile Include="Controllers\BarNewsController.cs" />
+    <Compile Include="Controllers\DisabilityController.cs" />
+    <Compile Include="Controllers\DonationController.cs" />
+    <Compile Include="Controllers\EmailController.cs" />
+    <Compile Include="Controllers\EthnicityController.cs" />
     <Compile Include="Controllers\FinancialResponsibilityController.cs" />
+    <Compile Include="Controllers\FirmSizeController.cs" />
+    <Compile Include="Controllers\GenderController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JudicialPositionController.cs" />
+    <Compile Include="Controllers\LanguageController.cs" />
+    <Compile Include="Controllers\PhoneNumberController.cs" />
     <Compile Include="Controllers\ProBonoController.cs" />
     <Compile Include="Controllers\ProfessionalLiabilityInsuranceController.cs" />
+    <Compile Include="Controllers\SectionController.cs" />
+    <Compile Include="Controllers\SexualOrientationController.cs" />
     <Compile Include="Controllers\TrustAccountController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -193,7 +206,7 @@
     <Content Include="Views\Shared\_ProfessionalLiabilityInsurance.cshtml" />
     <Content Include="Views\Shared\_ProBono.cshtml" />
     <Content Include="Views\Shared\_Address.cshtml" />
-    <Content Include="Views\Shared\_Emails.cshtml" />
+    <Content Include="Views\Shared\_PrimaryEmail.cshtml" />
     <Content Include="Views\Shared\_PhoneNumbers.cshtml" />
     <Content Include="Views\Shared\_AreasOfPractice.cshtml" />
     <Content Include="Views\Shared\_FirmSize.cshtml" />
@@ -203,13 +216,27 @@
     <Content Include="Views\Shared\_JudicialPosition.cshtml" />
     <Content Include="Views\Shared\_FinancialResponsibility.cshtml" />
     <Content Include="Views\Shared\_BarNews.cshtml" />
+    <Content Include="Views\Shared\_MembershipProducts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Address\" />
+    <Folder Include="Views\AreasOfPractice\" />
+    <Folder Include="Views\BarNews\" />
+    <Folder Include="Views\Disability\" />
+    <Folder Include="Views\Donation\" />
+    <Folder Include="Views\Email\" />
+    <Folder Include="Views\Ethnicity\" />
     <Folder Include="Views\FinancialResponsibility\" />
+    <Folder Include="Views\FirmSize\" />
+    <Folder Include="Views\Gender\" />
     <Folder Include="Views\JudicialPosition\" />
+    <Folder Include="Views\Language\" />
+    <Folder Include="Views\PhoneNumber\" />
     <Folder Include="Views\ProBono\" />
+    <Folder Include="Views\Sections\" />
+    <Folder Include="Views\SexualOrientation\" />
     <Folder Include="Views\TrustAccount\" />
   </ItemGroup>
   <ItemGroup>

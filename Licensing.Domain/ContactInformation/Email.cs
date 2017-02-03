@@ -11,10 +11,6 @@ namespace Licensing.Domain.ContactInformation
     {
         public int EmailId { get; set; }
         public int LicenseId { get; set; }
-
-        public virtual EmailType EmailType { get; set; }
-        public int EmailTypeId { get; set; }
-
         public string EmailAddress { get; set; }
     }
 }

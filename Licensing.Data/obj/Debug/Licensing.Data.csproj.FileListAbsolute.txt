@@ -32,3 +32,9 @@ C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.Wrongco
 C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.TryingtomakeAddressesPreloadable.resources
 C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.AddingPreloadablesandOptOutables.resources
 C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.LicensingTypeshouldntbepreloadable.resources
+C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.ChangingcollectionofemailstoPrimaryEmail.resources
+C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.RemovingEmailType.resources
+C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.makingdemographicoptionidsnullable.resources
+C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.makingBarNewsResponsepreloadable.resources
+C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.AddingKellerDeductionflagonlicense.resources
+C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.movingconfirmationforliststhatcanbeemptyandcompletetolicenselevelalsomovingoptoutstolicenselevel.resources

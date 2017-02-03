@@ -50,7 +50,6 @@ namespace Licensing.Data.Context
         public DbSet<AreaOfPracticeOption> AreaOfPracticeOptions { get; set; }
         public DbSet<BarNewsResponse> BarNewsResponses { get; set; }
         public DbSet<Email> Emails { get; set; }
-        public DbSet<EmailType> EmailTypes { get; set; }
         public DbSet<PhoneNumber> PhoneNumbers { get; set; }
         public DbSet<PhoneNumberType> PhoneNumberTypes { get; set; }
         public DbSet<Customer> Customers { get; set; }

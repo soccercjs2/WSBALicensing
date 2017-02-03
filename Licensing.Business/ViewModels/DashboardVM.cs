@@ -1,4 +1,5 @@
-﻿using Licensing.Domain.Licenses;
+﻿using Licensing.Business.Enums;
+using Licensing.Domain.Licenses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace Licensing.Business.ViewModels
         //customer info
         public string Name { get; set; }
         public string BarNumber { get; set; }
+        public LicensingStatus LicensingStatus { get; set; }
 
         //license information
         public DashboardContainerVM MembershipType { get; set; }
@@ -41,6 +43,7 @@ namespace Licensing.Business.ViewModels
         public DashboardContainerVM SexualOrientation { get; set; }
 
         //payment information
+        public DashboardContainerVM MembershipProducts { get; set; }
         public DashboardContainerVM Sections { get; set; }
         public DashboardContainerVM Donations { get; set; }
         public DashboardContainerVM BarNews { get; set; }

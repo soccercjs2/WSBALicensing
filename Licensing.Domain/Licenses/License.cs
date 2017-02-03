@@ -53,36 +53,48 @@ namespace Licensing.Domain.Licenses
 
         //contact information
         public virtual ICollection<Address> Addresses { get; set; }
-        public virtual ICollection<Email> Emails { get; set; }
+
+        public virtual Email Email { get; set; }
+        public int? EmailId { get; set; }
+
         public virtual ICollection<PhoneNumber> PhoneNumbers { get; set; }
 
         //practice information
         public virtual ICollection<AreaOfPractice> AreasOfPractice { get; set; }
+        public bool AreasOfPracticeConfirmed { get; set; }
 
         public virtual FirmSize FirmSize { get; set; }
         public int? FirmSizeId { get; set; }
 
         public virtual ICollection<Language> Languages { get; set; }
+        public bool LanguagesConfirmed { get; set; }
 
         //demographics
         public virtual Disability Disability { get; set; }
         public int? DisabilityId { get; set; }
+        public bool DisabilityOptedOut { get; set; }
 
         public virtual Ethnicity Ethnicity { get; set; }
         public int? EthnicityId { get; set; }
+        public bool EthnicityOptedOut { get; set; }
 
         public virtual Gender Gender { get; set; }
         public int? GenderId { get; set; }
+        public bool GenderOptedOut { get; set; }
 
         public virtual SexualOrientation SexualOrientation { get; set; }
         public int? SexualOrientationId { get; set; }
+        public bool SexualOrientationOptedOut { get; set; }
 
 
         //payment
         public virtual ICollection<Donation> Donations { get; set; }
         public virtual ICollection<Section> Sections { get; set; }
+        public bool SectionsConfirmed { get; set; }
 
         public virtual BarNewsResponse BarNewsResponse { get; set; }
         public int? BarNewsResponseId { get; set; }
+
+        public bool KellerDeduction { get; set; }
     }
 }

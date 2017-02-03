@@ -2,10 +2,17 @@
 
 @if (Model != null)
 {
-    foreach (var sectionProduct in Model)
-    {
-        <div class="row padded-small">
-            @sectionProduct.Product.Name
-        </div>
-    }
+    <div class="padded">
+        @foreach (var sectionProduct in Model)
+        {
+            <div class="row padded-small fake-table">
+                <div class="inline bold">
+                    @sectionProduct.Product.Name
+                </div>
+                <div class="inline fake-table-cell">
+                    $@sectionProduct.Product.Price
+                </div>
+            </div>
+        }
+    </div>
 }

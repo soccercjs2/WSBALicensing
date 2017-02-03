@@ -8,15 +8,15 @@ namespace Licensing.Business.ViewModels
 {
     public class PhoneNumbersVM
     {
-        public string PrimaryPhoneNumber { get; set; }
-        public string HomePhoneNumber { get; set; }
-        public string FaxPhoneNumber { get; set; }
+        public PhoneNumber PrimaryPhoneNumber { get; set; }
+        public PhoneNumber HomePhoneNumber { get; set; }
+        public PhoneNumber FaxPhoneNumber { get; set; }
 
         public PhoneNumbersVM(PhoneNumber primaryPhoneNumber, PhoneNumber homePhoneNumber, PhoneNumber faxPhoneNumber)
         {
-            PrimaryPhoneNumber = GetFormattedPhoneNumber(primaryPhoneNumber);
-            HomePhoneNumber = GetFormattedPhoneNumber(homePhoneNumber);
-            FaxPhoneNumber = GetFormattedPhoneNumber(faxPhoneNumber);
+            PrimaryPhoneNumber = primaryPhoneNumber;
+            HomePhoneNumber = homePhoneNumber;
+            FaxPhoneNumber = faxPhoneNumber;
         }
 
         public string GetFormattedPhoneNumber(PhoneNumber phoneNumber)

@@ -2,10 +2,12 @@
 
 @if (Model != null)
 {
-    foreach (var areaOfPractice in Model)
-    {
-        <div class="row padded-small">
-            @areaOfPractice.Option.Name
-        </div>
-    }
+    <div class="padded">
+        @foreach (var areaOfPractice in Model)
+        {
+            <div class="row padded-small">
+                @areaOfPractice.Option.Name
+            </div>
+        }
+    </div>
 }

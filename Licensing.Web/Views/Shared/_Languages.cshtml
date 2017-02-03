@@ -2,10 +2,12 @@
 
 @if (Model != null)
 {
-    foreach (var language in Model)
-    {
-        <div class="row padded-small">
-            @language.Option.Name
-        </div>
-    }
+    <div class="padded">
+        @foreach (var language in Model)
+        {
+            <div class="row padded-small">
+                @language.Option.Name
+            </div>
+        }
+    </div>
 }

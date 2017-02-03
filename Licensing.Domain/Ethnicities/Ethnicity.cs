@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Licensing.Domain.Ethnicities
 {
-    public class Ethnicity : OptOutable
+    public class Ethnicity
     {
         public int EthnicityId { get; set; }
         
         public virtual EthnicityOption Option { get; set; }
-        public int EthnicityOptionId { get; set; }
+        public int? EthnicityOptionId { get; set; }
     }
 }

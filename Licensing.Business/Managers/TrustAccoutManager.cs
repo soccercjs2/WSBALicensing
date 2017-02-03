@@ -45,7 +45,7 @@ namespace Licensing.Business.Managers
 
             return new DashboardContainerVM(
                 "Trust Account",
-                license.LicenseType.ProfessionalLiabilityInsurance,
+                license.LicenseType.TrustAccount,
                 IsComplete(license),
                 editRoute,
                 confirmRoute,

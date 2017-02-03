@@ -1,0 +1,18 @@
+﻿@model IEnumerable<Licensing.Domain.Licenses.LicenseTypeProduct>
+
+@if (Model != null)
+{
+    <div class="padded">
+        @foreach (var product in Model)
+        {
+            <div class="row padded-small fake-table">
+                <div class="inline bold fake-table-cell">
+                    @product.Product.Name
+                </div>
+                <div class="inline fake-table-cell">
+                    $@product.Product.Price
+                </div>
+            </div>
+        }
+    </div>
+}

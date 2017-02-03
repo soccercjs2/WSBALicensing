@@ -35,5 +35,14 @@ namespace Licensing.Data.Workers
             if (languages.Count == 0) { return null; }
             else { return languages; }
         }
+
+        public void Confirm(License license)
+        {
+            if (license != null)
+            {
+                license.LanguagesConfirmed = true;
+                _context.SaveChanges();
+            }
+        }
     }
 }

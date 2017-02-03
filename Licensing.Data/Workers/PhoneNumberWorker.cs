@@ -18,6 +18,11 @@ namespace Licensing.Data.Workers
             _context = context;
         }
 
+        public PhoneNumber GetPhoneNumber(int phoneNumberId)
+        {
+            return _context.PhoneNumbers.Find(phoneNumberId);
+        }
+
         public PhoneNumber GetPhoneNumber(License license, PhoneNumberType phoneNumberType)
         {
             if (license == null)
@@ -36,6 +41,12 @@ namespace Licensing.Data.Workers
             }
 
             return license.PhoneNumbers.Where(pn => pn.PhoneNumberTypeId == phoneNumberType.PhoneNumberTypeId).FirstOrDefault();
+        }
+
+        public void Confirm(PhoneNumber phoneNumber)
+        {
+            phoneNumber.Confirmed = true;
+            _context.SaveChanges();
         }
     }
 }

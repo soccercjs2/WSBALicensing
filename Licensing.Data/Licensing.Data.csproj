@@ -50,6 +50,33 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\LicensingContext.cs" />
+    <Compile Include="Migrations\201702011932214_Changing collection of emails to PrimaryEmail.cs" />
+    <Compile Include="Migrations\201702011932214_Changing collection of emails to PrimaryEmail.Designer.cs">
+      <DependentUpon>201702011932214_Changing collection of emails to PrimaryEmail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702011940397_Removing Email Type.cs" />
+    <Compile Include="Migrations\201702011940397_Removing Email Type.Designer.cs">
+      <DependentUpon>201702011940397_Removing Email Type.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702012151341_making demographic option ids nullable.cs" />
+    <Compile Include="Migrations\201702012151341_making demographic option ids nullable.Designer.cs">
+      <DependentUpon>201702012151341_making demographic option ids nullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702012229367_making BarNewsResponse preloadable.cs" />
+    <Compile Include="Migrations\201702012229367_making BarNewsResponse preloadable.Designer.cs">
+      <DependentUpon>201702012229367_making BarNewsResponse preloadable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702021730310_Adding Keller Deduction flag on license.cs" />
+    <Compile Include="Migrations\201702021730310_Adding Keller Deduction flag on license.Designer.cs">
+      <DependentUpon>201702021730310_Adding Keller Deduction flag on license.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702032130538_moving confirmation for lists that can be empty and complete to license level, also moving optouts to license level.cs" />
+    <Compile Include="Migrations\201702032130538_moving confirmation for lists that can be empty and complete to license level, also moving optouts to license level.Designer.cs">
+      <DependentUpon>201702032130538_moving confirmation for lists that can be empty and complete to license level, also moving optouts to license level.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Workers\BarNewsWorker.cs" />
+    <Compile Include="Workers\DisabilityWorker.cs" />
+    <Compile Include="Workers\EthnicityWorker.cs" />
     <Compile Include="Workers\FinancialResponsibilityWorker.cs" />
     <Compile Include="Initializer\LicensingInitializer.cs" />
     <Compile Include="Migrations\201701252032356_Really....cs" />
@@ -86,14 +113,18 @@
     <Compile Include="Workers\AreaOfPracticeWorker.cs" />
     <Compile Include="Workers\DonationWorker.cs" />
     <Compile Include="Workers\EmailWorker.cs" />
+    <Compile Include="Workers\FirmSizeWorker.cs" />
+    <Compile Include="Workers\GenderWorker.cs" />
     <Compile Include="Workers\JudicialPositionWorker.cs" />
     <Compile Include="Workers\LanguageWorker.cs" />
     <Compile Include="Workers\LicenseTypeWorker.cs" />
     <Compile Include="Workers\LicenseWorker.cs" />
+    <Compile Include="Workers\MembershipProductWorker.cs" />
     <Compile Include="Workers\PhoneNumberWorker.cs" />
     <Compile Include="Workers\ProBonoWorker.cs" />
     <Compile Include="Workers\ProfessionalLiabilityInsuranceWorker.cs" />
     <Compile Include="Workers\SectionWorker.cs" />
+    <Compile Include="Workers\SexualOrientationWorker.cs" />
     <Compile Include="Workers\TrustAccountWorker.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -129,6 +160,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701302209257_LicensingType shouldn%27t be preloadable.resx">
       <DependentUpon>201701302209257_LicensingType shouldn%27t be preloadable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702011932214_Changing collection of emails to PrimaryEmail.resx">
+      <DependentUpon>201702011932214_Changing collection of emails to PrimaryEmail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702011940397_Removing Email Type.resx">
+      <DependentUpon>201702011940397_Removing Email Type.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702012151341_making demographic option ids nullable.resx">
+      <DependentUpon>201702012151341_making demographic option ids nullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702012229367_making BarNewsResponse preloadable.resx">
+      <DependentUpon>201702012229367_making BarNewsResponse preloadable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702021730310_Adding Keller Deduction flag on license.resx">
+      <DependentUpon>201702021730310_Adding Keller Deduction flag on license.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702032130538_moving confirmation for lists that can be empty and complete to license level, also moving optouts to license level.resx">
+      <DependentUpon>201702032130538_moving confirmation for lists that can be empty and complete to license level, also moving optouts to license level.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

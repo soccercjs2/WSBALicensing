@@ -47,7 +47,6 @@
     <Compile Include="AreasOfPractice\AreaOfPracticeOption.cs" />
     <Compile Include="Bar News\BarNewsResponse.cs" />
     <Compile Include="ContactInformation\Email.cs" />
-    <Compile Include="ContactInformation\EmailType.cs" />
     <Compile Include="ContactInformation\PhoneNumber.cs" />
     <Compile Include="ContactInformation\PhoneNumberType.cs" />
     <Compile Include="Customers\Customer.cs" />
@@ -74,7 +73,6 @@
     <Compile Include="Licenses\LicenseTypeSection.cs" />
     <Compile Include="Licenses\LicensingPeriod.cs" />
     <Compile Include="Licenses\LicensingProduct.cs" />
-    <Compile Include="OptOutable.cs" />
     <Compile Include="Preloadable.cs" />
     <Compile Include="Pro Bonos\ProBono.cs" />
     <Compile Include="ProfessionalLiabilityInsurances\ProfessionalLiabilityInsurance.cs" />

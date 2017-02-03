@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Licensing.Domain.Sections
 {
-    public class Section : Preloadable
+    public class Section
     {
         public int SectionId { get; set; }
         public int LicenseId { get; set; }

@@ -2,17 +2,19 @@
 
 @if (Model != null)
 {
-    <div class="row">@Model.Address1</div>
+    <div class="padded">
+        <div class="row">@Model.Address1</div>
 
-    if (Model.Address2 != null)
-    {
+        @if (Model.Address2 != null)
+        {
         <div class="row">@Model.Address2</div>
-    }
+        }
 
-    <div class="row">@Model.City, @Model.State @Model.ZipCode</div>
+        <div class="row">@Model.City, @Model.State @Model.ZipCode</div>
 
-    if (Model.Country != "USA")
-    {
-        <div class="row">Model.Country</div>
-    }
+        @if (Model.Country != "USA")
+        {
+            <div class="row">@Model.Country</div>
+        }
+    </div>
 }

@@ -18,24 +18,13 @@ namespace Licensing.Data.Workers
             _context = context;
         }
 
-        public Email GetEmail(License license, EmailType emailType)
+        public void Confirm(Email email)
         {
-            if (license == null)
+            if (email != null)
             {
-                return null;
+                email.Confirmed = true;
+                _context.SaveChanges();
             }
-
-            if (license.Emails == null)
-            {
-                return null;
-            }
-
-            if (emailType == null)
-            {
-                return null;
-            }
-
-            return license.Emails.Where(e => e.EmailTypeId == emailType.EmailTypeId).FirstOrDefault();
         }
     }
 }

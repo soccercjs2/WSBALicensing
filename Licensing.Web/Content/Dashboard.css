@@ -1,0 +1,56 @@
+﻿.dashboard-column {
+    margin-bottom: 20px;
+}
+
+.dashboard-column-title {
+    font-size: 16pt;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.dashboard-container {
+    margin-top: 15px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+}
+
+.dashboard-container-header {
+    background-color: #F5F5F5;
+    padding: 5px;
+}
+
+.dashboard-container-title {
+    font-size: 13pt;
+    font-weight: bold;
+    display: inline-block;
+    white-space: normal;
+}
+
+.dashboard-container-button-container {
+    border-top: 2px solid #ddd;
+    padding: 5px;
+}
+
+.status-container {
+    font-size: 22px;
+}
+
+.status {
+    font-weight: bold;
+}
+
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
+}
+
+.complete-border {
+    border: 2px solid #5cb85c !important;
+}
+
+.complete-background-color {
+    background-color: #d6e9d6;
+}

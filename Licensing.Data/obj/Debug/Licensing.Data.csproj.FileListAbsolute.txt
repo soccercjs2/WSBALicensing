@@ -38,3 +38,7 @@ C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.makingd
 C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.makingBarNewsResponsepreloadable.resources
 C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.AddingKellerDeductionflagonlicense.resources
 C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.movingconfirmationforliststhatcanbeemptyandcompletetolicenselevelalsomovingoptoutstolicenselevel.resources
+C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.movingdonationsconfirmationtoLicenselevel.resources
+C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.comeon.resources
+C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.Addingpreviouslicensetype.resources
+C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.changingcurrentlictypetolictype.resources

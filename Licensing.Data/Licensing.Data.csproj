@@ -74,6 +74,22 @@
     <Compile Include="Migrations\201702032130538_moving confirmation for lists that can be empty and complete to license level, also moving optouts to license level.Designer.cs">
       <DependentUpon>201702032130538_moving confirmation for lists that can be empty and complete to license level, also moving optouts to license level.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702071909594_moving donations confirmation to License level.cs" />
+    <Compile Include="Migrations\201702071909594_moving donations confirmation to License level.Designer.cs">
+      <DependentUpon>201702071909594_moving donations confirmation to License level.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702081835114_come on.cs" />
+    <Compile Include="Migrations\201702081835114_come on.Designer.cs">
+      <DependentUpon>201702081835114_come on.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702081836283_Adding previous license type.cs" />
+    <Compile Include="Migrations\201702081836283_Adding previous license type.Designer.cs">
+      <DependentUpon>201702081836283_Adding previous license type.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702081839109_changing current lic type to lic type.cs" />
+    <Compile Include="Migrations\201702081839109_changing current lic type to lic type.Designer.cs">
+      <DependentUpon>201702081839109_changing current lic type to lic type.cs</DependentUpon>
+    </Compile>
     <Compile Include="Workers\BarNewsWorker.cs" />
     <Compile Include="Workers\DisabilityWorker.cs" />
     <Compile Include="Workers\EthnicityWorker.cs" />
@@ -178,6 +194,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702032130538_moving confirmation for lists that can be empty and complete to license level, also moving optouts to license level.resx">
       <DependentUpon>201702032130538_moving confirmation for lists that can be empty and complete to license level, also moving optouts to license level.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702071909594_moving donations confirmation to License level.resx">
+      <DependentUpon>201702071909594_moving donations confirmation to License level.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702081835114_come on.resx">
+      <DependentUpon>201702081835114_come on.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702081836283_Adding previous license type.resx">
+      <DependentUpon>201702081836283_Adding previous license type.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702081839109_changing current lic type to lic type.resx">
+      <DependentUpon>201702081839109_changing current lic type to lic type.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -51,24 +51,54 @@ namespace Licensing.Data.Migrations
             var licensingProducts = new List<LicensingProduct>
             {
                 new LicensingProduct { Name = "Active Attorney Membership", Price = 385, AmsCode = "ACTIVE_ATTRNY" },
+                new LicensingProduct { Name = "Inactive Attorney Membership", Price = 200, AmsCode = "INACTIVE_ATTORNEY" },
                 new LicensingProduct { Name = "Lawyers Fund for Client Protection", Price = 30, AmsCode = "LFCP" }
             };
 
             var licenseTypeProducts = new List<LicenseTypeProduct>
             {
                 new LicenseTypeProduct { LicenseTypeId = 1, Product = licensingProducts[0] },
-                new LicenseTypeProduct { LicenseTypeId = 1, Product = licensingProducts[1] }
+                new LicenseTypeProduct { LicenseTypeId = 1, Product = licensingProducts[2] },
+                new LicenseTypeProduct { LicenseTypeId = 2, Product = licensingProducts[1] },
+                new LicenseTypeProduct { LicenseTypeId = 2, Product = licensingProducts[2] }
             };
 
             var licenseTypes = new List<LicenseType>
             {
                 new LicenseType {
                     Name = "Active Attorney",
-                    LicenseTypeProducts = licenseTypeProducts,
+                    LicenseTypeProducts = new List<LicenseTypeProduct> { licenseTypeProducts[0], licenseTypeProducts[1] },
                     MembershipType = RequirementType.Required,
                     JudicialPosition = RequirementType.Excluded,
                     TrustAccount = RequirementType.Required,
                     ProfessionalLiabilityInsurance = RequirementType.Required,
+                    FinancialResponsibility = RequirementType.Excluded,
+                    ProBono = RequirementType.Optional,
+                    PrimaryAddress = RequirementType.Optional,
+                    HomeAddress = RequirementType.Optional,
+                    AgentOfServiceAddress = RequirementType.Required,
+                    PrimaryEmail = RequirementType.Optional,
+                    PrimaryPhoneNumber = RequirementType.Optional,
+                    HomePhoneNumber = RequirementType.Optional,
+                    FaxPhoneNumber = RequirementType.Optional,
+                    AreasOfPractice = RequirementType.Optional,
+                    FirmSize = RequirementType.Optional,
+                    Languages = RequirementType.Optional,
+                    Disability = RequirementType.Optional,
+                    Ethnicity = RequirementType.Optional,
+                    Gender = RequirementType.Optional,
+                    SexualOrientation = RequirementType.Optional,
+                    Donations = RequirementType.Required,
+                    Sections = RequirementType.Required,
+                    BarNews = RequirementType.Excluded
+                },
+                new LicenseType {
+                    Name = "Inactive Attorney",
+                    LicenseTypeProducts = new List<LicenseTypeProduct> { licenseTypeProducts[2], licenseTypeProducts[3] },
+                    MembershipType = RequirementType.Required,
+                    JudicialPosition = RequirementType.Excluded,
+                    TrustAccount = RequirementType.Excluded,
+                    ProfessionalLiabilityInsurance = RequirementType.Excluded,
                     FinancialResponsibility = RequirementType.Excluded,
                     ProBono = RequirementType.Optional,
                     PrimaryAddress = RequirementType.Optional,
@@ -159,7 +189,7 @@ namespace Licensing.Data.Migrations
             {
                 new AddressType { Name = "Primary", AmsCode = "OFFICE" },
                 new AddressType { Name = "Home", AmsCode = "HOME" },
-                new AddressType { Name = "Agent Of Service", AmsCode = "AGENTOFSERVICE" }
+                new AddressType { Name = "Agent of Service", AmsCode = "AGENTOFSERVICE" }
             };
 
             var addresses = new List<Address>
@@ -306,6 +336,7 @@ namespace Licensing.Data.Migrations
                 {
                     LicensingPeriod = licensingPeriods[0],
                     LicenseType = licenseTypes[0],
+                    PreviousLicenseType = licenseTypes[0],
                     FinancialResponsibility = financialResponsibilities[0],
                     JudicialPosition = judicialPositions[0],
                     //ProBono = proBono[0],

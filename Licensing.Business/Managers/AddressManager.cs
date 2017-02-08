@@ -35,7 +35,7 @@ namespace Licensing.Business.Managers
             AddressType primaryAddressType = _context.AddressTypes.Where(at => at.Name == "Primary").FirstOrDefault();
 
             //return address
-            return _addressWorker.GetAddress(license, primaryAddressType);
+            return license.Addresses.Where(a => a.AddressTypeId == primaryAddressType.AddressTypeId).FirstOrDefault();
         }
 
         public Address GetHomeAddress(License license)
@@ -44,7 +44,7 @@ namespace Licensing.Business.Managers
             AddressType homeAddressType = _context.AddressTypes.Where(at => at.Name == "Home").FirstOrDefault();
 
             //return address
-            return _addressWorker.GetAddress(license, homeAddressType);
+            return license.Addresses.Where(a => a.AddressTypeId == homeAddressType.AddressTypeId).FirstOrDefault();
         }
 
         public Address GetAgentOfServiceAddress(License license)
@@ -53,7 +53,7 @@ namespace Licensing.Business.Managers
             AddressType agentOfServiceAddressType = _context.AddressTypes.Where(at => at.Name == "Agent Of Service").FirstOrDefault();
 
             //return address
-            return _addressWorker.GetAddress(license, agentOfServiceAddressType);
+            return license.Addresses.Where(a => a.AddressTypeId == agentOfServiceAddressType.AddressTypeId).FirstOrDefault();
         }
 
         public void Confirm(Address address)

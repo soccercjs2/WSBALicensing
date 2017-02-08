@@ -25,11 +25,6 @@ namespace Licensing.Business.Managers
 
         public bool IsComplete(License license)
         {
-            if (license == null)
-            {
-                return false;
-            }
-
             return (license.ProBono != null);
         }
 

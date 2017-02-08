@@ -10,7 +10,8 @@ namespace Licensing.Domain.Genders
     public class Gender
     {
         public int GenderId { get; set; }
-        
+
+        [ForeignKey("GenderOptionId")]
         public virtual GenderOption Option { get; set; }
         public int? GenderOptionId { get; set; }
     }

@@ -17,36 +17,5 @@ namespace Licensing.Data.Workers
         {
             _context = context;
         }
-
-        public ICollection<Donation> GetDonations(License license)
-        {
-            if (license == null)
-            {
-                return null;
-            }
-
-            if (license.Donations == null)
-            {
-                return null;
-            }
-
-            ICollection<Donation> donations = license.Donations;
-
-            if (donations.Count == 0) { return null; }
-            else { return donations; }
-        }
-
-        public void Confirm(ICollection<Donation> donations)
-        {
-            if (donations != null)
-            {
-                foreach (Donation donation in donations)
-                {
-                    donation.Confirmed = true;
-                }
-
-                _context.SaveChanges();
-            }
-        }
     }
 }

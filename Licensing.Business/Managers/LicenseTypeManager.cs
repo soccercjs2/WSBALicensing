@@ -24,12 +24,12 @@ namespace Licensing.Business.Managers
 
         public bool IsComplete(License license)
         {
-            if (license == null)
-            {
-                return false;
-            }
-
             return (license.LicenseType != null);
+        }
+
+        public LicenseType GetInactiveType()
+        {
+            return _licenseTypeWorker.GetLicenseType("Inactive Attorney");
         }
 
         public DashboardContainerVM GetDashboardContainerVM(License license)

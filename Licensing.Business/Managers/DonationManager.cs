@@ -25,39 +25,19 @@ namespace Licensing.Business.Managers
 
         public ICollection<Donation> GetDonations(License license)
         {
-            return _donationWorker.GetDonations(license);
+            if (license.Donations == null || license.Donations.Count == 0) { return null; }
+            else { return license.Donations; }
         }
 
-        public void Confirm(ICollection<Donation> donations)
+        public void Confirm(License license)
         {
-            _donationWorker.Confirm(donations);
+            license.DonationsConfirmed = true;
+            _context.SaveChanges();
         }
 
         public bool IsComplete(License license)
         {
-            if (license == null)
-            {
-                return false;
-            }
-
-            ICollection<Donation> donations = GetDonations(license);
-
-            if (donations == null)
-            {
-                return false;
-            }
-
-            bool complete = true;
-
-            foreach (Donation donation in donations)
-            {
-                if (!donation.Confirmed)
-                {
-                    complete = false;
-                }
-            }
-
-            return complete;
+            return license.DonationsConfirmed;
         }
 
         public DashboardContainerVM GetDashboardContainerVM(License license)

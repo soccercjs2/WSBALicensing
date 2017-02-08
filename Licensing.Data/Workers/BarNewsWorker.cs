@@ -16,11 +16,5 @@ namespace Licensing.Data.Workers
         {
             _context = context;
         }
-
-        public void Confirm(BarNewsResponse barNews)
-        {
-            barNews.Confirmed = true;
-            _context.SaveChanges();
-        }
     }
 }

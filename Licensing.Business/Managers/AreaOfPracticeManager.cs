@@ -25,21 +25,18 @@ namespace Licensing.Business.Managers
 
         public ICollection<AreaOfPractice> GetAreasOfPractice(License license)
         {
-            return _areaOfPracticeWorker.GetAreasOfPractice(license);
+            if (license.AreasOfPractice == null || license.AreasOfPractice.Count == 0) { return null; }
+            else { return license.AreasOfPractice; }
         }
 
         public void Confirm(License license)
         {
-            _areaOfPracticeWorker.Confirm(license);
+            license.AreasOfPracticeConfirmed = true;
+            _context.SaveChanges();
         }
 
         public bool IsComplete(License license)
         {
-            if (license == null)
-            {
-                return false;
-            }
-
             return license.AreasOfPracticeConfirmed;
         }
 

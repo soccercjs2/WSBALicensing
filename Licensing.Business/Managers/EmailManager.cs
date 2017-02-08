@@ -26,16 +26,12 @@ namespace Licensing.Business.Managers
 
         public void Confirm(Email email)
         {
-            _emailWorker.Confirm(email);
+            email.Confirmed = true;
+            _context.SaveChanges();
         }
 
         public bool IsComplete(License license)
         {
-            if (license == null)
-            {
-                return false;
-            }
-
             return (license.Email != null && license.Email.Confirmed);
         }
 

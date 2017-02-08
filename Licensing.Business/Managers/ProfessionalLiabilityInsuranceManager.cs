@@ -25,16 +25,12 @@ namespace Licensing.Business.Managers
 
         public void Confirm(ProfessionalLiabilityInsurance professionalLiabilityInsurance)
         {
-            _professionalLiabilityInsuranceWorker.Confirm(professionalLiabilityInsurance);
+            professionalLiabilityInsurance.Confirmed = true;
+            _context.SaveChanges();
         }
 
         public bool IsComplete(License license)
         {
-            if (license == null)
-            {
-                return false;
-            }
-
             return (license.ProfessionalLiabilityInsurance != null && license.ProfessionalLiabilityInsurance.Confirmed);
         }
 

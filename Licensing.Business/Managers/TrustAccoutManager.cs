@@ -23,18 +23,19 @@ namespace Licensing.Business.Managers
             _trustAccountWorker = new TrustAccountWorker(context);
         }
 
+        public TrustAccount GetTrustAccount(int id)
+        {
+            return _trustAccountWorker.GetTrustAccount(id);
+        }
+
         public void Confirm(TrustAccount trustAccount)
         {
-            _trustAccountWorker.Confirm(trustAccount);
+            trustAccount.Confirmed = true;
+            _context.SaveChanges();
         }
 
         public bool IsComplete(License license)
         {
-            if (license == null)
-            {
-                return false;
-            }
-
             return (license.TrustAccount != null && license.TrustAccount.Confirmed);
         }
 

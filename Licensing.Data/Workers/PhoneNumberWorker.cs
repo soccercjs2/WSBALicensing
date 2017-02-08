@@ -22,31 +22,5 @@ namespace Licensing.Data.Workers
         {
             return _context.PhoneNumbers.Find(phoneNumberId);
         }
-
-        public PhoneNumber GetPhoneNumber(License license, PhoneNumberType phoneNumberType)
-        {
-            if (license == null)
-            {
-                return null;
-            }
-
-            if (license.PhoneNumbers == null)
-            {
-                return null;
-            }
-
-            if (phoneNumberType == null)
-            {
-                return null;
-            }
-
-            return license.PhoneNumbers.Where(pn => pn.PhoneNumberTypeId == phoneNumberType.PhoneNumberTypeId).FirstOrDefault();
-        }
-
-        public void Confirm(PhoneNumber phoneNumber)
-        {
-            phoneNumber.Confirmed = true;
-            _context.SaveChanges();
-        }
     }
 }

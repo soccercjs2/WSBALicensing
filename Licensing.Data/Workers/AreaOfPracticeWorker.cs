@@ -17,32 +17,5 @@ namespace Licensing.Data.Workers
         {
             _context = context;
         }
-
-        public ICollection<AreaOfPractice> GetAreasOfPractice(License license)
-        {
-            if (license == null)
-            {
-                return null;
-            }
-
-            if (license.AreasOfPractice == null)
-            {
-                return null;
-            }
-
-            ICollection<AreaOfPractice> areasOfPractice = license.AreasOfPractice;
-
-            if (areasOfPractice.Count == 0) { return null; }
-            else { return areasOfPractice; }
-        }
-
-        public void Confirm(License license)
-        {
-            if (license != null)
-            {
-                license.AreasOfPracticeConfirmed = true;
-                _context.SaveChanges();
-            }
-        }
     }
 }

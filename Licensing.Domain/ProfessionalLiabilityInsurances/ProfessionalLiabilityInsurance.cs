@@ -10,8 +10,9 @@ namespace Licensing.Domain.ProfessionalLiabilityInsurances
     public class ProfessionalLiabilityInsurance : Preloadable
     {
         public int ProfessionalLiabilityInsuranceId { get; set; }
-        
+
+        [ForeignKey("ProfessionalLiabilityInsuranceOptionId")]
         public virtual ProfessionalLiabilityInsuranceOption Option { get; set; }
-        public int ProfessionalLiabilityInsuranceOptionId { get; set; }
+        public int? ProfessionalLiabilityInsuranceOptionId { get; set; }
     }
 }

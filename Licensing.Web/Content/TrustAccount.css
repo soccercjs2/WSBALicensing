@@ -1,0 +1,15 @@
+﻿/*.trust-account-number-form-container {
+    display: flex;
+}
+
+.trust-account-number-attribute-container {
+    margin: 5px;
+    min-width: 280px;
+}
+
+.trust-account-number-button-container {
+    margin: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}*/

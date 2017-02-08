@@ -21,20 +21,5 @@ namespace Licensing.Data.Workers
         {
             return _context.Addresses.Find(addressId);
         }
-
-        public Address GetAddress(License license, AddressType addressType)
-        {
-            if (license == null)
-            {
-                return null;
-            }
-
-            if (addressType == null)
-            {
-                return null;
-            }
-
-            return license.Addresses.Where(a => a.AddressTypeId == addressType.AddressTypeId).FirstOrDefault();
-        }
     }
 }

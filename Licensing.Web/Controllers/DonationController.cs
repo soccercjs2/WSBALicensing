@@ -21,13 +21,13 @@ namespace Licensing.Web.Controllers
         [HttpGet]
         public ActionResult Confirm(int id)
         {
-            //get license who's Trust Account to confirm
+            //get license who's Donations to confirm
             LicenseManager licenseManager = new LicenseManager(_context);
             License license = licenseManager.GetLicense(id);
 
-            //confirm the preloaded Trust Account
+            //confirm the preloaded Donation
             DonationManager donationManager = new DonationManager(_context);
-            donationManager.Confirm(donationManager.GetDonations(license));
+            donationManager.Confirm(license);
 
             //return updated partial view
             return RedirectToAction("Index", "Home");

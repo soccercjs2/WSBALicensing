@@ -1,0 +1,100 @@
+﻿@model Licensing.Business.ViewModels.TrustAccountVM
+
+@{
+    ViewBag.Title = "Edit Trust Account";
+}
+
+@using (Html.BeginForm("AddTrustAccountNumber", "TrustAccount", FormMethod.Post, new { asdf = Model }))
+{
+    <div class="row">
+        @Html.HiddenFor(m => m.LicenseId)
+        @Html.HiddenFor(m => m.TrustAccountId)
+        
+        <h2>
+            Trust Account (
+                <a href="http://www.courts.wa.gov/court_rules/?fa=court_rules.display&group=ga&set=ELC&ruleid=gaelc1515.05"> ELC 15.5 </a>
+                <a href="http://www.courts.wa.gov/court_rules/?fa=court_rules.display&group=ga&set=APR&ruleid=gaapr17"> APR 17 </a>
+            )
+        </h2>
+
+        <div class="row">
+            Do you or your firm maintain either an IOLTA account or other client trust account(s) for the
+            deposit of client funds received in connection with representations undertaken using your Washington State license?
+        </div>
+
+        <div class="row padded-top">
+            @if (Model.TrustAccountId == null)
+            {
+                <div>
+                    @Html.ActionLink("Yes", "Handles", "TrustAccount", new { id = Model.LicenseId }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("No", "NotHandles", "TrustAccount", new { id = Model.LicenseId }, new { @class = "btn btn-danger" })
+                </div>
+            }
+            else if (Model.HandlesTrustAccount)
+            {
+                <div>
+                    @Html.ActionLink("Yes", "Handles", "TrustAccount", new { id = Model.LicenseId }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("No", "NotHandles", "TrustAccount", new { id = Model.LicenseId }, new { @class = "btn btn-default" })
+                </div>
+            }
+            else
+            {
+                <div>
+                    @Html.ActionLink("Yes", "Handles", "TrustAccount", new { id = Model.LicenseId }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("No", "NotHandles", "TrustAccount", new { id = Model.LicenseId }, new { @class = "btn btn-default" })
+                </div>
+            }
+        </div>
+
+        @if (Model.TrustAccountId != null && Model.HandlesTrustAccount)
+        {
+            <hr />
+
+            <h2>Account Details</h2>
+
+            <div>
+                @Html.HiddenFor(m => m.PendingTrustAccountNumber.TrustAccountId)
+                @Html.HiddenFor(m => m.PendingTrustAccountNumber.TrustAccountNumberId)
+                
+                @Html.LabelFor(m => m.PendingTrustAccountNumber.Bank)
+                @Html.TextBoxFor(m => m.PendingTrustAccountNumber.Bank, new { @class = "form-control" })
+
+                @Html.LabelFor(m => m.PendingTrustAccountNumber.Branch)
+                @Html.TextBoxFor(m => m.PendingTrustAccountNumber.Branch, new { @class = "form-control" })
+
+                @Html.LabelFor(m => m.PendingTrustAccountNumber.AccountNumber)
+                @Html.TextBoxFor(m => m.PendingTrustAccountNumber.AccountNumber, new { @class = "form-control" })
+
+                <div class="padded-top">
+                    <input class="btn btn-success" type="submit" value="Add Account" />
+                </div>
+            </div>
+
+            if (Model.TrustAccountNumbers != null && Model.TrustAccountNumbers.Count > 0)
+            {
+                <hr />
+
+                <table class="full-width standard-table">
+                    <thead>
+                        <tr>
+                            <th>Bank</th>
+                            <th>Branch</th>
+                            <th>Account Number</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    @foreach (var trustAccountNumber in Model.TrustAccountNumbers)
+                    {
+                        <tr>
+                            <td>@trustAccountNumber.Bank</td>
+                            <td>@trustAccountNumber.Branch</td>
+                            <td>@trustAccountNumber.AccountNumber</td>
+                            <td>delete</td>
+                        </tr>
+                    }
+                </table>
+            }
+        }
+    </div>
+}

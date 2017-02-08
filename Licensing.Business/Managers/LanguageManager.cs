@@ -25,21 +25,18 @@ namespace Licensing.Business.Managers
 
         public ICollection<Language> GetLanguages(License license)
         {
-            return _languageWorker.GetLanguages(license);
+            if (license.Languages == null || license.Languages.Count == 0) { return null; }
+            else { return license.Languages; }
         }
 
         public void Confirm(License license)
         {
-            _languageWorker.Confirm(license);
+            license.LanguagesConfirmed = true;
+            _context.SaveChanges();
         }
 
         public bool IsComplete(License license)
         {
-            if (license == null)
-            {
-                return false;
-            }
-
             return license.LanguagesConfirmed;
         }
 

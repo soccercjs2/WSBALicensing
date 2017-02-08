@@ -17,14 +17,5 @@ namespace Licensing.Data.Workers
         {
             _context = context;
         }
-
-        public void Confirm(Email email)
-        {
-            if (email != null)
-            {
-                email.Confirmed = true;
-                _context.SaveChanges();
-            }
-        }
     }
 }

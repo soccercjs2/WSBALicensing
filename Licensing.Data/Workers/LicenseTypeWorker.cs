@@ -1,4 +1,5 @@
 ﻿using Licensing.Data.Context;
+using Licensing.Domain.Licenses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,11 @@ namespace Licensing.Data.Workers
         public LicenseTypeWorker(LicensingContext context)
         {
             _context = context;
+        }
+
+        public LicenseType GetLicenseType(string type)
+        {
+            return _context.LicenseTypes.Where(lt => lt.Name == type).FirstOrDefault();
         }
     }
 }

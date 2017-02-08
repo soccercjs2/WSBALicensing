@@ -10,7 +10,8 @@ namespace Licensing.Domain.Ethnicities
     public class Ethnicity
     {
         public int EthnicityId { get; set; }
-        
+
+        [ForeignKey("EthnicityOptionId")]
         public virtual EthnicityOption Option { get; set; }
         public int? EthnicityOptionId { get; set; }
     }

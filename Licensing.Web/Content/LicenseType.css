@@ -1,0 +1,21 @@
+﻿.license-type-container {
+    border: 2px solid #ddd;
+    border-radius: 5px;
+}
+
+.license-type-header {
+    background-color: #F5F5F5;
+    padding: 5px;
+    font-size: 13pt;
+    font-weight: bold;
+}
+
+.license-type-body {
+    padding: 5px;
+}
+
+.license-type-button-container {
+    display: flex;
+    flex-direction: column;
+    padding-top: 15px;
+}

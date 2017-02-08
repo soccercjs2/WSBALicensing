@@ -12,7 +12,7 @@
                 <span class="required">*</span>
             }
         </div>
-        <div class="dashboard-container-label-container fake-table-cell nowrap button-fix">
+        <div class="fake-table-cell nowrap button-fix">
             @if (Model.EditRoute != null)
             {
                 @Html.ActionLink("Edit", Model.EditRoute.Action, Model.EditRoute.Controller, new { id = Model.EditRoute.Id }, new { @class = "btn btn-primary btn-xs" })
@@ -31,7 +31,7 @@
     </div>
     @if (Model.PartialViewData != null)
     {
-        <div class="row dashboard-container-body">
+        <div class="row">
             @Html.Partial(Model.PartialViewName, @Model.PartialViewData)
         </div>
     }

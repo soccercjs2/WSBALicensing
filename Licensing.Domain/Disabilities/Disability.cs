@@ -10,7 +10,8 @@ namespace Licensing.Domain.Disabilities
     public class Disability
     {
         public int DisabilityId { get; set; }
-        
+
+        [ForeignKey("DisabilityOptionId")]
         public virtual DisabilityOption Option { get; set; }
         public int? DisabilityOptionId { get; set; }
     }

@@ -1,0 +1,126 @@
+﻿/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea,
+a {
+    max-width: 280px;
+}
+
+/* Override row negative margins */
+.row
+{
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+/* Override max width of container for body content */
+.dashboard {
+    max-width: none;
+}
+
+.wsba-tone-top {
+    background-color: #00476D;
+    color: white;
+    padding: 3px 15px 0 15px;
+}
+
+.wsba-tone-top a {
+    color: white;
+}
+
+.wsba-header a {
+    display: flex;
+}
+
+.wsba-header a:hover {
+    text-decoration: none;
+}
+
+.wsba-icon {
+    width: 7em;
+    height: 7em;
+    margin-right: 15px;
+    padding: 3px;
+}
+
+.wsba-title-container {
+    align-self: center;
+}
+
+.wsba-title {
+    font-family: Arial;
+}
+
+.wsba-subtitle {
+    font-family: Arial;
+}
+
+.wsba-title-right {
+    font-size: 24pt;
+    font-weight: bold;
+    line-height: normal;
+}
+
+.login-scribble {
+    position: absolute;
+    width: 50%;
+    right: 1em;
+    top: 0.5em;
+}
+
+.login-scribble a {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.login-scribble a:hover {
+    color: #FFFFFF;
+    text-decoration: underline;
+}
+
+.login-scribble a:visited {
+    color: #FFFFFF;
+    text-decoration: underline;
+}
+
+.wsba-tone-middle {
+    background-color: #58595B;
+    color: white;
+}
+
+.navbar-nav li {
+    border-left: 1px solid #696A6B;
+}
+
+.navbar-nav li a {
+    padding-bottom: 5px;
+    padding-top: 5px;
+    color: #FFFFFF;
+}
+
+.navbar-nav li a:hover {
+    background-color: #3E8239;
+}
+
+.navbar-nav li a:focus {
+    background-color: #3E8239;
+}
+
+.wsba-tone-bottom {
+    background-color: #4EA247;
+    padding: 0 15px;
+    height: 0.35em;
+}

@@ -17,6 +17,7 @@ using Licensing.Domain.SexualOrientations;
 using Licensing.Domain.TrustAccounts;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,31 +30,43 @@ namespace Licensing.Domain.Licenses
         public int CustomerId { get; set; }
 
         //license details
+        [ForeignKey("LicensingPeriodId")]
         public virtual LicensingPeriod LicensingPeriod { get; set; }
-        public int LicensingPeriodId { get; set; }
+        public int? LicensingPeriodId { get; set; }
 
+        [ForeignKey("LicenseTypeId")]
         public virtual LicenseType LicenseType { get; set; }
-        public int LicenseTypeId { get; set; }
+        public int? LicenseTypeId { get; set; }
+
+        [ForeignKey("PreviousLicenseTypeId")]
+        public virtual LicenseType PreviousLicenseType { get; set; }
+        public int? PreviousLicenseTypeId { get; set; }
 
         //licensing information
+        [ForeignKey("FinancialResponsibilityId")]
         public virtual FinancialResponsibility FinancialResponsibility { get; set; }
         public int? FinancialResponsibilityId { get; set; }
 
+        [ForeignKey("JudicialPositionId")]
         public virtual JudicialPosition JudicialPosition { get; set; }
         public int? JudicialPositionId { get; set; }
 
+        [ForeignKey("ProBonoId")]
         public virtual ProBono ProBono { get; set; }
         public int? ProBonoId { get; set; }
 
+        [ForeignKey("ProfessionalLiabilityInsuranceId")]
         public virtual ProfessionalLiabilityInsurance ProfessionalLiabilityInsurance { get; set; }
         public int? ProfessionalLiabilityInsuranceId { get; set; }
 
+        [ForeignKey("TrustAccountId")]
         public virtual TrustAccount TrustAccount { get; set; }
         public int? TrustAccountId { get; set; }
 
         //contact information
         public virtual ICollection<Address> Addresses { get; set; }
 
+        [ForeignKey("EmailId")]
         public virtual Email Email { get; set; }
         public int? EmailId { get; set; }
 
@@ -63,6 +76,7 @@ namespace Licensing.Domain.Licenses
         public virtual ICollection<AreaOfPractice> AreasOfPractice { get; set; }
         public bool AreasOfPracticeConfirmed { get; set; }
 
+        [ForeignKey("FirmSizeId")]
         public virtual FirmSize FirmSize { get; set; }
         public int? FirmSizeId { get; set; }
 
@@ -70,18 +84,22 @@ namespace Licensing.Domain.Licenses
         public bool LanguagesConfirmed { get; set; }
 
         //demographics
+        [ForeignKey("DisabilityId")]
         public virtual Disability Disability { get; set; }
         public int? DisabilityId { get; set; }
         public bool DisabilityOptedOut { get; set; }
 
+        [ForeignKey("EthnicityId")]
         public virtual Ethnicity Ethnicity { get; set; }
         public int? EthnicityId { get; set; }
         public bool EthnicityOptedOut { get; set; }
 
+        [ForeignKey("GenderId")]
         public virtual Gender Gender { get; set; }
         public int? GenderId { get; set; }
         public bool GenderOptedOut { get; set; }
 
+        [ForeignKey("SexualOrientationId")]
         public virtual SexualOrientation SexualOrientation { get; set; }
         public int? SexualOrientationId { get; set; }
         public bool SexualOrientationOptedOut { get; set; }
@@ -89,9 +107,12 @@ namespace Licensing.Domain.Licenses
 
         //payment
         public virtual ICollection<Donation> Donations { get; set; }
+        public bool DonationsConfirmed { get; set; }
+
         public virtual ICollection<Section> Sections { get; set; }
         public bool SectionsConfirmed { get; set; }
 
+        [ForeignKey("BarNewsResponseId")]
         public virtual BarNewsResponse BarNewsResponse { get; set; }
         public int? BarNewsResponseId { get; set; }
 

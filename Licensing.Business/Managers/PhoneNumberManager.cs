@@ -33,8 +33,8 @@ namespace Licensing.Business.Managers
             //get primary phone number type
             PhoneNumberType primaryPhoneNumberType = _context.PhoneNumberTypes.Where(pt => pt.Name == "Primary").FirstOrDefault();
 
-            //retrun phone number
-            return _phoneNumberWorker.GetPhoneNumber(license, primaryPhoneNumberType);
+            //return phone number with primary phone number type
+            return license.PhoneNumbers.Where(pn => pn.PhoneNumberType.PhoneNumberTypeId == primaryPhoneNumberType.PhoneNumberTypeId).FirstOrDefault();
         }
 
         public PhoneNumber GetHomePhoneNumber(License license)
@@ -42,8 +42,8 @@ namespace Licensing.Business.Managers
             //get primary phone number type
             PhoneNumberType homePhoneNumberType = _context.PhoneNumberTypes.Where(pt => pt.Name == "Home").FirstOrDefault();
 
-            //retrun phone number
-            return _phoneNumberWorker.GetPhoneNumber(license, homePhoneNumberType);
+            //return phone number with home phone number type
+            return license.PhoneNumbers.Where(pn => pn.PhoneNumberType.PhoneNumberTypeId == homePhoneNumberType.PhoneNumberTypeId).FirstOrDefault();
         }
 
         public PhoneNumber GetFaxPhoneNumber(License license)
@@ -51,22 +51,18 @@ namespace Licensing.Business.Managers
             //get primary phone number type
             PhoneNumberType faxPhoneNumberType = _context.PhoneNumberTypes.Where(pt => pt.Name == "Fax").FirstOrDefault();
 
-            //retrun phone number
-            return _phoneNumberWorker.GetPhoneNumber(license, faxPhoneNumberType);
+            //return phone number with fax phone number type
+            return license.PhoneNumbers.Where(pn => pn.PhoneNumberType.PhoneNumberTypeId == faxPhoneNumberType.PhoneNumberTypeId).FirstOrDefault();
         }
 
         public void Confirm(PhoneNumber phoneNumber)
         {
-            _phoneNumberWorker.Confirm(phoneNumber);
+            phoneNumber.Confirmed = true;
+            _context.SaveChanges();
         }
 
         public bool IsComplete(License license)
         {
-            if (license == null)
-            {
-                return false;
-            }
-
             PhoneNumber primaryPhoneNumber = GetPrimaryPhoneNumber(license);
             PhoneNumber homePhoneNumber = GetHomePhoneNumber(license);
 

@@ -22,7 +22,7 @@ namespace Licensing.Web.Controllers
         [HttpGet]
         public ActionResult Confirm(int id)
         {           
-            //confirm the preloaded Trust Account
+            //confirm the preloaded address
             AddressManager addressManager = new AddressManager(_context);
             addressManager.Confirm(addressManager.GetAddress(id));
 

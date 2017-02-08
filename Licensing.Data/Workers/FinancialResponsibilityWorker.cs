@@ -16,11 +16,5 @@ namespace Licensing.Data.Workers
         {
             _context = context;
         }
-
-        public void Confirm(FinancialResponsibility financialResponsibility)
-        {
-            financialResponsibility.Confirmed = true;
-            _context.SaveChanges();
-        }
     }
 }

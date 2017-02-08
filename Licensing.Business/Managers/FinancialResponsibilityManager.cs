@@ -25,16 +25,12 @@ namespace Licensing.Business.Managers
 
         public void Confirm(FinancialResponsibility financialResponsibility)
         {
-            _financialResponsibilityWorker.Confirm(financialResponsibility);
+            financialResponsibility.Confirmed = true;
+            _context.SaveChanges();
         }
 
         public bool IsComplete(License license)
         {
-            if (license == null)
-            {
-                return false;
-            }
-
             return (license.FinancialResponsibility != null && license.FinancialResponsibility.Confirmed);
         }
 

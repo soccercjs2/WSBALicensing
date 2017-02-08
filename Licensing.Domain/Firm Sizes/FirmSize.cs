@@ -10,8 +10,9 @@ namespace Licensing.Domain.FirmSizes
     public class FirmSize : Preloadable
     {
         public int FirmSizeId { get; set; }
-        
+
+        [ForeignKey("FirmSizeOptionId")]
         public virtual FirmSizeOption Option { get; set; }
-        public int FirmSizeOptionId { get; set; }
+        public int? FirmSizeOptionId { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace Licensing.Web.Controllers
         [HttpGet]
         public ActionResult Confirm(int id)
         {
-            //confirm the preloaded Trust Account
+            //confirm the preloaded Phone Number
             PhoneNumberManager phoneNumberManager = new PhoneNumberManager(_context);
             phoneNumberManager.Confirm(phoneNumberManager.GetPhoneNumber(id));
 

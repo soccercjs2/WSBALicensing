@@ -11,8 +11,9 @@ namespace Licensing.Domain.Sections
     {
         public int SectionId { get; set; }
         public int LicenseId { get; set; }
-        
+
+        [ForeignKey("SectionProductId")]
         public virtual SectionProduct Product { get; set; }
-        public int SectionProductId { get; set; }
+        public int? SectionProductId { get; set; }
     }
 }

@@ -23,18 +23,14 @@ namespace Licensing.Business.Managers
             _firmSizeWorker = new FirmSizeWorker(context);
         }
 
-        public void Confirm(FirmSize trustAccount)
+        public void Confirm(FirmSize firmSize)
         {
-            _firmSizeWorker.Confirm(trustAccount);
+            firmSize.Confirmed = true;
+            _context.SaveChanges();
         }
 
         public bool IsComplete(License license)
         {
-            if (license == null)
-            {
-                return false;
-            }
-
             return (license.FirmSize != null && license.FirmSize.Confirmed);
         }
 

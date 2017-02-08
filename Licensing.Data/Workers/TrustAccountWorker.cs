@@ -17,10 +17,9 @@ namespace Licensing.Data.Workers
             _context = context;
         }
 
-        public void Confirm(TrustAccount trustAccount)
+        public TrustAccount GetTrustAccount(int id)
         {
-            trustAccount.Confirmed = true;
-            _context.SaveChanges();
+            return _context.TrustAccounts.Find(id);
         }
     }
 }

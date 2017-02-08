@@ -12,7 +12,8 @@ namespace Licensing.Domain.AreasOfPractice
         public int AreaOfPracticeId { get; set; }
         public int LicenseId { get; set; }
 
+        [ForeignKey("AreaOfPracticeOptionId")]
         public virtual AreaOfPracticeOption Option { get; set; }
-        public int AreaOfPracticeOptionId { get; set; }
+        public int? AreaOfPracticeOptionId { get; set; }
     }
 }

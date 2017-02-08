@@ -37,7 +37,8 @@ namespace Licensing.Business.Managers
                 return null;
             }
 
-            return _context.Licenses.Where(l => l.CustomerId == customer.CustomerId && l.LicensingPeriodId == licensingPeriod.LicensingPeriodId).FirstOrDefault();
+            //return license with specified customer and current licensing period
+            return _context.Licenses.Where(l => l.CustomerId == customer.CustomerId && l.LicensingPeriod.LicensingPeriodId == licensingPeriod.LicensingPeriodId).FirstOrDefault();
         }
     }
 }

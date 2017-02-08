@@ -25,21 +25,18 @@ namespace Licensing.Business.Managers
 
         public ICollection<Section> GetSections(License license)
         {
-            return _sectionWorker.GetSections(license);
+            if (license.Sections == null || license.Sections.Count == 0) { return null; }
+            else { return license.Sections; }
         }
 
         public void Confirm(License license)
         {
-            _sectionWorker.Confirm(license);
+            license.SectionsConfirmed = true;
+            _context.SaveChanges();
         }
 
         public bool IsComplete(License license)
         {
-            if (license == null)
-            {
-                return false;
-            }
-
             return license.SectionsConfirmed;
         }
 

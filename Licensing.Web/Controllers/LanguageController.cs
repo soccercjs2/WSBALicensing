@@ -21,11 +21,11 @@ namespace Licensing.Web.Controllers
         [HttpGet]
         public ActionResult Confirm(int id)
         {
-            //get license who's Trust Account to confirm
+            //get license who's Language to confirm
             LicenseManager licenseManager = new LicenseManager(_context);
             License license = licenseManager.GetLicense(id);
 
-            //confirm the preloaded Trust Account
+            //confirm the preloaded Language
             LanguageManager languageManager = new LanguageManager(_context);
             languageManager.Confirm(license);
 

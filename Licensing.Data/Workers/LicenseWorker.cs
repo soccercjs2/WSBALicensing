@@ -22,10 +22,5 @@ namespace Licensing.Data.Workers
         {
             return _context.Licenses.Where(l => l.LicenseId == licenseId).FirstOrDefault();
         }
-
-        public License GetLicense(Customer customer, LicensingPeriod licensingPeriod)
-        {
-            return customer.Licenses.Where(l => l.LicensingPeriodId == licensingPeriod.LicensingPeriodId).FirstOrDefault();
-        }
     }
 }

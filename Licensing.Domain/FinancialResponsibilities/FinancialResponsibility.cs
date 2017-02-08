@@ -13,7 +13,8 @@ namespace Licensing.Domain.FinancialResponsibilities
         public string Company { get; set; }
         public string PolicyNumber { get; set; }
 
+        [ForeignKey("CoveredByOptionId")]
         public virtual CoveredByOption CoveredByOption { get; set; }
-        public int CoveredByOptionId { get; set; }
+        public int? CoveredByOptionId { get; set; }
     }
 }

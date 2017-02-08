@@ -4,7 +4,8 @@
 @model Licensing.Business.ViewModels.DashboardVM
 
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Licensing Home";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
 }
 
 <h2>@Model.Name - #@Model.BarNumber</h2>
@@ -21,7 +22,9 @@
     }
 </span>
 
-<h6 class="required">[ * required ]</h6>
+@*<h6 class="required">[ * required ]</h6>*@
+
+<hr />
 
 <div class="row">
     <div class="col-lg-3 col-sm-6 dashboard-column">

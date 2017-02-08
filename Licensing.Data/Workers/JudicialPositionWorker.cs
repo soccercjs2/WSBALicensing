@@ -16,11 +16,5 @@ namespace Licensing.Data.Workers
         {
             _context = context;
         }
-
-        public void Confirm(JudicialPosition judicialPosition)
-        {
-            judicialPosition.Confirmed = true;
-            _context.SaveChanges();
-        }
     }
 }

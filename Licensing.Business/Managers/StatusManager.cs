@@ -51,7 +51,7 @@ namespace Licensing.Business.Managers
 
             if (license.LicenseType.PrimaryAddress == RequirementType.Required && !addressManager.IsComplete(addressManager.GetPrimaryAddress(license))) { licensingStatus = LicensingStatus.Incomplete; }
             if (license.LicenseType.HomeAddress == RequirementType.Required && !addressManager.IsComplete(addressManager.GetHomeAddress(license))) { licensingStatus = LicensingStatus.Incomplete; }
-            if (license.LicenseType.AgentOfServiceAddress == RequirementType.Required && !addressManager.IsComplete(addressManager.GetAgentOfServiceAddress(license))) { licensingStatus = LicensingStatus.Incomplete; }
+            if (license.LicenseType.AgentOfServiceAddress == RequirementType.Required && !addressManager.IsComplete(addressManager.GetAgentOfServiceAddress(license)) && addressManager.AgentOfServiceAddressRequired(license)) { licensingStatus = LicensingStatus.Incomplete; }
             if (license.LicenseType.PrimaryEmail == RequirementType.Required && !emailManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
             if (license.LicenseType.PrimaryPhoneNumber == RequirementType.Required && !phoneNumberManager.IsComplete(phoneNumberManager.GetPrimaryPhoneNumber(license))) { licensingStatus = LicensingStatus.Incomplete; }
             if (license.LicenseType.HomePhoneNumber == RequirementType.Required && !phoneNumberManager.IsComplete(phoneNumberManager.GetHomePhoneNumber(license))) { licensingStatus = LicensingStatus.Incomplete; }

@@ -25,16 +25,12 @@ namespace Licensing.Business.Managers
 
         public void OptOut(License license)
         {
-            _ethnicityWorker.OptOut(license);
+            license.EthnicityOptedOut = true;
+            _context.SaveChanges();
         }
 
         public bool IsComplete(License license)
         {
-            if (license == null)
-            {
-                return false;
-            }
-
             return license.EthnicityOptedOut;
         }
 

@@ -11,6 +11,7 @@ namespace Licensing.Domain.SexualOrientations
     {
         public int SexualOrientationId { get; set; }
 
+        [ForeignKey("SexualOrientationOptionId")]
         public virtual SexualOrientationOption Option { get; set; }
         public int? SexualOrientationOptionId { get; set; }
     }

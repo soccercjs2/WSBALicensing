@@ -154,6 +154,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JudicialPositionController.cs" />
     <Compile Include="Controllers\LanguageController.cs" />
+    <Compile Include="Controllers\LicenseTypeController.cs" />
     <Compile Include="Controllers\PhoneNumberController.cs" />
     <Compile Include="Controllers\ProBonoController.cs" />
     <Compile Include="Controllers\ProfessionalLiabilityInsuranceController.cs" />
@@ -168,6 +169,10 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Dashboard.css" />
+    <Content Include="Content\Layout.css" />
+    <Content Include="Content\LicenseType.css" />
+    <Content Include="Content\TrustAccount.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -217,6 +222,9 @@
     <Content Include="Views\Shared\_FinancialResponsibility.cshtml" />
     <Content Include="Views\Shared\_BarNews.cshtml" />
     <Content Include="Views\Shared\_MembershipProducts.cshtml" />
+    <Content Include="Views\Shared\_DashboardLayout.cshtml" />
+    <Content Include="Views\LicenseType\EditLicenseType.cshtml" />
+    <Content Include="Views\TrustAccount\EditTrustAccount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -233,11 +241,11 @@
     <Folder Include="Views\Gender\" />
     <Folder Include="Views\JudicialPosition\" />
     <Folder Include="Views\Language\" />
+    <Folder Include="Views\License\" />
     <Folder Include="Views\PhoneNumber\" />
     <Folder Include="Views\ProBono\" />
     <Folder Include="Views\Sections\" />
     <Folder Include="Views\SexualOrientation\" />
-    <Folder Include="Views\TrustAccount\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

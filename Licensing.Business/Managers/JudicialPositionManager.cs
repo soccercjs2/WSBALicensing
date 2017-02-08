@@ -23,18 +23,14 @@ namespace Licensing.Business.Managers
             _judicialPositionWorker = new JudicialPositionWorker(context);
         }
 
-        public void Confirm(JudicialPosition professionalLiabilityInsurance)
+        public void Confirm(JudicialPosition judicialPosition)
         {
-            _judicialPositionWorker.Confirm(professionalLiabilityInsurance);
+            judicialPosition.Confirmed = true;
+            _context.SaveChanges();
         }
 
         public bool IsComplete(License license)
         {
-            if (license == null)
-            {
-                return false;
-            }
-
             return (license.JudicialPosition != null && license.JudicialPosition.Confirmed);
         }
 

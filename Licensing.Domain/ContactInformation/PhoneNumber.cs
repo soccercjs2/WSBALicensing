@@ -12,8 +12,9 @@ namespace Licensing.Domain.ContactInformation
         public int PhoneNumberId { get; set; }
         public int LicenseId { get; set; }
 
+        [ForeignKey("PhoneNumberTypeId")]
         public virtual PhoneNumberType PhoneNumberType { get; set; }
-        public int PhoneNumberTypeId { get; set; }
+        public int? PhoneNumberTypeId { get; set; }
 
         public int CountryCode { get; set; }
         public int AreaCode { get; set; }

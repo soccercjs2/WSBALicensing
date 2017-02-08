@@ -17,11 +17,5 @@ namespace Licensing.Data.Workers
         {
             _context = context;
         }
-
-        public void Confirm(ProfessionalLiabilityInsurance professionalLiabilityInsurance)
-        {
-            professionalLiabilityInsurance.Confirmed = true;
-            _context.SaveChanges();
-        }
     }
 }

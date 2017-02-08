@@ -24,16 +24,12 @@ namespace Licensing.Business.Managers
 
         public void OptOut(License license)
         {
-            _sexualOrientationWorker.OptOut(license);
+            license.SexualOrientationOptedOut = true;
+            _context.SaveChanges();
         }
 
         public bool IsComplete(License license)
         {
-            if (license == null)
-            {
-                return false;
-            }
-
             return license.SexualOrientationOptedOut;
         }
 

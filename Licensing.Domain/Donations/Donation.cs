@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace Licensing.Domain.Donations
 {
-    public class Donation : Preloadable
+    public class Donation
     {
         public int DonationId { get; set; }
         public int LicenseId { get; set; }
-        
+
+        [ForeignKey("DonationProductId")]
         public virtual DonationProduct Product { get; set; }
-        public int DonationProductId { get; set; }
+        public int? DonationProductId { get; set; }
     }
 }

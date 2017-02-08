@@ -17,11 +17,5 @@ namespace Licensing.Data.Workers
         {
             _context = context;
         }
-
-        public void OptOut(License license)
-        {
-            license.EthnicityOptedOut = true;
-            _context.SaveChanges();
-        }
     }
 }

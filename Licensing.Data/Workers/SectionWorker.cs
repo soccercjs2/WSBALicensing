@@ -17,32 +17,5 @@ namespace Licensing.Data.Workers
         {
             _context = context;
         }
-
-        public ICollection<Section> GetSections(License license)
-        {
-            if (license == null)
-            {
-                return null;
-            }
-
-            if (license.Sections == null)
-            {
-                return null;
-            }
-
-            ICollection<Section> sections = license.Sections;
-
-            if (sections.Count == 0) { return null; }
-            else { return sections; }
-        }
-
-        public void Confirm(License license)
-        {
-            if (license != null)
-            {
-                license.SectionsConfirmed = true;
-                _context.SaveChanges();
-            }
-        }
     }
 }

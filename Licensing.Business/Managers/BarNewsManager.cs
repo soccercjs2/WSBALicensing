@@ -23,18 +23,14 @@ namespace Licensing.Business.Managers
             _barNewsWorker = new BarNewsWorker(context);
         }
 
-        public void Confirm(BarNewsResponse trustAccount)
+        public void Confirm(BarNewsResponse barNews)
         {
-            _barNewsWorker.Confirm(trustAccount);
+            barNews.Confirmed = true;
+            _context.SaveChanges();
         }
 
         public bool IsComplete(License license)
         {
-            if (license == null)
-            {
-                return false;
-            }
-
             return (license.BarNewsResponse != null && license.BarNewsResponse.Confirmed);
         }
 

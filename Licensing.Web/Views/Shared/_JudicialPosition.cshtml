@@ -3,6 +3,13 @@
 @if (Model != null)
 {
     <div class="row padded">
-        @Model.Option.Name
+        <b>Position:</b> @Model.Option.Name
     </div>
+
+    if (Model.Citation != null)
+    {
+        <div class="row padded">
+            <b>Citation:</b> @Model.Citation
+        </div>
+    }
 }

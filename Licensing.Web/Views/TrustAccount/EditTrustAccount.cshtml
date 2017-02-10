@@ -4,7 +4,7 @@
     ViewBag.Title = "Edit Trust Account";
 }
 
-@using (Html.BeginForm("AddTrustAccountNumber", "TrustAccount", FormMethod.Post, new { asdf = Model }))
+@using (Html.BeginForm("AddTrustAccountNumber", "TrustAccount", FormMethod.Post))
 {
     <div class="row">
         @Html.HiddenFor(m => m.LicenseId)
@@ -40,10 +40,22 @@
             else
             {
                 <div>
-                    @Html.ActionLink("Yes", "Handles", "TrustAccount", new { id = Model.LicenseId }, new { @class = "btn btn-success" })
-                    @Html.ActionLink("No", "NotHandles", "TrustAccount", new { id = Model.LicenseId }, new { @class = "btn btn-default" })
+                    @Html.ActionLink("Yes", "Handles", "TrustAccount", new { id = Model.LicenseId }, new { @class = "btn btn-default" })
+                    @Html.ActionLink("No", "NotHandles", "TrustAccount", new { id = Model.LicenseId }, new { @class = "btn btn-danger" })
                 </div>
             }
+        </div>
+
+        <hr />
+
+        <div class="row">
+            All funds and property of WA clients, if any, and all WA trust accounts and records, if any, must be maintained in compliance with 
+            <a href="http://www.courts.wa.gov/court_rules/?fa=court_rules.display&group=ga&set=RPC&ruleid=garpc1.15a">RPC 1.15A</a> and
+            <a href="http://www.courts.wa.gov/court_rules/?fa=court_rules.display&group=ga&set=RPC&ruleid=garpc1.15b">RPC 1.15B</a>.<br /><br />
+
+            Learn more about filing 
+            <a href="http://www.wsba.org/Licensing-and-Lawyer-Conduct/Annual-License-Renewal/License-Renewal-FAQs/Trust-Account-Declaration">Trust Account</a> 
+            information.
         </div>
 
         @if (Model.TrustAccountId != null && Model.HandlesTrustAccount)
@@ -56,14 +68,20 @@
                 @Html.HiddenFor(m => m.PendingTrustAccountNumber.TrustAccountId)
                 @Html.HiddenFor(m => m.PendingTrustAccountNumber.TrustAccountNumberId)
                 
-                @Html.LabelFor(m => m.PendingTrustAccountNumber.Bank)
-                @Html.TextBoxFor(m => m.PendingTrustAccountNumber.Bank, new { @class = "form-control" })
+                <div class="row">
+                    @Html.LabelFor(m => m.PendingTrustAccountNumber.Bank)
+                    @Html.TextBoxFor(m => m.PendingTrustAccountNumber.Bank, new { @class = "form-control width-restricted" })
+                </div>
 
-                @Html.LabelFor(m => m.PendingTrustAccountNumber.Branch)
-                @Html.TextBoxFor(m => m.PendingTrustAccountNumber.Branch, new { @class = "form-control" })
+                <div class="row">
+                    @Html.LabelFor(m => m.PendingTrustAccountNumber.Branch)
+                    @Html.TextBoxFor(m => m.PendingTrustAccountNumber.Branch, new { @class = "form-control width-restricted" })
+                </div>
 
-                @Html.LabelFor(m => m.PendingTrustAccountNumber.AccountNumber)
-                @Html.TextBoxFor(m => m.PendingTrustAccountNumber.AccountNumber, new { @class = "form-control" })
+                <div class="row">
+                    @Html.LabelFor(m => m.PendingTrustAccountNumber.AccountNumber)
+                    @Html.TextBoxFor(m => m.PendingTrustAccountNumber.AccountNumber, new { @class = "form-control width-restricted" })
+                </div>
 
                 <div class="padded-top">
                     <input class="btn btn-success" type="submit" value="Add Account" />
@@ -80,7 +98,7 @@
                             <th>Bank</th>
                             <th>Branch</th>
                             <th>Account Number</th>
-                            <th></th>
+                            <td></td>
                         </tr>
                     </thead>
 
@@ -90,11 +108,17 @@
                             <td>@trustAccountNumber.Bank</td>
                             <td>@trustAccountNumber.Branch</td>
                             <td>@trustAccountNumber.AccountNumber</td>
-                            <td>delete</td>
+                            <td>@Html.ActionLink(" ", "DeleteTrustAccountNumber", "TrustAccount", new { id = trustAccountNumber.TrustAccountNumberId }, new { @class = "glyphicon glyphicon-remove delete-icon" })</td>
                         </tr>
                     }
                 </table>
             }
         }
+    </div>
+
+    <hr />
+
+    <div class="row">
+        @Html.ActionLink("Return to Dashboard", "Index", "Home", null, new { @class = "btn btn-primary" })
     </div>
 }

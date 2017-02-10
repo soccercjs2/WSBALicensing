@@ -1,0 +1,55 @@
+﻿@model Licensing.Business.ViewModels.JudicialPositionVM
+
+@{
+    ViewBag.Title = "Edit Judicial Position";
+}
+
+<h2>Judicial Position</h2>
+<h5>What is  your Judicial Position?</h5>
+
+<hr />
+
+<div class="row">
+    To qualify for Judicial membership, you must be one of the following:<br /><br />
+
+    <ul>
+        <li>A current judge, commissioner, or magistrate judge of the courts of record in the State of Washington, or the courts of the United States, including Bankruptcy courts</li>
+        <li>A current judge, commissioner, or magistrate in the district or municipal courts in the State of Washington, provided that such position requires the person to be a lawyer</li>
+        <li>A current senior status or recall judge in the Courts of the United States</li>
+        <li>
+            An administrative law judge, defined as either:
+            <ul>
+                <li>
+                    A current federal judge created under Article I of the United States Constitution, excluding Bankruptcy court judges,
+                    or created by the Code of Federal Regulations, who by virtue of their position are prohibited by the United States Code and/or the Code
+                    of Federal Regulations from practicing law; or
+                </li>
+                <li>A full-time Washington State administrative law judge in a position created by either the Revised Code of Washington or the Washington Administrative Code</li>
+            </ul>
+        </li>
+        <li>A current Tribal Court judge in the State of Washington.</li>
+    </ul>
+</div>
+
+@using (Html.BeginForm("Edit", "JudicialPosition", FormMethod.Post))
+{
+    <hr />
+    
+    <div class="row">
+        @Html.HiddenFor(m => m.LicenseId)
+
+        @foreach (var judicialPosition in Model.Options)
+        {
+            <div>
+                @Html.RadioButtonFor(m => m.SelectedOptionId, judicialPosition.JudicialPositionOptionId) @judicialPosition.Name
+            </div>
+        }
+    </div>
+
+    <hr />
+
+    <div class="row">
+        @Html.ActionLink("Cancel", "Index", "Home", null, new { @class = "btn btn-primary" })
+        <input class="btn btn-success" type="submit" value="Save" />
+    </div>
+}

@@ -63,6 +63,7 @@
     <Compile Include="Managers\JudicialPositionManager.cs" />
     <Compile Include="Managers\LanguageManager.cs" />
     <Compile Include="Managers\LicenseManager.cs" />
+    <Compile Include="Managers\LicensePeriodManager.cs" />
     <Compile Include="Managers\LicenseTypeManager.cs" />
     <Compile Include="Managers\MembershipProductManager.cs" />
     <Compile Include="Managers\PhoneNumberManager.cs" />
@@ -76,7 +77,13 @@
     <Compile Include="Tools\RouteContainer.cs" />
     <Compile Include="ViewModels\DashboardContainerVM.cs" />
     <Compile Include="ViewModels\DashboardVM.cs" />
+    <Compile Include="ViewModels\FinancialResponsibilityVM.cs" />
+    <Compile Include="ViewModels\JudicialCitationVM.cs" />
+    <Compile Include="ViewModels\JudicialPositionVM.cs" />
+    <Compile Include="ViewModels\LicenseTypeVM.cs" />
     <Compile Include="ViewModels\PhoneNumbersVM.cs" />
+    <Compile Include="ViewModels\ProBonoVM.cs" />
+    <Compile Include="ViewModels\ProfessionalLiabilityInsuranceVM.cs" />
     <Compile Include="ViewModels\TrustAccountVM.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,37 @@
+﻿@model Licensing.Business.ViewModels.FinancialResponsibilityVM
+
+@{
+    ViewBag.Title = "Edit Financial Responsibility";
+}
+
+<h2>Financial Responsibility</h2>
+<h5>Here is some instruction about financial responsibility...</h5>
+
+@using (Html.BeginForm("Edit", "FinancialResponsibility", FormMethod.Post))
+{
+    <div class="row">
+        @Html.HiddenFor(m => m.LicenseId)
+
+        <div>
+            @Html.LabelFor(m => m.Company)
+            @Html.TextBoxFor(m => m.Company, new { @class = "form-control width-restricted" })
+        </div>
+
+        <div>
+            @Html.LabelFor(m => m.PolicyNumber)
+            @Html.TextBoxFor(m => m.PolicyNumber, new { @class = "form-control width-restricted" })
+        </div>
+
+        <div>
+            @Html.LabelFor(m => m.PolicyNumber)
+            @Html.DropDownListFor(m => m.SelectedCoveredByOptionId, new SelectList(Model.Options, "CoveredByOptionId", "Name"), new { @class = "form-control width-restricted" })
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+        @Html.ActionLink("Cancel", "Index", "Home", null, new { @class = "btn btn-primary" })
+        <input class="btn btn-success" type="submit" value="Save" />
+    </div>
+}

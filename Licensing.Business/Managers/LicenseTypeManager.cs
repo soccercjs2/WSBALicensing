@@ -32,6 +32,12 @@ namespace Licensing.Business.Managers
             return _licenseTypeWorker.GetLicenseType("Inactive Attorney");
         }
 
+        public void ChangeLicenseType(License license, LicenseType licenseType)
+        {
+            license.LicenseType = licenseType;
+            _context.SaveChanges();
+        }
+
         public DashboardContainerVM GetDashboardContainerVM(License license)
         {
             RouteContainer editRoute = new RouteContainer("LicenseType", "Edit", license.LicenseId);

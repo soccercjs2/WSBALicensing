@@ -12,8 +12,8 @@ namespace Licensing.Domain.Licenses
         public int LicenseTypeProductId { get; set; }
         public int LicenseTypeId { get; set; }
 
-        [ForeignKey("LicensingProductId")]
-        public virtual LicensingProduct Product { get; set; }
-        public int? LicensingProductId { get; set; }
+        [ForeignKey("LicenseProductId")]
+        public virtual LicenseProduct Product { get; set; }
+        public int? LicenseProductId { get; set; }
     }
 }

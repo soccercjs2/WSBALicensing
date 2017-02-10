@@ -16,5 +16,15 @@ namespace Licensing.Data.Workers
         {
             _context = context;
         }
+
+        public ICollection<CoveredByOption> GetOptions()
+        {
+            return _context.CoveredByOptions.ToList();
+        }
+
+        public CoveredByOption GetOption(int id)
+        {
+            return _context.CoveredByOptions.Find(id);
+        }
     }
 }

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Licensing.Domain.Licenses
 {
-    public class LicensingProduct
+    public class LicenseProduct
     {
-        public int LicensingProductId { get; set; }
+        public int LicenseProductId { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
         public string AmsCode { get; set; }

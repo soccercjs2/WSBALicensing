@@ -21,5 +21,16 @@ namespace Licensing.Data.Workers
         {
             return _context.TrustAccounts.Find(id);
         }
+
+        public TrustAccountNumber GetTrustAccountNumber(int id)
+        {
+            return _context.TrustAccountNumbers.Find(id);
+        }
+
+        public void DeleteTrustAccountNumber(int trustAccountNumberId)
+        {
+            _context.TrustAccountNumbers.Remove(_context.TrustAccountNumbers.Find(trustAccountNumberId));
+            _context.SaveChanges();
+        }
     }
 }

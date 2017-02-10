@@ -225,6 +225,11 @@
     <Content Include="Views\Shared\_DashboardLayout.cshtml" />
     <Content Include="Views\LicenseType\EditLicenseType.cshtml" />
     <Content Include="Views\TrustAccount\EditTrustAccount.cshtml" />
+    <Content Include="Views\ProfessionalLiabilityInsurance\EditProfessionalLiabilityInsurance.cshtml" />
+    <Content Include="Views\JudicialPosition\EditJudicialPosition.cshtml" />
+    <Content Include="Views\JudicialPosition\EditJudicialCitation.cshtml" />
+    <Content Include="Views\FinancialResponsibility\EditFinancialResponsibility.cshtml" />
+    <Content Include="Views\ProBono\EditProBono.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -236,14 +241,12 @@
     <Folder Include="Views\Donation\" />
     <Folder Include="Views\Email\" />
     <Folder Include="Views\Ethnicity\" />
-    <Folder Include="Views\FinancialResponsibility\" />
     <Folder Include="Views\FirmSize\" />
     <Folder Include="Views\Gender\" />
-    <Folder Include="Views\JudicialPosition\" />
+    <Folder Include="Views\JudicialCitation\" />
     <Folder Include="Views\Language\" />
     <Folder Include="Views\License\" />
     <Folder Include="Views\PhoneNumber\" />
-    <Folder Include="Views\ProBono\" />
     <Folder Include="Views\Sections\" />
     <Folder Include="Views\SexualOrientation\" />
   </ItemGroup>

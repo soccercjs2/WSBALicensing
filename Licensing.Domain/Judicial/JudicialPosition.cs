@@ -14,5 +14,6 @@ namespace Licensing.Domain.Judicial
         [ForeignKey("JudicialPositionOptionId")]
         public virtual JudicialPositionOption Option { get; set; }
         public int? JudicialPositionOptionId { get; set; }
+        public string Citation { get; set; }
     }
 }

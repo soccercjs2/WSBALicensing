@@ -17,5 +17,15 @@ namespace Licensing.Data.Workers
         {
             _context = context;
         }
+
+        public ICollection<ProfessionalLiabilityInsuranceOption> GetOptions()
+        {
+            return _context.ProfessionalLiabilityInsuranceOptions.ToList();
+        }
+
+        public ProfessionalLiabilityInsuranceOption GetOption(int id)
+        {
+            return _context.ProfessionalLiabilityInsuranceOptions.Find(id);
+        }
     }
 }

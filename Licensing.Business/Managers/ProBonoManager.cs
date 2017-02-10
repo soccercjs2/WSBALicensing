@@ -23,6 +23,45 @@ namespace Licensing.Business.Managers
             _proBonoWorker = new ProBonoWorker(context);
         }
 
+        public void SetProvidesService(License license)
+        {
+            if (license.ProBono != null)
+            {
+                license.ProBono.ProvidesService = true;
+            }
+            else
+            {
+                license.ProBono = new ProBono();
+                license.ProBono.ProvidesService = true;
+            }
+
+            _context.SaveChanges();
+        }
+
+        public void SetNotProvidesService(License license)
+        {
+            if (license.ProBono != null)
+            {
+                license.ProBono.ProvidesService = false;
+            }
+            else
+            {
+                license.ProBono = new ProBono();
+                license.ProBono.ProvidesService = false;
+            }
+
+            _context.SaveChanges();
+        }
+
+        public void SetProBonoDetails(License license, decimal freeServiceHours, decimal limitedFeeServiceHours, bool anonymous)
+        {
+            license.ProBono.FreeServiceHours = freeServiceHours;
+            license.ProBono.LimitedFeeServiceHours = limitedFeeServiceHours;
+            license.ProBono.Anonymous = anonymous;
+
+            _context.SaveChanges();
+        }
+
         public bool IsComplete(License license)
         {
             return (license.ProBono != null);

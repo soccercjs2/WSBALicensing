@@ -90,6 +90,34 @@
     <Compile Include="Migrations\201702081839109_changing current lic type to lic type.Designer.cs">
       <DependentUpon>201702081839109_changing current lic type to lic type.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702091856129_Licensing to License.cs" />
+    <Compile Include="Migrations\201702091856129_Licensing to License.Designer.cs">
+      <DependentUpon>201702091856129_Licensing to License.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702091857167_step 1.cs" />
+    <Compile Include="Migrations\201702091857167_step 1.Designer.cs">
+      <DependentUpon>201702091857167_step 1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702091901202_step 2.cs" />
+    <Compile Include="Migrations\201702091901202_step 2.Designer.cs">
+      <DependentUpon>201702091901202_step 2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702091904077_step 3.cs" />
+    <Compile Include="Migrations\201702091904077_step 3.Designer.cs">
+      <DependentUpon>201702091904077_step 3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702102002225_adding judicial citation.cs" />
+    <Compile Include="Migrations\201702102002225_adding judicial citation.Designer.cs">
+      <DependentUpon>201702102002225_adding judicial citation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702102309234_removing nullables on probono.cs" />
+    <Compile Include="Migrations\201702102309234_removing nullables on probono.Designer.cs">
+      <DependentUpon>201702102309234_removing nullables on probono.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702102327596_removing nullables on probono 2.cs" />
+    <Compile Include="Migrations\201702102327596_removing nullables on probono 2.Designer.cs">
+      <DependentUpon>201702102327596_removing nullables on probono 2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Workers\BarNewsWorker.cs" />
     <Compile Include="Workers\DisabilityWorker.cs" />
     <Compile Include="Workers\EthnicityWorker.cs" />
@@ -133,6 +161,7 @@
     <Compile Include="Workers\GenderWorker.cs" />
     <Compile Include="Workers\JudicialPositionWorker.cs" />
     <Compile Include="Workers\LanguageWorker.cs" />
+    <Compile Include="Workers\LicensePeriodWorker.cs" />
     <Compile Include="Workers\LicenseTypeWorker.cs" />
     <Compile Include="Workers\LicenseWorker.cs" />
     <Compile Include="Workers\MembershipProductWorker.cs" />
@@ -206,6 +235,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702081839109_changing current lic type to lic type.resx">
       <DependentUpon>201702081839109_changing current lic type to lic type.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702091856129_Licensing to License.resx">
+      <DependentUpon>201702091856129_Licensing to License.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702091857167_step 1.resx">
+      <DependentUpon>201702091857167_step 1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702091901202_step 2.resx">
+      <DependentUpon>201702091901202_step 2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702091904077_step 3.resx">
+      <DependentUpon>201702091904077_step 3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702102002225_adding judicial citation.resx">
+      <DependentUpon>201702102002225_adding judicial citation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702102309234_removing nullables on probono.resx">
+      <DependentUpon>201702102309234_removing nullables on probono.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702102327596_removing nullables on probono 2.resx">
+      <DependentUpon>201702102327596_removing nullables on probono 2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

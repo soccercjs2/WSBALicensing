@@ -45,6 +45,14 @@
     width: 50%;
 }
 
+.width-restricted {
+    max-width: 280px;
+}
+
+.small-text-box {
+    width: 100px;
+}
+
 .margin-top {
     margin-top: 15px;
 }

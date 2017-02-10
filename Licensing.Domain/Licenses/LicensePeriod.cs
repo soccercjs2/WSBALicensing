@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Licensing.Domain.Licenses
 {
-    public class LicensingPeriod
+    public class LicensePeriod
     {
-        public int LicensingPeriodId { get; set; }
+        public int LicensePeriodId { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public DateTime LateFeeDate { get; set; }

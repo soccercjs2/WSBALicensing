@@ -1,4 +1,5 @@
 ﻿using Licensing.Business.Managers;
+using Licensing.Business.ViewModels;
 using Licensing.Data.Context;
 using Licensing.Domain.Licenses;
 using System;
@@ -26,35 +27,37 @@ namespace Licensing.Web.Controllers
             ViewBag.InactiveChecked = false;
             ViewBag.ResignChecked = false;
 
-            return View("EditLicenseType", license);
+            return View("EditLicenseType", new LicenseTypeVM(license));
         }
 
-        public ActionResult GoInactive(int id)
+        [HttpPost]
+        public ActionResult GoInactive(LicenseTypeVM licenseTypeVM)
         {
             LicenseManager licenseManager = new LicenseManager(_context);
-            License license = licenseManager.GetLicense(id);
+            License license = licenseManager.GetLicense(licenseTypeVM.LicenseId);
 
             LicenseTypeManager licenseTypeManager = new LicenseTypeManager(_context);
             LicenseType inactiveLicenseType = licenseTypeManager.GetInactiveType();
 
-            license.LicenseType = inactiveLicenseType;
-            _context.SaveChanges();
+            licenseTypeManager.ChangeLicenseType(license, inactiveLicenseType);
 
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult RevertLicenseTypeChange(int id)
+        [HttpPost]
+        public ActionResult RevertLicenseTypeChange(LicenseTypeVM licenseTypeVM)
         {
             LicenseManager licenseManager = new LicenseManager(_context);
-            License license = licenseManager.GetLicense(id);
+            License license = licenseManager.GetLicense(licenseTypeVM.LicenseId);
 
-            license.LicenseType = license.PreviousLicenseType;
-            _context.SaveChanges();
+            LicenseTypeManager licenseTypeManager = new LicenseTypeManager(_context);
+            licenseTypeManager.ChangeLicenseType(license, license.PreviousLicenseType);
 
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult Resign(int id)
+        [HttpPost]
+        public ActionResult Resign(LicenseTypeVM licenseTypeVM)
         {
             return RedirectToAction("Index", "Home");
         }

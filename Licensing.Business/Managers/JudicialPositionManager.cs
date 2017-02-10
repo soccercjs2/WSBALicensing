@@ -23,6 +23,54 @@ namespace Licensing.Business.Managers
             _judicialPositionWorker = new JudicialPositionWorker(context);
         }
 
+        public ICollection<JudicialPositionOption> GetOptions()
+        {
+            return _judicialPositionWorker.GetOptions();
+        }
+
+        public JudicialPositionOption GetOption(int id)
+        {
+            return _judicialPositionWorker.GetOption(id);
+        }
+
+        public void SetJudicialPositionOption(License license, int optionId)
+        {
+            SetJudicialPositionOption(license, optionId, null);
+        }
+
+        public void SetJudicialPositionOption(License license, int optionId, string citation)
+        {
+            JudicialPositionOption option = _judicialPositionWorker.GetOption(optionId);
+            license.JudicialPosition.Option = option;
+
+            if (option.CitationRequired)
+            {
+                license.JudicialPosition.Citation = citation;
+            }
+            else
+            {
+                license.JudicialPosition.Citation = null;
+            }
+
+            license.JudicialPosition.Confirmed = true;
+
+            _context.SaveChanges();
+        }
+
+        public void SetJudicialPositionOption(License license, JudicialPositionOption option)
+        {
+            license.JudicialPosition.Option = option;
+
+            if (!option.CitationRequired)
+            {
+                license.JudicialPosition.Citation = null;
+            }
+
+            license.JudicialPosition.Confirmed = true;
+
+            _context.SaveChanges();
+        }
+
         public void Confirm(JudicialPosition judicialPosition)
         {
             judicialPosition.Confirmed = true;

@@ -36,7 +36,6 @@ namespace Licensing.Business.ViewModels
         public DashboardContainerVM FirmSize { get; set; }
         public DashboardContainerVM Languages { get; set; }
 
-
         public DashboardContainerVM Ethnicity { get; set; }
         public DashboardContainerVM Gender { get; set; }
         public DashboardContainerVM Disability { get; set; }

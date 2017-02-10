@@ -28,6 +28,71 @@ namespace Licensing.Business.Managers
             return _trustAccountWorker.GetTrustAccount(id);
         }
 
+        public TrustAccount GetTrustAccountByTrustAccountNumber(int id)
+        {
+            TrustAccountNumber trustAccountNumber = _trustAccountWorker.GetTrustAccountNumber(id);
+            return _trustAccountWorker.GetTrustAccount(trustAccountNumber.TrustAccountId);
+        }
+
+        public TrustAccountNumber GetTrustAccountNumber(int id)
+        {
+            return _trustAccountWorker.GetTrustAccountNumber(id);
+        }
+
+        public void SetHandlesTrustAccount(License license)
+        {
+            if (license.TrustAccount != null)
+            {
+                license.TrustAccount.HandlesTrustAccount = true;
+            }
+            else
+            {
+                license.TrustAccount = new TrustAccount();
+                license.TrustAccount.HandlesTrustAccount = true;
+            }
+
+            if (license.TrustAccount.TrustAccountNumbers != null && license.TrustAccount.TrustAccountNumbers.Count > 0)
+            {
+                license.TrustAccount.Confirmed = true;
+            }
+
+            _context.SaveChanges();
+        }
+
+        public void SetDoesNotHandleTrustAccount(License license)
+        {
+            if (license.TrustAccount != null)
+            {
+                license.TrustAccount.HandlesTrustAccount = false;
+            }
+            else
+            {
+                license.TrustAccount = new TrustAccount();
+                license.TrustAccount.HandlesTrustAccount = false;
+            }
+
+            license.TrustAccount.Confirmed = true;
+
+            _context.SaveChanges();
+        }
+
+        public void AddTrustAccountNumber(License license, TrustAccountNumber trustAccountNumber)
+        {
+            //add trust account number
+            license.TrustAccount.TrustAccountNumbers.Add(trustAccountNumber);
+
+            //confirm trust account
+            Confirm(license.TrustAccount);
+
+            //save changes
+            _context.SaveChanges();
+        }
+
+        public void DeleteTrustAccountNumber(int trustAccountNumberId)
+        {
+            _trustAccountWorker.DeleteTrustAccountNumber(trustAccountNumberId);
+        }
+
         public void Confirm(TrustAccount trustAccount)
         {
             trustAccount.Confirmed = true;
@@ -36,7 +101,10 @@ namespace Licensing.Business.Managers
 
         public bool IsComplete(License license)
         {
-            return (license.TrustAccount != null && license.TrustAccount.Confirmed);
+            if (license.TrustAccount == null || !license.TrustAccount.Confirmed) { return false; }
+            if (license.TrustAccount.HandlesTrustAccount && (license.TrustAccount.TrustAccountNumbers == null || license.TrustAccount.TrustAccountNumbers.Count == 0)) { return false; }
+
+            return true;
         }
 
         public DashboardContainerVM GetDashboardContainerVM(License license)

@@ -23,6 +23,24 @@ namespace Licensing.Business.Managers
             _financialResponsibilityWorker = new FinancialResponsibilityWorker(context);
         }
 
+        public ICollection<CoveredByOption> GetOptions()
+        {
+            return _financialResponsibilityWorker.GetOptions();
+        }
+
+        public void SetFinancialResponsibility(License license, string company, string policyNumber, int coveredById)
+        {
+            CoveredByOption option = _financialResponsibilityWorker.GetOption(coveredById);
+
+            license.FinancialResponsibility = new FinancialResponsibility();
+            license.FinancialResponsibility.Company = company;
+            license.FinancialResponsibility.PolicyNumber = policyNumber;
+            license.FinancialResponsibility.CoveredByOption = option;
+            license.FinancialResponsibility.Confirmed = true;
+
+            _context.SaveChanges();
+        }
+
         public void Confirm(FinancialResponsibility financialResponsibility)
         {
             financialResponsibility.Confirmed = true;

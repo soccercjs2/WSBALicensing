@@ -1,15 +1,19 @@
-﻿/*.trust-account-number-form-container {
-    display: flex;
+﻿.delete-icon {
+    color: red !important;
 }
 
-.trust-account-number-attribute-container {
-    margin: 5px;
-    min-width: 280px;
+.delete-icon:link {
+    text-decoration: none;
 }
 
-.trust-account-number-button-container {
-    margin: 5px;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
-}*/
+.delete-icon:visited {
+    text-decoration: none;
+}
+
+.delete-icon:hover {
+    text-decoration: none;
+}
+
+.delete-icon:active {
+    text-decoration: none;
+}

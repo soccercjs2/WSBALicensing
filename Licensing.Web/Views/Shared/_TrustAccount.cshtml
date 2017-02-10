@@ -15,24 +15,28 @@
             }
         </div>
     </div>
-    <div class="row padded-small">
-        <table class="full-width standard-table">
-            <thead>
-                <tr>
-                    <th>Bank</th>
-                    <th>Branch</th>
-                    <th>Account Number</th>
-                </tr>
-            </thead>
 
-            @foreach (var trustAccountNumber in Model.TrustAccountNumbers)
-            {
-                <tr>
-                    <td>@trustAccountNumber.Bank</td>
-                    <td>@trustAccountNumber.Branch</td>
-                    <td>@trustAccountNumber.AccountNumber</td>
-                </tr>
-            }
-        </table>
-    </div>
+    if ((bool)Model.HandlesTrustAccount)
+    {
+        <div class="row padded-small">
+            <table class="full-width standard-table">
+                <thead>
+                    <tr>
+                        <th>Bank</th>
+                        <th>Branch</th>
+                        <th>Account Number</th>
+                    </tr>
+                </thead>
+
+                @foreach (var trustAccountNumber in Model.TrustAccountNumbers)
+                {
+                    <tr>
+                        <td>@trustAccountNumber.Bank</td>
+                        <td>@trustAccountNumber.Branch</td>
+                        <td>@trustAccountNumber.AccountNumber</td>
+                    </tr>
+                }
+            </table>
+        </div>
+    }
 }

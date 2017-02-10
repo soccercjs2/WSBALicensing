@@ -1,0 +1,26 @@
+﻿@model Licensing.Business.ViewModels.JudicialCitationVM
+
+@{
+    ViewBag.Title = "Edit Judicial Citation";
+}
+
+<h2>Judicial Citation</h2>
+<h5>Please provide the citation to the section of the USC, CFR, RCW, or WAC corresponding to your administrative law judge position.</h5>
+
+<hr />
+
+@using (Html.BeginForm("EditCitation", "JudicialPosition", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.LicenseId)
+    @Html.HiddenFor(m => m.SelectedJudicialPositionOptionId)
+
+    @Html.TextBoxFor(m => m.Citation, new { @class = "form-control" })
+
+    <hr />
+
+    <div class="row">
+        @Html.ActionLink("Cancel", "Index", "Home", null, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Back", "Edit", "JudicialPosition", new { Id = Model.LicenseId }, new { @class = "btn btn-primary" })
+        <input class="btn btn-success" type="submit" value="Save" />
+    </div>
+}

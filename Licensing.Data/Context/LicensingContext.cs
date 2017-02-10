@@ -25,6 +25,7 @@ using Licensing.Domain.Ethnicities;
 using Licensing.Domain.Genders;
 using Licensing.Domain.SexualOrientations;
 using Licensing.Domain.BarNews;
+using Licensing.Domain.Judicial;
 
 namespace Licensing.Data.Context
 {
@@ -65,13 +66,15 @@ namespace Licensing.Data.Context
         public DbSet<FirmSizeOption> FirmSizeOptions { get; set; }
         public DbSet<Gender> Genders { get; set; }
         public DbSet<GenderOption> GenderOptions { get; set; }
+        public DbSet<JudicialPosition> JudicialPositions { get; set; }
+        public DbSet<JudicialPositionOption> JudicialPositionOptions { get; set; }
         public DbSet<Language> Languages { get; set; }
         public DbSet<LanguageOption> LanguageOptions { get; set; }
         public DbSet<License> Licenses { get; set; }
         public DbSet<LicenseType> LicenseTypes { get; set; }
         public DbSet<LicenseTypeProduct> LicenseTypeProducts { get; set; }
-        public DbSet<LicensingPeriod> LicensingPeriods { get; set; }
-        public DbSet<LicensingProduct> LicensingProducts { get; set; }
+        public DbSet<LicensePeriod> LicensePeriods { get; set; }
+        public DbSet<LicenseProduct> LicenseProducts { get; set; }
         public DbSet<ProBono> ProBonos { get; set; }
         public DbSet<ProfessionalLiabilityInsurance> ProfessionalLiabilityInsurances { get; set; }
         public DbSet<ProfessionalLiabilityInsuranceOption> ProfessionalLiabilityInsuranceOptions { get; set; }

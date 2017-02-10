@@ -9,9 +9,9 @@ namespace Licensing.Domain.ProBonos
     public class ProBono
     {
         public int ProBonoId { get; set; }
-        public bool? ProvidesService { get; set; }
-        public decimal? FreeServiceHours { get; set; }
-        public decimal? LimitedFeeServiceHours { get; set; }
-        public bool? Anonymous { get; set; }
+        public bool ProvidesService { get; set; }
+        public decimal FreeServiceHours { get; set; }
+        public decimal LimitedFeeServiceHours { get; set; }
+        public bool Anonymous { get; set; }
     }
 }

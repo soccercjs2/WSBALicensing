@@ -42,17 +42,17 @@ namespace Licensing.Data.Migrations
         private void GenerateSeedData(Context.LicensingContext context)
         {
             //license intitializers
-            var licensingPeriods = new List<LicensingPeriod>
+            var licensingPeriods = new List<LicensePeriod>
             {
-                new LicensingPeriod { StartDate = new DateTime(2017, 10, 16), EndDate = new DateTime(2018, 5, 1), LateFeeDate = new DateTime(2018, 2, 1) },
-                new LicensingPeriod { StartDate = new DateTime(2018, 10, 16), EndDate = new DateTime(2019, 5, 1), LateFeeDate = new DateTime(2019, 2, 1) }
+                new LicensePeriod { StartDate = new DateTime(2017, 10, 16), EndDate = new DateTime(2018, 5, 1), LateFeeDate = new DateTime(2018, 2, 1) },
+                new LicensePeriod { StartDate = new DateTime(2018, 10, 16), EndDate = new DateTime(2019, 5, 1), LateFeeDate = new DateTime(2019, 2, 1) }
             };
 
-            var licensingProducts = new List<LicensingProduct>
+            var licensingProducts = new List<LicenseProduct>
             {
-                new LicensingProduct { Name = "Active Attorney Membership", Price = 385, AmsCode = "ACTIVE_ATTRNY" },
-                new LicensingProduct { Name = "Inactive Attorney Membership", Price = 200, AmsCode = "INACTIVE_ATTORNEY" },
-                new LicensingProduct { Name = "Lawyers Fund for Client Protection", Price = 30, AmsCode = "LFCP" }
+                new LicenseProduct { Name = "Active Attorney Membership", Price = 385, AmsCode = "ACTIVE_ATTRNY" },
+                new LicenseProduct { Name = "Inactive Attorney Membership", Price = 200, AmsCode = "INACTIVE_ATTORNEY" },
+                new LicenseProduct { Name = "Lawyers Fund for Client Protection", Price = 30, AmsCode = "LFCP" }
             };
 
             var licenseTypeProducts = new List<LicenseTypeProduct>
@@ -140,8 +140,14 @@ namespace Licensing.Data.Migrations
 
             var judicialPositionOptions = new List<JudicialPositionOption>
             {
+                new JudicialPositionOption { Name = "US Bankruptcy Court", AmsCode = "US_BANKRUPTCY_COURT" },
+                new JudicialPositionOption { Name = "US District Court", AmsCode = "US_DISTRICT_COURT" },
+                new JudicialPositionOption { Name = "US Supreme Court", AmsCode = "US_SUPREME_COURT" },
+                new JudicialPositionOption { Name = "WA Court of Appeals", AmsCode = "WA_COURT_OF_APPEALS" },
+                new JudicialPositionOption { Name = "WA Superior Court", AmsCode = "WA_SUPERIOR_COURT" },
+                new JudicialPositionOption { Name = "WA Supreme Court", AmsCode = "WA_SUPREME_COURT" },
                 new JudicialPositionOption { Name = "Tribal Law", AmsCode = "WA_TRIBAL_COURT" },
-                new JudicialPositionOption { Name = "United States Administrative Law", AmsCode = "US_ADMINISTRATIVE_LAW" }
+                new JudicialPositionOption { Name = "United States Administrative Law", CitationRequired = true, AmsCode = "US_ADMINISTRATIVE_LAW" }
             };
 
             var judicialPositions = new List<JudicialPosition>
@@ -334,7 +340,7 @@ namespace Licensing.Data.Migrations
             {
                 new License
                 {
-                    LicensingPeriod = licensingPeriods[0],
+                    LicensePeriod = licensingPeriods[0],
                     LicenseType = licenseTypes[0],
                     PreviousLicenseType = licenseTypes[0],
                     FinancialResponsibility = financialResponsibilities[0],
@@ -358,7 +364,7 @@ namespace Licensing.Data.Migrations
                 },
                 new License
                 {
-                    LicensingPeriod = licensingPeriods[1],
+                    LicensePeriod = licensingPeriods[1],
                     LicenseType = licenseTypes[0],
                     FinancialResponsibility = null,
                     JudicialPosition = null,
@@ -391,10 +397,12 @@ namespace Licensing.Data.Migrations
                 }
             };
 
-            licensingPeriods.ForEach(x => context.LicensingPeriods.Add(x));
-            licensingProducts.ForEach(x => context.LicensingProducts.Add(x));
+            licensingPeriods.ForEach(x => context.LicensePeriods.Add(x));
+            licensingProducts.ForEach(x => context.LicenseProducts.Add(x));
             licenseTypeProducts.ForEach(x => context.LicenseTypeProducts.Add(x));
             licenseTypes.ForEach(x => context.LicenseTypes.Add(x));
+            judicialPositionOptions.ForEach(x => context.JudicialPositionOptions.Add(x));
+            judicialPositions.ForEach(x => context.JudicialPositions.Add(x));
             coveredByOptions.ForEach(x => context.CoveredByOptions.Add(x));
             financialResponsibilities.ForEach(x => context.FinancialResponsibilities.Add(x));
             //proBono.ForEach(x => context.ProBonos.Add(x));

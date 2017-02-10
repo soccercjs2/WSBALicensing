@@ -30,9 +30,9 @@ namespace Licensing.Domain.Licenses
         public int CustomerId { get; set; }
 
         //license details
-        [ForeignKey("LicensingPeriodId")]
-        public virtual LicensingPeriod LicensingPeriod { get; set; }
-        public int? LicensingPeriodId { get; set; }
+        [ForeignKey("LicensePeriodId")]
+        public virtual LicensePeriod LicensePeriod { get; set; }
+        public int? LicensePeriodId { get; set; }
 
         [ForeignKey("LicenseTypeId")]
         public virtual LicenseType LicenseType { get; set; }

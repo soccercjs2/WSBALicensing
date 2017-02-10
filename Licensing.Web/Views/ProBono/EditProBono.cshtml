@@ -1,0 +1,97 @@
+﻿@model Licensing.Business.ViewModels.ProBonoVM
+
+@{
+    ViewBag.Title = "Edit Pro Bono";
+}
+
+<h2>Voluntary Reporting of <a href="http://www.courts.wa.gov/court_rules/?fa=court_rules.display&group=ga&set=RPC&ruleid=garpc6.1">Pro Bono Publico</a> Service Hours</h2>
+<h5>
+    In 2016, I provided the following hours of pro bono public service as defined in 
+    <a href="http://www.courts.wa.gov/court_rules/?fa=court_rules.rulesPDF&ruleId=garpc6.1&pdf=1">RPC 6.1</a>.
+</h5>
+<h5>
+    Learn about <a href="http://www.wsba.org/publicservice">pro bono service opportunities</a>.
+</h5>
+
+<div class="row padded-top">
+    @if (Model.ProBono == null)
+    {
+        <div>
+            @Html.ActionLink("Yes", "ProvidesService", "ProBono", new { id = Model.LicenseId }, new { @class = "btn btn-success" })
+            @Html.ActionLink("No", "NotProvidesService", "ProBono", new { id = Model.LicenseId }, new { @class = "btn btn-danger" })
+        </div>
+    }
+    else if (Model.ProBono.ProvidesService)
+    {
+        <div>
+            @Html.ActionLink("Yes", "ProvidesService", "ProBono", new { id = Model.LicenseId }, new { @class = "btn btn-success" })
+            @Html.ActionLink("No", "NotProvidesService", "ProBono", new { id = Model.LicenseId }, new { @class = "btn btn-default" })
+        </div>
+    }
+    else
+    {
+        <div>
+            @Html.ActionLink("Yes", "ProvidesService", "ProBono", new { id = Model.LicenseId }, new { @class = "btn btn-default" })
+            @Html.ActionLink("No", "NotProvidesService", "ProBono", new { id = Model.LicenseId }, new { @class = "btn btn-danger" })
+        </div>
+    }
+</div>
+
+<hr />
+
+@using (Html.BeginForm("Edit", "ProBono", FormMethod.Post))
+{
+    <div>
+        @if (Model.ProBono != null && Model.ProBono.ProvidesService)
+        {
+            @Html.HiddenFor(m => m.LicenseId)
+
+            <div class="row">
+                @Html.TextBoxFor(m => m.ProBono.FreeServiceHours, new { @class = "form-control width-restricted small-text-box inline" })
+
+                <div class="inline">
+                    Hours  of free legal services to persons of limited means and/or to organizations which address needs of persons of limited means
+                    <a href="http://www.courts.wa.gov/court_rules/?fa=court_rules.rulesPDF&ruleId=garpc6.1&pdf=1">(RPC 6.1(a))</a>. 
+                </div>
+            </div>
+
+            <div class="row padded-top">
+                @Html.TextBoxFor(m => m.ProBono.LimitedFeeServiceHours, new { @class = "form-control width-restricted small-text-box inline" }) 
+                
+                <div class="inline">
+                    Hours of other public service or reduced-fee services <a href="http://www.courts.wa.gov/court_rules/?fa=court_rules.rulesPDF&ruleId=garpc6.1&pdf=1">(RPC 6.1(b))</a>.
+                </div>
+            </div>
+
+            <hr />
+
+            <div class="row">
+                If you contributed 50 or more hours, you will receive commendation in NWLawyer and on the WSBA website unless you check this box:<br /><br />
+                @Html.CheckBoxFor(m => m.ProBono.Anonymous) I prefer to remain anonymous
+            </div>
+
+            <hr />
+
+            @*<div class="row">
+                @Html.ActionLink("Cancel", "Index", "Home", null, new { @class = "btn btn-primary" })
+                <input class="btn btn-success" type="submit" value="Save" />
+            </div>
+
+            <hr />*@
+        }
+    </div>
+
+    if (Model.ProBono != null && Model.ProBono.ProvidesService)
+    {
+        <div class="row">
+            @Html.ActionLink("Cancel", "Index", "Home", null, new { @class = "btn btn-primary" })
+            <input class="btn btn-success" type="submit" value="Save" />
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            @Html.ActionLink("Return to Dashboard", "Index", "Home", null, new { @class = "btn btn-primary" })
+        </div>
+    }
+}

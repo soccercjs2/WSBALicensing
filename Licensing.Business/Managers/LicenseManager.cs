@@ -27,18 +27,14 @@ namespace Licensing.Business.Managers
             return _licenseWorker.GetLicense(licenseId);
         }
 
-        public License GetCurrentLicense(Customer customer)
+        public License GetLicense(Customer customer, LicensePeriod licensePeriod)
         {
-            //get current license period
-            LicensingPeriod licensingPeriod = _context.LicensingPeriods.Where(lp => lp.EndDate == new DateTime(2018, 5, 1)).FirstOrDefault();
+            return _licenseWorker.GetLicense(customer, licensePeriod);
+        }
 
-            if (licensingPeriod == null)
-            {
-                return null;
-            }
-
-            //return license with specified customer and current licensing period
-            return _context.Licenses.Where(l => l.CustomerId == customer.CustomerId && l.LicensingPeriod.LicensingPeriodId == licensingPeriod.LicensingPeriodId).FirstOrDefault();
+        public License GetLicenseByTrustAccount(int trustAccountId)
+        {
+            return _licenseWorker.GetLicenseWithTrustAccount(trustAccountId);
         }
     }
 }

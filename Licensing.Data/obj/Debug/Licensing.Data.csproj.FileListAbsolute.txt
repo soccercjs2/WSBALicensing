@@ -42,3 +42,10 @@ C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.movingd
 C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.comeon.resources
 C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.Addingpreviouslicensetype.resources
 C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.changingcurrentlictypetolictype.resources
+C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.LicensingtoLicense.resources
+C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.step1.resources
+C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.step2.resources
+C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.step3.resources
+C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.addingjudicialcitation.resources
+C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.removingnullablesonprobono.resources
+C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.removingnullablesonprobono2.resources

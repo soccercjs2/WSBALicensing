@@ -35,6 +35,31 @@ namespace Licensing.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public ActionResult Handles(int id)
+        {
+            //get license
+            LicenseManager licenseManager = new LicenseManager(_context);
+            License license = licenseManager.GetLicense(id);
+
+            TrustAccountManager trustAccountManager = new TrustAccountManager(_context);
+            trustAccountManager.SetHandlesTrustAccount(license);
+
+            return RedirectToAction("Edit", "TrustAccount", new { Id = id });
+        }
+
+        public ActionResult NotHandles(int id)
+        {
+            //get license
+            LicenseManager licenseManager = new LicenseManager(_context);
+            License license = licenseManager.GetLicense(id);
+
+            TrustAccountManager trustAccountManager = new TrustAccountManager(_context);
+            trustAccountManager.SetDoesNotHandleTrustAccount(license);
+
+            //return updated partial view
+            return RedirectToAction("Index", "Home");
+        }
+
         public ActionResult Edit(int id)
         {
             LicenseManager licenseManager = new LicenseManager(_context);
@@ -51,17 +76,30 @@ namespace Licensing.Web.Controllers
                 //get license from view model
                 LicenseManager licenseManager = new LicenseManager(_context);
                 License license = licenseManager.GetLicense(trustAccountVM.LicenseId);
-                
-                //add new trust account number to trust account
-                license.TrustAccount.TrustAccountNumbers.Add(trustAccountVM.PendingTrustAccountNumber);
-                _context.SaveChanges();
 
-                return View("EditTrustAccount", new TrustAccountVM(license));
+                //add new trust account number to trust account
+                TrustAccountManager trustAccountManager = new TrustAccountManager(_context);
+                trustAccountManager.AddTrustAccountNumber(license, trustAccountVM.PendingTrustAccountNumber);
+
+                return RedirectToAction("Edit", "TrustAccount", new { Id = trustAccountVM.LicenseId });
             }
             else
             {
                 return View("EditTrustAccount", trustAccountVM);
             }
+        }
+
+        public ActionResult DeleteTrustAccountNumber(int id)
+        {
+            TrustAccountManager trustAccountManager = new TrustAccountManager(_context);
+            LicenseManager licenseManager = new LicenseManager(_context);
+
+            TrustAccount trustAccount = trustAccountManager.GetTrustAccountByTrustAccountNumber(id);
+            License license = licenseManager.GetLicenseByTrustAccount(trustAccount.TrustAccountId);
+
+            trustAccountManager.DeleteTrustAccountNumber(id);
+
+            return RedirectToAction("Edit", "TrustAccount", new { Id = license.LicenseId });
         }
     }
 }

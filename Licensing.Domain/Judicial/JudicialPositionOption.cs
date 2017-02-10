@@ -10,6 +10,7 @@ namespace Licensing.Domain.Judicial
     {
         public int JudicialPositionOptionId { get; set; }
         public string Name { get; set; }
+        public bool CitationRequired { get; set; }
         public string AmsCode { get; set; }
     }
 }

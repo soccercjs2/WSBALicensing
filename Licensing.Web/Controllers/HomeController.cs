@@ -27,6 +27,7 @@ namespace Licensing.Web.Controllers
             //create managers
             LicenseManager licenseManager = new LicenseManager(context);
             LicenseTypeManager licenseTypeManager = new LicenseTypeManager(context);
+            LicensePeriodManager licensePeriodManager = new LicensePeriodManager(context);
             JudicialPositionManager judicialPositionManager = new JudicialPositionManager(context);
             TrustAccountManager trustAccountManager = new TrustAccountManager(context);
             ProfessionalLiabilityInsuranceManager professionalLiabilityInsuranceManager = new ProfessionalLiabilityInsuranceManager(context);
@@ -49,7 +50,8 @@ namespace Licensing.Web.Controllers
             StatusManager statusManager = new StatusManager(context);
 
             //get license
-            License license = licenseManager.GetCurrentLicense(customer);
+            LicensePeriod licensePeriod = licensePeriodManager.GetCurrentLicensePeriod();
+            License license = licenseManager.GetLicense(customer, licensePeriod);
 
             //create view models
             PhoneNumbersVM phoneNumbersVM = new PhoneNumbersVM(

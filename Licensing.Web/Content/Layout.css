@@ -12,12 +12,11 @@
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
-input,
+/*input,
 select,
-textarea,
-a {
+textarea {
     max-width: 280px;
-}
+}*/
 
 /* Override row negative margins */
 .row
@@ -66,6 +65,7 @@ a {
 
 .wsba-subtitle {
     font-family: Arial;
+    white-space: nowrap;
 }
 
 .wsba-title-right {

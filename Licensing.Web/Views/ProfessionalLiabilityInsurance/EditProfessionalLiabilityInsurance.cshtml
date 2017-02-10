@@ -1,0 +1,31 @@
+﻿@model Licensing.Business.ViewModels.ProfessionalLiabilityInsuranceVM
+
+@{
+    ViewBag.Title = "Edit Professional Liability Insurance";
+}
+
+<h2>Professional Liability Insurance (<a href="http://www.courts.wa.gov/court_rules/?fa=court_rules.display&group=ga&set=APR&ruleid=gaapr26">APR 26</a>)</h2>
+<h5>Learn more about <a href="http://www.wsba.org/Licensing-and-Lawyer-Conduct/Annual-License-Renewal/License-Renewal-FAQs/Professional-Liability-Insurance">Professional Liability Insurance</a>.</h5>
+
+<hr />
+
+@using (Html.BeginForm("Edit", "ProfessionalLiabilityInsurance", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.LicenseId)
+    
+    <div>
+        @foreach (var option in Model.Options)
+        {
+            <div>
+                @Html.RadioButtonFor(m => m.SelectedOptionId, option.ProfessionalLiabilityInsuranceOptionId) @option.Description
+            </div>
+        }
+    </div>
+
+    <hr />
+
+    <div class="row">
+        @Html.ActionLink("Cancel", "Index", "Home", null, new { @class = "btn btn-primary" })
+        <input class="btn btn-success" type="submit" value="Save" />
+    </div>
+}

@@ -16,5 +16,15 @@ namespace Licensing.Data.Workers
         {
             _context = context;
         }
+
+        public ICollection<JudicialPositionOption> GetOptions()
+        {
+            return _context.JudicialPositionOptions.ToList();
+        }
+
+        public JudicialPositionOption GetOption(int id)
+        {
+            return _context.JudicialPositionOptions.Find(id);
+        }
     }
 }

@@ -23,9 +23,23 @@ namespace Licensing.Business.Managers
             _professionalLiabilityInsuranceWorker = new ProfessionalLiabilityInsuranceWorker(context);
         }
 
-        public void Confirm(ProfessionalLiabilityInsurance professionalLiabilityInsurance)
+        public ICollection<ProfessionalLiabilityInsuranceOption> GetOptions()
         {
-            professionalLiabilityInsurance.Confirmed = true;
+            return _professionalLiabilityInsuranceWorker.GetOptions();
+        }
+
+        public void SetProfessionalLiabilityInsuranceOption(License license, int optionId)
+        {
+            ProfessionalLiabilityInsuranceOption option = _professionalLiabilityInsuranceWorker.GetOption(optionId);
+            license.ProfessionalLiabilityInsurance.Option = option;
+            license.ProfessionalLiabilityInsurance.Confirmed = true;            
+
+            _context.SaveChanges();
+        }
+
+        public void Confirm(License license)
+        {
+            license.ProfessionalLiabilityInsurance.Confirmed = true;
             _context.SaveChanges();
         }
 

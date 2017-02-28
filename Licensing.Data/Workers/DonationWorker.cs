@@ -17,5 +17,15 @@ namespace Licensing.Data.Workers
         {
             _context = context;
         }
+
+        public ICollection<DonationProduct> GetDonationProducts()
+        {
+            return _context.DonationProducts.OrderBy(o => o.Name).ToList();
+        }
+
+        public DonationProduct GetDonationProduct(int id)
+        {
+            return _context.DonationProducts.Find(id);
+        }
     }
 }

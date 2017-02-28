@@ -4,6 +4,11 @@
     margin-left:auto;
 }
 
+.narrow-hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 .vertical-center {
     display: flex;
     align-items: center;
@@ -17,6 +22,10 @@
     border-top: 2px solid #ddd;
 }
 
+.border-bottom {
+    border-bottom: 2px solid #ddd;
+}
+
 .float-right {
     float: right;
 }
@@ -27,6 +36,10 @@
 
 .padded-top {
     padding-top: 5px !important;
+}
+
+.padded-sides {
+    padding: 0 5px;
 }
 
 .padded-small {

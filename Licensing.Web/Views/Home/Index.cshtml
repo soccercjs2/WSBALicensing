@@ -8,10 +8,8 @@
     Layout = "~/Views/Shared/_DashboardLayout.cshtml";
 }
 
-<h2>@Model.Name - #@Model.BarNumber</h2>
-
-<span class="status-container">
-    Licensing Status: 
+<div class="status-container">
+    @Model.Year Licensing Status: 
     @if (Model.LicensingStatus == LicensingStatus.Complete)
     {
         <span class="status green">Complete</span>
@@ -20,8 +18,14 @@
     {
         <span class="status red">Incomplete</span>
     }
-</span>
+</div>
 
+@if (Model.LicensingStatus != LicensingStatus.Complete)
+{
+    <div>
+        <a href="#">Why aren't I complete?</a>
+    </div>
+}
 @*<h6 class="required">[ * required ]</h6>*@
 
 <hr />
@@ -29,45 +33,48 @@
 <div class="row">
     <div class="col-lg-3 col-sm-6 dashboard-column">
         <span class="dashboard-column-title">License Information</span>
-        @if (Model.LicenseType.MembershipType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.MembershipType) }
-        @if (Model.LicenseType.JudicialPosition != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.JudicialPosition) }
-        @if (Model.LicenseType.TrustAccount != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.TrustAccount) }
-        @if (Model.LicenseType.ProfessionalLiabilityInsurance != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.ProfessionalLiabilityInsurance) }
-        @if (Model.LicenseType.FinancialResponsibility != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.FinancialResponsibility) }
-        @if (Model.LicenseType.ProBono != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.ProBono) }
+        @if (Model.MembershipType.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.MembershipType) }
+        @if (Model.JudicialPosition.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.JudicialPosition) }
+        @if (Model.PracticeAreas.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.PracticeAreas) }
+        @if (Model.TrustAccount.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.TrustAccount) }
+        @if (Model.ProfessionalLiabilityInsurance.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.ProfessionalLiabilityInsurance) }
+        @if (Model.FinancialResponsibility.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.FinancialResponsibility) }
+        @if (Model.ProBono.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.ProBono) }
     </div>
     <div class="col-lg-3 col-sm-6 dashboard-column">
         <span class="dashboard-column-title">Contact Information</span>
-        @if (Model.LicenseType.PrimaryAddress != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.PrimaryAddress) }
-        @if (Model.LicenseType.HomeAddress != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.HomeAddress) }
-        @if (Model.LicenseType.AgentOfServiceAddress != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.AgentOfServiceAddress) }
-        @if (Model.LicenseType.PrimaryEmail != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.Emails) }
-
-        @if (Model.LicenseType.PrimaryPhoneNumber != RequirementType.Excluded || Model.LicenseType.HomePhoneNumber != RequirementType.Excluded || Model.LicenseType.FaxPhoneNumber != RequirementType.Excluded)
-            { @Html.Partial("_DashboardContainer", @Model.PhoneNumbers) }
+        @if (Model.PrimaryAddress.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.PrimaryAddress) }
+        @if (Model.HomeAddress.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.HomeAddress) }
+        @if (Model.AgentOfServiceAddress.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.AgentOfServiceAddress) }
+        @if (Model.Emails.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.Emails) }
+        @if (Model.PhoneNumbers.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.PhoneNumbers) }
     </div>
     <div class="col-lg-3 col-sm-6 dashboard-column">
-        <span class="dashboard-column-title">Practice Information and Demographics</span>
-        @if (Model.LicenseType.AreasOfPractice != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.AreasOfPractice) }
-        @if (Model.LicenseType.FirmSize != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.FirmSize) }
-        @if (Model.LicenseType.Languages != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.Languages) }
-        @if (Model.LicenseType.Ethnicity != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.Ethnicity) }
-        @if (Model.LicenseType.Gender != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.Gender) }
-        @if (Model.LicenseType.Disability != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.Disability) }
-        @if (Model.LicenseType.SexualOrientation != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.SexualOrientation) }
+        <span class="dashboard-column-title">Practice Information</span>
+        @if (Model.AreasOfPractice.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.AreasOfPractice) }
+        @if (Model.FirmSize.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.FirmSize) }
+        @if (Model.Languages.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.Languages) }
+
+        <div class="demographics-section">
+            <span class="dashboard-column-title">Confidential Information</span>
+            @if (Model.Ethnicity.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.Ethnicity) }
+            @*@if (Model.Gender.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.Gender) }
+            @if (Model.Disability.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.Disability) }
+            @if (Model.SexualOrientation.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.SexualOrientation) }*@
+        </div>
     </div>
     <div class="col-lg-3 col-sm-6 dashboard-column">
         <span class="dashboard-column-title">Payment</span>
         @Html.Partial("_DashboardContainer", @Model.MembershipProducts)
-        @if (Model.LicenseType.Sections != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.Sections) }
-        @if (Model.LicenseType.Donations != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.Donations) }
-        @if (Model.LicenseType.BarNews != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.BarNews) }
-
+        @if (Model.Sections.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.Sections) }
+        @if (Model.Donations.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.Donations) }
+        @if (Model.BarNews.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.BarNews) }
+        
         <div class="row margin-top">
             <table class="full-width">
                 <tr>
                     <td class="half-width">
-                        <button type="button" class="btn btn-primary full-width">Save and Exit</button>
+                        <button type="button" class="btn btn-primary full-width">Save</button>
                     </td>
                     <td class="half-width">
                         <button type="button" class="btn btn-success full-width">Pay Now!</button>

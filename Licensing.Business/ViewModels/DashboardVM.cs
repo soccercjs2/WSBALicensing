@@ -10,15 +10,15 @@ namespace Licensing.Business.ViewModels
     public class DashboardVM
     {
         public LicenseType LicenseType { get; set; }
-        
+
         //customer info
-        public string Name { get; set; }
-        public string BarNumber { get; set; }
+        public int Year { get; set; }
         public LicensingStatus LicensingStatus { get; set; }
 
         //license information
         public DashboardContainerVM MembershipType { get; set; }
         public DashboardContainerVM JudicialPosition { get; set; }
+        public DashboardContainerVM PracticeAreas { get; set; }
         public DashboardContainerVM TrustAccount { get; set; }
         public DashboardContainerVM ProfessionalLiabilityInsurance { get; set; }
         public DashboardContainerVM FinancialResponsibility { get; set; }

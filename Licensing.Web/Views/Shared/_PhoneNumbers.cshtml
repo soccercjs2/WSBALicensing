@@ -1,48 +1,112 @@
-﻿@model Licensing.Business.ViewModels.PhoneNumbersVM
+﻿@using Licensing.Domain.Enums;
+
+@model Licensing.Business.ViewModels.PhoneNumbersVM
+
+@Html.HiddenFor(m => m.LicenseId)
 
 <div class="row">
-    <div class="row padded">
-        <div>
-            <div class="inline bold">Primary:</div>
-            <div class="inline float-right">
-                @Html.ActionLink("Edit", "Edit", "PhoneNumber", new { id = Model.PrimaryPhoneNumber.PhoneNumberId }, new { @class = "btn btn-primary btn-xs" })
+    @if (Model.PrimaryPhoneNumberRequirementType != RequirementType.Excluded)
+    {
+        <div class="row padded">
+            <div>
+                <div class="inline bold">Primary:</div>
+                <div class="inline float-right">
+                    @if (Model.PrimaryPhoneNumber != null)
+                    {
+                        @Html.ActionLink("Edit", "Edit", "PhoneNumber", new { id = Model.PrimaryPhoneNumber.PhoneNumberId }, new { @class = "btn btn-primary btn-xs" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Edit", "CreatePrimary", "PhoneNumber", new { id = Model.LicenseId }, new { @class = "btn btn-primary btn-xs" })
+                    }
 
-                @if (Model.PrimaryPhoneNumber != null && !Model.PrimaryPhoneNumber.Confirmed)
+                    @if (Model.PrimaryPhoneNumberRequirementType == RequirementType.Required && Model.PrimaryPhoneNumber != null && !Model.PrimaryPhoneNumber.Confirmed)
+                    {
+                        @Html.ActionLink("Confirm", "Confirm", "PhoneNumber", new { id = Model.PrimaryPhoneNumber.PhoneNumberId }, new { @class = "btn btn-success btn-xs" })
+                    }
+                </div>
+            </div>
+            <div class="row">
+                @if (Model.PrimaryPhoneNumber != null)
                 {
-                    @Html.ActionLink("Confirm", "Confirm", "PhoneNumber", new { id = Model.PrimaryPhoneNumber.PhoneNumberId }, new { @class = "btn btn-success btn-xs" })
+                    <span>@Model.PrimaryPhoneNumber.Number</span>
+
+                    if (Model.PrimaryPhoneNumber.Extension != null)
+                    {
+                        <span>EXT @Model.PrimaryPhoneNumber.Extension</span>
+                    }
                 }
             </div>
         </div>
-        <div class="row">@Model.GetFormattedPhoneNumber(Model.PrimaryPhoneNumber)</div>
-    </div>
+    }
 
-    <div class="row padded alternate-row">
-        <div>
-            <div class="inline bold">Home:</div>
-            <div class="inline float-right">
-                @Html.ActionLink("Edit", "Edit", "PhoneNumber", new { id = Model.HomePhoneNumber.PhoneNumberId }, new { @class = "btn btn-primary btn-xs" })
+    @if (Model.HomePhoneNumberRequirementType != RequirementType.Excluded)
+    {
+        <div class="row padded alternate-row">
+            <div>
+                <div class="inline bold">Home:</div>
+                <div class="inline float-right">
+                    @if (Model.HomePhoneNumber != null)
+                    {
+                        @Html.ActionLink("Edit", "Edit", "PhoneNumber", new { id = Model.HomePhoneNumber.PhoneNumberId }, new { @class = "btn btn-primary btn-xs" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Edit", "CreateHome", "PhoneNumber", new { id = Model.LicenseId }, new { @class = "btn btn-primary btn-xs" })
+                    }
 
-                @if (Model.HomePhoneNumber != null && !Model.HomePhoneNumber.Confirmed)
+                    @if (Model.HomePhoneNumberRequirementType == RequirementType.Required && Model.HomePhoneNumber != null && !Model.HomePhoneNumber.Confirmed)
+                    {
+                        @Html.ActionLink("Confirm", "Confirm", "PhoneNumber", new { id = Model.HomePhoneNumber.PhoneNumberId }, new { @class = "btn btn-success btn-xs" })
+                    }
+                </div>
+            </div>
+            <div class="row">
+                @if (Model.HomePhoneNumber != null)
                 {
-                    @Html.ActionLink("Confirm", "Confirm", "PhoneNumber", new { id = Model.HomePhoneNumber.PhoneNumberId }, new { @class = "btn btn-success btn-xs" })
+                    <span>@Model.HomePhoneNumber.Number</span>
+
+                    if (Model.HomePhoneNumber.Extension != null)
+                    {
+                        <span>EXT @Model.HomePhoneNumber.Extension</span>
+                    }
                 }
             </div>
         </div>
-        <div class="row">@Model.GetFormattedPhoneNumber(Model.HomePhoneNumber)</div>
-    </div>
+    }
 
-    <div class="row padded">
-        <div>
-            <div class="inline bold">Fax:</div>
-            <div class="inline float-right">
-                @Html.ActionLink("Edit", "Edit", "PhoneNumber", new { id = Model.FaxPhoneNumber.PhoneNumberId }, new { @class = "btn btn-primary btn-xs" })
+    @if (Model.FaxPhoneNumberRequirementType != RequirementType.Excluded)
+    {
+        <div class="row padded">
+            <div>
+                <div class="inline bold">Fax:</div>
+                <div class="inline float-right">
+                    @if (Model.FaxPhoneNumber != null)
+                    {
+                        @Html.ActionLink("Edit", "Edit", "PhoneNumber", new { id = Model.FaxPhoneNumber.PhoneNumberId }, new { @class = "btn btn-primary btn-xs" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Edit", "CreateFax", "PhoneNumber", new { id = Model.LicenseId }, new { @class = "btn btn-primary btn-xs" })
+                    }
 
-                @if (Model.FaxPhoneNumber != null && !Model.FaxPhoneNumber.Confirmed)
+                    @if (Model.FaxPhoneNumberRequirementType == RequirementType.Required && Model.FaxPhoneNumber != null && !Model.FaxPhoneNumber.Confirmed)
+                    {
+                        @Html.ActionLink("Confirm", "Confirm", "PhoneNumber", new { id = Model.FaxPhoneNumber.PhoneNumberId }, new { @class = "btn btn-success btn-xs" })
+                    }
+                </div>
+            </div>
+            <div class="row">
+                @if (Model.FaxPhoneNumber != null)
                 {
-                    @Html.ActionLink("Confirm", "Confirm", "PhoneNumber", new { id = Model.FaxPhoneNumber.PhoneNumberId }, new { @class = "btn btn-success btn-xs" })
+                    <span>@Model.FaxPhoneNumber.Number</span>
+
+                    if (Model.FaxPhoneNumber.Extension != null)
+                    {
+                        <span>EXT @Model.FaxPhoneNumber.Extension</span>
+                    }
                 }
             </div>
         </div>
-        <div class="row">@Model.GetFormattedPhoneNumber(Model.FaxPhoneNumber)</div>
-    </div>
+    }
 </div>

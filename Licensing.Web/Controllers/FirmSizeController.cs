@@ -1,5 +1,7 @@
 ﻿using Licensing.Business.Managers;
+using Licensing.Business.ViewModels;
 using Licensing.Data.Context;
+using Licensing.Domain.FirmSizes;
 using Licensing.Domain.Licenses;
 using System;
 using System.Collections.Generic;
@@ -31,6 +33,39 @@ namespace Licensing.Web.Controllers
 
             //return updated partial view
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            //get license who's PLI to edit
+            LicenseManager licenseManager = new LicenseManager(_context);
+            License license = licenseManager.GetLicense(id);
+
+            FirmSizeManager firmSizeManager = new FirmSizeManager(_context);
+            ICollection<FirmSizeOption> options = firmSizeManager.GetOptions();
+
+            return View("EditFirmSize", new FirmSizeVM(license, options));
+        }
+
+        [HttpPost]
+        public ActionResult Edit(FirmSizeVM firmSizeVM)
+        {
+            if (ModelState.IsValid)
+            {
+                //get license from view model
+                LicenseManager licenseManager = new LicenseManager(_context);
+                License license = licenseManager.GetLicense(firmSizeVM.LicenseId);
+
+                FirmSizeManager firmSizeManager = new FirmSizeManager(_context);
+                firmSizeManager.SetProfessionalLiabilityInsuranceOption(license, firmSizeVM.SelectedOptionId);
+
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View("EditFirmSize", firmSizeVM);
+            }
         }
     }
 }

@@ -59,6 +59,11 @@ namespace Licensing.Business.Managers
 
         public void SetJudicialPositionOption(License license, JudicialPositionOption option)
         {
+            if (license.JudicialPosition == null)
+            {
+                license.JudicialPosition = new JudicialPosition();
+            }
+
             license.JudicialPosition.Option = option;
 
             if (!option.CitationRequired)
@@ -94,6 +99,7 @@ namespace Licensing.Business.Managers
                 editRoute,
                 confirmRoute,
                 null,
+                false,
                 "_JudicialPosition",
                 license.JudicialPosition
             );

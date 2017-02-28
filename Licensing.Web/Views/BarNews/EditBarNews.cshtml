@@ -1,0 +1,30 @@
+﻿@model Licensing.Business.ViewModels.BarNewsVM
+
+@{
+    ViewBag.Title = "Edit Bar News";
+}
+
+<h2>Bar News</h2>
+
+<hr />
+
+@using (Html.BeginForm("Edit", "BarNews", FormMethod.Post))
+{
+    <div>
+        @Html.HiddenFor(m => m.LicenseId)
+
+        <div>
+            @Html.RadioButtonFor(m => m.Response, true) I <b>would like</b> a complimentary subscription to the Bar News Magazine
+        </div>
+        <div>
+            @Html.RadioButtonFor(m => m.Response, false) I <b>do not want</b> a complimentary subscription to the Bar News Magazine
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+        @Html.ActionLink("Cancel", "Index", "Home", null, new { @class = "btn btn-primary" })
+        <input class="btn btn-success" type="submit" value="Save" />
+    </div>
+}

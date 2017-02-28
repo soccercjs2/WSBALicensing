@@ -1,0 +1,47 @@
+﻿@model Licensing.Business.ViewModels.PhoneNumberVM
+
+@{
+    ViewBag.Title = "Edit Phone Number";
+}
+
+<h2>@Model.PhoneNumber.PhoneNumberType.Name Phone Number</h2>
+
+<h5>
+    <a href="http://www.courts.wa.gov/court_rules/?fa=court_rules.display&group=ga&set=APR&ruleid=gaapr13" target="_blank">APR 13</a> requires you to
+    maintain updated contact information, including an email address and public phone number.
+</h5>
+<h5><a href="http://localhost/eBusPersonifyDEV/ContactRestrictions.aspx" target="_blank">Edit Contact Restrictions</a></h5>
+
+<hr />
+
+@using (Html.BeginForm("Edit", "PhoneNumber", FormMethod.Post))
+{
+    <div>
+        @Html.HiddenFor(m => m.PhoneNumber.PhoneNumberId)
+        @Html.HiddenFor(m => m.PhoneNumber.LicenseId)
+        @Html.HiddenFor(m => m.PhoneNumber.PhoneNumberTypeId)
+        @Html.HiddenFor(m => m.PhoneNumber.PhoneNumberType.PhoneNumberTypeId)
+        @Html.HiddenFor(m => m.PhoneNumber.PhoneNumberType.Name)
+        @Html.HiddenFor(m => m.PhoneNumber.PhoneNumberType.AmsCode)
+
+        <div class="inline">
+            @Html.LabelFor(m => m.PhoneNumber.CountryCode)
+            @Html.TextBoxFor(m => m.PhoneNumber.CountryCode, new { @class = "form-control width-restricted small-text-box" })
+        </div>
+        <div class="inline">
+            @Html.LabelFor(m => m.PhoneNumber.Number)
+            @Html.TextBoxFor(m => m.PhoneNumber.Number, new { @class = "form-control width-restricted" })
+        </div>
+        <div class="inline">
+            @Html.LabelFor(m => m.PhoneNumber.Extension)
+            @Html.TextBoxFor(m => m.PhoneNumber.Extension, new { @class = "form-control width-restricted small-text-box" })
+        </div>
+    </div>
+
+    <hr />
+    
+    <div class="row">
+        @Html.ActionLink("Cancel", "Index", "Home", null, new { @class = "btn btn-primary" })
+        <input class="btn btn-success" type="submit" value="Save" />
+    </div>
+}

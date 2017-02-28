@@ -23,6 +23,25 @@ namespace Licensing.Business.Managers
             _ethnicityWorker = new EthnicityWorker(context);
         }
 
+        public ICollection<EthnicityOption> GetOptions()
+        {
+            return _ethnicityWorker.GetOptions();
+        }
+
+        public void SetEthnicityOption(License license, int optionId)
+        {
+            EthnicityOption option = _ethnicityWorker.GetOption(optionId);
+
+            if (license.Ethnicity == null)
+            {
+                license.Ethnicity = new Ethnicity();
+            }
+
+            license.Ethnicity.Option = option;
+
+            _context.SaveChanges();
+        }
+
         public void OptOut(License license)
         {
             license.EthnicityOptedOut = true;
@@ -31,7 +50,7 @@ namespace Licensing.Business.Managers
 
         public bool IsComplete(License license)
         {
-            return license.EthnicityOptedOut;
+            return license.EthnicityOptedOut || license.Ethnicity != null;
         }
 
         public DashboardContainerVM GetDashboardContainerVM(License license)
@@ -40,12 +59,13 @@ namespace Licensing.Business.Managers
             RouteContainer optOutRoute = new RouteContainer("Ethnicity", "OptOut", license.LicenseId);
 
             return new DashboardContainerVM(
-                "Ethnicity/Race",
+                "Demographics",
                 license.LicenseType.Ethnicity,
                 IsComplete(license),
                 editRoute,
                 null,
                 optOutRoute,
+                false,
                 null,
                 null
             );

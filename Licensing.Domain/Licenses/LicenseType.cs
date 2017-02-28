@@ -19,6 +19,7 @@ namespace Licensing.Domain.Licenses
         //licensing information
         public RequirementType MembershipType { get; set; }
         public RequirementType JudicialPosition { get; set; }
+        public RequirementType PracticeAreas { get; set; }
         public RequirementType TrustAccount { get; set; }
         public RequirementType ProfessionalLiabilityInsurance { get; set; }
         public RequirementType FinancialResponsibility { get; set; }

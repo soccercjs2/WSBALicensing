@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -16,9 +17,10 @@ namespace Licensing.Domain.ContactInformation
         public virtual PhoneNumberType PhoneNumberType { get; set; }
         public int? PhoneNumberTypeId { get; set; }
 
+        [Display(Name = "Country")]
         public int CountryCode { get; set; }
-        public int AreaCode { get; set; }
-        public int ExchangeCode { get; set; }
-        public int LineNumber { get; set; }
+        [Display(Name = "Phone Number")]
+        public string Number { get; set; }
+        public string Extension { get; set; }
     }
 }

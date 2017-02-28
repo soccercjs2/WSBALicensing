@@ -15,7 +15,7 @@ namespace Licensing.Domain.TrustAccounts
         public string Bank { get; set; }
         public string Branch { get; set; }
 
-        [Display(Name = "Account Number")]
+        [Display(Name = "IOLTA Account Number")]
         public string AccountNumber { get; set; }
     }
 }

@@ -29,10 +29,15 @@ namespace Licensing.Business.Managers
             return _addressWorker.GetAddress(addressId);
         }
 
+        public AddressType GetAddressType(string addressType)
+        {
+            return _addressWorker.GetAddressType(addressType);
+        }
+
         public Address GetPrimaryAddress(License license)
         {
             //get primary address type
-            AddressType primaryAddressType = _context.AddressTypes.Where(at => at.Name == "Primary").FirstOrDefault();
+            AddressType primaryAddressType = _addressWorker.GetAddressType("Primary");
 
             //return address
             return license.Addresses.Where(a => a.AddressTypeId == primaryAddressType.AddressTypeId).FirstOrDefault();
@@ -41,7 +46,7 @@ namespace Licensing.Business.Managers
         public Address GetHomeAddress(License license)
         {
             //get home address type
-            AddressType homeAddressType = _context.AddressTypes.Where(at => at.Name == "Home").FirstOrDefault();
+            AddressType homeAddressType = _addressWorker.GetAddressType("Home");
 
             //return address
             return license.Addresses.Where(a => a.AddressTypeId == homeAddressType.AddressTypeId).FirstOrDefault();
@@ -50,10 +55,16 @@ namespace Licensing.Business.Managers
         public Address GetAgentOfServiceAddress(License license)
         {
             //get agent of service address
-            AddressType agentOfServiceAddressType = _context.AddressTypes.Where(at => at.Name == "Agent Of Service").FirstOrDefault();
+            AddressType agentOfServiceAddressType = _addressWorker.GetAddressType("Agent Of Service");
 
             //return address
             return license.Addresses.Where(a => a.AddressTypeId == agentOfServiceAddressType.AddressTypeId).FirstOrDefault();
+        }
+
+        public void SetAddress(Address address)
+        {
+            address.Confirmed = true;
+            _addressWorker.SetAddress(address);
         }
 
         public void Confirm(Address address)
@@ -67,21 +78,35 @@ namespace Licensing.Business.Managers
             return (address != null && address.Confirmed);
         }
 
-        public DashboardContainerVM GetDashboardContainerVM(Address address)
+        public bool AgentOfServiceAddressRequired(License license)
         {
-            RouteContainer editRoute = new RouteContainer("Address", "Edit", address.AddressId);
-            RouteContainer confirmRoute = new RouteContainer("Address", "Confirm", address.AddressId);
+            Address primaryAddress = GetPrimaryAddress(license);
+            Address homeAddress = GetHomeAddress(license);
 
-            LicenseManager licenseManager = new LicenseManager(_context);
-            License license = licenseManager.GetLicense(address.LicenseId);
+            if (primaryAddress != null && primaryAddress.State == "WA") { return false; }
+            if (homeAddress != null && homeAddress.State == "WA") { return false; }
 
+            return true;
+        }
+
+        public DashboardContainerVM GetDashboardContainerVM(License license, string addressType)
+        {
+            Address address = null;
             RequirementType requirementType = RequirementType.Excluded;
 
-            if (address.AddressType.Name == "Primary") { requirementType = license.LicenseType.PrimaryAddress; }
-            if (address.AddressType.Name == "Home") { requirementType = license.LicenseType.HomeAddress; }
-
-            if (address.AddressType.Name == "Agent of Service")
+            if (addressType == "Primary")
             {
+                address = GetPrimaryAddress(license);
+                requirementType = license.LicenseType.PrimaryAddress;
+            }
+            else if (addressType == "Home")
+            {
+                address = GetHomeAddress(license);
+                requirementType = license.LicenseType.HomeAddress;
+            }
+            else if (addressType == "Agent of Service")
+            {
+                address = GetAgentOfServiceAddress(license);
                 if (license.LicenseType.AgentOfServiceAddress == RequirementType.Required && !AgentOfServiceAddressRequired(license))
                 {
                     requirementType = RequirementType.Excluded;
@@ -92,27 +117,36 @@ namespace Licensing.Business.Managers
                 }
             }
 
+            RouteContainer editRoute = null;
+            RouteContainer confirmRoute = null;
+
+            if (address != null)
+            {
+                editRoute = new RouteContainer("Address", "Edit", address.AddressId);
+
+                if (license.LicenseType.Name == "Judicial")
+                {
+                    confirmRoute = new RouteContainer("Address", "Confirm", address.AddressId);
+                }
+            }
+            else
+            {
+                if (addressType == "Primary") { editRoute = new RouteContainer("Address", "CreatePrimary", license.LicenseId); }
+                else if (addressType == "Home") { editRoute = new RouteContainer("Address", "CreateHome", license.LicenseId); }
+                else if (addressType == "Agent of Service") { editRoute = new RouteContainer("Address", "CreateAgentOfService", license.LicenseId); }
+            }
+
             return new DashboardContainerVM(
-                address.AddressType.Name,
+                addressType + " Address",
                 requirementType,
                 IsComplete(address),
                 editRoute,
                 confirmRoute,
                 null,
+                false,
                 "_Address",
                 address
             );
-        }
-
-        public bool AgentOfServiceAddressRequired(License license)
-        {
-            Address primaryAddress = GetPrimaryAddress(license);
-            Address homeAddress = GetHomeAddress(license);
-
-            if (primaryAddress != null && primaryAddress.State == "WA") { return false; }
-            if (homeAddress != null && homeAddress.State == "WA") { return false; }
-
-            return true;
         }
     }
 }

@@ -29,6 +29,35 @@ namespace Licensing.Business.Managers
             else { return license.Donations; }
         }
 
+        public Donation GetDonation(License license, int donationProductId)
+        {
+            if (license.Donations != null)
+            {
+                return license.Donations.Where(d => d.Product.DonationProductId == donationProductId).FirstOrDefault();
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public ICollection<DonationProduct> GetDonationProducts()
+        {
+            return _donationWorker.GetDonationProducts();
+        }
+
+        public DonationProduct GetDonationProduct(int id)
+        {
+            return _donationWorker.GetDonationProduct(id);
+        }
+
+        public void SetDonationAmount(License license, int donationProductId, decimal amount)
+        {
+            Donation donation = GetDonation(license, donationProductId);
+            donation.Amount = amount;
+            _context.SaveChanges();
+        }
+
         public void Confirm(License license)
         {
             license.DonationsConfirmed = true;
@@ -52,6 +81,7 @@ namespace Licensing.Business.Managers
                 editRoute,
                 confirmRoute,
                 null,
+                true,
                 "_Donations",
                 GetDonations(license)
             );

@@ -1,0 +1,92 @@
+﻿@model Licensing.Business.ViewModels.AddressVM
+
+@{
+    ViewBag.Title = "Edit Address";
+}
+
+@using (Html.BeginForm("Edit", "Address", FormMethod.Post))
+{
+    <h2>@Model.Address.AddressType.Name Address</h2>
+
+    if (Model.Address.AddressType.Name == "Home")
+    {
+        <div>
+            Your home address is used to determine district for Board of Governors elections.
+            Only Active Attorney members are eligible to vote.<br />
+
+            Your Board of Governors district is: @Model.Address.CongressionalDistrict
+        </div>
+    }
+    else if (Model.Address.AddressType.Name == "Primary")
+    {
+        <div>
+            The address that you provide as the Public/Mailing Address will be made public. It will be published in the WSBA Online Lawyer Directory.
+        </div>
+    }
+
+    <h5>
+        <a href="http://www.courts.wa.gov/court_rules/?fa=court_rules.display&group=ga&set=APR&ruleid=gaapr13" target="_blank">APR 13</a> requires you to
+        maintain updated contact information, including an email address and public phone number.
+    </h5>
+    <h5><a href="http://localhost/eBusPersonifyDEV/ContactRestrictions.aspx" target="_blank">Edit Contact Restrictions</a></h5>
+
+    if (Model.Address.AddressType.Name == "Agent of Service")
+    {
+        <div>
+            <a href="http://www.courts.wa.gov/court_rules/?fa=court_rules.display&group=ga&set=APR&ruleid=gaapr05" target="_blank">APR 5(f)</a> 
+            requires members of the Bar Association, who do not live or maintain an office in the state of Washington, to file with the Bar 
+            Association a Washington address of a resident agent for the purpose of receiving service of process. Please note that the address 
+            must be a physical street address. A resident agent can be any competent adult who resides in Washington. 
+            There are also companies that provide this service. 
+        </div>
+    }
+
+    <hr />
+
+    <div>
+        @Html.HiddenFor(m => m.Address.AddressId)
+        @Html.HiddenFor(m => m.Address.LicenseId)
+        @Html.HiddenFor(m => m.Address.AddressTypeId)
+        @Html.HiddenFor(m => m.Address.AddressType.AddressTypeId)
+        @Html.HiddenFor(m => m.Address.AddressType.Name)
+        @Html.HiddenFor(m => m.Address.AddressType.AmsCode)
+        @Html.HiddenFor(m => m.Address.CongressionalDistrict)
+
+        <div>
+            @Html.LabelFor(m => m.Address.Country)
+            @Html.TextBoxFor(m => m.Address.Country, new { @class = "form-control width-restricted" })
+        </div>
+
+        <div>
+            @Html.LabelFor(m => m.Address.Address1)
+            @Html.TextBoxFor(m => m.Address.Address1, new { @class = "form-control width-restricted" })
+        </div>
+
+        <div>
+            @Html.LabelFor(m => m.Address.Address2)
+            @Html.TextBoxFor(m => m.Address.Address2, new { @class = "form-control width-restricted" })
+        </div>
+
+        <div>
+            @Html.LabelFor(m => m.Address.City)
+            @Html.TextBoxFor(m => m.Address.City, new { @class = "form-control width-restricted" })
+        </div>
+
+        <div>
+            @Html.LabelFor(m => m.Address.State)
+            @Html.TextBoxFor(m => m.Address.State, new { @class = "form-control width-restricted" })
+        </div>
+
+        <div>
+            @Html.LabelFor(m => m.Address.ZipCode)
+            @Html.TextBoxFor(m => m.Address.ZipCode, new { @class = "form-control width-restricted" })
+        </div>
+    </div>
+
+    <hr />
+    
+    <div class="row">
+        @Html.ActionLink("Cancel", "Index", "Home", null, new { @class = "btn btn-primary" })
+        <input class="btn btn-success" type="submit" value="Save" />
+    </div>
+}

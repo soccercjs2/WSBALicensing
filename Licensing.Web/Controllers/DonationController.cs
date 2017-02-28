@@ -1,4 +1,5 @@
 ﻿using Licensing.Business.Managers;
+using Licensing.Business.ViewModels;
 using Licensing.Data.Context;
 using Licensing.Domain.Licenses;
 using System;
@@ -31,6 +32,49 @@ namespace Licensing.Web.Controllers
 
             //return updated partial view
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            LicenseManager licenseManager = new LicenseManager(_context);
+            License license = licenseManager.GetLicense(id);
+
+            DonationManager donationManager = new DonationManager(_context);
+
+            return View("EditDonations", new DonationVM(license));
+        }
+
+        [HttpPost]
+        public ActionResult Edit(DonationVM donationVM)
+        {
+            if (ModelState.IsValid)
+            {
+                LicenseManager licenseManager = new LicenseManager(_context);
+                License license = licenseManager.GetLicense(donationVM.LicenseId);
+
+                DonationManager donationManager = new DonationManager(_context);
+
+                foreach (var product in donationVM.Products)
+                {
+                    if (product.Donating)
+                    {
+                        donationManager.SetDonationAmount(license, product.DonationProductId, product.Amount);
+                    }
+                    else
+                    {
+                        donationManager.SetDonationAmount(license, product.DonationProductId, 0);
+                    }
+                }
+
+                donationManager.Confirm(license);
+
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View("EditSections", donationVM);
+            }
         }
     }
 }

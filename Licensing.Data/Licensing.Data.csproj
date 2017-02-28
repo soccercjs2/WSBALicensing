@@ -118,6 +118,27 @@
     <Compile Include="Migrations\201702102327596_removing nullables on probono 2.Designer.cs">
       <DependentUpon>201702102327596_removing nullables on probono 2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702132047474_Adding Congressional District to Address.cs" />
+    <Compile Include="Migrations\201702132047474_Adding Congressional District to Address.Designer.cs">
+      <DependentUpon>201702132047474_Adding Congressional District to Address.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702132225317_changing phone number parts to 1 field and adding extension.cs" />
+    <Compile Include="Migrations\201702132225317_changing phone number parts to 1 field and adding extension.Designer.cs">
+      <DependentUpon>201702132225317_changing phone number parts to 1 field and adding extension.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702161820427_adding description to donation product.cs" />
+    <Compile Include="Migrations\201702161820427_adding description to donation product.Designer.cs">
+      <DependentUpon>201702161820427_adding description to donation product.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702162139365_moving donation price from product level to donation level.cs" />
+    <Compile Include="Migrations\201702162139365_moving donation price from product level to donation level.Designer.cs">
+      <DependentUpon>201702162139365_moving donation price from product level to donation level.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702162254578_adding practice areas.cs" />
+    <Compile Include="Migrations\201702162254578_adding practice areas.Designer.cs">
+      <DependentUpon>201702162254578_adding practice areas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Workers\PracticeAreaWorker.cs" />
     <Compile Include="Workers\BarNewsWorker.cs" />
     <Compile Include="Workers\DisabilityWorker.cs" />
     <Compile Include="Workers\EthnicityWorker.cs" />
@@ -256,6 +277,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702102327596_removing nullables on probono 2.resx">
       <DependentUpon>201702102327596_removing nullables on probono 2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702132047474_Adding Congressional District to Address.resx">
+      <DependentUpon>201702132047474_Adding Congressional District to Address.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702132225317_changing phone number parts to 1 field and adding extension.resx">
+      <DependentUpon>201702132225317_changing phone number parts to 1 field and adding extension.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702161820427_adding description to donation product.resx">
+      <DependentUpon>201702161820427_adding description to donation product.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702162139365_moving donation price from product level to donation level.resx">
+      <DependentUpon>201702162139365_moving donation price from product level to donation level.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702162254578_adding practice areas.resx">
+      <DependentUpon>201702162254578_adding practice areas.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

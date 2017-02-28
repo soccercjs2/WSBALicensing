@@ -17,5 +17,15 @@ namespace Licensing.Data.Workers
         {
             _context = context;
         }
+
+        public ICollection<GenderOption> GetOptions()
+        {
+            return _context.GenderOptions.ToList();
+        }
+
+        public GenderOption GetOption(int id)
+        {
+            return _context.GenderOptions.Find(id);
+        }
     }
 }

@@ -142,7 +142,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AddressController.cs" />
-    <Compile Include="Controllers\AreaOfPracticeController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
+    <Compile Include="Controllers\PracticeAreasController.cs" />
+    <Compile Include="Controllers\AreasOfPracticeController.cs" />
     <Compile Include="Controllers\BarNewsController.cs" />
     <Compile Include="Controllers\DisabilityController.cs" />
     <Compile Include="Controllers\DonationController.cs" />
@@ -153,12 +155,12 @@
     <Compile Include="Controllers\GenderController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JudicialPositionController.cs" />
-    <Compile Include="Controllers\LanguageController.cs" />
+    <Compile Include="Controllers\LanguagesController.cs" />
     <Compile Include="Controllers\LicenseTypeController.cs" />
     <Compile Include="Controllers\PhoneNumberController.cs" />
     <Compile Include="Controllers\ProBonoController.cs" />
     <Compile Include="Controllers\ProfessionalLiabilityInsuranceController.cs" />
-    <Compile Include="Controllers\SectionController.cs" />
+    <Compile Include="Controllers\SectionsController.cs" />
     <Compile Include="Controllers\SexualOrientationController.cs" />
     <Compile Include="Controllers\TrustAccountController.cs" />
     <Compile Include="Global.asax.cs">
@@ -230,25 +232,27 @@
     <Content Include="Views\JudicialPosition\EditJudicialCitation.cshtml" />
     <Content Include="Views\FinancialResponsibility\EditFinancialResponsibility.cshtml" />
     <Content Include="Views\ProBono\EditProBono.cshtml" />
+    <Content Include="Views\Address\EditAddress.cshtml" />
+    <Content Include="Views\Email\EditEmail.cshtml" />
+    <Content Include="Views\PhoneNumber\EditPhoneNumber.cshtml" />
+    <Content Include="Views\AreasOfPractice\EditAreasOfPractice.cshtml" />
+    <Content Include="Views\FirmSize\EditFirmSize.cshtml" />
+    <Content Include="Views\Languages\EditLanguages.cshtml" />
+    <Content Include="Views\Ethnicity\EditEthnicity.cshtml" />
+    <Content Include="Views\Disability\EditDisability.cshtml" />
+    <Content Include="Views\Gender\EditGender.cshtml" />
+    <Content Include="Views\SexualOrientation\EditSexualOrientation.cshtml" />
+    <Content Include="Views\Sections\EditSections.cshtml" />
+    <Content Include="Views\Donation\EditDonations.cshtml" />
+    <Content Include="Views\Shared\_PracticeAreas.cshtml" />
+    <Content Include="Views\PracticeAreas\EditPracticeAreas.cshtml" />
+    <Content Include="Views\BarNews\EditBarNews.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Address\" />
-    <Folder Include="Views\AreasOfPractice\" />
-    <Folder Include="Views\BarNews\" />
-    <Folder Include="Views\Disability\" />
-    <Folder Include="Views\Donation\" />
-    <Folder Include="Views\Email\" />
-    <Folder Include="Views\Ethnicity\" />
-    <Folder Include="Views\FirmSize\" />
-    <Folder Include="Views\Gender\" />
-    <Folder Include="Views\JudicialCitation\" />
-    <Folder Include="Views\Language\" />
     <Folder Include="Views\License\" />
-    <Folder Include="Views\PhoneNumber\" />
-    <Folder Include="Views\Sections\" />
-    <Folder Include="Views\SexualOrientation\" />
+    <Folder Include="Views\Payment\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

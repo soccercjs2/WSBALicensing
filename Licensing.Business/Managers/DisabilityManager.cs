@@ -2,6 +2,7 @@
 using Licensing.Business.ViewModels;
 using Licensing.Data.Context;
 using Licensing.Data.Workers;
+using Licensing.Domain.Disabilities;
 using Licensing.Domain.Licenses;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,25 @@ namespace Licensing.Business.Managers
             _disabilityWorker = new DisabilityWorker(context);
         }
 
+        public ICollection<DisabilityOption> GetOptions()
+        {
+            return _disabilityWorker.GetOptions();
+        }
+
+        public void SetDisabilityOption(License license, int optionId)
+        {
+            DisabilityOption option = _disabilityWorker.GetOption(optionId);
+
+            if (license.Disability == null)
+            {
+                license.Disability = new Disability();
+            }
+
+            license.Disability.Option = option;
+
+            _context.SaveChanges();
+        }
+
         public void OptOut(License license)
         {
             license.DisabilityOptedOut = true;
@@ -30,7 +50,7 @@ namespace Licensing.Business.Managers
 
         public bool IsComplete(License license)
         {
-            return license.DisabilityOptedOut;
+            return license.DisabilityOptedOut || license.Disability != null;
         }
 
         public DashboardContainerVM GetDashboardContainerVM(License license)
@@ -45,6 +65,7 @@ namespace Licensing.Business.Managers
                 editRoute,
                 null,
                 optOutRoute,
+                false,
                 null,
                 null
             );

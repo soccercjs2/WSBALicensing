@@ -18,6 +18,17 @@ textarea {
     max-width: 280px;
 }*/
 
+.input-group {
+    display: inline-table;
+    vertical-align: middle;
+}
+
+.input-group .input-group-addon,
+.input-group .input-group-btn,
+.input-group .form-control {
+    width: auto !important;
+}
+
 /* Override row negative margins */
 .row
 {

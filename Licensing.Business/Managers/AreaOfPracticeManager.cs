@@ -29,6 +29,34 @@ namespace Licensing.Business.Managers
             else { return license.AreasOfPractice; }
         }
 
+        public ICollection<AreaOfPracticeOption> GetAreaOfPracticeOptions()
+        {
+            return _areaOfPracticeWorker.GetAreaOfPracticeOptions();
+        }
+
+        public AreaOfPracticeOption GetAreaOfPracticeOption(int id)
+        {
+            return _areaOfPracticeWorker.GetAreaOfPracticeOption(id);
+        }
+
+        public void AddAreaOfPractice(License license, int areaOfPracticeOptionId)
+        {
+            AreaOfPractice areaOfPractice = new AreaOfPractice();
+            areaOfPractice.Option = GetAreaOfPracticeOption(areaOfPracticeOptionId);
+
+            license.AreasOfPractice.Add(areaOfPractice);
+
+            _context.SaveChanges();
+        }
+
+        public void DeleteAreaOfPractice(License license, int areaOfPracticeOptionId)
+        {
+            AreaOfPractice areaOfPractice = license.AreasOfPractice.Where(a => a.Option.AreaOfPracticeOptionId == areaOfPracticeOptionId).FirstOrDefault();
+            _areaOfPracticeWorker.DeleteAreaOfPractice(areaOfPractice);
+
+            _context.SaveChanges();
+        }
+
         public void Confirm(License license)
         {
             license.AreasOfPracticeConfirmed = true;
@@ -42,8 +70,8 @@ namespace Licensing.Business.Managers
 
         public DashboardContainerVM GetDashboardContainerVM(License license)
         {
-            RouteContainer editRoute = new RouteContainer("AreaOfPractice", "Edit", license.LicenseId);
-            RouteContainer confirmRoute = new RouteContainer("AreaOfPractice", "Confirm", license.LicenseId);
+            RouteContainer editRoute = new RouteContainer("AreasOfPractice", "Edit", license.LicenseId);
+            RouteContainer confirmRoute = new RouteContainer("AreasOfPractice", "Confirm", license.LicenseId);
 
             return new DashboardContainerVM(
                 "Areas of Practice",
@@ -52,6 +80,7 @@ namespace Licensing.Business.Managers
                 editRoute,
                 confirmRoute,
                 null,
+                false,
                 "_AreasOfPractice",
                 GetAreasOfPractice(license)
             );

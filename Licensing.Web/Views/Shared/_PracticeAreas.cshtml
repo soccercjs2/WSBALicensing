@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Licensing.Domain.PracticeAreas.PracticeArea>
+
+@if (Model != null)
+{
+    <div class="padded">
+        @foreach (var practiceArea in Model)
+        {
+            <div class="row padded-small">
+                @practiceArea.Option.Name
+            </div>
+        }
+    </div>
+}

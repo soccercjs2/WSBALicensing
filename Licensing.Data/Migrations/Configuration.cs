@@ -26,6 +26,7 @@ namespace Licensing.Data.Migrations
     using Domain.Enums;
     using Domain.Customers;
     using Domain.BarNews;
+    using Domain.PracticeAreas;
 
     internal sealed class Configuration : DbMigrationsConfiguration<Licensing.Data.Context.LicensingContext>
     {
@@ -59,8 +60,7 @@ namespace Licensing.Data.Migrations
             {
                 new LicenseTypeProduct { LicenseTypeId = 1, Product = licensingProducts[0] },
                 new LicenseTypeProduct { LicenseTypeId = 1, Product = licensingProducts[2] },
-                new LicenseTypeProduct { LicenseTypeId = 2, Product = licensingProducts[1] },
-                new LicenseTypeProduct { LicenseTypeId = 2, Product = licensingProducts[2] }
+                new LicenseTypeProduct { LicenseTypeId = 2, Product = licensingProducts[1] }
             };
 
             var licenseTypes = new List<LicenseType>
@@ -68,15 +68,16 @@ namespace Licensing.Data.Migrations
                 new LicenseType {
                     Name = "Active Attorney",
                     LicenseTypeProducts = new List<LicenseTypeProduct> { licenseTypeProducts[0], licenseTypeProducts[1] },
-                    MembershipType = RequirementType.Required,
+                    MembershipType = RequirementType.Optional,
                     JudicialPosition = RequirementType.Excluded,
+                    PracticeAreas = RequirementType.Excluded,
                     TrustAccount = RequirementType.Required,
                     ProfessionalLiabilityInsurance = RequirementType.Required,
                     FinancialResponsibility = RequirementType.Excluded,
                     ProBono = RequirementType.Optional,
                     PrimaryAddress = RequirementType.Optional,
                     HomeAddress = RequirementType.Optional,
-                    AgentOfServiceAddress = RequirementType.Required,
+                    AgentOfServiceAddress = RequirementType.Optional,
                     PrimaryEmail = RequirementType.Optional,
                     PrimaryPhoneNumber = RequirementType.Optional,
                     HomePhoneNumber = RequirementType.Optional,
@@ -94,9 +95,10 @@ namespace Licensing.Data.Migrations
                 },
                 new LicenseType {
                     Name = "Inactive Attorney",
-                    LicenseTypeProducts = new List<LicenseTypeProduct> { licenseTypeProducts[2], licenseTypeProducts[3] },
-                    MembershipType = RequirementType.Required,
+                    LicenseTypeProducts = new List<LicenseTypeProduct> { licenseTypeProducts[2] },
+                    MembershipType = RequirementType.Optional,
                     JudicialPosition = RequirementType.Excluded,
+                    PracticeAreas = RequirementType.Excluded,
                     TrustAccount = RequirementType.Excluded,
                     ProfessionalLiabilityInsurance = RequirementType.Excluded,
                     FinancialResponsibility = RequirementType.Excluded,
@@ -155,16 +157,19 @@ namespace Licensing.Data.Migrations
                 new JudicialPosition { Option = judicialPositionOptions[0] }
             };
 
-            //var proBono = new List<ProBono>
-            //{
-            //    new ProBono
-            //    {
-            //        ProvidesService = true,
-            //        FreeServiceHours = 5,
-            //        LimitedFeeServiceHours = 3,
-            //        Anonymous = false
-            //    }
-            //};
+            var practiceAreaOptions = new List<PracticeAreaOption>
+            {
+                new PracticeAreaOption { Name = "Business Law", AmsCode = "BUSINESS_LAW" },
+                new PracticeAreaOption { Name = "Criminal Law", AmsCode = "CRIMINAL_LAW" },
+                new PracticeAreaOption { Name = "Family Law", AmsCode = "FAMILY_LAW" }
+            };
+
+            var practiceAreas = new List<PracticeArea>
+            {
+                new PracticeArea { Option = practiceAreaOptions[0] },
+                new PracticeArea { Option = practiceAreaOptions[1] },
+                new PracticeArea { Option = practiceAreaOptions[2] }
+            };
 
             var professionalLiabilityInsuranceOption = new List<ProfessionalLiabilityInsuranceOption>
             {
@@ -200,9 +205,9 @@ namespace Licensing.Data.Migrations
 
             var addresses = new List<Address>
             {
-                new Address { LicenseId = 1, AddressType = addressTypes[0], Address1 = "1325 4th Ave NE", City = "Seattle", State = "WA", ZipCode = "98101", Country = "USA" },
-                new Address { LicenseId = 1, AddressType = addressTypes[1], Address1 = "1325 5th Ave NE", City = "Seattle", State = "WA", ZipCode = "98101", Country = "USA" },
-                new Address { LicenseId = 1, AddressType = addressTypes[2], Address1 = "1325 6th Ave NE", City = "Seattle", State = "WA", ZipCode = "98101", Country = "USA" }
+                new Address { AddressType = addressTypes[0], Address1 = "1325 4th Ave NE", City = "Seattle", State = "WA", ZipCode = "98101", Country = "USA", CongressionalDistrict = "0" },
+                new Address { AddressType = addressTypes[1], Address1 = "1325 5th Ave NE", City = "Seattle", State = "WA", ZipCode = "98101", Country = "USA", CongressionalDistrict = "0" },
+                new Address { AddressType = addressTypes[2], Address1 = "1325 6th Ave NE", City = "Seattle", State = "WA", ZipCode = "98101", Country = "USA", CongressionalDistrict = "0" }
             };
 
             var emails = new List<Email>
@@ -220,9 +225,9 @@ namespace Licensing.Data.Migrations
 
             var phoneNumbers = new List<PhoneNumber>
             {
-                new PhoneNumber { PhoneNumberType = phoneNumberTypes[0], CountryCode = 1, AreaCode = 555, ExchangeCode = 123, LineNumber = 4567 },
-                new PhoneNumber { PhoneNumberType = phoneNumberTypes[1], CountryCode = 1, AreaCode = 555, ExchangeCode = 123, LineNumber = 4568 },
-                new PhoneNumber { PhoneNumberType = phoneNumberTypes[2], CountryCode = 1, AreaCode = 555, ExchangeCode = 123, LineNumber = 4569 }
+                new PhoneNumber { PhoneNumberType = phoneNumberTypes[0], CountryCode = 1, Number = "(555) 123-4567", Extension = "999" },
+                new PhoneNumber { PhoneNumberType = phoneNumberTypes[1], CountryCode = 1, Number = "(555) 123-4568" },
+                new PhoneNumber { PhoneNumberType = phoneNumberTypes[2], CountryCode = 1, Number = "(555) 123-4569" }
             };
 
             //practice information initializers
@@ -235,9 +240,9 @@ namespace Licensing.Data.Migrations
 
             var areasOfPractice = new List<AreaOfPractice>
             {
-                new AreaOfPractice { LicenseId = 1, Option = areaOfPracticeOptions[0] },
-                new AreaOfPractice { LicenseId = 1, Option = areaOfPracticeOptions[1] },
-                new AreaOfPractice { LicenseId = 1, Option = areaOfPracticeOptions[2] }
+                new AreaOfPractice { Option = areaOfPracticeOptions[0] },
+                new AreaOfPractice { Option = areaOfPracticeOptions[1] },
+                new AreaOfPractice { Option = areaOfPracticeOptions[2] }
             };
 
             var firmSizeOptions = new List<FirmSizeOption>
@@ -259,7 +264,7 @@ namespace Licensing.Data.Migrations
 
             var languages = new List<Language>
             {
-                new Language { LicenseId = 1, Option = languageOptions[0] }
+                new Language { Option = languageOptions[0] }
             };
 
             //demographics initializers
@@ -287,8 +292,8 @@ namespace Licensing.Data.Migrations
 
             var genderOptions = new List<GenderOption>
             {
-                new GenderOption { Name = "Black", AmsCode = "BLACK" },
-                new GenderOption { Name = "White", AmsCode = "CAUC" }
+                new GenderOption { Name = "Male", AmsCode = "MALE" },
+                new GenderOption { Name = "Female", AmsCode = "FEMALE" }
             };
 
             var genders = new List<Gender>
@@ -310,13 +315,16 @@ namespace Licensing.Data.Migrations
             //payment initializers
             var donationProducts = new List<DonationProduct>
             {
-                new DonationProduct { Name = "Bar Foundation Donation", Price = 50, AmsCode = "BFD" },
-                new DonationProduct { Name = "Campaign For Equal Justice Donation", Price = 50, AmsCode = "C4EJ" }
+                new DonationProduct { Name = "Bar Foundation Donation", AmsCode = "BFD" },
+                new DonationProduct { Name = "Campaign For Equal Justice Donation", AmsCode = "C4EJ" }
             };
+
             var donations = new List<Donation>
             {
-                new Donation { LicenseId = 1, Product = donationProducts[0] },
-                new Donation { LicenseId = 1, Product = donationProducts[1] }
+                new Donation { Product = donationProducts[0], Amount = 50 },
+                new Donation { Product = donationProducts[1], Amount = 50 },
+                new Donation { Product = donationProducts[0], Amount = 50 },
+                new Donation { Product = donationProducts[1], Amount = 50 }
             };
 
             var sectionProducts = new List<SectionProduct>
@@ -327,8 +335,8 @@ namespace Licensing.Data.Migrations
 
             var sections = new List<Section>
             {
-                new Section { LicenseId = 1, Product = sectionProducts[0] },
-                new Section { LicenseId = 1, Product = sectionProducts[1] }
+                new Section { Product = sectionProducts[0] },
+                new Section { Product = sectionProducts[1] }
             };
 
             var barNewses = new List<BarNewsResponse>
@@ -340,12 +348,12 @@ namespace Licensing.Data.Migrations
             {
                 new License
                 {
-                    LicensePeriod = licensingPeriods[0],
+                    LicensePeriod = licensingPeriods[1],
                     LicenseType = licenseTypes[0],
                     PreviousLicenseType = licenseTypes[0],
                     FinancialResponsibility = financialResponsibilities[0],
                     JudicialPosition = judicialPositions[0],
-                    //ProBono = proBono[0],
+                    PracticeAreas = practiceAreas,
                     ProfessionalLiabilityInsurance = professionalLiabilityInsurances[0],
                     TrustAccount = trustAccounts[0],
                     Addresses = addresses,
@@ -354,20 +362,18 @@ namespace Licensing.Data.Migrations
                     AreasOfPractice = areasOfPractice,
                     FirmSize = firmSizes[0],
                     Languages = languages,
-                    //Disability = disabilities[0],
-                    //Ethnicity = ethnicities[0],
-                    //Gender = genders[0],
-                    //SexualOrientation = sexualOrientations[0],
-                    Donations = donations,
+                    Donations = new List<Donation> { donations[0], donations[1] },
                     Sections = sections,
                     BarNewsResponse = barNewses[0]
                 },
                 new License
                 {
-                    LicensePeriod = licensingPeriods[1],
+                    LicensePeriod = licensingPeriods[0],
                     LicenseType = licenseTypes[0],
+                    PreviousLicenseType = licenseTypes[0],
                     FinancialResponsibility = null,
                     JudicialPosition = null,
+                    PracticeAreas = null,
                     ProBono = null,
                     ProfessionalLiabilityInsurance = null,
                     TrustAccount = null,
@@ -381,7 +387,7 @@ namespace Licensing.Data.Migrations
                     Ethnicity = null,
                     Gender = null,
                     SexualOrientation = null,
-                    Donations = null,
+                    Donations = new List<Donation> { donations[2], donations[3] },
                     Sections = null,
                     BarNewsResponse = null
                 }
@@ -403,6 +409,8 @@ namespace Licensing.Data.Migrations
             licenseTypes.ForEach(x => context.LicenseTypes.Add(x));
             judicialPositionOptions.ForEach(x => context.JudicialPositionOptions.Add(x));
             judicialPositions.ForEach(x => context.JudicialPositions.Add(x));
+            practiceAreaOptions.ForEach(x => context.PracticeAreaOptions.Add(x));
+            practiceAreas.ForEach(x => context.PracticeAreas.Add(x));
             coveredByOptions.ForEach(x => context.CoveredByOptions.Add(x));
             financialResponsibilities.ForEach(x => context.FinancialResponsibilities.Add(x));
             //proBono.ForEach(x => context.ProBonos.Add(x));

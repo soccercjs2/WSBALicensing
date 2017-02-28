@@ -29,6 +29,34 @@ namespace Licensing.Business.Managers
             else { return license.Languages; }
         }
 
+        public ICollection<LanguageOption> GetLanguageOptions()
+        {
+            return _languageWorker.GetLanguageOptions();
+        }
+
+        public LanguageOption GetLanguageOption(int id)
+        {
+            return _languageWorker.GetLanguageOption(id);
+        }
+
+        public void AddLanguage(License license, int languageOptionId)
+        {
+            Language language = new Language();
+            language.Option = GetLanguageOption(languageOptionId);
+
+            license.Languages.Add(language);
+
+            _context.SaveChanges();
+        }
+
+        public void DeleteLanguage(License license, int languageOptionId)
+        {
+            Language language = license.Languages.Where(a => a.Option.LanguageOptionId == languageOptionId).FirstOrDefault();
+            _languageWorker.DeleteLanguage(language);
+
+            _context.SaveChanges();
+        }
+
         public void Confirm(License license)
         {
             license.LanguagesConfirmed = true;
@@ -42,16 +70,17 @@ namespace Licensing.Business.Managers
 
         public DashboardContainerVM GetDashboardContainerVM(License license)
         {
-            RouteContainer editRoute = new RouteContainer("Language", "Edit", license.LicenseId);
-            RouteContainer confirmRoute = new RouteContainer("Language", "Confirm", license.LicenseId);
+            RouteContainer editRoute = new RouteContainer("Languages", "Edit", license.LicenseId);
+            RouteContainer confirmRoute = new RouteContainer("Languages", "Confirm", license.LicenseId);
 
             return new DashboardContainerVM(
-                "Language",
+                "Additional Languages",
                 license.LicenseType.Languages,
                 IsComplete(license),
                 editRoute,
                 confirmRoute,
                 null,
+                false,
                 "_Languages",
                 GetLanguages(license)
             );

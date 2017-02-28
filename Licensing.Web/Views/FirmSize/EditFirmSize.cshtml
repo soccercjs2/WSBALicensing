@@ -1,0 +1,30 @@
+﻿@model Licensing.Business.ViewModels.FirmSizeVM
+
+@{
+    ViewBag.Title = "Edit Firm Size";
+}
+
+<h2>Firm Size</h2>
+
+<hr />
+
+@using (Html.BeginForm("Edit", "FirmSize", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.LicenseId)
+    
+    <div>
+        @foreach (var option in Model.Options)
+        {
+            <div>
+                @Html.RadioButtonFor(m => m.SelectedOptionId, option.FirmSizeOptionId) @option.Name
+            </div>
+        }
+    </div>
+
+    <hr />
+
+    <div class="row">
+        @Html.ActionLink("Cancel", "Index", "Home", null, new { @class = "btn btn-primary" })
+        <input class="btn btn-success" type="submit" value="Save" />
+    </div>
+}

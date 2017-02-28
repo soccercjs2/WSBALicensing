@@ -23,6 +23,22 @@ namespace Licensing.Business.Managers
             _barNewsWorker = new BarNewsWorker(context);
         }
 
+        public void SetBarNewsResponse(License license, bool? response)
+        {
+            if (response != null)
+            {
+                if (license.BarNewsResponse == null)
+                {
+                    license.BarNewsResponse = new BarNewsResponse();
+                }
+
+                license.BarNewsResponse.Response = (bool)response;
+                license.BarNewsResponse.Confirmed = true;
+            }
+
+            _context.SaveChanges();
+        }
+
         public void Confirm(BarNewsResponse barNews)
         {
             barNews.Confirmed = true;
@@ -36,6 +52,7 @@ namespace Licensing.Business.Managers
 
         public DashboardContainerVM GetDashboardContainerVM(License license)
         {
+
             RouteContainer editRoute = new RouteContainer("BarNews", "Edit", license.LicenseId);
             RouteContainer confirmRoute = new RouteContainer("BarNews", "Confirm", license.LicenseId);
 
@@ -46,6 +63,7 @@ namespace Licensing.Business.Managers
                 editRoute,
                 confirmRoute,
                 null,
+                true,
                 "_BarNews",
                 license.BarNewsResponse
             );

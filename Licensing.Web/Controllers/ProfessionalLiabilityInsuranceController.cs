@@ -54,7 +54,6 @@ namespace Licensing.Web.Controllers
                 LicenseManager licenseManager = new LicenseManager(_context);
                 License license = licenseManager.GetLicense(professionalLiabilityInsuranceVM.LicenseId);
 
-                //add new trust account number to trust account
                 ProfessionalLiabilityInsuranceManager professionalLiabilityInsuranceManager = new ProfessionalLiabilityInsuranceManager(_context);
                 professionalLiabilityInsuranceManager.SetProfessionalLiabilityInsuranceOption(license, professionalLiabilityInsuranceVM.SelectedOptionId);
 

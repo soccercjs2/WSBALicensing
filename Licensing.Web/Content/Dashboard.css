@@ -5,7 +5,7 @@
 .dashboard-column-title {
     font-size: 16pt;
     font-weight: bold;
-    text-decoration: underline;
+    /*text-decoration: underline;*/
 }
 
 .dashboard-container {
@@ -33,6 +33,11 @@
 
 .status-container {
     font-size: 22px;
+    padding-top: 20px;
+}
+
+.demographics-section {
+    padding-top: 20px;
 }
 
 .status {

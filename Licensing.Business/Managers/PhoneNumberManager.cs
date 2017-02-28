@@ -28,10 +28,15 @@ namespace Licensing.Business.Managers
             return _phoneNumberWorker.GetPhoneNumber(phoneNumberId);
         }
 
+        public PhoneNumberType GetAddressType(string addressType)
+        {
+            return _phoneNumberWorker.GetPhoneNumberType(addressType);
+        }
+
         public PhoneNumber GetPrimaryPhoneNumber(License license)
         {
             //get primary phone number type
-            PhoneNumberType primaryPhoneNumberType = _context.PhoneNumberTypes.Where(pt => pt.Name == "Primary").FirstOrDefault();
+            PhoneNumberType primaryPhoneNumberType = GetAddressType("Primary");
 
             //return phone number with primary phone number type
             return license.PhoneNumbers.Where(pn => pn.PhoneNumberType.PhoneNumberTypeId == primaryPhoneNumberType.PhoneNumberTypeId).FirstOrDefault();
@@ -40,7 +45,7 @@ namespace Licensing.Business.Managers
         public PhoneNumber GetHomePhoneNumber(License license)
         {
             //get primary phone number type
-            PhoneNumberType homePhoneNumberType = _context.PhoneNumberTypes.Where(pt => pt.Name == "Home").FirstOrDefault();
+            PhoneNumberType homePhoneNumberType = GetAddressType("Home");
 
             //return phone number with home phone number type
             return license.PhoneNumbers.Where(pn => pn.PhoneNumberType.PhoneNumberTypeId == homePhoneNumberType.PhoneNumberTypeId).FirstOrDefault();
@@ -49,10 +54,16 @@ namespace Licensing.Business.Managers
         public PhoneNumber GetFaxPhoneNumber(License license)
         {
             //get primary phone number type
-            PhoneNumberType faxPhoneNumberType = _context.PhoneNumberTypes.Where(pt => pt.Name == "Fax").FirstOrDefault();
+            PhoneNumberType faxPhoneNumberType = GetAddressType("Fax");
 
             //return phone number with fax phone number type
             return license.PhoneNumbers.Where(pn => pn.PhoneNumberType.PhoneNumberTypeId == faxPhoneNumberType.PhoneNumberTypeId).FirstOrDefault();
+        }
+
+        public void SetPhoneNumber(PhoneNumber phoneNumber)
+        {
+            phoneNumber.Confirmed = true;
+            _phoneNumberWorker.SetPhoneNumber(phoneNumber);
         }
 
         public void Confirm(PhoneNumber phoneNumber)
@@ -77,18 +88,36 @@ namespace Licensing.Business.Managers
         public DashboardContainerVM GetDashboardContainerVM(License license)
         {
             PhoneNumbersVM phoneNumbersVM = new PhoneNumbersVM(
+                license,
                 GetPrimaryPhoneNumber(license),
                 GetHomePhoneNumber(license),
                 GetFaxPhoneNumber(license)
             );
 
+            RequirementType requirementType = RequirementType.Optional;
+
+            if (license.LicenseType.PrimaryPhoneNumber == RequirementType.Required || 
+                license.LicenseType.HomePhoneNumber == RequirementType.Required || 
+                license.LicenseType.FaxPhoneNumber == RequirementType.Required)
+            {
+                requirementType = RequirementType.Required;
+            }
+
+            if (license.LicenseType.PrimaryPhoneNumber == RequirementType.Excluded &&
+                license.LicenseType.HomePhoneNumber == RequirementType.Excluded &&
+                license.LicenseType.FaxPhoneNumber == RequirementType.Excluded)
+            {
+                requirementType = RequirementType.Excluded;
+            }
+
             return new DashboardContainerVM(
                 "Phone Numbers",
-                RequirementType.Optional,
+                requirementType,
                 IsComplete(license),
                 null,
                 null,
                 null,
+                false,
                 "_PhoneNumbers",
                 phoneNumbersVM
             );

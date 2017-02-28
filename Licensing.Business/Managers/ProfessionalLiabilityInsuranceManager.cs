@@ -31,6 +31,12 @@ namespace Licensing.Business.Managers
         public void SetProfessionalLiabilityInsuranceOption(License license, int optionId)
         {
             ProfessionalLiabilityInsuranceOption option = _professionalLiabilityInsuranceWorker.GetOption(optionId);
+
+            if (license.ProfessionalLiabilityInsurance == null)
+            {
+                license.ProfessionalLiabilityInsurance = new ProfessionalLiabilityInsurance();
+            }
+
             license.ProfessionalLiabilityInsurance.Option = option;
             license.ProfessionalLiabilityInsurance.Confirmed = true;            
 
@@ -60,6 +66,7 @@ namespace Licensing.Business.Managers
                 editRoute,
                 confirmRoute,
                 null,
+                false,
                 "_ProfessionalLiabilityInsurance",
                 license.ProfessionalLiabilityInsurance
             );

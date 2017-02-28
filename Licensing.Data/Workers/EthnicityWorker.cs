@@ -17,5 +17,15 @@ namespace Licensing.Data.Workers
         {
             _context = context;
         }
+
+        public ICollection<EthnicityOption> GetOptions()
+        {
+            return _context.EthnicityOptions.ToList();
+        }
+
+        public EthnicityOption GetOption(int id)
+        {
+            return _context.EthnicityOptions.Find(id);
+        }
     }
 }

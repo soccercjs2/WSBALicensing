@@ -30,6 +30,13 @@ namespace Licensing.Business.Managers
             _context.SaveChanges();
         }
 
+        public void SetEmail(License license, Email email)
+        {
+            license.Email = email;
+            license.Email.Confirmed = true;
+            _context.SaveChanges();
+        }
+
         public bool IsComplete(License license)
         {
             return (license.Email != null && license.Email.Confirmed);
@@ -47,6 +54,7 @@ namespace Licensing.Business.Managers
                 editRoute,
                 confirmRoute,
                 null,
+                false,
                 "_PrimaryEmail",
                 license.Email
             );

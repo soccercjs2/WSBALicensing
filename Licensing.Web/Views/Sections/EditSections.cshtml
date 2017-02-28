@@ -1,0 +1,44 @@
+﻿@model Licensing.Business.ViewModels.SectionVM
+
+@{
+    ViewBag.Title = "Edit Sections";
+}
+
+<h2>Sections</h2>
+
+<hr />
+
+@using (Html.BeginForm("Edit", "Sections", FormMethod.Post))
+{
+    <table class="standard-table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Section</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+
+        @Html.HiddenFor(m => m.LicenseId)
+
+        @for (int i = 0; i < Model.Products.Count; i++)
+        {
+            <tr>
+                @Html.HiddenFor(m => m.Products[i].SectionProductId)
+                @Html.HiddenFor(m => m.Products[i].Name)
+                @Html.HiddenFor(m => m.Products[i].PreSelected)
+
+                <td class="padded-sides">@Html.CheckBoxFor(o => Model.Products[i].Selected)</td>
+                <td class="padded-sides">@Model.Products[i].Name</td>
+                <td class="padded-sides">$@Model.Products[i].Price</td>
+            </tr>
+        }
+    </table>
+
+    <hr />
+
+    <div class="row">
+        @Html.ActionLink("Cancel", "Index", "Home", null, new { @class = "btn btn-primary" })
+        <input class="btn btn-success" type="submit" value="Save" />
+    </div>
+}

@@ -10,6 +10,7 @@ using Licensing.Domain.FirmSizes;
 using Licensing.Domain.Genders;
 using Licensing.Domain.Judicial;
 using Licensing.Domain.Languages;
+using Licensing.Domain.PracticeAreas;
 using Licensing.Domain.ProBonos;
 using Licensing.Domain.ProfessionalLiabilityInsurances;
 using Licensing.Domain.Sections;
@@ -50,6 +51,9 @@ namespace Licensing.Domain.Licenses
         [ForeignKey("JudicialPositionId")]
         public virtual JudicialPosition JudicialPosition { get; set; }
         public int? JudicialPositionId { get; set; }
+
+        public virtual ICollection<PracticeArea> PracticeAreas { get; set; }
+        public bool PracticeAreasConfirmed { get; set; }
 
         [ForeignKey("ProBonoId")]
         public virtual ProBono ProBono { get; set; }

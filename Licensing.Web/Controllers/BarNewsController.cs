@@ -1,4 +1,5 @@
 ﻿using Licensing.Business.Managers;
+using Licensing.Business.ViewModels;
 using Licensing.Data.Context;
 using Licensing.Domain.Licenses;
 using System;
@@ -31,6 +32,36 @@ namespace Licensing.Web.Controllers
 
             //return updated partial view
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            //get license who's PLI to edit
+            LicenseManager licenseManager = new LicenseManager(_context);
+            License license = licenseManager.GetLicense(id);
+
+            return View("EditBarNews", new BarNewsVM(license));
+        }
+
+        [HttpPost]
+        public ActionResult Edit(BarNewsVM barNewsVM)
+        {
+            if (ModelState.IsValid)
+            {
+                //get license from view model
+                LicenseManager licenseManager = new LicenseManager(_context);
+                License license = licenseManager.GetLicense(barNewsVM.LicenseId);
+
+                BarNewsManager barNewsManager = new BarNewsManager(_context);
+                barNewsManager.SetBarNewsResponse(license, barNewsVM.Response);
+
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View("EditBarNews", barNewsVM);
+            }
         }
     }
 }

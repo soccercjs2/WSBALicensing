@@ -2,6 +2,7 @@
 using Licensing.Business.ViewModels;
 using Licensing.Data.Context;
 using Licensing.Data.Workers;
+using Licensing.Domain.Genders;
 using Licensing.Domain.Licenses;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,25 @@ namespace Licensing.Business.Managers
             _genderWorker = new GenderWorker(context);
         }
 
+        public ICollection<GenderOption> GetOptions()
+        {
+            return _genderWorker.GetOptions();
+        }
+
+        public void SetGenderOption(License license, int optionId)
+        {
+            GenderOption option = _genderWorker.GetOption(optionId);
+
+            if (license.Gender == null)
+            {
+                license.Gender = new Gender();
+            }
+
+            license.Gender.Option = option;
+
+            _context.SaveChanges();
+        }
+
         public void OptOut(License license)
         {
             license.GenderOptedOut = true;
@@ -30,7 +50,7 @@ namespace Licensing.Business.Managers
 
         public bool IsComplete(License license)
         {
-            return license.GenderOptedOut;
+            return license.GenderOptedOut || license.Gender != null;
         }
 
         public DashboardContainerVM GetDashboardContainerVM(License license)
@@ -45,6 +65,7 @@ namespace Licensing.Business.Managers
                 editRoute,
                 null,
                 optOutRoute,
+                false,
                 null,
                 null
             );

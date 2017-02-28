@@ -1,5 +1,7 @@
 ﻿using Licensing.Business.Managers;
+using Licensing.Business.ViewModels;
 using Licensing.Data.Context;
+using Licensing.Domain.ContactInformation;
 using Licensing.Domain.Licenses;
 using System;
 using System.Collections.Generic;
@@ -31,6 +33,36 @@ namespace Licensing.Web.Controllers
 
             //return updated partial view
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            //Get license who's email to edit
+            LicenseManager licenseManager = new LicenseManager(_context);
+            License license = licenseManager.GetLicense(id);
+
+            return View("EditEmail", new EmailVM(license));
+        }
+
+        [HttpPost]
+        public ActionResult Edit(EmailVM emailVM)
+        {
+            if (ModelState.IsValid)
+            {
+                //get license from view model
+                LicenseManager licenseManager = new LicenseManager(_context);
+                License license = licenseManager.GetLicense(emailVM.LicenseId);
+
+                EmailManager emailManager = new EmailManager(_context);
+                emailManager.SetEmail(license, emailVM.Email);
+
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View("EditEmail", emailVM);
+            }
         }
     }
 }

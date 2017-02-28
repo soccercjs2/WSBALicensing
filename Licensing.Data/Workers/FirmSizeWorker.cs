@@ -16,5 +16,15 @@ namespace Licensing.Data.Workers
         {
             _context = context;
         }
+
+        public ICollection<FirmSizeOption> GetOptions()
+        {
+            return _context.FirmSizeOptions.ToList();
+        }
+
+        public FirmSizeOption GetOption(int id)
+        {
+            return _context.FirmSizeOptions.Find(id);
+        }
     }
 }

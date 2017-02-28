@@ -14,6 +14,7 @@ namespace Licensing.Business.ViewModels
         public int LicenseId { get; set; }
         public int? TrustAccountId { get; set; }
         public bool HandlesTrustAccount { get; set; }
+        public bool Attested { get; set; }
 
         public TrustAccountNumber PendingTrustAccountNumber { get; set; }
 

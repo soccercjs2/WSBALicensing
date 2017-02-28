@@ -29,6 +29,7 @@ namespace Licensing.Web.Controllers
             LicenseTypeManager licenseTypeManager = new LicenseTypeManager(context);
             LicensePeriodManager licensePeriodManager = new LicensePeriodManager(context);
             JudicialPositionManager judicialPositionManager = new JudicialPositionManager(context);
+            PracticeAreaManager practiceAreaManager = new PracticeAreaManager(context);
             TrustAccountManager trustAccountManager = new TrustAccountManager(context);
             ProfessionalLiabilityInsuranceManager professionalLiabilityInsuranceManager = new ProfessionalLiabilityInsuranceManager(context);
             FinancialResponsibilityManager financialResponsibilityManager = new FinancialResponsibilityManager(context);
@@ -53,33 +54,26 @@ namespace Licensing.Web.Controllers
             LicensePeriod licensePeriod = licensePeriodManager.GetCurrentLicensePeriod();
             License license = licenseManager.GetLicense(customer, licensePeriod);
 
-            //create view models
-            PhoneNumbersVM phoneNumbersVM = new PhoneNumbersVM(
-                phoneNumberManager.GetPrimaryPhoneNumber(license), 
-                phoneNumberManager.GetHomePhoneNumber(license), 
-                phoneNumberManager.GetFaxPhoneNumber(license)
-            );
-
             //set license type for displaying dashboard controls
             dashboardVM.LicenseType = license.LicenseType;
 
             //set customer information for dashboard
-            dashboardVM.Name = customer.FirstName + " " + customer.LastName;
-            dashboardVM.BarNumber = customer.BarNumber;
+            dashboardVM.Year = licensePeriod.EndDate.Year;
             dashboardVM.LicensingStatus = statusManager.GetLicensingStatus(license);
 
             //set licensing information for dashboard
             dashboardVM.MembershipType = licenseTypeManager.GetDashboardContainerVM(license);
             dashboardVM.JudicialPosition = judicialPositionManager.GetDashboardContainerVM(license);
+            dashboardVM.PracticeAreas = practiceAreaManager.GetDashboardContainerVM(license);
             dashboardVM.TrustAccount = trustAccountManager.GetDashboardContainerVM(license);
             dashboardVM.ProfessionalLiabilityInsurance = professionalLiabilityInsuranceManager.GetDashboardContainerVM(license);
             dashboardVM.FinancialResponsibility = financialResponsibilityManager.GetDashboardContainerVM(license);
             dashboardVM.ProBono = proBonoManager.GetDashboardContainerVM(license);
 
             //set contact information for dashboard
-            dashboardVM.PrimaryAddress = addressManager.GetDashboardContainerVM(addressManager.GetPrimaryAddress(license));
-            dashboardVM.HomeAddress = addressManager.GetDashboardContainerVM(addressManager.GetHomeAddress(license));
-            dashboardVM.AgentOfServiceAddress = addressManager.GetDashboardContainerVM(addressManager.GetAgentOfServiceAddress(license));
+            dashboardVM.PrimaryAddress = addressManager.GetDashboardContainerVM(license, "Primary");
+            dashboardVM.HomeAddress = addressManager.GetDashboardContainerVM(license, "Home");
+            dashboardVM.AgentOfServiceAddress = addressManager.GetDashboardContainerVM(license, "Agent of Service");
             dashboardVM.Emails = emailManager.GetDashboardContainerVM(license);
             dashboardVM.PhoneNumbers = phoneNumberManager.GetDashboardContainerVM(license);
 

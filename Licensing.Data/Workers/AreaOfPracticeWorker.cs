@@ -17,5 +17,21 @@ namespace Licensing.Data.Workers
         {
             _context = context;
         }
+
+        public ICollection<AreaOfPracticeOption> GetAreaOfPracticeOptions()
+        {
+            return _context.AreaOfPracticeOptions.OrderBy(o => o.Name).ToList();
+        }
+
+        public AreaOfPracticeOption GetAreaOfPracticeOption(int id)
+        {
+            return _context.AreaOfPracticeOptions.Find(id);
+        }
+
+        public void DeleteAreaOfPractice(AreaOfPractice areaOfPractice)
+        {
+            _context.AreasOfPractice.Remove(areaOfPractice);
+            _context.SaveChanges();
+        }
     }
 }

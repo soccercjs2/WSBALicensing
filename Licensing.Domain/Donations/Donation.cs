@@ -15,5 +15,6 @@ namespace Licensing.Domain.Donations
         [ForeignKey("DonationProductId")]
         public virtual DonationProduct Product { get; set; }
         public int? DonationProductId { get; set; }
+        public decimal Amount { get; set; }
     }
 }

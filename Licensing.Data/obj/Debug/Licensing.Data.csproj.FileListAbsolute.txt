@@ -49,3 +49,8 @@ C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.step3.r
 C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.addingjudicialcitation.resources
 C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.removingnullablesonprobono.resources
 C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.removingnullablesonprobono2.resources
+C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.AddingCongressionalDistricttoAddress.resources
+C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.changingphonenumberpartsto1fieldandaddingextension.resources
+C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.addingdescriptiontodonationproduct.resources
+C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.movingdonationpricefromproductleveltodonationlevel.resources
+C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.addingpracticeareas.resources

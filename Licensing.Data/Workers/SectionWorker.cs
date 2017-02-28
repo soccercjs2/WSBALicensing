@@ -17,5 +17,21 @@ namespace Licensing.Data.Workers
         {
             _context = context;
         }
+
+        public ICollection<SectionProduct> GetSectionProducts()
+        {
+            return _context.SectionProducts.OrderBy(o => o.Name).ToList();
+        }
+
+        public SectionProduct GetSectionProduct(int id)
+        {
+            return _context.SectionProducts.Find(id);
+        }
+
+        public void DeleteSection(Section section)
+        {
+            _context.Sections.Remove(section);
+            _context.SaveChanges();
+        }
     }
 }

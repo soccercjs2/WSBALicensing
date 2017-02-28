@@ -29,6 +29,34 @@ namespace Licensing.Business.Managers
             else { return license.Sections; }
         }
 
+        public ICollection<SectionProduct> GetSectionProducts()
+        {
+            return _sectionWorker.GetSectionProducts();
+        }
+
+        public SectionProduct GetSectionProduct(int id)
+        {
+            return _sectionWorker.GetSectionProduct(id);
+        }
+
+        public void AddSection(License license, int sectionProductId)
+        {
+            Section section = new Section();
+            section.Product = GetSectionProduct(sectionProductId);
+
+            license.Sections.Add(section);
+
+            _context.SaveChanges();
+        }
+
+        public void DeleteSection(License license, int sectionProductId)
+        {
+            Section section = license.Sections.Where(a => a.Product.SectionProductId == sectionProductId).FirstOrDefault();
+            _sectionWorker.DeleteSection(section);
+
+            _context.SaveChanges();
+        }
+
         public void Confirm(License license)
         {
             license.SectionsConfirmed = true;
@@ -42,8 +70,8 @@ namespace Licensing.Business.Managers
 
         public DashboardContainerVM GetDashboardContainerVM(License license)
         {
-            RouteContainer editRoute = new RouteContainer("Section", "Edit", license.LicenseId);
-            RouteContainer confirmRoute = new RouteContainer("Section", "Confirm", license.LicenseId);
+            RouteContainer editRoute = new RouteContainer("Sections", "Edit", license.LicenseId);
+            RouteContainer confirmRoute = new RouteContainer("Sections", "Confirm", license.LicenseId);
 
             return new DashboardContainerVM(
                 "Sections",
@@ -52,6 +80,7 @@ namespace Licensing.Business.Managers
                 editRoute,
                 confirmRoute,
                 null,
+                true,
                 "_Sections",
                 GetSections(license)
             );

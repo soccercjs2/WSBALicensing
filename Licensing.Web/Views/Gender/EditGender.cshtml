@@ -1,0 +1,41 @@
+﻿@model Licensing.Business.ViewModels.GenderVM
+
+@{
+    ViewBag.Title = "Edit Gender";
+}
+
+<h2>Gender</h2>
+
+<hr />
+
+@using (Html.BeginForm("Edit", "Gender", FormMethod.Post))
+{
+    <div>
+        @Html.HiddenFor(m => m.LicenseId)
+
+        <div>
+            @foreach (var option in Model.Options)
+            {
+                <div>
+                    @Html.RadioButtonFor(m => m.SelectedOptionId, option.GenderOptionId) @option.Name
+                </div>
+            }
+        </div>
+
+        <hr />
+
+        <h6>
+            Individual gender, race/ethnicity, disability, and sexual orientation information is kept strictly
+            confidential, and is used only in the aggregate for demographic analysis. Aggregate data are available
+            on our website. With this information we can better understand the demographics of our membership.
+            Providing confidential demographic information is optional.
+        </h6>
+
+        <hr />
+
+        <div class="row">
+            @Html.ActionLink("Cancel", "Index", "Home", null, new { @class = "btn btn-primary" })
+            <input class="btn btn-success" type="submit" value="Save" />
+        </div>
+    </div>
+}

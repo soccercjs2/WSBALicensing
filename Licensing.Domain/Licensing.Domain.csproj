@@ -73,6 +73,8 @@
     <Compile Include="Licenses\LicenseTypeSection.cs" />
     <Compile Include="Licenses\LicensePeriod.cs" />
     <Compile Include="Licenses\LicenseProduct.cs" />
+    <Compile Include="Practice Areas\PracticeArea.cs" />
+    <Compile Include="Practice Areas\PracticeAreaOption.cs" />
     <Compile Include="Preloadable.cs" />
     <Compile Include="Pro Bonos\ProBono.cs" />
     <Compile Include="ProfessionalLiabilityInsurances\ProfessionalLiabilityInsurance.cs" />

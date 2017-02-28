@@ -17,5 +17,21 @@ namespace Licensing.Data.Workers
         {
             _context = context;
         }
+
+        public ICollection<LanguageOption> GetLanguageOptions()
+        {
+            return _context.LanguageOptions.OrderBy(o => o.Name).ToList();
+        }
+
+        public LanguageOption GetLanguageOption(int id)
+        {
+            return _context.LanguageOptions.Find(id);
+        }
+
+        public void DeleteLanguage(Language language)
+        {
+            _context.Languages.Remove(language);
+            _context.SaveChanges();
+        }
     }
 }

@@ -31,9 +31,9 @@ namespace Licensing.Business.ViewModels
                 {
                     SelectedCoveredByOptionId = license.FinancialResponsibility.CoveredByOption.CoveredByOptionId;
                 }
-
-                Options = options;
             }
+
+            Options = options;
         }
     }
 }

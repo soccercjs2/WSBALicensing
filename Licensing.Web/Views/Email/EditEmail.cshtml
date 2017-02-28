@@ -1,0 +1,48 @@
+﻿@model Licensing.Business.ViewModels.EmailVM
+
+@{
+    ViewBag.Title = "Edit Email";
+}
+
+<h2>Primary Email</h2>
+
+<h5>
+    <b>WSBA Official Email:</b>
+    All members will receive WSBA official emails including e.g., licensing and MCLE related information, BOG election materials, and other 
+    similar types of communications regardless of whether a restriction option is chosen.
+</h5>
+
+<h5>
+    <b>Email Privacy and Member Contact Information:</b>
+    It is the general policy of the WSBA to be restrictive in the distribution or sale of contact information of its members. Email addresses may 
+    be sold only to providers of CLE seminars. For more information, read about the 
+    <a href="http://www.wsba.org/Licensing-and-Lawyer-Conduct/Member-Tools-and-Information/Member-Data-and-Contact-Information-Policy">Data and Contact Information Policy</a> 
+    and the <a href="http://www.wsba.org/About%20WSBA/Broadcast%20Email%20Policy">Email Policy</a>.
+</h5>
+
+<h5>
+    <a href="http://www.courts.wa.gov/court_rules/?fa=court_rules.display&group=ga&set=APR&ruleid=gaapr13" target="_blank">APR 13</a> requires you to
+    maintain updated contact information, including an email address and public phone number.
+</h5>
+
+<h5><a href="http://localhost/eBusPersonifyDEV/ContactRestrictions.aspx" target="_blank">Edit Contact Restrictions</a></h5>
+
+<hr />
+
+@using (Html.BeginForm("Edit", "Email", FormMethod.Post))
+{
+    <div>
+        @Html.HiddenFor(m => m.LicenseId)
+
+        <div>
+            @Html.TextBoxFor(m => m.Email.EmailAddress, new { @class = "form-control width-restricted" })
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+        @Html.ActionLink("Cancel", "Index", "Home", null, new { @class = "btn btn-primary" })
+        <input class="btn btn-success" type="submit" value="Save" />
+    </div>
+}

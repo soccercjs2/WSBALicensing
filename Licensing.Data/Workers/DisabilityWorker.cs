@@ -17,5 +17,15 @@ namespace Licensing.Data.Workers
         {
             _context = context;
         }
+
+        public ICollection<DisabilityOption> GetOptions()
+        {
+            return _context.DisabilityOptions.ToList();
+        }
+
+        public DisabilityOption GetOption(int id)
+        {
+            return _context.DisabilityOptions.Find(id);
+        }
     }
 }

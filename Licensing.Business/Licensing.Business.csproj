@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Enums\LicensingStatus.cs" />
     <Compile Include="Managers\AddressManager.cs" />
+    <Compile Include="Managers\PracticeAreaManager.cs" />
     <Compile Include="Managers\AreaOfPracticeManager.cs" />
     <Compile Include="Managers\BarNewsManager.cs" />
     <Compile Include="Managers\DisabilityManager.cs" />
@@ -75,14 +76,33 @@
     <Compile Include="Managers\TrustAccoutManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\RouteContainer.cs" />
+    <Compile Include="ViewModels\AddressVM.cs" />
+    <Compile Include="ViewModels\BarNewsVM.cs" />
+    <Compile Include="ViewModels\PracticeAreaOptionVM.cs" />
+    <Compile Include="ViewModels\PracticeAreasVM.cs" />
+    <Compile Include="ViewModels\DonationProductVM.cs" />
+    <Compile Include="ViewModels\SectionProductVM.cs" />
+    <Compile Include="ViewModels\DonationVM.cs" />
+    <Compile Include="ViewModels\SectionVM.cs" />
+    <Compile Include="ViewModels\SexualOrientationVM.cs" />
+    <Compile Include="ViewModels\GenderVM.cs" />
+    <Compile Include="ViewModels\DisabilityVM.cs" />
+    <Compile Include="ViewModels\EthnicityVM.cs" />
+    <Compile Include="ViewModels\LanguageOptionVM.cs" />
+    <Compile Include="ViewModels\AreaOfPracticeOptionVM.cs" />
+    <Compile Include="ViewModels\LanguageVM.cs" />
+    <Compile Include="ViewModels\AreaOfPracticeVM.cs" />
     <Compile Include="ViewModels\DashboardContainerVM.cs" />
     <Compile Include="ViewModels\DashboardVM.cs" />
+    <Compile Include="ViewModels\EmailVM.cs" />
     <Compile Include="ViewModels\FinancialResponsibilityVM.cs" />
     <Compile Include="ViewModels\JudicialCitationVM.cs" />
     <Compile Include="ViewModels\JudicialPositionVM.cs" />
     <Compile Include="ViewModels\LicenseTypeVM.cs" />
     <Compile Include="ViewModels\PhoneNumbersVM.cs" />
+    <Compile Include="ViewModels\PhoneNumberVM.cs" />
     <Compile Include="ViewModels\ProBonoVM.cs" />
+    <Compile Include="ViewModels\FirmSizeVM.cs" />
     <Compile Include="ViewModels\ProfessionalLiabilityInsuranceVM.cs" />
     <Compile Include="ViewModels\TrustAccountVM.cs" />
   </ItemGroup>

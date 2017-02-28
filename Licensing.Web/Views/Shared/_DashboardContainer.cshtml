@@ -2,8 +2,8 @@
 
 @model Licensing.Business.ViewModels.DashboardContainerVM
 
-<div class="dashboard-container @(Model.Complete ? "complete-border":"")">
-    <div class="row dashboard-container-header fake-table @(Model.Complete ? "complete-background-color":"")">
+<div class="dashboard-container @(Model.Complete && Model.RequirementType == RequirementType.Required ? "complete-border":"")">
+    <div class="row dashboard-container-header fake-table @(Model.Complete && Model.RequirementType == RequirementType.Required ? "complete-background-color":"")">
         <div class="dashboard-container-title fake-table-cell">
             @Model.Title
 
@@ -18,7 +18,7 @@
                 @Html.ActionLink("Edit", Model.EditRoute.Action, Model.EditRoute.Controller, new { id = Model.EditRoute.Id }, new { @class = "btn btn-primary btn-xs" })
             }
 
-            @if (Model.ConfirmRoute != null && !Model.Complete && Model.PartialViewData != null)
+            @if (Model.RequirementType == RequirementType.Required && Model.ConfirmRoute != null && !Model.Complete && Model.PartialViewData != null)
             {
                 @Html.ActionLink("Confirm", Model.ConfirmRoute.Action, Model.ConfirmRoute.Controller, new { id = Model.ConfirmRoute.Id }, new { @class = "btn btn-success btn-xs" })
             }

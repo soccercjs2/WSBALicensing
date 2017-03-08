@@ -35,10 +35,10 @@ namespace Licensing.Business.Managers
 
         public void SetJudicialPositionOption(License license, int optionId)
         {
-            SetJudicialPositionOption(license, optionId, null);
+            SetJudicialPosition(license, optionId, null);
         }
 
-        public void SetJudicialPositionOption(License license, int optionId, string citation)
+        public void SetJudicialPosition(License license, int optionId, string citation)
         {
             JudicialPositionOption option = _judicialPositionWorker.GetOption(optionId);
             license.JudicialPosition.Option = option;
@@ -57,7 +57,7 @@ namespace Licensing.Business.Managers
             _context.SaveChanges();
         }
 
-        public void SetJudicialPositionOption(License license, JudicialPositionOption option)
+        public void SetJudicialPosition(License license, JudicialPositionOption option)
         {
             if (license.JudicialPosition == null)
             {
@@ -76,6 +76,36 @@ namespace Licensing.Business.Managers
             _context.SaveChanges();
         }
 
+        public void SetJudicialPositionOption(JudicialPositionOption judicialPositionOption)
+        {
+            if (judicialPositionOption.JudicialPositionOptionId == 0)
+            {
+                JudicialPositionOption existingCode = _judicialPositionWorker.GetOption(judicialPositionOption.AmsCode);
+
+                if (existingCode != null)
+                {
+                    existingCode.Active = true;
+                    existingCode.Name = judicialPositionOption.Name;
+                    judicialPositionOption = existingCode;
+                }
+            }
+
+            _judicialPositionWorker.SetCoveredByOption(judicialPositionOption);
+        }
+
+        public IList<JudicialPositionOption> GetAmsJudicialPositionOptions()
+        {
+            IList<JudicialPositionOption> judicialPositionOptions = new List<JudicialPositionOption>();
+            var codes = WSBA.AMS.CodeTypesManager.GetJudicialPositionCodeList().OrderBy(c => c.Description);
+
+            foreach (var code in codes)
+            {
+                judicialPositionOptions.Add(new JudicialPositionOption() { Name = code.Description, AmsCode = code.Code, Active = true });
+            }
+
+            return judicialPositionOptions;
+        }
+
         public void Confirm(JudicialPosition judicialPosition)
         {
             judicialPosition.Confirmed = true;
@@ -90,14 +120,12 @@ namespace Licensing.Business.Managers
         public DashboardContainerVM GetDashboardContainerVM(License license)
         {
             RouteContainer editRoute = new RouteContainer("JudicialPosition", "Edit", license.LicenseId);
-            RouteContainer confirmRoute = new RouteContainer("JudicialPosition", "Confirm", license.LicenseId);
 
             return new DashboardContainerVM(
                 "Judicial Position",
                 license.LicenseType.JudicialPosition,
                 IsComplete(license),
                 editRoute,
-                confirmRoute,
                 null,
                 false,
                 "_JudicialPosition",

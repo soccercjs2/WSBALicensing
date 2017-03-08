@@ -22,6 +22,16 @@ namespace Licensing.Business.Managers
             _licenseTypeWorker = new LicenseTypeWorker(context);
         }
 
+        public LicenseType GetLicenseType(int id)
+        {
+            return _licenseTypeWorker.GetLicenseType(id);
+        }
+
+        public ICollection<LicenseType> GetLicenseTypes()
+        {
+            return _licenseTypeWorker.GetLicenseTypes();
+        }
+
         public bool IsComplete(License license)
         {
             return (license.LicenseType != null);
@@ -38,16 +48,20 @@ namespace Licensing.Business.Managers
             _context.SaveChanges();
         }
 
+        public void SetLicenseType(LicenseType licenseType)
+        {
+            _licenseTypeWorker.SetLicenseType(licenseType);
+        }
+
         public DashboardContainerVM GetDashboardContainerVM(License license)
         {
-            RouteContainer editRoute = new RouteContainer("LicenseType", "Edit", license.LicenseId);
+            RouteContainer editRoute = new RouteContainer("MembershipType", "Edit", license.LicenseId);
 
             return new DashboardContainerVM(
                 "Membership Type",
                 license.LicenseType.MembershipType,
                 IsComplete(license),
                 editRoute,
-                null,
                 null,
                 false,
                 "_MembershipType",

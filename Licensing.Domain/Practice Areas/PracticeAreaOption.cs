@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Licensing.Domain.PracticeAreas
 {
-    public class PracticeAreaOption
+    public class PracticeAreaOption : Activatable
     {
         public int PracticeAreaOptionId { get; set; }
         public string Name { get; set; }

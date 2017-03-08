@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Configuration>
+  <Data>
+    <Section Name="Settings">
+      <Item Name="Diagnostics" Enabled="True" MailServer="bluestreak.wsba.org" LoggingLevel="Verbose" MailFrom="prdvwebi01@wsba.org" MailTo="itnotification@wsba.org" MailCC="" Path="c:\temp" Categories="TimssGlobalErrorHandler=Verbose" DefaultVerbosityLevel="Verbose" LogToFile="True" LogToEmail="True" LogToEventLog="True"/>
+      <Item Name="Encryption" Method="Simple" Assembly="TIMSS.Reflection.Plugins.Encryption.Simple.dll" Type="Timss.Encryption" />
+      <Item Name="UserInterface" CacheCodeBehind="True" SplashScreen="False" ApplicationHostType="MDIMain" StartupCommand="file://./HTMLPages\startscreen5.html" ConfigFolder="Config" DefaultRole="CallCenterRep" AdvancedThemes="True" DefaultTheme="TIMSS_Default.isl" />
+
+      <Item Name="AddressValidationLibrary" Host="prdvpstrs01.wsba.org" Port="8080" Path="dcg/gateway" AccountId="admin" AccountPassword="admin" ConnectionType="HTTP" ConnectionTimeout="100000" Service="ValidateAddress" Location=".\" Assembly="TIMSS.Server.AddressValidation.dll" Class="TIMSS.Server.AddressValidation.AddressValidationManager" Uri="gtcp://prdvpstrs01.wsba.org:8080/AddressValidationManager.TimssRem" WellKnownName="AddressValidationManager.TimssRem" WellKnownMode="1"/>
+      <Item Name="ServerSideAuthentication" SecurityTokenExpirationTime="604800000"/>
+
+      <Item Name="SeatInformation"
+           AssociationName="WSBA"
+           EnvironmentName="PERSONIFYPRD"
+           VersionName="7.3.1"
+           AppTypeName="PLATFORM"
+           DatabaseName="PERSONIFYPRD"
+           Login="webadmin"
+           Password="N@sc@r3" />
+
+      <Item Name="DatabaseMangling" VersionToken="_##_"/>
+      <!-- These items are necessary for the remoting infrastructure -->
+      <!-- The token expiration time. Currently is set to 7 days. -->
+      <!-- This value should be decreased down to 15 minutes once the version is stable (i.e. after 7/30). -->
+
+      <Item Name="ServerSideAuthentication" SecurityTokenExpirationTime="604800000"/>
+      <Item Name="Remoting" MessagingServiceUri="tcp://PRDvpsapp02:3346/MessagingService.rem"/>
+      <Item Name="Debug"
+				DebugCodeBehind="False"
+				TemporaryFileFolder="C:\Temp\Personify7\"
+				AutoShowFormIssues="True"/>
+    </Section>
+
+    <Section Name="Services" >
+      <Item Name="TimssApplicationServer" Value="tcp://PRDvpsapp02:3346/"  />
+    </Section>
+
+    <Section Name="APILibraries">
+      <Item Name="TIMSS.API.UserWSBA" Layer="User" Type="Custom" RootNamespace="TIMSS.API.UserWSBA" FileName="bin\TIMSS.API.UserWSBA.dll" />
+      <Item Name="TIMSS.API.User.Generated" Layer="User" Type="Generated" RootNamespace="TIMSS.API.User" FileName="bin\Personify.API.User.Generated.dll" />
+      <Item Name="TIMSS.API.Base" Layer="Base"  Type="Custom" RootNamespace="TIMSS.API.Base" FileName="bin\TIMSS.API.Base.dll" />
+      <Item Name="TIMSS.API.Generated" Layer="Base" Type="Generated" RootNamespace="TIMSS.API.Generated" FileName="bin\TIMSS.API.Generated.dll" />
+      <Item Name="TIMSS.API.Core" Layer="Core" Type="Custom" RootNamespace="TIMSS.API.Core" FileName="bin\TIMSS.API.Core.dll" />
+    </Section>
+
+    <Section Name="FormLibraries">
+      <Item Name="TIMSS.API.Base" RootNamespace="TIMSS.API.Base" FileName="bin\TIMSS.API.Base.dll" />
+      <Item Name="TIMSS.API.Generated" RootNamespace="TIMSS.API.Generated" FileName="bin\TIMSS.API.Generated.dll" />
+    </Section>
+
+    <Section Name="Sources">
+      <Item Name="SharedResources" URI="TIMSS.Win.Designer.dll#TIMSS.Win.Designer" Type="EmbeddedResource" />
+      <Item Name="SharedResources" URI="TIMSS.Shared.dll#TIMSS" Type="EmbeddedResource" />
+      <Item Name="Config" URI="../Config" Type="FileSystemFolder"/>
+      <Item Name="Forms" URI="Resources/Config/Forms" Type="FileSystemFolder"/>
+      <Item Name="Forms" URI="../Resources/Config/Forms" Type="FileSystemFolder"/>
+      <Item Name="CustomForms" URI="../Config/Forms" Type="FileSystemFolder"/>
+      <Item Name="FormTemplates" URI="../Config/FormTemplates" Type="FileSystemFolder"/>
+    </Section>
+
+    <Section Name="Designer">
+      <Item Name="Default" RelativePath="" Environment="WebServer"/>
+    </Section>
+
+    <!--<Section Name="AddressValidationLibrary" id="ADDVALLIB">
+      <Item Name="Host" Value="[YourAddressValidationHost]" />
+      <Item Name="Port" Value="[YourPortNumber]" />
+      <Item Name="Path" Value="dcg/gateway" />
+      <Item Name="AccountId" Value="admin" />
+      <Item Name="AccountPassword" Value="admin" />
+      <Item Name="ConnectionType" Value="HTTP" />
+      <Item Name="ConnectionTimeout" Value="100000" />
+      <Item Name="Service" Value="ValidateAddress" />
+      <Item Name="AddressValidationAssembly" Value="TIMSS.Server.AddressValidation.dll" />
+      <Item Name="AddressValidationClassName" Value="TIMSS.Server.AddressValidation.AddressValidationManager" />
+    </Section>-->
+
+    <Section Name="ExecutionEnvironment">
+
+
+      <!-- CLIENT-SIDE SECTION -->
+      <!-- This section constructs the client-side remoting chain and client-side services. -->
+
+      <!-- Specifies the application context fetching strategy. This strategy is necessary
+					to untie TIMSS.Shared logic from TIMSS.API.Core. -->
+      <SetupStrategy Path="TIMSS.API.Core.dll" Name="TIMSS.API.Core.ApplicationContextFetchingStrategySetupStrategy"/>
+
+
+      <!-- Sets up the zero transport, that directs all messages right into the local dispatcher's sink. -->
+      <!-- Personify Over The Wire Dynamic Encryption & Compression -->
+      <SetupStrategy Path="TIMSS.CommunicationLayer.dll" Name="TIMSS.Transport.Tcp.PersonifyRemotingChannelSetupStrategy">
+        <name>Primary TCP channel</name>
+        <!--The protocol specified here MUST match the protocol used in the APPServer URI. Valid protocols are tcp or http -->
+        <protocol>tcp</protocol>
+        <!--Valid formatters are BINARY or SOAP. This value must match the setting defined on the Personify Application Server-->
+        <formatter>BINARY</formatter>
+        <Encrypted>True</Encrypted>
+        <Compressed>True</Compressed>
+        <port>0</port>
+        <suppressChannelData>false</suppressChannelData>
+        <timeout>1200000</timeout>
+      </SetupStrategy>
+      <SetupStrategy Path="TIMSS.CommunicationLayer.dll" Name="TIMSS.Messaging.ClientSideImplementation.SimpleMessageClientSetupStrategy"/>
+    </Section>
+    <Section Name="PersonifyWebFormPath">
+      <Item Name="SystemImages"
+      RelativePath="Resources/PersonifyImages"></Item>
+      <Item Name="Themes" RelativePath="Resources/PersonifyTheme">
+      </Item>
+      <Item Name="ChooserPage"
+      RelativePath="Resources/Chooser.aspx"></Item>
+      <Item Name="DatasourceSessionExpiration" Value="300" />
+      <Item Name="GenericAJAXPostbackErrorMsg" Value="Web form encountered an error. Please contact your site administrator." />
+      <Item Name="jQueryScriptFilePath" Value="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" />
+
+    </Section>
+
+    <Section Name="ThirdPartyInterfaces">
+      <Item Name="GroupOneValidation" Enabled="true"/>
+      <Item Name="CDQPGeoCoding" Enabled="true"/>
+    </Section>
+
+
+  </Data>
+</Configuration>

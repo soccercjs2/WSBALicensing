@@ -54,14 +54,12 @@ namespace Licensing.Business.Managers
         {
 
             RouteContainer editRoute = new RouteContainer("BarNews", "Edit", license.LicenseId);
-            RouteContainer confirmRoute = new RouteContainer("BarNews", "Confirm", license.LicenseId);
 
             return new DashboardContainerVM(
                 "Bar News",
                 license.LicenseType.BarNews,
                 IsComplete(license),
                 editRoute,
-                confirmRoute,
                 null,
                 true,
                 "_BarNews",

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Licensing.Domain.Disabilities
 {
-    public class DisabilityOption
+    public class DisabilityOption : Activatable
     {
         public int DisabilityOptionId { get; set; }
         public string Name { get; set; }

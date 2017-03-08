@@ -71,14 +71,12 @@ namespace Licensing.Business.Managers
         public DashboardContainerVM GetDashboardContainerVM(License license)
         {
             RouteContainer editRoute = new RouteContainer("Sections", "Edit", license.LicenseId);
-            RouteContainer confirmRoute = new RouteContainer("Sections", "Confirm", license.LicenseId);
 
             return new DashboardContainerVM(
                 "Sections",
                 license.LicenseType.Sections,
                 IsComplete(license),
                 editRoute,
-                confirmRoute,
                 null,
                 true,
                 "_Sections",

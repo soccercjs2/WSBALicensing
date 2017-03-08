@@ -4,11 +4,25 @@
     ViewBag.Title = "Edit Trust Account";
 }
 
-@using (Html.BeginForm("AddTrustAccountNumber", "TrustAccount", FormMethod.Post))
+@using (Html.BeginForm("Edit", "TrustAccount", FormMethod.Post))
 {
     <div class="row">
         @Html.HiddenFor(m => m.LicenseId)
         @Html.HiddenFor(m => m.TrustAccountId)
+        @Html.HiddenFor(m => m.HandlesTrustAccount)
+        @Html.HiddenFor(m => m.HandlesCssClass)
+        @Html.HiddenFor(m => m.NotHandlesCssClass)
+
+        @if (Model.TrustAccountNumbersToRemove != null)
+        {
+            for (int i = 0; i < Model.TrustAccountNumbersToRemove.Count; i++)
+            {
+                @Html.HiddenFor(m => m.TrustAccountNumbersToRemove[i].TrustAccountNumberId)
+                @Html.HiddenFor(m => m.TrustAccountNumbersToRemove[i].Bank)
+                @Html.HiddenFor(m => m.TrustAccountNumbersToRemove[i].Branch)
+                @Html.HiddenFor(m => m.TrustAccountNumbersToRemove[i].AccountNumber)
+            }
+        }
         
         <h2>
             Trust Account (
@@ -23,27 +37,8 @@
         </div>
 
         <div class="row padded-top">
-            @if (Model.TrustAccountId == null)
-            {
-                <div>
-                    @Html.ActionLink("Yes", "Handles", "TrustAccount", new { id = Model.LicenseId }, new { @class = "btn btn-success" })
-                    @Html.ActionLink("No", "NotHandles", "TrustAccount", new { id = Model.LicenseId }, new { @class = "btn btn-danger" })
-                </div>
-            }
-            else if (Model.HandlesTrustAccount)
-            {
-                <div>
-                    @Html.ActionLink("Yes", "Handles", "TrustAccount", new { id = Model.LicenseId }, new { @class = "btn btn-success" })
-                    @Html.ActionLink("No", "NotHandles", "TrustAccount", new { id = Model.LicenseId }, new { @class = "btn btn-default" })
-                </div>
-            }
-            else
-            {
-                <div>
-                    @Html.ActionLink("Yes", "Handles", "TrustAccount", new { id = Model.LicenseId }, new { @class = "btn btn-default" })
-                    @Html.ActionLink("No", "NotHandles", "TrustAccount", new { id = Model.LicenseId }, new { @class = "btn btn-danger" })
-                </div>
-            }
+            <button class="btn @Model.HandlesCssClass" name="submit" type="submit" value="Handles">Yes</button>
+            <button class="btn @Model.NotHandlesCssClass" name="submit" type="submit" value="NotHandles">No</button>
         </div>
 
         <hr />
@@ -65,9 +60,6 @@
             <h2>Account Details</h2>
 
             <div>
-                @Html.HiddenFor(m => m.PendingTrustAccountNumber.TrustAccountId)
-                @Html.HiddenFor(m => m.PendingTrustAccountNumber.TrustAccountNumberId)
-                
                 <div class="row">
                     @Html.LabelFor(m => m.PendingTrustAccountNumber.Bank)
                     @Html.TextBoxFor(m => m.PendingTrustAccountNumber.Bank, new { @class = "form-control width-restricted" })
@@ -84,7 +76,7 @@
                 </div>
 
                 <div class="padded-top">
-                    <input class="btn btn-success" type="submit" value="Add Account" />
+                    <button class="btn btn-success" name="submit" type="submit" value="Add">Add Account</button>
                 </div>
             </div>
 
@@ -102,16 +94,35 @@
                         </tr>
                     </thead>
 
-                    @foreach (var trustAccountNumber in Model.TrustAccountNumbers)
+                    @for (int i = 0; i < Model.TrustAccountNumbers.Count; i++)
                     {
                         <tr>
-                            <td>@trustAccountNumber.Bank</td>
-                            <td>@trustAccountNumber.Branch</td>
-                            <td>@trustAccountNumber.AccountNumber</td>
-                            <td>@Html.ActionLink(" ", "DeleteTrustAccountNumber", "TrustAccount", new { id = trustAccountNumber.TrustAccountNumberId }, new { @class = "glyphicon glyphicon-remove delete-icon" })</td>
+                            @Html.HiddenFor(m => m.TrustAccountNumbers[i].TrustAccountNumberId)
+                            @Html.HiddenFor(m => m.TrustAccountNumbers[i].Bank)
+                            @Html.HiddenFor(m => m.TrustAccountNumbers[i].Branch)
+                            @Html.HiddenFor(m => m.TrustAccountNumbers[i].AccountNumber)
+
+                            <td>@Model.TrustAccountNumbers[i].Bank</td>
+                            <td>@Model.TrustAccountNumbers[i].Branch</td>
+                            <td>@Model.TrustAccountNumbers[i].AccountNumber</td>
+                            <td>
+                                <button class="non-button" name="submit" type="submit" value="Delete_@Model.TrustAccountNumbers[i].TrustAccountNumberId">
+                                    <i class="glyphicon glyphicon-remove delete-icon"></i>
+                                </button>
+                            </td>
                         </tr>
                     }
                 </table>
+            }
+        }
+        else
+        {
+            for (int i = 0; i < Model.TrustAccountNumbers.Count; i++)
+            {
+                @Html.HiddenFor(m => m.TrustAccountNumbers[i].TrustAccountNumberId)
+                @Html.HiddenFor(m => m.TrustAccountNumbers[i].Bank)
+                @Html.HiddenFor(m => m.TrustAccountNumbers[i].Branch)
+                @Html.HiddenFor(m => m.TrustAccountNumbers[i].AccountNumber)
             }
         }
     </div>
@@ -126,6 +137,7 @@
     <hr />
 
     <div class="row">
-        @Html.ActionLink("Return to Dashboard", "Index", "Home", null, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Cancel", "Index", "Home", null, new { @class = "btn btn-primary" })
+        <button class="btn btn-success" name="submit" type="submit" value="Save">Save</button>
     </div>
 }

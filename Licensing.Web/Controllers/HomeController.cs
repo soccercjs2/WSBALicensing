@@ -40,10 +40,7 @@ namespace Licensing.Web.Controllers
             AreaOfPracticeManager areaOfPracticeManager = new AreaOfPracticeManager(context);
             FirmSizeManager firmSizeManager = new FirmSizeManager(context);
             LanguageManager languageManager = new LanguageManager(context);
-            EthnicityManager ethnicityManager = new EthnicityManager(context);
-            GenderManager genderManager = new GenderManager(context);
-            DisabilityManager disabilityManager = new DisabilityManager(context);
-            SexualOrientationManager sexualOrientationManager = new SexualOrientationManager(context);
+            DemographicManager demographicManager = new DemographicManager(context);
             MembershipProductManager membershipProductManager = new MembershipProductManager(context);
             SectionManager sectionManager = new SectionManager(context);
             DonationManager donationManager = new DonationManager(context);
@@ -83,10 +80,7 @@ namespace Licensing.Web.Controllers
             dashboardVM.Languages = languageManager.GetDashboardContainerVM(license);
 
             //set demographic information for dashboard
-            dashboardVM.Ethnicity = ethnicityManager.GetDashboardContainerVM(license);
-            dashboardVM.Gender = genderManager.GetDashboardContainerVM(license);
-            dashboardVM.Disability = disabilityManager.GetDashboardContainerVM(license);
-            dashboardVM.SexualOrientation = sexualOrientationManager.GetDashboardContainerVM(license);
+            dashboardVM.Demographics = demographicManager.GetDashboardContainerVM(license);
 
             //set payment information for dashboard
             dashboardVM.MembershipProducts = membershipProductManager.GetDashboardContainerVM(license);

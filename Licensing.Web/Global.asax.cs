@@ -17,6 +17,8 @@ namespace Licensing.Web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            TIMSS.PersonifyInitializer.Initialize(".\\", new TIMSS.Client.Implementation.Security.Authentication.ImmediateSeatInformationProvider());
         }
     }
 }

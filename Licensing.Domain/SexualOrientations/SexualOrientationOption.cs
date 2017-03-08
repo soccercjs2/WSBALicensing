@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Licensing.Domain.SexualOrientations
 {
-    public class SexualOrientationOption
+    public class SexualOrientationOption : Activatable
     {
         public int SexualOrientationOptionId { get; set; }
         public string Name { get; set; }

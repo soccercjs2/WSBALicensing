@@ -24,6 +24,13 @@
 
     <hr />
 
+    <div class="row margin-top">
+        @Html.CheckBoxFor(m => m.Attested) By (1) <b>checking</b> the box to the left, and (2) <b>clicking</b> the Save button,
+        I certify under penalty of perjury under the laws of the state of Washington that the foregoing information is true and correct.
+    </div>
+
+    <hr />
+
     <div class="row">
         @Html.ActionLink("Cancel", "Index", "Home", null, new { @class = "btn btn-primary" })
         <input class="btn btn-success" type="submit" value="Save" />

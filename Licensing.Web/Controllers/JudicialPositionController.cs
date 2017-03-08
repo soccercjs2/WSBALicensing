@@ -68,7 +68,7 @@ namespace Licensing.Web.Controllers
                 }
                 else
                 {
-                    judicialPositionManager.SetJudicialPositionOption(license, option);
+                    judicialPositionManager.SetJudicialPosition(license, option);
                     return RedirectToAction("Index", "Home");
                 }
             }
@@ -106,7 +106,7 @@ namespace Licensing.Web.Controllers
 
                 //add new trust account number to trust account
                 JudicialPositionManager judicialPositionManager = new JudicialPositionManager(_context);
-                judicialPositionManager.SetJudicialPositionOption(license, judicialCitationVM.SelectedJudicialPositionOptionId, judicialCitationVM.Citation);
+                judicialPositionManager.SetJudicialPosition(license, judicialCitationVM.SelectedJudicialPositionOptionId, judicialCitationVM.Citation);
 
                 return RedirectToAction("Index", "Home");
             }

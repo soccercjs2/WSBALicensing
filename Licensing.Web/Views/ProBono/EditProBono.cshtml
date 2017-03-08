@@ -4,87 +4,73 @@
     ViewBag.Title = "Edit Pro Bono";
 }
 
-<h2>Voluntary Reporting of <a href="http://www.courts.wa.gov/court_rules/?fa=court_rules.display&group=ga&set=RPC&ruleid=garpc6.1" target="_blank">Pro Bono Publico</a> Service Hours</h2>
-<h5>
-    In 2016, I provided the following hours of pro bono public service as defined in 
-    <a href="http://www.courts.wa.gov/court_rules/?fa=court_rules.rulesPDF&ruleId=garpc6.1&pdf=1" target="_blank">RPC 6.1</a>.
-</h5>
-<h5>
-    Learn about <a href="http://www.wsba.org/publicservice" target="_blank">pro bono service opportunities</a>.
-</h5>
-
-<div class="row padded-top">
-    @if (Model.ProBono == null)
-    {
-        <div>
-            @Html.ActionLink("Yes", "ProvidesService", "ProBono", new { id = Model.LicenseId }, new { @class = "btn btn-success" })
-            @Html.ActionLink("No", "NotProvidesService", "ProBono", new { id = Model.LicenseId }, new { @class = "btn btn-danger" })
-        </div>
-    }
-    else if (Model.ProBono.ProvidesService)
-    {
-        <div>
-            @Html.ActionLink("Yes", "ProvidesService", "ProBono", new { id = Model.LicenseId }, new { @class = "btn btn-success" })
-            @Html.ActionLink("No", "NotProvidesService", "ProBono", new { id = Model.LicenseId }, new { @class = "btn btn-default" })
-        </div>
-    }
-    else
-    {
-        <div>
-            @Html.ActionLink("Yes", "ProvidesService", "ProBono", new { id = Model.LicenseId }, new { @class = "btn btn-default" })
-            @Html.ActionLink("No", "NotProvidesService", "ProBono", new { id = Model.LicenseId }, new { @class = "btn btn-danger" })
-        </div>
-    }
-</div>
-
-<hr />
-
 @using (Html.BeginForm("Edit", "ProBono", FormMethod.Post))
 {
+    @Html.HiddenFor(m => m.LicenseId)
+    @Html.HiddenFor(m => m.ProvidesServiceCssClass)
+    @Html.HiddenFor(m => m.NotProvidesServiceCssClass)
+
+    <h2>Voluntary Reporting of <a href="http://www.courts.wa.gov/court_rules/?fa=court_rules.display&group=ga&set=RPC&ruleid=garpc6.1" target="_blank">Pro Bono Publico</a> Service Hours</h2>
+    <h5>
+        In 2016, I provided the following hours of pro bono public service as defined in
+        <a href="http://www.courts.wa.gov/court_rules/?fa=court_rules.rulesPDF&ruleId=garpc6.1&pdf=1" target="_blank">RPC 6.1</a>.
+    </h5>
+    <h5>
+        Learn about <a href="http://www.wsba.org/publicservice" target="_blank">pro bono service opportunities</a>.
+    </h5>
+
+    <div class="row padded-top">
+        <button class="btn @Model.ProvidesServiceCssClass" name="submit" type="submit" value="ProvidesService">Yes</button>
+        <button class="btn @Model.NotProvidesServiceCssClass" name="submit" type="submit" value="NotProvidesService">No</button>
+    </div>
+
+    <hr />
+
     <div>
-        @if (Model.ProBono != null && Model.ProBono.ProvidesService)
+        @if (Model.ProBono != null)
         {
-            @Html.HiddenFor(m => m.LicenseId)
+            @Html.HiddenFor(m => m.ProBono.ProBonoId)
+            @Html.HiddenFor(m => m.ProBono.ProvidesService)
 
-            <div class="row">
-                @Html.TextBoxFor(m => m.ProBono.FreeServiceHours, new { @class = "form-control width-restricted small-text-box inline" })
+            if (Model.ProBono.ProvidesService)
+            {
+                <div class="row">
+                    @Html.TextBoxFor(m => m.ProBono.FreeServiceHours, new { @class = "form-control width-restricted small-text-box inline" })
 
-                <div class="inline">
-                    Hours  of free legal services to persons of limited means and/or to organizations which address needs of persons of limited means
-                    <a href="http://www.courts.wa.gov/court_rules/?fa=court_rules.rulesPDF&ruleId=garpc6.1&pdf=1" target="_blank">(RPC 6.1(a))</a>. 
+                    <div class="inline">
+                        Hours  of free legal services to persons of limited means and/or to organizations which address needs of persons of limited means
+                        <a href="http://www.courts.wa.gov/court_rules/?fa=court_rules.rulesPDF&ruleId=garpc6.1&pdf=1" target="_blank">(RPC 6.1(a))</a>.
+                    </div>
                 </div>
-            </div>
 
-            <div class="row padded-top">
-                @Html.TextBoxFor(m => m.ProBono.LimitedFeeServiceHours, new { @class = "form-control width-restricted small-text-box inline" }) 
-                
-                <div class="inline">
-                    Hours of other public service or reduced-fee services <a href="http://www.courts.wa.gov/court_rules/?fa=court_rules.rulesPDF&ruleId=garpc6.1&pdf=1" target="_blank">(RPC 6.1(b))</a>.
+                <div class="row padded-top">
+                    @Html.TextBoxFor(m => m.ProBono.LimitedFeeServiceHours, new { @class = "form-control width-restricted small-text-box inline" })
+
+                    <div class="inline">
+                        Hours of other public service or reduced-fee services <a href="http://www.courts.wa.gov/court_rules/?fa=court_rules.rulesPDF&ruleId=garpc6.1&pdf=1" target="_blank">(RPC 6.1(b))</a>.
+                    </div>
                 </div>
-            </div>
 
-            <hr />
+                <hr />
 
-            <div class="row">
-                If you contributed 50 or more hours, you will receive commendation in NWLawyer and on the WSBA website unless you check this box:<br /><br />
-                @Html.CheckBoxFor(m => m.ProBono.Anonymous) I prefer to remain anonymous
-            </div>
+                <div class="row">
+                    If you contributed 50 or more hours, you will receive commendation in NWLawyer and on the WSBA website unless you check this box:<br /><br />
+                    @Html.CheckBoxFor(m => m.ProBono.Anonymous) I prefer to remain anonymous
+                </div>
 
-            <hr />
+                <hr />
+            }
+            else
+            {
+                @Html.HiddenFor(m => m.ProBono.FreeServiceHours)
+                @Html.HiddenFor(m => m.ProBono.LimitedFeeServiceHours)
+                @Html.HiddenFor(m => m.ProBono.Anonymous)
+            }
         }
     </div>
 
-    if (Model.ProBono != null && Model.ProBono.ProvidesService)
-    {
-        <div class="row">
-            @Html.ActionLink("Cancel", "Index", "Home", null, new { @class = "btn btn-primary" })
-            <input class="btn btn-success" type="submit" value="Save" />
-        </div>
-    }
-    else
-    {
-        <div class="row">
-            @Html.ActionLink("Return to Dashboard", "Index", "Home", null, new { @class = "btn btn-primary" })
-        </div>
-    }
+    <div class="row">
+        @Html.ActionLink("Cancel", "Index", "Home", null, new { @class = "btn btn-primary" })
+        <button class="btn btn-success" name="submit" type="submit" value="Save">Save</button>
+    </div>
 }

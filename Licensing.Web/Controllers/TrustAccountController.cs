@@ -35,31 +35,7 @@ namespace Licensing.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult Handles(int id)
-        {
-            //get license
-            LicenseManager licenseManager = new LicenseManager(_context);
-            License license = licenseManager.GetLicense(id);
-
-            TrustAccountManager trustAccountManager = new TrustAccountManager(_context);
-            trustAccountManager.SetHandlesTrustAccount(license);
-
-            return RedirectToAction("Edit", "TrustAccount", new { Id = id });
-        }
-
-        public ActionResult NotHandles(int id)
-        {
-            //get license
-            LicenseManager licenseManager = new LicenseManager(_context);
-            License license = licenseManager.GetLicense(id);
-
-            TrustAccountManager trustAccountManager = new TrustAccountManager(_context);
-            trustAccountManager.SetDoesNotHandleTrustAccount(license);
-
-            //return updated partial view
-            return RedirectToAction("Index", "Home");
-        }
-
+        [HttpGet]
         public ActionResult Edit(int id)
         {
             LicenseManager licenseManager = new LicenseManager(_context);
@@ -69,19 +45,43 @@ namespace Licensing.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddTrustAccountNumber(TrustAccountVM trustAccountVM)
+        public ActionResult Edit(TrustAccountVM trustAccountVM, string submit)
         {
             if (ModelState.IsValid)
             {
-                //get license from view model
-                LicenseManager licenseManager = new LicenseManager(_context);
-                License license = licenseManager.GetLicense(trustAccountVM.LicenseId);
+                if (submit == "Handles")
+                {
+                    trustAccountVM = Handles(trustAccountVM);
+                    ModelState.Clear();
+                    return View("EditTrustAccount", trustAccountVM);
+                }
+                else if (submit == "NotHandles")
+                {
+                    trustAccountVM = NotHandles(trustAccountVM);
+                    ModelState.Clear();
+                    return View("EditTrustAccount", trustAccountVM);
+                }
+                else if (submit == "Add")
+                {
+                    trustAccountVM = AddTrustAccountNumber(trustAccountVM);
+                    ModelState.Clear();
+                    return View("EditTrustAccount", trustAccountVM);
+                }
+                else if (submit.Contains("Delete"))
+                {
+                    int id = int.Parse(submit.Split('_')[1]);
 
-                //add new trust account number to trust account
-                TrustAccountManager trustAccountManager = new TrustAccountManager(_context);
-                trustAccountManager.AddTrustAccountNumber(license, trustAccountVM.PendingTrustAccountNumber);
+                    trustAccountVM = DeleteTrustAccountNumber(trustAccountVM, id);
+                    ModelState.Clear();
+                    return View("EditTrustAccount", trustAccountVM);
+                }
+                else if (submit == "Save")
+                {
+                    Save(trustAccountVM);
+                    return RedirectToAction("Index", "Home");
+                }
 
-                return RedirectToAction("Edit", "TrustAccount", new { Id = trustAccountVM.LicenseId });
+                return View("EditTrustAccount", trustAccountVM);
             }
             else
             {
@@ -89,17 +89,88 @@ namespace Licensing.Web.Controllers
             }
         }
 
-        public ActionResult DeleteTrustAccountNumber(int id)
+        private TrustAccountVM Handles(TrustAccountVM trustAccountVM)
         {
-            TrustAccountManager trustAccountManager = new TrustAccountManager(_context);
+            trustAccountVM.HandlesTrustAccount = true;
+            trustAccountVM.HandlesCssClass = "btn-success";
+            trustAccountVM.NotHandlesCssClass = "btn-default";
+
+            return trustAccountVM;
+        }
+
+        private TrustAccountVM NotHandles(TrustAccountVM trustAccountVM)
+        {
+            trustAccountVM.HandlesTrustAccount = false;
+            trustAccountVM.HandlesCssClass = "btn-default";
+            trustAccountVM.NotHandlesCssClass = "btn-danger";
+
+            return trustAccountVM;
+        }
+
+        private TrustAccountVM AddTrustAccountNumber(TrustAccountVM trustAccountVM)
+        {
+            if (TempData["LastTANIndex"] == null) { TempData["LastTANIndex"] = -1; }
+
+            int tanIndex = (int)TempData["LastTANIndex"];
+
+            trustAccountVM.TrustAccountNumbers.Add(
+                new TrustAccountNumberVM(
+                    tanIndex,
+                    trustAccountVM.PendingTrustAccountNumber.Bank,
+                    trustAccountVM.PendingTrustAccountNumber.Branch,
+                    trustAccountVM.PendingTrustAccountNumber.AccountNumber));
+
+            TempData["LastTANIndex"] = tanIndex - 1;
+
+            trustAccountVM.PendingTrustAccountNumber = null;
+
+            return trustAccountVM;
+        }
+
+        private TrustAccountVM DeleteTrustAccountNumber(TrustAccountVM trustAccountVM, int id)
+        {
+            TrustAccountNumberVM itemToRemove = trustAccountVM.TrustAccountNumbers.Where(i => i.TrustAccountNumberId == id).FirstOrDefault();
+
+            if (itemToRemove.TrustAccountNumberId > 0) {
+                if (trustAccountVM.TrustAccountNumbersToRemove == null) { trustAccountVM.TrustAccountNumbersToRemove = new List<TrustAccountNumberVM>(); }
+                trustAccountVM.TrustAccountNumbersToRemove.Add(itemToRemove);
+            }
+
+            trustAccountVM.TrustAccountNumbers.Remove(itemToRemove);
+            return trustAccountVM;
+        }
+
+        private void Save(TrustAccountVM trustAccountVM)
+        {
             LicenseManager licenseManager = new LicenseManager(_context);
+            License license = licenseManager.GetLicense(trustAccountVM.LicenseId);
 
-            TrustAccount trustAccount = trustAccountManager.GetTrustAccountByTrustAccountNumber(id);
-            License license = licenseManager.GetLicenseByTrustAccount(trustAccount.TrustAccountId);
+            TrustAccountManager trustAccountManager = new TrustAccountManager(_context);
 
-            trustAccountManager.DeleteTrustAccountNumber(id);
+            if (!trustAccountVM.HandlesTrustAccount)
+            {
+                trustAccountManager.SetDoesNotHandleTrustAccount(license);
+            }
+            else
+            {
+                trustAccountManager.SetHandlesTrustAccount(license);
 
-            return RedirectToAction("Edit", "TrustAccount", new { Id = license.LicenseId });
+                foreach (TrustAccountNumberVM trustAccountNumberVM in trustAccountVM.TrustAccountNumbers)
+                {
+                    if (trustAccountNumberVM.TrustAccountNumberId < 0)
+                    {
+                        trustAccountManager.AddTrustAccountNumber(license, trustAccountNumberVM.Bank, trustAccountNumberVM.Branch, trustAccountNumberVM.AccountNumber);
+                    }
+                }
+            }
+
+            if (trustAccountVM.TrustAccountNumbersToRemove != null)
+            {
+                foreach (TrustAccountNumberVM trustAccountNumberVM in trustAccountVM.TrustAccountNumbersToRemove)
+                {
+                    trustAccountManager.DeleteTrustAccountNumber(trustAccountNumberVM.TrustAccountNumberId);
+                }
+            }
         }
     }
 }

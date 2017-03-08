@@ -1,0 +1,63 @@
+﻿@model Licensing.Business.ViewModels.AdminDashboardVM
+
+@{
+    ViewBag.Title = "Admin Dashboard";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<h2>Admin Dashboard</h2>
+
+<div class="row">
+    <div class="col-lg-3 col-sm-6 dashboard-column">
+        <div class="demographic-container">
+            <div class="demographic-container-header fake-table">
+                <div class="demographic-container-title">License Types</div>
+                <div class="fake-table-cell nowrap button-fix">
+                    @Html.ActionLink("New", "Create", "LicenseType", null, new { @class = "btn btn-primary btn-xs" })
+                </div>
+            </div>
+            <div class="demographics-container-body">
+                @foreach (var licenseType in Model.LicenseTypes)
+                {
+                    <div>
+                        @Html.ActionLink(licenseType.Name, "Edit", "LicenseType", new { id = licenseType.LicenseTypeId }, null)
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-sm-6 dashboard-column">
+        <div class="demographic-container">
+            <div class="demographic-container-header">
+                <div class="demographic-container-title">Personify Codes</div>
+            </div>
+            <div class="demographics-container-body">
+                <b><u>License Codes</u></b><br />
+                @Html.ActionLink("Financial Responsibility Options", "Edit", "CoveredByOption")<br />
+                @Html.ActionLink("Judicial Position Options", "Edit", "JudicialPositionOption")<br />
+                @Html.ActionLink("Practice Area Options", "Edit", "PracticeAreaOption")<br />
+                @Html.ActionLink("Professional Liability Insurance Options", "Edit", "ProfessionalLiabilityInsuranceOption")<br />
+                
+                <b><u>Contact Type Codes</u></b><br />
+                @Html.ActionLink("Address Types", "Edit", "AddressType")<br />
+                @Html.ActionLink("Phone Number Types", "Edit", "PhoneNumberType")<br />
+
+                <b><u>Practice Info Codes</u></b><br />
+                @Html.ActionLink("Areas of Practice", "Edit", "AreasOfPracticeOption")<br />
+                @Html.ActionLink("Firm Size Options", "Edit", "FirmSizeOption")<br />
+                @Html.ActionLink("Language Options", "Edit", "LanguageOption")<br />
+
+                <b><u>Confidential Info Codes</u></b><br />
+                @Html.ActionLink("Disability Options", "Edit", "DisabilityOption")<br />
+                @Html.ActionLink("Ethnicity Options", "Edit", "EthnicityOption")<br />
+                @Html.ActionLink("Gender Options", "Edit", "GenderOption")<br />
+                @Html.ActionLink("Sexual Orientation Options", "Edit", "SexualOrientationOption")<br />
+
+                <b><u>Product Codes</u></b><br />
+                @Html.ActionLink("Donation Products", "Edit", "DonationProduct")<br />
+                @Html.ActionLink("License Products", "Edit", "LicenseProduct")<br />
+                @Html.ActionLink("Section Products", "Edit", "SectionProduct")
+            </div>
+        </div>
+    </div>
+</div>

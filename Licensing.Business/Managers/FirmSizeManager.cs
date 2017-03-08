@@ -57,14 +57,12 @@ namespace Licensing.Business.Managers
         public DashboardContainerVM GetDashboardContainerVM(License license)
         {
             RouteContainer editRoute = new RouteContainer("FirmSize", "Edit", license.LicenseId);
-            RouteContainer confirmRoute = new RouteContainer("FirmSize", "Confirm", license.LicenseId);
 
             return new DashboardContainerVM(
                 "Firm Size",
                 license.LicenseType.FirmSize,
                 IsComplete(license),
                 editRoute,
-                confirmRoute,
                 null,
                 false,
                 "_FirmSize",

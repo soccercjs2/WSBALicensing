@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Licensing.Domain.Languages
 {
-    public class LanguageOption
+    public class LanguageOption : Activatable
     {
         public int LanguageOptionId { get; set; }
         public string Name { get; set; }

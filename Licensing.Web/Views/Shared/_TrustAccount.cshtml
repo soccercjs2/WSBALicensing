@@ -1,6 +1,6 @@
 ﻿@model Licensing.Domain.TrustAccounts.TrustAccount
 
-@if (Model != null)
+@if (Model != null && Model.Confirmed)
 {
     <div class="row padded">
         <div class="inline bold">Manages Trust Account:</div>

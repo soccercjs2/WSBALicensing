@@ -30,6 +30,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DotNetNuke">
+      <HintPath>..\ExternalReferences\AMS\DotNetNuke.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetNuke.WebControls">
+      <HintPath>..\ExternalReferences\AMS\DotNetNuke.WebControls.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetNuke.WebUtility">
+      <HintPath>..\ExternalReferences\AMS\DotNetNuke.WebUtility.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -37,6 +46,21 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\ExternalReferences\AMS\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationBlocks.Data">
+      <HintPath>..\ExternalReferences\AMS\Microsoft.ApplicationBlocks.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Personify.API.User.Generated">
+      <HintPath>..\ExternalReferences\AMS\Personify.API.User.Generated.dll</HintPath>
+    </Reference>
+    <Reference Include="Personify.ApplicationManager">
+      <HintPath>..\ExternalReferences\AMS\Personify.ApplicationManager.dll</HintPath>
+    </Reference>
+    <Reference Include="SQL_EncryptionAssembly">
+      <HintPath>..\ExternalReferences\AMS\SQL_EncryptionAssembly.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -47,10 +71,48 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="TIMSS.API.Base">
+      <HintPath>..\ExternalReferences\AMS\TIMSS.API.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="TIMSS.API.Core">
+      <HintPath>..\ExternalReferences\AMS\TIMSS.API.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="TIMSS.API.Generated">
+      <HintPath>..\ExternalReferences\AMS\TIMSS.API.Generated.dll</HintPath>
+    </Reference>
+    <Reference Include="TIMSS.API.Interfaces">
+      <HintPath>..\ExternalReferences\AMS\TIMSS.API.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="TIMSS.API.UserWSBA">
+      <HintPath>..\ExternalReferences\AMS\TIMSS.API.UserWSBA.dll</HintPath>
+    </Reference>
+    <Reference Include="TIMSS.Client.Implementation">
+      <HintPath>..\ExternalReferences\AMS\TIMSS.Client.Implementation.dll</HintPath>
+    </Reference>
+    <Reference Include="TIMSS.CommunicationLayer">
+      <HintPath>..\ExternalReferences\AMS\TIMSS.CommunicationLayer.dll</HintPath>
+    </Reference>
+    <Reference Include="TIMSS.Server.BusinessImplementation">
+      <HintPath>..\ExternalReferences\AMS\TIMSS.Server.BusinessImplementation.dll</HintPath>
+    </Reference>
+    <Reference Include="TIMSS.Server.Implementation">
+      <HintPath>..\ExternalReferences\AMS\TIMSS.Server.Implementation.dll</HintPath>
+    </Reference>
+    <Reference Include="TIMSS.Shared">
+      <HintPath>..\ExternalReferences\AMS\TIMSS.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="TIMSS.Win">
+      <HintPath>..\ExternalReferences\AMS\TIMSS.Win.dll</HintPath>
+    </Reference>
+    <Reference Include="WSBA.AMS, Version=1.2.2.14, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ExternalReferences\AMS\WSBA.AMS.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums\LicensingStatus.cs" />
     <Compile Include="Managers\AddressManager.cs" />
+    <Compile Include="Managers\DemographicManager.cs" />
     <Compile Include="Managers\PracticeAreaManager.cs" />
     <Compile Include="Managers\AreaOfPracticeManager.cs" />
     <Compile Include="Managers\BarNewsManager.cs" />
@@ -77,7 +139,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\RouteContainer.cs" />
     <Compile Include="ViewModels\AddressVM.cs" />
+    <Compile Include="ViewModels\AdminDashboardVM.cs" />
     <Compile Include="ViewModels\BarNewsVM.cs" />
+    <Compile Include="ViewModels\JudicialPositionOptionsVM.cs" />
+    <Compile Include="ViewModels\DemographicsVM.cs" />
+    <Compile Include="ViewModels\CoveredByOptionsVM.cs" />
+    <Compile Include="ViewModels\LicenseTypeVM.cs" />
     <Compile Include="ViewModels\PracticeAreaOptionVM.cs" />
     <Compile Include="ViewModels\PracticeAreasVM.cs" />
     <Compile Include="ViewModels\DonationProductVM.cs" />
@@ -98,12 +165,13 @@
     <Compile Include="ViewModels\FinancialResponsibilityVM.cs" />
     <Compile Include="ViewModels\JudicialCitationVM.cs" />
     <Compile Include="ViewModels\JudicialPositionVM.cs" />
-    <Compile Include="ViewModels\LicenseTypeVM.cs" />
+    <Compile Include="ViewModels\MembershipTypeVM.cs" />
     <Compile Include="ViewModels\PhoneNumbersVM.cs" />
     <Compile Include="ViewModels\PhoneNumberVM.cs" />
     <Compile Include="ViewModels\ProBonoVM.cs" />
     <Compile Include="ViewModels\FirmSizeVM.cs" />
     <Compile Include="ViewModels\ProfessionalLiabilityInsuranceVM.cs" />
+    <Compile Include="ViewModels\TrustAccountNumberVM.cs" />
     <Compile Include="ViewModels\TrustAccountVM.cs" />
   </ItemGroup>
   <ItemGroup>

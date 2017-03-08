@@ -116,7 +116,6 @@ namespace Licensing.Business.Managers
                 IsComplete(license),
                 null,
                 null,
-                null,
                 false,
                 "_PhoneNumbers",
                 phoneNumbersVM

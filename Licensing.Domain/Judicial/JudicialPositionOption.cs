@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Licensing.Domain.Judicial
 {
-    public class JudicialPositionOption
+    public class JudicialPositionOption : Activatable
     {
         public int JudicialPositionOptionId { get; set; }
         public string Name { get; set; }

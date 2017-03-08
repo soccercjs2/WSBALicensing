@@ -89,8 +89,8 @@ namespace Licensing.Data.Migrations
                     Ethnicity = RequirementType.Optional,
                     Gender = RequirementType.Optional,
                     SexualOrientation = RequirementType.Optional,
-                    Donations = RequirementType.Required,
-                    Sections = RequirementType.Required,
+                    Donations = RequirementType.Optional,
+                    Sections = RequirementType.Optional,
                     BarNews = RequirementType.Excluded
                 },
                 new LicenseType {
@@ -110,15 +110,15 @@ namespace Licensing.Data.Migrations
                     PrimaryPhoneNumber = RequirementType.Optional,
                     HomePhoneNumber = RequirementType.Optional,
                     FaxPhoneNumber = RequirementType.Optional,
-                    AreasOfPractice = RequirementType.Optional,
-                    FirmSize = RequirementType.Optional,
+                    AreasOfPractice = RequirementType.Excluded,
+                    FirmSize = RequirementType.Excluded,
                     Languages = RequirementType.Optional,
                     Disability = RequirementType.Optional,
                     Ethnicity = RequirementType.Optional,
                     Gender = RequirementType.Optional,
                     SexualOrientation = RequirementType.Optional,
-                    Donations = RequirementType.Required,
-                    Sections = RequirementType.Required,
+                    Donations = RequirementType.Optional,
+                    Sections = RequirementType.Optional,
                     BarNews = RequirementType.Optional
                 }
             };
@@ -348,7 +348,7 @@ namespace Licensing.Data.Migrations
             {
                 new License
                 {
-                    LicensePeriod = licensingPeriods[1],
+                    LicensePeriod = licensingPeriods[0],
                     LicenseType = licenseTypes[0],
                     PreviousLicenseType = licenseTypes[0],
                     FinancialResponsibility = financialResponsibilities[0],
@@ -368,7 +368,7 @@ namespace Licensing.Data.Migrations
                 },
                 new License
                 {
-                    LicensePeriod = licensingPeriods[0],
+                    LicensePeriod = licensingPeriods[1],
                     LicenseType = licenseTypes[0],
                     PreviousLicenseType = licenseTypes[0],
                     FinancialResponsibility = null,

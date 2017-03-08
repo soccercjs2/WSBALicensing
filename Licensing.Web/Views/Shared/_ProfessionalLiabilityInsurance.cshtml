@@ -1,6 +1,6 @@
 ﻿@model Licensing.Domain.ProfessionalLiabilityInsurances.ProfessionalLiabilityInsurance
 
-@if (Model != null)
+@if (Model != null && Model.Confirmed)
 {
     <div class="row padded">
         @Model.Option.Description

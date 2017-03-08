@@ -71,14 +71,12 @@ namespace Licensing.Business.Managers
         public DashboardContainerVM GetDashboardContainerVM(License license)
         {
             RouteContainer editRoute = new RouteContainer("Languages", "Edit", license.LicenseId);
-            RouteContainer confirmRoute = new RouteContainer("Languages", "Confirm", license.LicenseId);
 
             return new DashboardContainerVM(
                 "Additional Languages",
                 license.LicenseType.Languages,
                 IsComplete(license),
                 editRoute,
-                confirmRoute,
                 null,
                 false,
                 "_Languages",

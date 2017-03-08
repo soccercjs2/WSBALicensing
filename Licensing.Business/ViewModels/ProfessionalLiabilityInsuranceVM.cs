@@ -13,6 +13,7 @@ namespace Licensing.Business.ViewModels
         public int LicenseId { get; set; }
         public int SelectedOptionId { get; set; }
         public ICollection<ProfessionalLiabilityInsuranceOption> Options { get; set; }
+        public bool Attested { get; set; }
 
         public ProfessionalLiabilityInsuranceVM() { }
 

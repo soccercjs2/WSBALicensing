@@ -19,11 +19,6 @@
                     {
                         @Html.ActionLink("Edit", "CreatePrimary", "PhoneNumber", new { id = Model.LicenseId }, new { @class = "btn btn-primary btn-xs" })
                     }
-
-                    @if (Model.PrimaryPhoneNumberRequirementType == RequirementType.Required && Model.PrimaryPhoneNumber != null && !Model.PrimaryPhoneNumber.Confirmed)
-                    {
-                        @Html.ActionLink("Confirm", "Confirm", "PhoneNumber", new { id = Model.PrimaryPhoneNumber.PhoneNumberId }, new { @class = "btn btn-success btn-xs" })
-                    }
                 </div>
             </div>
             <div class="row">
@@ -54,11 +49,6 @@
                     {
                         @Html.ActionLink("Edit", "CreateHome", "PhoneNumber", new { id = Model.LicenseId }, new { @class = "btn btn-primary btn-xs" })
                     }
-
-                    @if (Model.HomePhoneNumberRequirementType == RequirementType.Required && Model.HomePhoneNumber != null && !Model.HomePhoneNumber.Confirmed)
-                    {
-                        @Html.ActionLink("Confirm", "Confirm", "PhoneNumber", new { id = Model.HomePhoneNumber.PhoneNumberId }, new { @class = "btn btn-success btn-xs" })
-                    }
                 </div>
             </div>
             <div class="row">
@@ -88,11 +78,6 @@
                     else
                     {
                         @Html.ActionLink("Edit", "CreateFax", "PhoneNumber", new { id = Model.LicenseId }, new { @class = "btn btn-primary btn-xs" })
-                    }
-
-                    @if (Model.FaxPhoneNumberRequirementType == RequirementType.Required && Model.FaxPhoneNumber != null && !Model.FaxPhoneNumber.Confirmed)
-                    {
-                        @Html.ActionLink("Confirm", "Confirm", "PhoneNumber", new { id = Model.FaxPhoneNumber.PhoneNumberId }, new { @class = "btn btn-success btn-xs" })
                     }
                 </div>
             </div>

@@ -19,47 +19,35 @@ namespace Licensing.Web.Controllers
             _context = new LicensingContext();
         }
 
+        [HttpGet]
+        public ActionResult Create()
+        {
+            LicenseType licenseType = new LicenseType();
+            return View("EditLicenseType", new LicenseTypeVM(licenseType));
+        }
+
+        [HttpGet]
         public ActionResult Edit(int id)
         {
-            LicenseManager licenseManager = new LicenseManager(_context);
-            License license = licenseManager.GetLicense(id);
-
-            ViewBag.InactiveChecked = false;
-            ViewBag.ResignChecked = false;
-
-            return View("EditLicenseType", new LicenseTypeVM(license));
-        }
-
-        [HttpPost]
-        public ActionResult GoInactive(LicenseTypeVM licenseTypeVM)
-        {
-            LicenseManager licenseManager = new LicenseManager(_context);
-            License license = licenseManager.GetLicense(licenseTypeVM.LicenseId);
-
             LicenseTypeManager licenseTypeManager = new LicenseTypeManager(_context);
-            LicenseType inactiveLicenseType = licenseTypeManager.GetInactiveType();
 
-            licenseTypeManager.ChangeLicenseType(license, inactiveLicenseType);
-
-            return RedirectToAction("Index", "Home");
+            return View("EditLicenseType", new LicenseTypeVM(licenseTypeManager.GetLicenseType(id)));
         }
 
         [HttpPost]
-        public ActionResult RevertLicenseTypeChange(LicenseTypeVM licenseTypeVM)
+        public ActionResult Edit(LicenseTypeVM licenseTypeVM)
         {
-            LicenseManager licenseManager = new LicenseManager(_context);
-            License license = licenseManager.GetLicense(licenseTypeVM.LicenseId);
+            if (ModelState.IsValid)
+            {
+                LicenseTypeManager licenseTypeManager = new LicenseTypeManager(_context);
+                licenseTypeManager.SetLicenseType(licenseTypeVM.LicenseType);
 
-            LicenseTypeManager licenseTypeManager = new LicenseTypeManager(_context);
-            licenseTypeManager.ChangeLicenseType(license, license.PreviousLicenseType);
-
-            return RedirectToAction("Index", "Home");
-        }
-
-        [HttpPost]
-        public ActionResult Resign(LicenseTypeVM licenseTypeVM)
-        {
-            return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Admin");
+            }
+            else
+            {
+                return View("EditLicenseType", licenseTypeVM);
+            }
         }
     }
 }

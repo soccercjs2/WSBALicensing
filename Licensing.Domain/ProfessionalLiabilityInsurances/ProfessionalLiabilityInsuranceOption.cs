@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Licensing.Domain.ProfessionalLiabilityInsurances
 {
-    public class ProfessionalLiabilityInsuranceOption
+    public class ProfessionalLiabilityInsuranceOption : Activatable
     {
         public int ProfessionalLiabilityInsuranceOptionId { get; set; }
         public string Description { get; set; }

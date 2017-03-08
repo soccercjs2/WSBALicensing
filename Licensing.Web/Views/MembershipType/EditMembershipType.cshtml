@@ -1,0 +1,113 @@
+﻿@model Licensing.Business.ViewModels.MembershipTypeVM
+
+@{
+    ViewBag.Title = "License Type";
+}
+
+<h2>Membership Type Changes</h2>
+
+<div class="row">
+    @if (Model.License.LicenseTypeId != Model.License.PreviousLicenseTypeId)
+    {
+        using (Html.BeginForm("RevertLicenseTypeChange", "MembershipType", FormMethod.Post))
+        {
+            <div class="col-xs-12 col-md-6">
+                @Html.HiddenFor(m => m.LicenseId)
+
+                <div class="license-type-container">
+                    <div class="license-type-header">Return to @Model.License.LicenseType.Name</div>
+                    <div class="license-type-body">
+                        You previously selected to change your Membership Type from <b>@Model.License.LicenseType.Name</b> to
+                        <b>@Model.License.PreviousLicenseType.Name</b>.<br /><br />
+
+                        Would you like to return to <b>@Model.License.LicenseType.Name</b>?
+
+                        <div class="license-type-button-container">
+                            <input class="btn btn-primary full-width" type="submit" value="Return to @Model.License.PreviousLicenseType.Name" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
+    @if (Model.License.LicenseType.Name == "Active Attorney")
+    {
+        using (Html.BeginForm("GoInactive", "MembershipType", FormMethod.Post))
+        {
+            <div class="col-xs-12 col-md-6">
+                @Html.HiddenFor(m => m.LicenseId)
+
+                <div class="license-type-container">
+                    <div class="license-type-header">Go Inactive</div>
+                    <div class="license-type-body">
+                        <b>Please note:</b><br />
+
+                        <ul>
+                            <li>The Inactive license fee is $200.</li>
+                            <li>The change to Inactive will be effective immediately upon payment.</li>
+                            <li>You are not permitted to practice law in Washington State while an Inactive member.</li>
+                        </ul>
+
+                        @Html.CheckBoxFor(m => m.InactiveChecked) <b>Please change my WSBA membership to Inactive.</b><br /><br />
+
+                        <b>By checking this box, I acknowledge that</b> I am aware that to become an Active member again I must submit an
+                        application that will be subject to full investigation as to both my character and competency to practice law,
+                        and that I must be compliant with all continuing legal education and licensing requirements necessary for that
+                        membership change at that time. Further, I understand that the Board of Governors may require that I take the
+                        Washington State Bar Examination and/or conduct a hearing in connection with my application to return to Active membership. Please review the
+                        <a href="http://www.wsba.org/Licensing-and-Lawyer-Conduct/Membership-Changes/Inactive" target="_blank">Inactive Membership and Return to Active Membership</a>
+                        webpage for more details.<br /><br />
+
+                        <b>I certify that</b> I will not engage in the practice of law in the State of Washington nor be employed in
+                        any capacity requiring Active membership while I am an Inactive member.
+
+                        <div class="license-type-button-container">
+                            <input class="btn btn-primary full-width" type="submit" value="Go Inactive" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
+    @using (Html.BeginForm("Resign", "MembershipType", FormMethod.Post))
+    {
+        <div class="col-xs-12 col-md-6">
+            @Html.HiddenFor(m => m.LicenseId)
+
+            <div class="license-type-container">
+                <div class="license-type-header">Resign</div>
+                <div class="license-type-body">
+                    <b>Please note:</b><br />
+
+                    <ul>
+                        <li>The resignation will be effective immediately.</li>
+                        <li>You are not permitted to practice law in Washington State after you resign.</li>
+                        <li>In the event a disciplinary investigation or proceeding is pending or the filing of a grievance of substance is imminent, resignation is permitted only under the provisions of the Rules for Enforcement of Lawyer Conduct.</li>
+                        <li>You will not have login access to myWSBA.</li>
+                    </ul>
+
+                    @Html.CheckBoxFor(m => m.ResignChecked) <b>I hereby declare my intention to voluntarily resign from the Washington State Bar Association.</b><br /><br />
+
+                    <b>By checking this box, I certify that</b> there is no disciplinary investigation or proceeding pending against me and
+                    that I have no personal knowledge that the filing of a grievance of substance is imminent.<br /><br />
+
+                    <b>I acknowledge that</b>, upon acceptance of this resignation, my license to practice law in the State of Washington
+                    will be immediately terminated and that should I ever wish to practice law again in this state, it may be
+                    necessary for me to qualify for and successfully pass the Washington State Bar Examination.
+
+                    <div class="license-type-button-container">
+                        <input class="btn btn-danger full-width" type="submit" value="Resign" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<hr />
+
+<div class="row">
+    @Html.ActionLink("Return to Dashboard", "Index", "Home", null, new { @class = "btn btn-primary" })
+</div>

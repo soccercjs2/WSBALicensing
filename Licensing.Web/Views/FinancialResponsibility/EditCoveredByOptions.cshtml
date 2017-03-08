@@ -1,0 +1,113 @@
+﻿@model Licensing.Business.ViewModels.CoveredByOptionsVM
+
+@{
+    ViewBag.Title = "Edit Financial Responsibility Options";
+}
+
+<h2>Edit Financial Responsibility Options</h2>
+
+@using (Html.BeginForm("Edit", "CoveredByOption", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-lg-6 col-sm-12 demographic-column">
+            <h3><u>Active Codes</u></h3>
+            @if (Model.ActiveCodes != null && Model.ActiveCodes.Count > 0)
+            {
+                <table class="standard-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Code</th>
+                            <th>Active</th>
+                        </tr>
+                    </thead>
+                    @for (int i = 0; i < Model.ActiveCodes.Count; i++)
+                    {
+                        @Html.HiddenFor(m => Model.ActiveCodes[i].CoveredByOptionId)
+                        @Html.HiddenFor(m => Model.ActiveCodes[i].Name)
+                        @Html.HiddenFor(m => Model.ActiveCodes[i].AmsCode)
+
+                        <tr>
+                            <td>@Model.ActiveCodes[i].Name</td>
+                            <td>@Model.ActiveCodes[i].AmsCode</td>
+                            <td>@Html.CheckBoxFor(m => Model.ActiveCodes[i].Active)</td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <span>No active codes.</span>
+            }
+
+            <h3><u>Inactive Codes</u></h3>
+            @if (Model.InactiveCodes != null && Model.InactiveCodes.Count > 0)
+            {
+                <table class="standard-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Code</th>
+                            <th>Active</th>
+                        </tr>
+                    </thead>
+                    @for (int i = 0; i < Model.InactiveCodes.Count; i++)
+                    {
+                        @Html.HiddenFor(m => Model.InactiveCodes[i].CoveredByOptionId)
+                        @Html.HiddenFor(m => Model.InactiveCodes[i].Name)
+                        @Html.HiddenFor(m => Model.InactiveCodes[i].AmsCode)
+
+                        <tr>
+                            <td>@Model.InactiveCodes[i].Name</td>
+                            <td>@Model.InactiveCodes[i].AmsCode</td>
+                            <td>@Html.CheckBoxFor(m => Model.InactiveCodes[i].Active)</td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <span>No inactive codes.</span>
+            }
+        </div>
+
+        <div class="col-lg-6 col-sm-12 demographic-column">
+            <h3><u>Personify Codes</u></h3>
+            @if (Model.PersonifyCodes != null && Model.PersonifyCodes.Count > 0)
+            {
+                <table class="standard-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Code</th>
+                            <th>Include</th>
+                        </tr>
+                    </thead>
+                    @for (int i = 0; i < Model.PersonifyCodes.Count; i++)
+                    {
+                        @Html.HiddenFor(m => Model.PersonifyCodes[i].Name)
+                        @Html.HiddenFor(m => Model.PersonifyCodes[i].AmsCode)
+
+                        <tr>
+                            <td>@Model.PersonifyCodes[i].Name</td>
+                            <td>@Model.PersonifyCodes[i].AmsCode</td>
+                            <td>@Html.CheckBoxFor(m => Model.PersonifyCodes[i].Active)</td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <span>No Personify codes.</span>
+            }
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+        @Html.ActionLink("Cancel", "Index", "Admin", null, new { @class = "btn btn-primary" })
+        <input class="btn btn-success" type="submit" value="Save" />
+        @Html.ActionLink("Return to Admin Dashboard", "Index", "Admin", null, new { @class = "btn btn-default" })
+    </div>
+}

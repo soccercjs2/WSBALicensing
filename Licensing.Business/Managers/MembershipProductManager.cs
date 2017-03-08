@@ -25,13 +25,10 @@ namespace Licensing.Business.Managers
 
         public DashboardContainerVM GetDashboardContainerVM(License license)
         {
-            RouteContainer editRoute = new RouteContainer("Licensing Fees", "Edit", license.LicenseId);
-
             return new DashboardContainerVM(
                 "Membership Products",
                 RequirementType.Optional,
                 true,
-                editRoute,
                 null,
                 null,
                 true,

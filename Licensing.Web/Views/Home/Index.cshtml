@@ -26,7 +26,7 @@
         <a href="#">Why aren't I complete?</a>
     </div>
 }
-@*<h6 class="required">[ * required ]</h6>*@
+<div class="required">[ * required ]</div>
 
 <hr />
 
@@ -50,17 +50,14 @@
         @if (Model.PhoneNumbers.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.PhoneNumbers) }
     </div>
     <div class="col-lg-3 col-sm-6 dashboard-column">
-        <span class="dashboard-column-title">Practice Information</span>
-        @if (Model.AreasOfPractice.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.AreasOfPractice) }
-        @if (Model.FirmSize.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.FirmSize) }
-        @if (Model.Languages.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.Languages) }
+        <span class="dashboard-column-title">Confidential Information</span>
+        @if (Model.Demographics.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.Demographics) }
 
         <div class="demographics-section">
-            <span class="dashboard-column-title">Confidential Information</span>
-            @if (Model.Ethnicity.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.Ethnicity) }
-            @*@if (Model.Gender.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.Gender) }
-            @if (Model.Disability.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.Disability) }
-            @if (Model.SexualOrientation.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.SexualOrientation) }*@
+            <span class="dashboard-column-title">Practice Information</span>
+            @if (Model.FirmSize.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.FirmSize) }
+            @if (Model.Languages.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.Languages) }
+            @if (Model.AreasOfPractice.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.AreasOfPractice) }
         </div>
     </div>
     <div class="col-lg-3 col-sm-6 dashboard-column">

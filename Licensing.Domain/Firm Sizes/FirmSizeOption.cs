@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Licensing.Domain.FirmSizes
 {
-    public class FirmSizeOption
+    public class FirmSizeOption : Activatable
     {
         public int FirmSizeOptionId { get; set; }
         public string Name { get; set; }

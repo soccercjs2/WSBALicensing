@@ -12,6 +12,8 @@ namespace Licensing.Business.ViewModels
     {
         public int LicenseId { get; set; }
         public ProBono ProBono { get; set; }
+        public string ProvidesServiceCssClass { get; set; }
+        public string NotProvidesServiceCssClass { get; set; }
 
         public ProBonoVM() { }
 
@@ -22,6 +24,22 @@ namespace Licensing.Business.ViewModels
             if (license.ProBono != null)
             {
                 ProBono = license.ProBono;
+
+                if (license.ProBono.ProvidesService)
+                {
+                    ProvidesServiceCssClass = "btn-success";
+                    NotProvidesServiceCssClass = "btn-default";
+                }
+                else
+                {
+                    ProvidesServiceCssClass = "btn-default";
+                    NotProvidesServiceCssClass = "btn-danger";
+                }
+            }
+            else
+            {
+                ProvidesServiceCssClass = "btn-success";
+                NotProvidesServiceCssClass = "btn-danger";
             }
         }
     }

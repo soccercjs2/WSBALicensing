@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Licensing.Domain.Sections
 {
-    public class SectionProduct
+    public class SectionProduct : Activatable
     {
         public int SectionProductId { get; set; }
         public string Name { get; set; }

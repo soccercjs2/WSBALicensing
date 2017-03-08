@@ -88,6 +88,16 @@ namespace Licensing.Business.Managers
             _context.SaveChanges();
         }
 
+        public void AddTrustAccountNumber(License license, string bank, string branch, string accountNumber)
+        {
+            TrustAccountNumber trustAccountNumber = new TrustAccountNumber();
+            trustAccountNumber.Bank = bank;
+            trustAccountNumber.Branch = branch;
+            trustAccountNumber.AccountNumber = accountNumber;
+
+            license.TrustAccount.TrustAccountNumbers.Add(trustAccountNumber);
+        }
+
         public void DeleteTrustAccountNumber(int trustAccountNumberId)
         {
             _trustAccountWorker.DeleteTrustAccountNumber(trustAccountNumberId);
@@ -110,14 +120,12 @@ namespace Licensing.Business.Managers
         public DashboardContainerVM GetDashboardContainerVM(License license)
         {
             RouteContainer editRoute = new RouteContainer("TrustAccount", "Edit", license.LicenseId);
-            RouteContainer confirmRoute = new RouteContainer("TrustAccount", "Confirm", license.LicenseId);
 
             return new DashboardContainerVM(
                 "Trust Account",
                 license.LicenseType.TrustAccount,
                 IsComplete(license),
                 editRoute,
-                confirmRoute,
                 null,
                 false,
                 "_TrustAccount",

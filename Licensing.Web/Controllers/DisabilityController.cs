@@ -21,21 +21,6 @@ namespace Licensing.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult OptOut(int id)
-        {
-            //get license who's Disability to confirm
-            LicenseManager licenseManager = new LicenseManager(_context);
-            License license = licenseManager.GetLicense(id);
-
-            //confirm the preloaded Disability
-            DisabilityManager disabilityManager = new DisabilityManager(_context);
-            disabilityManager.OptOut(license);
-
-            //return updated partial view
-            return RedirectToAction("Index", "Home");
-        }
-
-        [HttpGet]
         public ActionResult Edit(int id)
         {
             //get license who's PLI to edit

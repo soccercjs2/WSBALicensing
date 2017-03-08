@@ -91,22 +91,18 @@ namespace Licensing.Domain.Licenses
         [ForeignKey("DisabilityId")]
         public virtual Disability Disability { get; set; }
         public int? DisabilityId { get; set; }
-        public bool DisabilityOptedOut { get; set; }
 
         [ForeignKey("EthnicityId")]
         public virtual Ethnicity Ethnicity { get; set; }
         public int? EthnicityId { get; set; }
-        public bool EthnicityOptedOut { get; set; }
 
         [ForeignKey("GenderId")]
         public virtual Gender Gender { get; set; }
         public int? GenderId { get; set; }
-        public bool GenderOptedOut { get; set; }
 
         [ForeignKey("SexualOrientationId")]
         public virtual SexualOrientation SexualOrientation { get; set; }
         public int? SexualOrientationId { get; set; }
-        public bool SexualOrientationOptedOut { get; set; }
 
 
         //payment

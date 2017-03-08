@@ -77,18 +77,19 @@ namespace Licensing.Business.Managers
         public DashboardContainerVM GetDashboardContainerVM(License license)
         {
             RouteContainer editRoute = new RouteContainer("PracticeAreas", "Edit", license.LicenseId);
-            RouteContainer confirmRoute = new RouteContainer("PracticeAreas", "Confirm", license.LicenseId);
+
+            bool complete = IsComplete(license);
+            ICollection<PracticeArea> practiceAreas = complete ? GetPracticeAreas(license) : null;
 
             return new DashboardContainerVM(
                 "Practice Areas",
                 license.LicenseType.PracticeAreas,
-                IsComplete(license),
+                complete,
                 editRoute,
-                confirmRoute,
                 null,
                 false,
                 "_PracticeAreas",
-                GetPracticeAreas(license)
+                practiceAreas
             );
         }
     }

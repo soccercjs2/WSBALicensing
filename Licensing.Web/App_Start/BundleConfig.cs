@@ -28,6 +28,7 @@ namespace Licensing.Web
                       "~/Content/site.css",
                       "~/Content/layout.css",
                       "~/Content/dashboard.css",
+                      "~/Content/demographics.css",
                       "~/Content/licensetype.css",
                       "~/Content/trustaccount.css"));
         }

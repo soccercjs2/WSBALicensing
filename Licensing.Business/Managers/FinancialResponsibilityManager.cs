@@ -28,6 +28,11 @@ namespace Licensing.Business.Managers
             return _financialResponsibilityWorker.GetOptions();
         }
 
+        public CoveredByOption GetOption(int id)
+        {
+            return _financialResponsibilityWorker.GetOption(id);
+        }
+
         public void SetFinancialResponsibility(License license, string company, string policyNumber, int coveredById)
         {
             CoveredByOption option = _financialResponsibilityWorker.GetOption(coveredById);
@@ -52,17 +57,45 @@ namespace Licensing.Business.Managers
             return (license.FinancialResponsibility != null && license.FinancialResponsibility.Confirmed);
         }
 
+        public void SetCoveredByOption(CoveredByOption coveredByOption)
+        {
+            if (coveredByOption.CoveredByOptionId == 0)
+            {
+                CoveredByOption existingCode = _financialResponsibilityWorker.GetOption(coveredByOption.AmsCode);
+
+                if (existingCode != null)
+                {
+                    existingCode.Active = true;
+                    existingCode.Name = coveredByOption.Name;
+                    coveredByOption = existingCode;
+                }
+            }
+
+            _financialResponsibilityWorker.SetCoveredByOption(coveredByOption);
+        }
+
+        public IList<CoveredByOption> GetAmsCoveredByOptions()
+        {
+            IList<CoveredByOption> coveredByOptions = new List<CoveredByOption>();
+            var codes = WSBA.AMS.CodeTypesManager.GetCoveredByCodeList().OrderBy(c => c.Description);
+
+            foreach (var code in codes)
+            {
+                coveredByOptions.Add(new CoveredByOption() { Name = code.Description, AmsCode = code.Code, Active = true });
+            }
+
+            return coveredByOptions;
+        }
+
         public DashboardContainerVM GetDashboardContainerVM(License license)
         {
             RouteContainer editRoute = new RouteContainer("FinancialResponsibility", "Edit", license.LicenseId);
-            RouteContainer confirmRoute = new RouteContainer("FinancialResponsibility", "Confirm", license.LicenseId);
 
             return new DashboardContainerVM(
                 "Financial Responsibility",
                 license.LicenseType.FinancialResponsibility,
                 IsComplete(license),
                 editRoute,
-                confirmRoute,
                 null,
                 false,
                 "_FinancialResponsibility",

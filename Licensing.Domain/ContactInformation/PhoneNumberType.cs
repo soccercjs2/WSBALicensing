@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Licensing.Domain.ContactInformation
 {
-    public class PhoneNumberType
+    public class PhoneNumberType : Activatable
     {
         public int PhoneNumberTypeId { get; set; }
         public string Name { get; set; }

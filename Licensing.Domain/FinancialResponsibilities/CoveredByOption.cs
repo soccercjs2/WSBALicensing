@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Licensing.Domain.FinancialResponsibilities
 {
-    public class CoveredByOption
+    public class CoveredByOption : Activatable
     {
         public int CoveredByOptionId { get; set; }
         public string Name { get; set; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Licensing.Domain.Licenses
 {
-    public class LicenseProduct
+    public class LicenseProduct : Activatable
     {
         public int LicenseProductId { get; set; }
         public string Name { get; set; }

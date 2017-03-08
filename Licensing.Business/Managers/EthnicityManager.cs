@@ -42,33 +42,9 @@ namespace Licensing.Business.Managers
             _context.SaveChanges();
         }
 
-        public void OptOut(License license)
-        {
-            license.EthnicityOptedOut = true;
-            _context.SaveChanges();
-        }
-
         public bool IsComplete(License license)
         {
-            return license.EthnicityOptedOut || license.Ethnicity != null;
-        }
-
-        public DashboardContainerVM GetDashboardContainerVM(License license)
-        {
-            RouteContainer editRoute = new RouteContainer("Ethnicity", "Edit", license.LicenseId);
-            RouteContainer optOutRoute = new RouteContainer("Ethnicity", "OptOut", license.LicenseId);
-
-            return new DashboardContainerVM(
-                "Demographics",
-                license.LicenseType.Ethnicity,
-                IsComplete(license),
-                editRoute,
-                null,
-                optOutRoute,
-                false,
-                null,
-                null
-            );
+            return license.Ethnicity != null;
         }
     }
 }

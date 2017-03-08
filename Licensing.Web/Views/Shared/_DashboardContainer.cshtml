@@ -7,7 +7,7 @@
         <div class="dashboard-container-title fake-table-cell">
             @Model.Title
 
-            @if (Model.RequirementType == RequirementType.Required)
+            @if (Model.RequirementType == RequirementType.Required && !Model.Complete)
             {
                 <span class="required">*</span>
             }
@@ -21,11 +21,6 @@
             @if (Model.RequirementType == RequirementType.Required && Model.ConfirmRoute != null && !Model.Complete && Model.PartialViewData != null)
             {
                 @Html.ActionLink("Confirm", Model.ConfirmRoute.Action, Model.ConfirmRoute.Controller, new { id = Model.ConfirmRoute.Id }, new { @class = "btn btn-success btn-xs" })
-            }
-
-            @if (Model.OptOutRoute != null && !Model.Complete)
-            {
-                @Html.ActionLink("Opt Out", Model.OptOutRoute.Action, Model.OptOutRoute.Controller, new { id = Model.OptOutRoute.Id }, new { @class = "btn btn-warning btn-xs" })
             }
         </div>
     </div>

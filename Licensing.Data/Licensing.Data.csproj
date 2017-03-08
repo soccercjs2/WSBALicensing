@@ -138,6 +138,14 @@
     <Compile Include="Migrations\201702162254578_adding practice areas.Designer.cs">
       <DependentUpon>201702162254578_adding practice areas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703031917508_removing opt out.cs" />
+    <Compile Include="Migrations\201703031917508_removing opt out.Designer.cs">
+      <DependentUpon>201703031917508_removing opt out.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703062254307_adding activatable to codes.cs" />
+    <Compile Include="Migrations\201703062254307_adding activatable to codes.Designer.cs">
+      <DependentUpon>201703062254307_adding activatable to codes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Workers\PracticeAreaWorker.cs" />
     <Compile Include="Workers\BarNewsWorker.cs" />
     <Compile Include="Workers\DisabilityWorker.cs" />
@@ -292,6 +300,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702162254578_adding practice areas.resx">
       <DependentUpon>201702162254578_adding practice areas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703031917508_removing opt out.resx">
+      <DependentUpon>201703031917508_removing opt out.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703062254307_adding activatable to codes.resx">
+      <DependentUpon>201703062254307_adding activatable to codes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

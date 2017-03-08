@@ -50,6 +50,10 @@
     font-weight: bold;
 }
 
+.italic {
+    font-style: italic;
+}
+
 .full-width {
     width: 100%;
 }
@@ -60,6 +64,13 @@
 
 .width-restricted {
     max-width: 280px;
+}
+
+.non-button {
+  background: transparent;
+    border: 0px;
+    padding: 0;
+    outline: 0;
 }
 
 .small-text-box {
@@ -118,4 +129,8 @@
 .standard-table th, .standard-table td {
     padding: 5px;
     border: 1px solid #ddd;
+}
+
+.alert {
+    margin-bottom: 5px;
 }

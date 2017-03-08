@@ -15,27 +15,53 @@ namespace Licensing.Business.ViewModels
         public int? TrustAccountId { get; set; }
         public bool HandlesTrustAccount { get; set; }
         public bool Attested { get; set; }
+        public string HandlesCssClass { get; set; }
+        public string NotHandlesCssClass { get; set; }
 
-        public TrustAccountNumber PendingTrustAccountNumber { get; set; }
+        public TrustAccountNumberVM PendingTrustAccountNumber { get; set; }
 
-        public ICollection<TrustAccountNumber> TrustAccountNumbers { get; set; }
+        public List<TrustAccountNumberVM> TrustAccountNumbers { get; set; }
+        public List<TrustAccountNumberVM> TrustAccountNumbersToRemove { get; set; }
 
         public TrustAccountVM() { }
 
         public TrustAccountVM(License license)
         {
             LicenseId = license.LicenseId;
+            TrustAccountNumbers = new List<TrustAccountNumberVM>();
 
             if (license.TrustAccount != null)
             {
                 TrustAccountId = license.TrustAccount.TrustAccountId;
                 HandlesTrustAccount = license.TrustAccount.HandlesTrustAccount;
-                TrustAccountNumbers = license.TrustAccount.TrustAccountNumbers;
 
-                TrustAccountNumber pendingTrustAccountNumber = new TrustAccountNumber();
-                pendingTrustAccountNumber.TrustAccountId = license.TrustAccount.TrustAccountId;
+                foreach (TrustAccountNumber trustAccountNumber in license.TrustAccount.TrustAccountNumbers)
+                {
+                    TrustAccountNumbers.Add(
+                        new TrustAccountNumberVM(
+                            trustAccountNumber.TrustAccountNumberId, 
+                            trustAccountNumber.Bank, 
+                            trustAccountNumber.Branch, 
+                            trustAccountNumber.AccountNumber));
+                }
 
-                PendingTrustAccountNumber = pendingTrustAccountNumber;
+                PendingTrustAccountNumber = new TrustAccountNumberVM();
+
+                if (HandlesTrustAccount)
+                {
+                    HandlesCssClass = "btn-success";
+                    NotHandlesCssClass = "btn-default";
+                }
+                else
+                {
+                    HandlesCssClass = "btn-default";
+                    NotHandlesCssClass = "btn-danger";
+                }
+            }
+            else
+            {
+                HandlesCssClass = "btn-success";
+                NotHandlesCssClass = "btn-danger";
             }
         }
     }

@@ -1,113 +1,146 @@
 ﻿@model Licensing.Business.ViewModels.LicenseTypeVM
 
 @{
-    ViewBag.Title = "License Type";
+    ViewBag.Title = "Edit License Type";
 }
 
-<h2>Membership Type Changes</h2>
+<h2>@Model.LicenseType.Name</h2>
 
-<div class="row">
-    @if (Model.License.LicenseTypeId != Model.License.PreviousLicenseTypeId)
-    {
-        using (Html.BeginForm("RevertLicenseTypeChange", "LicenseType", FormMethod.Post))
-        {
-            <div class="col-xs-12 col-md-6">
-                @Html.HiddenFor(m => m.LicenseId)
+@using (Html.BeginForm("Edit", "LicenseType", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.LicenseType.LicenseTypeId)
+    
+    <table class="standard-table">
+        <tr>
+            <td>@Html.LabelFor(m => m.LicenseType.Name)</td>
+            <td>@Html.TextBoxFor(m => m.LicenseType.Name, new { @class = "form-control width-restricted" })</td>
+        </tr>
 
-                <div class="license-type-container">
-                    <div class="license-type-header">Return to @Model.License.LicenseType.Name</div>
-                    <div class="license-type-body">
-                        You previously selected to change your Membership Type from <b>@Model.License.LicenseType.Name</b> to
-                        <b>@Model.License.PreviousLicenseType.Name</b>.<br /><br />
+        <tr>
+            <td>@Html.LabelFor(m => m.LicenseType.MembershipType)</td>
+            <td>@Html.EnumDropDownListFor(m => m.LicenseType.MembershipType, new { @class = "form-control width-restricted" })</td>
+        </tr>
 
-                        Would you like to return to <b>@Model.License.LicenseType.Name</b>?
+        <tr>
+            <td>@Html.LabelFor(m => m.LicenseType.JudicialPosition)</td>
+            <td>@Html.EnumDropDownListFor(m => m.LicenseType.JudicialPosition, new { @class = "form-control width-restricted" })</td>
+        </tr>
 
-                        <div class="license-type-button-container">
-                            <input class="btn btn-primary full-width" type="submit" value="Return to @Model.License.PreviousLicenseType.Name" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-    }
+        <tr>
+            <td>@Html.LabelFor(m => m.LicenseType.TrustAccount)</td>
+            <td>@Html.EnumDropDownListFor(m => m.LicenseType.TrustAccount, new { @class = "form-control width-restricted" })</td>
+        </tr>
 
-    @if (Model.License.LicenseType.Name == "Active Attorney")
-    {
-        using (Html.BeginForm("GoInactive", "LicenseType", FormMethod.Post))
-        {
-            <div class="col-xs-12 col-md-6">
-                @Html.HiddenFor(m => m.LicenseId)
+        <tr>
+            <td>@Html.LabelFor(m => m.LicenseType.ProfessionalLiabilityInsurance)</td>
+            <td>@Html.EnumDropDownListFor(m => m.LicenseType.ProfessionalLiabilityInsurance, new { @class = "form-control width-restricted" })</td>
+        </tr>
 
-                <div class="license-type-container">
-                    <div class="license-type-header">Go Inactive</div>
-                    <div class="license-type-body">
-                        <b>Please note:</b><br />
+        <tr>
+            <td>@Html.LabelFor(m => m.LicenseType.FinancialResponsibility)</td>
+            <td>@Html.EnumDropDownListFor(m => m.LicenseType.FinancialResponsibility, new { @class = "form-control width-restricted" })</td>
+        </tr>
 
-                        <ul>
-                            <li>The Inactive license fee is $200.</li>
-                            <li>The change to Inactive will be effective immediately upon payment.</li>
-                            <li>You are not permitted to practice law in Washington State while an Inactive member.</li>
-                        </ul>
+        <tr>
+            <td>@Html.LabelFor(m => m.LicenseType.ProBono)</td>
+            <td>@Html.EnumDropDownListFor(m => m.LicenseType.ProBono, new { @class = "form-control width-restricted" })</td>
+        </tr>
 
-                        @Html.CheckBoxFor(m => m.InactiveChecked) <b>Please change my WSBA membership to Inactive.</b><br /><br />
+        <tr>
+            <td>@Html.LabelFor(m => m.LicenseType.PrimaryAddress)</td>
+            <td>@Html.EnumDropDownListFor(m => m.LicenseType.PrimaryAddress, new { @class = "form-control width-restricted" })</td>
+        </tr>
 
-                        <b>By checking this box, I acknowledge that</b> I am aware that to become an Active member again I must submit an
-                        application that will be subject to full investigation as to both my character and competency to practice law,
-                        and that I must be compliant with all continuing legal education and licensing requirements necessary for that
-                        membership change at that time. Further, I understand that the Board of Governors may require that I take the
-                        Washington State Bar Examination and/or conduct a hearing in connection with my application to return to Active membership. Please review the
-                        <a href="http://www.wsba.org/Licensing-and-Lawyer-Conduct/Membership-Changes/Inactive" target="_blank">Inactive Membership and Return to Active Membership</a>
-                        webpage for more details.<br /><br />
+        <tr>
+            <td>@Html.LabelFor(m => m.LicenseType.HomeAddress)</td>
+            <td>@Html.EnumDropDownListFor(m => m.LicenseType.HomeAddress, new { @class = "form-control width-restricted" })</td>
+        </tr>
 
-                        <b>I certify that</b> I will not engage in the practice of law in the State of Washington nor be employed in
-                        any capacity requiring Active membership while I am an Inactive member.
+        <tr>
+            <td>@Html.LabelFor(m => m.LicenseType.AgentOfServiceAddress)</td>
+            <td>@Html.EnumDropDownListFor(m => m.LicenseType.AgentOfServiceAddress, new { @class = "form-control width-restricted" })</td>
+        </tr>
 
-                        <div class="license-type-button-container">
-                            <input class="btn btn-primary full-width" type="submit" value="Go Inactive" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-    }
+        <tr>
+            <td>@Html.LabelFor(m => m.LicenseType.PrimaryEmail)</td>
+            <td>@Html.EnumDropDownListFor(m => m.LicenseType.PrimaryEmail, new { @class = "form-control width-restricted" })</td>
+        </tr>
 
-    @using (Html.BeginForm("Resign", "LicenseType", FormMethod.Post))
-    {
-        <div class="col-xs-12 col-md-6">
-            @Html.HiddenFor(m => m.LicenseId)
+        <tr>
+            <td>@Html.LabelFor(m => m.LicenseType.PrimaryPhoneNumber)</td>
+            <td>@Html.EnumDropDownListFor(m => m.LicenseType.PrimaryPhoneNumber, new { @class = "form-control width-restricted" })</td>
+        </tr>
 
-            <div class="license-type-container">
-                <div class="license-type-header">Resign</div>
-                <div class="license-type-body">
-                    <b>Please note:</b><br />
+        <tr>
+            <td>@Html.LabelFor(m => m.LicenseType.HomePhoneNumber)</td>
+            <td>@Html.EnumDropDownListFor(m => m.LicenseType.HomePhoneNumber, new { @class = "form-control width-restricted" })</td>
+        </tr>
 
-                    <ul>
-                        <li>The resignation will be effective immediately.</li>
-                        <li>You are not permitted to practice law in Washington State after you resign.</li>
-                        <li>In the event a disciplinary investigation or proceeding is pending or the filing of a grievance of substance is imminent, resignation is permitted only under the provisions of the Rules for Enforcement of Lawyer Conduct.</li>
-                        <li>You will not have login access to myWSBA.</li>
-                    </ul>
+        <tr>
+            <td>@Html.LabelFor(m => m.LicenseType.FaxPhoneNumber)</td>
+            <td>@Html.EnumDropDownListFor(m => m.LicenseType.FaxPhoneNumber, new { @class = "form-control width-restricted" })</td>
+        </tr>
 
-                    @Html.CheckBoxFor(m => m.ResignChecked) <b>I hereby declare my intention to voluntarily resign from the Washington State Bar Association.</b><br /><br />
+        <tr>
+            <td>@Html.LabelFor(m => m.LicenseType.AreasOfPractice)</td>
+            <td>@Html.EnumDropDownListFor(m => m.LicenseType.AreasOfPractice, new { @class = "form-control width-restricted" })</td>
+        </tr>
 
-                    <b>By checking this box, I certify that</b> there is no disciplinary investigation or proceeding pending against me and
-                    that I have no personal knowledge that the filing of a grievance of substance is imminent.<br /><br />
+        <tr>
+            <td>@Html.LabelFor(m => m.LicenseType.FirmSize)</td>
+            <td>@Html.EnumDropDownListFor(m => m.LicenseType.FirmSize, new { @class = "form-control width-restricted" })</td>
+        </tr>
 
-                    <b>I acknowledge that</b>, upon acceptance of this resignation, my license to practice law in the State of Washington
-                    will be immediately terminated and that should I ever wish to practice law again in this state, it may be
-                    necessary for me to qualify for and successfully pass the Washington State Bar Examination.
+        <tr>
+            <td>@Html.LabelFor(m => m.LicenseType.Languages)</td>
+            <td>@Html.EnumDropDownListFor(m => m.LicenseType.Languages, new { @class = "form-control width-restricted" })</td>
+        </tr>
 
-                    <div class="license-type-button-container">
-                        <input class="btn btn-danger full-width" type="submit" value="Resign" />
-                    </div>
-                </div>
-            </div>
-        </div>
-    }
-</div>
+        <tr>
+            <td>@Html.LabelFor(m => m.LicenseType.Disability)</td>
+            <td>@Html.EnumDropDownListFor(m => m.LicenseType.Disability, new { @class = "form-control width-restricted" })</td>
+        </tr>
 
-<hr />
+        <tr>
+            <td>@Html.LabelFor(m => m.LicenseType.Ethnicity)</td>
+            <td>@Html.EnumDropDownListFor(m => m.LicenseType.Ethnicity, new { @class = "form-control width-restricted" })</td>
+        </tr>
 
-<div class="row">
-    @Html.ActionLink("Return to Dashboard", "Index", "Home", null, new { @class = "btn btn-primary" })
-</div>
+        <tr>
+            <td>@Html.LabelFor(m => m.LicenseType.Gender)</td>
+            <td>@Html.EnumDropDownListFor(m => m.LicenseType.Gender, new { @class = "form-control width-restricted" })</td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(m => m.LicenseType.SexualOrientation)</td>
+            <td>@Html.EnumDropDownListFor(m => m.LicenseType.SexualOrientation, new { @class = "form-control width-restricted" })</td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(m => m.LicenseType.Donations)</td>
+            <td>@Html.EnumDropDownListFor(m => m.LicenseType.Donations, new { @class = "form-control width-restricted" })</td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(m => m.LicenseType.Sections)</td>
+            <td>@Html.EnumDropDownListFor(m => m.LicenseType.Sections, new { @class = "form-control width-restricted" })</td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(m => m.LicenseType.BarNews)</td>
+            <td>@Html.EnumDropDownListFor(m => m.LicenseType.BarNews, new { @class = "form-control width-restricted" })</td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(m => m.LicenseType.PracticeAreas)</td>
+            <td>@Html.EnumDropDownListFor(m => m.LicenseType.PracticeAreas, new { @class = "form-control width-restricted" })</td>
+        </tr>
+    </table>
+
+    <hr />
+
+    <div class="row">
+        @Html.ActionLink("Cancel", "Index", "Admin", null, new { @class = "btn btn-primary" })
+        <input class="btn btn-success" type="submit" value="Save" />
+    </div>
+}

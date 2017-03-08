@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Licensing.Domain.Genders
 {
-    public class GenderOption
+    public class GenderOption : Activatable
     {
         public int GenderOptionId { get; set; }
         public string Name { get; set; }

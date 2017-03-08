@@ -14,7 +14,6 @@ namespace Licensing.Business.ViewModels
         public bool Complete { get; set; }
         public RouteContainer EditRoute { get; set; }
         public RouteContainer ConfirmRoute { get; set; }
-        public RouteContainer OptOutRoute { get; set; }
         public bool IsPayment { get; set; }
         public string PartialViewName { get; set; }
         public object PartialViewData { get; set; }
@@ -25,7 +24,6 @@ namespace Licensing.Business.ViewModels
             bool complete, 
             RouteContainer editRoute, 
             RouteContainer confirmRoute, 
-            RouteContainer optOutRoute,
             bool isPayment, 
             string partialViewName, 
             object partialViewData)
@@ -35,7 +33,6 @@ namespace Licensing.Business.ViewModels
             Complete = complete;
             EditRoute = editRoute;
             ConfirmRoute = confirmRoute;
-            OptOutRoute = optOutRoute;
             IsPayment = isPayment;
             PartialViewName = partialViewName;
             PartialViewData = partialViewData;

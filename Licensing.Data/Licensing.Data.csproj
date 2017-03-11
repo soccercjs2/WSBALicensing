@@ -146,6 +146,10 @@
     <Compile Include="Migrations\201703062254307_adding activatable to codes.Designer.cs">
       <DependentUpon>201703062254307_adding activatable to codes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703091831568_removing amscode from phone number type.cs" />
+    <Compile Include="Migrations\201703091831568_removing amscode from phone number type.Designer.cs">
+      <DependentUpon>201703091831568_removing amscode from phone number type.cs</DependentUpon>
+    </Compile>
     <Compile Include="Workers\PracticeAreaWorker.cs" />
     <Compile Include="Workers\BarNewsWorker.cs" />
     <Compile Include="Workers\DisabilityWorker.cs" />
@@ -306,6 +310,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703062254307_adding activatable to codes.resx">
       <DependentUpon>201703062254307_adding activatable to codes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703091831568_removing amscode from phone number type.resx">
+      <DependentUpon>201703091831568_removing amscode from phone number type.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

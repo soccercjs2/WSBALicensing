@@ -42,7 +42,7 @@ namespace Licensing.Web.Controllers
 
             LanguageManager languageManager = new LanguageManager(_context);
 
-            return View("EditLanguages", new LanguageVM(license, languageManager.GetLanguageOptions()));
+            return View("EditLanguages", new LanguageVM(license, languageManager.GetOptions()));
         }
 
         [HttpPost]

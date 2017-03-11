@@ -10,6 +10,5 @@ namespace Licensing.Domain.ContactInformation
     {
         public int PhoneNumberTypeId { get; set; }
         public string Name { get; set; }
-        public string AmsCode { get; set; }
     }
 }

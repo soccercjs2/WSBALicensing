@@ -33,6 +33,11 @@ namespace Licensing.Business.Managers
             return _judicialPositionWorker.GetOption(id);
         }
 
+        public JudicialPositionOption GetOption(string amsCode)
+        {
+            return _judicialPositionWorker.GetOption(amsCode);
+        }
+
         public void SetJudicialPositionOption(License license, int optionId)
         {
             SetJudicialPosition(license, optionId, null);
@@ -76,24 +81,35 @@ namespace Licensing.Business.Managers
             _context.SaveChanges();
         }
 
-        public void SetJudicialPositionOption(JudicialPositionOption judicialPositionOption)
+        public void SetOption(JudicialPositionOption option)
         {
-            if (judicialPositionOption.JudicialPositionOptionId == 0)
+            if (option.JudicialPositionOptionId == 0)
             {
-                JudicialPositionOption existingCode = _judicialPositionWorker.GetOption(judicialPositionOption.AmsCode);
+                JudicialPositionOption existingCode = _judicialPositionWorker.GetOption(option.AmsCode);
 
                 if (existingCode != null)
                 {
                     existingCode.Active = true;
-                    existingCode.Name = judicialPositionOption.Name;
-                    judicialPositionOption = existingCode;
+                    existingCode.Name = option.Name;
+                    option = existingCode;
                 }
             }
 
-            _judicialPositionWorker.SetCoveredByOption(judicialPositionOption);
+            _judicialPositionWorker.SetCoveredByOption(option);
         }
 
-        public IList<JudicialPositionOption> GetAmsJudicialPositionOptions()
+        public void Confirm(JudicialPosition judicialPosition)
+        {
+            judicialPosition.Confirmed = true;
+            _context.SaveChanges();
+        }
+
+        public bool IsComplete(License license)
+        {
+            return (license.JudicialPosition != null && license.JudicialPosition.Confirmed);
+        }
+
+        public IList<JudicialPositionOption> GetAmsOptions()
         {
             IList<JudicialPositionOption> judicialPositionOptions = new List<JudicialPositionOption>();
             var codes = WSBA.AMS.CodeTypesManager.GetJudicialPositionCodeList().OrderBy(c => c.Description);
@@ -106,15 +122,63 @@ namespace Licensing.Business.Managers
             return judicialPositionOptions;
         }
 
-        public void Confirm(JudicialPosition judicialPosition)
+        public void DeleteOption(JudicialPositionOption option)
         {
-            judicialPosition.Confirmed = true;
-            _context.SaveChanges();
+            _judicialPositionWorker.DeleteOption(option);
         }
 
-        public bool IsComplete(License license)
+        public IList<JudicialPositionOption> GetCodesToBeAdded(ICollection<JudicialPositionOption> codes, ICollection<JudicialPositionOption> amsCodes)
         {
-            return (license.JudicialPosition != null && license.JudicialPosition.Confirmed);
+            return amsCodes.Where(ac => !codes.Any(c => c.AmsCode == ac.AmsCode)).ToList();
+        }
+
+        public IList<JudicialPositionOption> GetCodesToBeActivated(ICollection<JudicialPositionOption> codes, ICollection<JudicialPositionOption> amsCodes)
+        {
+            //get inactive codes
+            codes = codes.Where(c => !c.Active).ToList();
+            return codes.Where(c => amsCodes.Any(ac => c.AmsCode == ac.AmsCode)).ToList();
+        }
+
+        public IList<JudicialPositionOption> GetCodesToBeChanged(ICollection<JudicialPositionOption> codes, ICollection<JudicialPositionOption> amsCodes)
+        {
+            return amsCodes.Where(ac => codes.Any(c => c.AmsCode == ac.AmsCode && c.Name != ac.Name)).ToList();
+        }
+
+        public IList<JudicialPositionOption> GetCodesToBeDeactivated(ICollection<JudicialPositionOption> codes, ICollection<JudicialPositionOption> amsCodes)
+        {
+            //get active codes
+            codes = codes.Where(c => c.Active).ToList();
+
+            IList<JudicialPositionOption> codesToRemove = codes.Where(c => !amsCodes.Any(ac => ac.AmsCode == c.AmsCode)).ToList();
+            IList<JudicialPositionOption> codesToDeactivate = new List<JudicialPositionOption>();
+
+            foreach (JudicialPositionOption option in codesToRemove)
+            {
+                ICollection<JudicialPosition> responsesWithOption = _judicialPositionWorker.GetResponsesWithOption(option);
+                if (responsesWithOption != null && responsesWithOption.Count > 0)
+                {
+                    codesToDeactivate.Add(option);
+                }
+            }
+
+            return codesToDeactivate;
+        }
+
+        public IList<JudicialPositionOption> GetCodesToBeDeleted(ICollection<JudicialPositionOption> codes, ICollection<JudicialPositionOption> amsCodes)
+        {
+            IList<JudicialPositionOption> codesToRemove = codes.Where(c => !amsCodes.Any(ac => ac.AmsCode == c.AmsCode)).ToList();
+            IList<JudicialPositionOption> codesToDeleted = new List<JudicialPositionOption>();
+
+            foreach (JudicialPositionOption option in codesToRemove)
+            {
+                ICollection<JudicialPosition> responsesWithOption = _judicialPositionWorker.GetResponsesWithOption(option);
+                if (responsesWithOption == null || responsesWithOption.Count == 0)
+                {
+                    codesToDeleted.Add(option);
+                }
+            }
+
+            return codesToDeleted;
         }
 
         public DashboardContainerVM GetDashboardContainerVM(License license)

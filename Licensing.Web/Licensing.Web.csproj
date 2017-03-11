@@ -217,12 +217,21 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AddressController.cs" />
+    <Compile Include="Controllers\AddressTypeController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AreaOfPracticeOptionController.cs" />
+    <Compile Include="Controllers\DisabilityOptionController.cs" />
+    <Compile Include="Controllers\DonationProductController.cs" />
+    <Compile Include="Controllers\EthnicityOptionController.cs" />
+    <Compile Include="Controllers\FirmSizeOptionController.cs" />
+    <Compile Include="Controllers\GenderOptionController.cs" />
     <Compile Include="Controllers\JudicialPositionOptionController.cs" />
     <Compile Include="Controllers\DemographicsController.cs" />
     <Compile Include="Controllers\CoveredByOptionController.cs" />
+    <Compile Include="Controllers\LanguageOptionController.cs" />
     <Compile Include="Controllers\LicenseTypeController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
+    <Compile Include="Controllers\PracticeAreaOptionController.cs" />
     <Compile Include="Controllers\PracticeAreasController.cs" />
     <Compile Include="Controllers\AreasOfPracticeController.cs" />
     <Compile Include="Controllers\BarNewsController.cs" />
@@ -242,6 +251,7 @@
     <Compile Include="Controllers\ProfessionalLiabilityInsuranceController.cs" />
     <Compile Include="Controllers\SectionsController.cs" />
     <Compile Include="Controllers\SexualOrientationController.cs" />
+    <Compile Include="Controllers\SexualOrientationOptionController.cs" />
     <Compile Include="Controllers\TrustAccountController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -339,13 +349,21 @@
     <Content Include="Views\LicenseType\EditLicenseType.cshtml" />
     <Content Include="Views\FinancialResponsibility\EditCoveredByOptions.cshtml" />
     <Content Include="Views\JudicialPosition\EditJudicialPositionOptions.cshtml" />
+    <Content Include="Views\PracticeAreas\EditPracticeAreaOptions.cshtml" />
+    <Content Include="Views\Address\EditAddressTypes.cshtml" />
+    <Content Include="Views\AreasOfPractice\EditAreaOfPracticeOptions.cshtml" />
+    <Content Include="Views\FirmSize\EditFirmSizeOptions.cshtml" />
+    <Content Include="Views\Languages\EditLanguageOptions.cshtml" />
+    <Content Include="Views\Disability\EditDisabilityOptions.cshtml" />
+    <Content Include="Views\Ethnicity\EditEthnicityOptions.cshtml" />
+    <Content Include="Views\Gender\EditGenderOptions.cshtml" />
+    <Content Include="Views\SexualOrientation\EditSexualOrientationOptions.cshtml" />
+    <Content Include="Views\Donation\EditDonationProducts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\FinancialResponsibilityOption\" />
-    <Folder Include="Views\License\" />
-    <Folder Include="Views\Payment\" />
+    <Folder Include="Views\DonationProduct\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

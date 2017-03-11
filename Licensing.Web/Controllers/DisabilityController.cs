@@ -43,7 +43,7 @@ namespace Licensing.Web.Controllers
                 License license = licenseManager.GetLicense(disabilityVM.LicenseId);
 
                 DisabilityManager disabilityManager = new DisabilityManager(_context);
-                disabilityManager.SetDisabilityOption(license, disabilityVM.SelectedOptionId);
+                disabilityManager.SetDisability(license, disabilityVM.SelectedOptionId);
 
                 return RedirectToAction("Index", "Home");
             }

@@ -42,7 +42,7 @@ namespace Licensing.Web.Controllers
 
             AreaOfPracticeManager areaOfPracticeManager = new AreaOfPracticeManager(_context);
 
-            return View("EditAreasOfPractice", new AreaOfPracticeVM(license, areaOfPracticeManager.GetAreaOfPracticeOptions()));
+            return View("EditAreasOfPractice", new AreaOfPracticeVM(license, areaOfPracticeManager.GetOptions()));
         }
 
         [HttpPost]

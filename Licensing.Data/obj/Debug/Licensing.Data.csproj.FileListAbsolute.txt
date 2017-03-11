@@ -56,3 +56,4 @@ C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.movingd
 C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.addingpracticeareas.resources
 C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.removingoptout.resources
 C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.addingactivatabletocodes.resources
+C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.removingamscodefromphonenumbertype.resources

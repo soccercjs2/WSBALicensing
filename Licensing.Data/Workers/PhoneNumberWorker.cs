@@ -24,9 +24,9 @@ namespace Licensing.Data.Workers
             return _context.PhoneNumbers.Find(phoneNumberId);
         }
 
-        public PhoneNumberType GetPhoneNumberType(string phoneNumberType)
+        public PhoneNumberType GetPhoneNumberType(string addressType)
         {
-            return _context.PhoneNumberTypes.Where(at => at.Name == phoneNumberType).FirstOrDefault();
+            return _context.PhoneNumberTypes.Where(at => at.Name == addressType).FirstOrDefault();
         }
 
         public void SetPhoneNumber(PhoneNumber phoneNumber)

@@ -43,7 +43,7 @@ namespace Licensing.Web.Controllers
                 License license = licenseManager.GetLicense(genderVM.LicenseId);
 
                 GenderManager genderManager = new GenderManager(_context);
-                genderManager.SetGenderOption(license, genderVM.SelectedOptionId);
+                genderManager.SetGender(license, genderVM.SelectedOptionId);
 
                 return RedirectToAction("Index", "Home");
             }

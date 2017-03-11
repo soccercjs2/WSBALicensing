@@ -9,8 +9,11 @@ namespace Licensing.Business.ViewModels
 {
     public class JudicialPositionOptionsVM
     {
-        public IList<JudicialPositionOption> ActiveCodes { get; set; }
-        public IList<JudicialPositionOption> InactiveCodes { get; set; }
-        public IList<JudicialPositionOption> PersonifyCodes { get; set; }
+        public IList<JudicialPositionOption> Codes { get; set; }
+        public IList<JudicialPositionOption> CodesToBeAdded { get; set; }
+        public IList<JudicialPositionOption> CodesToBeActivated { get; set; }
+        public IList<JudicialPositionOption> CodesToBeChanged { get; set; }
+        public IList<JudicialPositionOption> CodesToBeDeactivated { get; set; }
+        public IList<JudicialPositionOption> CodesToBeDeleted { get; set; }
     }
 }

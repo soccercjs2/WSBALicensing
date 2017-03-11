@@ -55,8 +55,8 @@ namespace Licensing.Web.Controllers
                 EthnicityManager ethnicityManager = new EthnicityManager(_context);
                 SexualOrientationManager sexualOrientationManager = new SexualOrientationManager(_context);
 
-                if (demographicsVM.SelectedDisabilityOptionId > 0) { disabilityManager.SetDisabilityOption(license, demographicsVM.SelectedDisabilityOptionId); }
-                if (demographicsVM.SelectedDisabilityOptionId > 0) { genderManager.SetGenderOption(license, demographicsVM.SelectedGenderOptionId); }
+                if (demographicsVM.SelectedDisabilityOptionId > 0) { disabilityManager.SetDisability(license, demographicsVM.SelectedDisabilityOptionId); }
+                if (demographicsVM.SelectedDisabilityOptionId > 0) { genderManager.SetGender(license, demographicsVM.SelectedGenderOptionId); }
                 if (demographicsVM.SelectedDisabilityOptionId > 0) { ethnicityManager.SetEthnicityOption(license, demographicsVM.SelectedEthnicityOptionId); }
                 if (demographicsVM.SelectedDisabilityOptionId > 0) { sexualOrientationManager.SetSexualOrientationOption(license, demographicsVM.SelectedSexualOrientationOptionId); }
 

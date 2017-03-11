@@ -28,7 +28,7 @@ namespace Licensing.Business.Managers
             return _phoneNumberWorker.GetPhoneNumber(phoneNumberId);
         }
 
-        public PhoneNumberType GetAddressType(string addressType)
+        public PhoneNumberType GetPhoneNumberType(string addressType)
         {
             return _phoneNumberWorker.GetPhoneNumberType(addressType);
         }
@@ -36,7 +36,7 @@ namespace Licensing.Business.Managers
         public PhoneNumber GetPrimaryPhoneNumber(License license)
         {
             //get primary phone number type
-            PhoneNumberType primaryPhoneNumberType = GetAddressType("Primary");
+            PhoneNumberType primaryPhoneNumberType = GetPhoneNumberType("Primary");
 
             //return phone number with primary phone number type
             return license.PhoneNumbers.Where(pn => pn.PhoneNumberType.PhoneNumberTypeId == primaryPhoneNumberType.PhoneNumberTypeId).FirstOrDefault();
@@ -45,7 +45,7 @@ namespace Licensing.Business.Managers
         public PhoneNumber GetHomePhoneNumber(License license)
         {
             //get primary phone number type
-            PhoneNumberType homePhoneNumberType = GetAddressType("Home");
+            PhoneNumberType homePhoneNumberType = GetPhoneNumberType("Home");
 
             //return phone number with home phone number type
             return license.PhoneNumbers.Where(pn => pn.PhoneNumberType.PhoneNumberTypeId == homePhoneNumberType.PhoneNumberTypeId).FirstOrDefault();
@@ -54,7 +54,7 @@ namespace Licensing.Business.Managers
         public PhoneNumber GetFaxPhoneNumber(License license)
         {
             //get primary phone number type
-            PhoneNumberType faxPhoneNumberType = GetAddressType("Fax");
+            PhoneNumberType faxPhoneNumberType = GetPhoneNumberType("Fax");
 
             //return phone number with fax phone number type
             return license.PhoneNumbers.Where(pn => pn.PhoneNumberType.PhoneNumberTypeId == faxPhoneNumberType.PhoneNumberTypeId).FirstOrDefault();

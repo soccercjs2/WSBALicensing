@@ -9,8 +9,11 @@ namespace Licensing.Business.ViewModels
 {
     public class CoveredByOptionsVM
     {
-        public IList<CoveredByOption> ActiveCodes { get; set; }
-        public IList<CoveredByOption> InactiveCodes { get; set; }
-        public IList<CoveredByOption> PersonifyCodes { get; set; }
+        public IList<CoveredByOption> Codes { get; set; }
+        public IList<CoveredByOption> CodesToBeAdded { get; set; }
+        public IList<CoveredByOption> CodesToBeActivated { get; set; }
+        public IList<CoveredByOption> CodesToBeChanged { get; set; }
+        public IList<CoveredByOption> CodesToBeDeactivated { get; set; }
+        public IList<CoveredByOption> CodesToBeDeleted { get; set; }
     }
 }

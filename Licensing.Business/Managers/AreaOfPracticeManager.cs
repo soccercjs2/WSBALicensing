@@ -29,20 +29,25 @@ namespace Licensing.Business.Managers
             else { return license.AreasOfPractice; }
         }
 
-        public ICollection<AreaOfPracticeOption> GetAreaOfPracticeOptions()
+        public ICollection<AreaOfPracticeOption> GetOptions()
         {
             return _areaOfPracticeWorker.GetAreaOfPracticeOptions();
         }
 
-        public AreaOfPracticeOption GetAreaOfPracticeOption(int id)
+        public AreaOfPracticeOption GetOption(int id)
         {
-            return _areaOfPracticeWorker.GetAreaOfPracticeOption(id);
+            return _areaOfPracticeWorker.GetOption(id);
+        }
+
+        public AreaOfPracticeOption GetOption(string amsCode)
+        {
+            return _areaOfPracticeWorker.GetOption(amsCode);
         }
 
         public void AddAreaOfPractice(License license, int areaOfPracticeOptionId)
         {
             AreaOfPractice areaOfPractice = new AreaOfPractice();
-            areaOfPractice.Option = GetAreaOfPracticeOption(areaOfPracticeOptionId);
+            areaOfPractice.Option = GetOption(areaOfPracticeOptionId);
 
             license.AreasOfPractice.Add(areaOfPractice);
 
@@ -66,6 +71,95 @@ namespace Licensing.Business.Managers
         public bool IsComplete(License license)
         {
             return license.AreasOfPracticeConfirmed;
+        }
+
+        public IList<AreaOfPracticeOption> GetAmsOptions()
+        {
+            IList<AreaOfPracticeOption> options = new List<AreaOfPracticeOption>();
+            var codes = WSBA.AMS.CodeTypesManager.GetAreaOfPracticeCodeList().OrderBy(c => c.Description);
+
+            foreach (var code in codes)
+            {
+                options.Add(new AreaOfPracticeOption() { Name = code.Description, AmsCode = code.Code, Active = true });
+            }
+
+            return options;
+        }
+
+        public void SetOption(AreaOfPracticeOption option)
+        {
+            if (option.AreaOfPracticeOptionId == 0)
+            {
+                AreaOfPracticeOption existingCode = _areaOfPracticeWorker.GetOption(option.AmsCode);
+
+                if (existingCode != null)
+                {
+                    existingCode.Active = true;
+                    existingCode.Name = option.Name;
+                    option = existingCode;
+                }
+            }
+
+            _areaOfPracticeWorker.SetOption(option);
+        }
+
+        public void DeleteOption(AreaOfPracticeOption option)
+        {
+            _areaOfPracticeWorker.DeleteOption(option);
+        }
+
+        public IList<AreaOfPracticeOption> GetCodesToBeAdded(ICollection<AreaOfPracticeOption> codes, ICollection<AreaOfPracticeOption> amsCodes)
+        {
+            return amsCodes.Where(ac => !codes.Any(c => c.AmsCode == ac.AmsCode)).ToList();
+        }
+
+        public IList<AreaOfPracticeOption> GetCodesToBeActivated(ICollection<AreaOfPracticeOption> codes, ICollection<AreaOfPracticeOption> amsCodes)
+        {
+            //get inactive codes
+            codes = codes.Where(c => !c.Active).ToList();
+            return codes.Where(c => amsCodes.Any(ac => c.AmsCode == ac.AmsCode)).ToList();
+        }
+
+        public IList<AreaOfPracticeOption> GetCodesToBeChanged(ICollection<AreaOfPracticeOption> codes, ICollection<AreaOfPracticeOption> amsCodes)
+        {
+            return amsCodes.Where(ac => codes.Any(c => c.AmsCode == ac.AmsCode && c.Name != ac.Name)).ToList();
+        }
+
+        public IList<AreaOfPracticeOption> GetCodesToBeDeactivated(ICollection<AreaOfPracticeOption> codes, ICollection<AreaOfPracticeOption> amsCodes)
+        {
+            //get active codes
+            codes = codes.Where(c => c.Active).ToList();
+
+            IList<AreaOfPracticeOption> codesToRemove = codes.Where(c => !amsCodes.Any(ac => ac.AmsCode == c.AmsCode)).ToList();
+            IList<AreaOfPracticeOption> codesToDeactivate = new List<AreaOfPracticeOption>();
+
+            foreach (AreaOfPracticeOption option in codesToRemove)
+            {
+                ICollection<AreaOfPractice> responsesWithOption = _areaOfPracticeWorker.GetResponsesWithOption(option);
+                if (responsesWithOption != null && responsesWithOption.Count > 0)
+                {
+                    codesToDeactivate.Add(option);
+                }
+            }
+
+            return codesToDeactivate;
+        }
+
+        public IList<AreaOfPracticeOption> GetCodesToBeDeleted(ICollection<AreaOfPracticeOption> codes, ICollection<AreaOfPracticeOption> amsCodes)
+        {
+            IList<AreaOfPracticeOption> codesToRemove = codes.Where(c => !amsCodes.Any(ac => ac.AmsCode == c.AmsCode)).ToList();
+            IList<AreaOfPracticeOption> codesToDeleted = new List<AreaOfPracticeOption>();
+
+            foreach (AreaOfPracticeOption option in codesToRemove)
+            {
+                ICollection<AreaOfPractice> responsesWithOption = _areaOfPracticeWorker.GetResponsesWithOption(option);
+                if (responsesWithOption == null || responsesWithOption.Count == 0)
+                {
+                    codesToDeleted.Add(option);
+                }
+            }
+
+            return codesToDeleted;
         }
 
         public DashboardContainerVM GetDashboardContainerVM(License license)

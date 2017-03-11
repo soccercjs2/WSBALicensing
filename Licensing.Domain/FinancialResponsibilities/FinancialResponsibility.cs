@@ -14,7 +14,7 @@ namespace Licensing.Domain.FinancialResponsibilities
         public string PolicyNumber { get; set; }
 
         [ForeignKey("CoveredByOptionId")]
-        public virtual CoveredByOption CoveredByOption { get; set; }
+        public virtual CoveredByOption Option { get; set; }
         public int? CoveredByOptionId { get; set; }
     }
 }

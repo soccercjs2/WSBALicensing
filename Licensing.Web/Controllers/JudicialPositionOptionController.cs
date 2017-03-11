@@ -23,46 +23,68 @@ namespace Licensing.Web.Controllers
         public ActionResult Edit()
         {
             JudicialPositionManager judicialPositionManager = new JudicialPositionManager(_context);
-            ICollection<JudicialPositionOption> codes = judicialPositionManager.GetOptions();
+            ICollection<JudicialPositionOption> codes = judicialPositionManager.GetOptions().OrderBy(c => c.Name).ToList(); ;
+            ICollection<JudicialPositionOption> amsCodes = judicialPositionManager.GetAmsOptions();
 
-            JudicialPositionOptionsVM judicialPositionOptionVM = new JudicialPositionOptionsVM();
-            judicialPositionOptionVM.ActiveCodes = codes.Where(c => c.Active).ToList();
-            judicialPositionOptionVM.InactiveCodes = codes.Where(c => !c.Active).ToList();
-            judicialPositionOptionVM.PersonifyCodes = judicialPositionManager.GetAmsJudicialPositionOptions();
+            JudicialPositionOptionsVM judicialPositionOptionsVM = new JudicialPositionOptionsVM();
+            judicialPositionOptionsVM.Codes = codes.Where(c => c.Active).ToList();
+            judicialPositionOptionsVM.CodesToBeAdded = judicialPositionManager.GetCodesToBeAdded(codes, amsCodes);
+            judicialPositionOptionsVM.CodesToBeActivated = judicialPositionManager.GetCodesToBeActivated(codes, amsCodes);
+            judicialPositionOptionsVM.CodesToBeChanged = judicialPositionManager.GetCodesToBeChanged(codes, amsCodes);
+            judicialPositionOptionsVM.CodesToBeDeactivated = judicialPositionManager.GetCodesToBeDeactivated(codes, amsCodes);
+            judicialPositionOptionsVM.CodesToBeDeleted = judicialPositionManager.GetCodesToBeDeleted(codes, amsCodes);
 
-            return View("~/Views/JudicialPosition/EditJudicialPositionOptions.cshtml", judicialPositionOptionVM);
+            return View("~/Views/JudicialPosition/EditJudicialPositionOptions.cshtml", judicialPositionOptionsVM);
         }
 
         [HttpPost]
-        public ActionResult Edit(JudicialPositionOptionsVM judicialPositionOptionVM)
+        public ActionResult Edit(JudicialPositionOptionsVM judicialPositionOptionsVM)
         {
             if (ModelState.IsValid)
             {
                 JudicialPositionManager judicialPositionManager = new JudicialPositionManager(_context);
 
-                if (judicialPositionOptionVM.ActiveCodes != null)
+                if (judicialPositionOptionsVM.CodesToBeAdded != null)
                 {
-                    foreach (JudicialPositionOption option in judicialPositionOptionVM.ActiveCodes)
+                    foreach (JudicialPositionOption option in judicialPositionOptionsVM.CodesToBeAdded)
                     {
-                        judicialPositionManager.SetJudicialPositionOption(option);
+                        judicialPositionManager.SetOption(option);
                     }
                 }
 
-                if (judicialPositionOptionVM.InactiveCodes != null)
+                if (judicialPositionOptionsVM.CodesToBeActivated != null)
                 {
-                    foreach (JudicialPositionOption option in judicialPositionOptionVM.InactiveCodes)
+                    foreach (JudicialPositionOption option in judicialPositionOptionsVM.CodesToBeActivated)
                     {
-                        judicialPositionManager.SetJudicialPositionOption(option);
+                        option.Active = true;
+                        judicialPositionManager.SetOption(option);
                     }
                 }
 
-                if (judicialPositionOptionVM.PersonifyCodes != null)
+                if (judicialPositionOptionsVM.CodesToBeChanged != null)
                 {
-                    ICollection<JudicialPositionOption> optionsToInclude = judicialPositionOptionVM.PersonifyCodes.Where(o => o.Active).ToList();
-
-                    foreach (JudicialPositionOption option in optionsToInclude)
+                    foreach (JudicialPositionOption option in judicialPositionOptionsVM.CodesToBeChanged)
                     {
-                        judicialPositionManager.SetJudicialPositionOption(option);
+                        JudicialPositionOption codeToChange = judicialPositionManager.GetOption(option.AmsCode);
+                        codeToChange.Name = option.Name;
+                        judicialPositionManager.SetOption(codeToChange);
+                    }
+                }
+
+                if (judicialPositionOptionsVM.CodesToBeDeactivated != null)
+                {
+                    foreach (JudicialPositionOption option in judicialPositionOptionsVM.CodesToBeDeactivated)
+                    {
+                        option.Active = false;
+                        judicialPositionManager.SetOption(option);
+                    }
+                }
+
+                if (judicialPositionOptionsVM.CodesToBeDeleted != null)
+                {
+                    foreach (JudicialPositionOption option in judicialPositionOptionsVM.CodesToBeDeleted)
+                    {
+                        judicialPositionManager.DeleteOption(option);
                     }
                 }
 
@@ -70,7 +92,7 @@ namespace Licensing.Web.Controllers
             }
             else
             {
-                return View("~/Views/JudicialPosition/EditJudicialPositionOptions.cshtml", judicialPositionOptionVM);
+                return View("~/Views/JudicialPosition/EditJudicialPositionOptions.cshtml", judicialPositionOptionsVM);
             }
         }
     }

@@ -134,7 +134,7 @@ namespace Licensing.Data.Migrations
             {
                 new FinancialResponsibility
                 {
-                    CoveredByOption = coveredByOptions[0],
+                    Option = coveredByOptions[0],
                     Company = "WSBA",
                     PolicyNumber = "ABC123"
                 }
@@ -218,9 +218,9 @@ namespace Licensing.Data.Migrations
 
             var phoneNumberTypes = new List<PhoneNumberType>
             {
-                new PhoneNumberType { Name = "Primary", AmsCode = "OFFICE" },
-                new PhoneNumberType { Name = "Home", AmsCode = "HOME" },
-                new PhoneNumberType { Name = "Fax", AmsCode = "FAX" }
+                new PhoneNumberType { Name = "Primary" },
+                new PhoneNumberType { Name = "Home" },
+                new PhoneNumberType { Name = "Fax" }
             };
 
             var phoneNumbers = new List<PhoneNumber>

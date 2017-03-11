@@ -62,7 +62,7 @@ namespace Licensing.Web.Controllers
             PhoneNumberManager phoneNumberManager = new PhoneNumberManager(_context);
             PhoneNumber phoneNumber = new PhoneNumber();
             phoneNumber.LicenseId = id;
-            phoneNumber.PhoneNumberType = phoneNumberManager.GetAddressType("Primary");
+            phoneNumber.PhoneNumberType = phoneNumberManager.GetPhoneNumberType("Primary");
 
             return View("EditPhoneNumber", new PhoneNumberVM(phoneNumber));
         }
@@ -73,7 +73,7 @@ namespace Licensing.Web.Controllers
             PhoneNumberManager phoneNumberManager = new PhoneNumberManager(_context);
             PhoneNumber phoneNumber = new PhoneNumber();
             phoneNumber.LicenseId = id;
-            phoneNumber.PhoneNumberType = phoneNumberManager.GetAddressType("Home");
+            phoneNumber.PhoneNumberType = phoneNumberManager.GetPhoneNumberType("Home");
 
             return View("EditPhoneNumber", new PhoneNumberVM(phoneNumber));
         }
@@ -84,7 +84,7 @@ namespace Licensing.Web.Controllers
             PhoneNumberManager phoneNumberManager = new PhoneNumberManager(_context);
             PhoneNumber phoneNumber = new PhoneNumber();
             phoneNumber.LicenseId = id;
-            phoneNumber.PhoneNumberType = phoneNumberManager.GetAddressType("Fax");
+            phoneNumber.PhoneNumberType = phoneNumberManager.GetPhoneNumberType("Fax");
 
             return View("EditPhoneNumber", new PhoneNumberVM(phoneNumber));
         }

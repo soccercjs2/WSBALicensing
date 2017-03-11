@@ -27,9 +27,9 @@ namespace Licensing.Business.ViewModels
                 Company = license.FinancialResponsibility.Company;
                 PolicyNumber = license.FinancialResponsibility.PolicyNumber;
 
-                if (license.FinancialResponsibility.CoveredByOption != null)
+                if (license.FinancialResponsibility.Option != null)
                 {
-                    SelectedCoveredByOptionId = license.FinancialResponsibility.CoveredByOption.CoveredByOptionId;
+                    SelectedCoveredByOptionId = license.FinancialResponsibility.Option.CoveredByOptionId;
                 }
             }
 

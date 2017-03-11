@@ -23,12 +23,16 @@ namespace Licensing.Web.Controllers
         public ActionResult Edit()
         {
             FinancialResponsibilityManager financialResponsibilityManager = new FinancialResponsibilityManager(_context);
-            ICollection<CoveredByOption> codes = financialResponsibilityManager.GetOptions();
+            ICollection<CoveredByOption> codes = financialResponsibilityManager.GetOptions().OrderBy(c => c.Name).ToList(); ;
+            ICollection<CoveredByOption> amsCodes = financialResponsibilityManager.GetAmsOptions();
 
-            CoveredByOptionsVM coveredByOptionsVM = new CoveredByOptionsVM();            
-            coveredByOptionsVM.ActiveCodes = codes.Where(c => c.Active).ToList();
-            coveredByOptionsVM.InactiveCodes = codes.Where(c => !c.Active).ToList();
-            coveredByOptionsVM.PersonifyCodes = financialResponsibilityManager.GetAmsCoveredByOptions();
+            CoveredByOptionsVM coveredByOptionsVM = new CoveredByOptionsVM();
+            coveredByOptionsVM.Codes = codes.Where(c => c.Active).ToList();
+            coveredByOptionsVM.CodesToBeAdded = financialResponsibilityManager.GetCodesToBeAdded(codes, amsCodes);
+            coveredByOptionsVM.CodesToBeActivated = financialResponsibilityManager.GetCodesToBeActivated(codes, amsCodes);
+            coveredByOptionsVM.CodesToBeChanged = financialResponsibilityManager.GetCodesToBeChanged(codes, amsCodes);
+            coveredByOptionsVM.CodesToBeDeactivated = financialResponsibilityManager.GetCodesToBeDeactivated(codes, amsCodes);
+            coveredByOptionsVM.CodesToBeDeleted = financialResponsibilityManager.GetCodesToBeDeleted(codes, amsCodes);
 
             return View("~/Views/FinancialResponsibility/EditCoveredByOptions.cshtml", coveredByOptionsVM);
         }
@@ -40,29 +44,47 @@ namespace Licensing.Web.Controllers
             {
                 FinancialResponsibilityManager financialResponsibilityManager = new FinancialResponsibilityManager(_context);
 
-                if (coveredByOptionsVM.ActiveCodes != null)
+                if (coveredByOptionsVM.CodesToBeAdded != null)
                 {
-                    foreach (CoveredByOption option in coveredByOptionsVM.ActiveCodes)
+                    foreach (CoveredByOption option in coveredByOptionsVM.CodesToBeAdded)
                     {
-                        financialResponsibilityManager.SetCoveredByOption(option);
+                        financialResponsibilityManager.SetOption(option);
                     }
                 }
 
-                if (coveredByOptionsVM.InactiveCodes != null)
+                if (coveredByOptionsVM.CodesToBeActivated != null)
                 {
-                    foreach (CoveredByOption option in coveredByOptionsVM.InactiveCodes)
+                    foreach (CoveredByOption option in coveredByOptionsVM.CodesToBeActivated)
                     {
-                        financialResponsibilityManager.SetCoveredByOption(option);
+                        option.Active = true;
+                        financialResponsibilityManager.SetOption(option);
                     }
                 }
 
-                if (coveredByOptionsVM.PersonifyCodes != null)
+                if (coveredByOptionsVM.CodesToBeChanged != null)
                 {
-                    ICollection<CoveredByOption> optionsToInclude = coveredByOptionsVM.PersonifyCodes.Where(o => o.Active).ToList();
-
-                    foreach (CoveredByOption option in optionsToInclude)
+                    foreach (CoveredByOption option in coveredByOptionsVM.CodesToBeChanged)
                     {
-                        financialResponsibilityManager.SetCoveredByOption(option);
+                        CoveredByOption codeToChange = financialResponsibilityManager.GetOption(option.AmsCode);
+                        codeToChange.Name = option.Name;
+                        financialResponsibilityManager.SetOption(codeToChange);
+                    }
+                }
+
+                if (coveredByOptionsVM.CodesToBeDeactivated != null)
+                {
+                    foreach (CoveredByOption option in coveredByOptionsVM.CodesToBeDeactivated)
+                    {
+                        option.Active = false;
+                        financialResponsibilityManager.SetOption(option);
+                    }
+                }
+
+                if (coveredByOptionsVM.CodesToBeDeleted != null)
+                {
+                    foreach (CoveredByOption option in coveredByOptionsVM.CodesToBeDeleted)
+                    {
+                        financialResponsibilityManager.DeleteOption(option);
                     }
                 }
 

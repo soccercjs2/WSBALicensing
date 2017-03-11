@@ -59,11 +59,11 @@ namespace Licensing.Web.Controllers
                 {
                     if (product.Donating)
                     {
-                        donationManager.SetDonationAmount(license, product.DonationProductId, product.Amount);
+                        donationManager.SetAmount(license, product.DonationProductId, product.Amount);
                     }
                     else
                     {
-                        donationManager.SetDonationAmount(license, product.DonationProductId, 0);
+                        donationManager.SetAmount(license, product.DonationProductId, 0);
                     }
                 }
 

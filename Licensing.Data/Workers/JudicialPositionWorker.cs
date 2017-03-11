@@ -30,7 +30,22 @@ namespace Licensing.Data.Workers
 
         public JudicialPositionOption GetOption(string code)
         {
-            return _context.JudicialPositionOptions.Where(c => c.AmsCode == code).FirstOrDefault();
+            ICollection<JudicialPositionOption> options = _context.JudicialPositionOptions.Where(c => c.AmsCode == code).ToList();
+
+            foreach (JudicialPositionOption option in options)
+            {
+                if (option.AmsCode == code)
+                {
+                    return option;
+                }
+            }
+
+            return null;
+        }
+
+        public ICollection<JudicialPosition> GetResponsesWithOption(JudicialPositionOption option)
+        {
+            return _context.JudicialPositions.Where(f => f.Option.JudicialPositionOptionId == option.JudicialPositionOptionId).ToList();
         }
 
         public void SetCoveredByOption(JudicialPositionOption judicialPositionOption)
@@ -39,6 +54,12 @@ namespace Licensing.Data.Workers
                                    EntityState.Added :
                                    EntityState.Modified;
 
+            _context.SaveChanges();
+        }
+
+        public void DeleteOption(JudicialPositionOption option)
+        {
+            _context.Entry(option).State = EntityState.Deleted;
             _context.SaveChanges();
         }
     }

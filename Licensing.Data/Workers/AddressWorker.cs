@@ -23,9 +23,24 @@ namespace Licensing.Data.Workers
             return _context.Addresses.Find(addressId);
         }
 
-        public AddressType GetAddressType(string addressType)
+        public AddressType GetAddressType(string code)
         {
-            return _context.AddressTypes.Where(at => at.Name == addressType).FirstOrDefault();
+            ICollection<AddressType> options = _context.AddressTypes.Where(c => c.AmsCode == code).ToList();
+
+            foreach (AddressType option in options)
+            {
+                if (option.AmsCode == code)
+                {
+                    return option;
+                }
+            }
+
+            return null;
+        }
+
+        public ICollection<AddressType> GetAddressTypes()
+        {
+            return _context.AddressTypes.ToList();
         }
 
         public void SetAddress(Address address)
@@ -36,6 +51,26 @@ namespace Licensing.Data.Workers
 
             _context.Entry(address.AddressType).State = EntityState.Unchanged;
 
+            _context.SaveChanges();
+        }
+
+        public ICollection<Address> GetResponsesWithOption(AddressType option)
+        {
+            return _context.Addresses.Where(f => f.AddressType.AddressTypeId == option.AddressTypeId).ToList();
+        }
+
+        public void SetOption(AddressType option)
+        {
+            _context.Entry(option).State = option.AddressTypeId == 0 ?
+                                   EntityState.Added :
+                                   EntityState.Modified;
+
+            _context.SaveChanges();
+        }
+
+        public void DeleteOption(AddressType option)
+        {
+            _context.Entry(option).State = EntityState.Deleted;
             _context.SaveChanges();
         }
     }

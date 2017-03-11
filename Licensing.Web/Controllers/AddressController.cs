@@ -63,7 +63,7 @@ namespace Licensing.Web.Controllers
             AddressManager addressManager = new AddressManager(_context);
             Address address = new Address();
             address.LicenseId = id;
-            address.AddressType = addressManager.GetAddressType("Primary");
+            address.AddressType = addressManager.GetAddressType("OFFICE");
 
             return View("EditAddress", new AddressVM(address));
         }
@@ -74,7 +74,7 @@ namespace Licensing.Web.Controllers
             AddressManager addressManager = new AddressManager(_context);
             Address address = new Address();
             address.LicenseId = id;
-            address.AddressType = addressManager.GetAddressType("Home");
+            address.AddressType = addressManager.GetAddressType("HOME");
 
             return View("EditAddress", new AddressVM(address));
         }
@@ -85,7 +85,7 @@ namespace Licensing.Web.Controllers
             AddressManager addressManager = new AddressManager(_context);
             Address address = new Address();
             address.LicenseId = id;
-            address.AddressType = addressManager.GetAddressType("Agent of Service");
+            address.AddressType = addressManager.GetAddressType("AGENTOFSERVICE");
 
             return View("EditAddress", new AddressVM(address));
         }

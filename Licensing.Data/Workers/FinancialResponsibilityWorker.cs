@@ -30,15 +30,36 @@ namespace Licensing.Data.Workers
 
         public CoveredByOption GetOption(string code)
         {
-            return _context.CoveredByOptions.Where(c => c.AmsCode == code).FirstOrDefault();
+            ICollection<CoveredByOption> options = _context.CoveredByOptions.Where(c => c.AmsCode == code).ToList();
+
+            foreach (CoveredByOption option in options)
+            {
+                if (option.AmsCode == code)
+                {
+                    return option;
+                }
+            }
+
+            return null;
         }
 
-        public void SetCoveredByOption(CoveredByOption coveredByOption)
+        public ICollection<FinancialResponsibility> GetResponsesWithOption(CoveredByOption option)
         {
-            _context.Entry(coveredByOption).State = coveredByOption.CoveredByOptionId == 0 ?
+            return _context.FinancialResponsibilities.Where(f => f.Option.CoveredByOptionId == option.CoveredByOptionId).ToList();
+        }
+
+        public void SetOption(CoveredByOption option)
+        {
+            _context.Entry(option).State = option.CoveredByOptionId == 0 ?
                                    EntityState.Added :
                                    EntityState.Modified;
 
+            _context.SaveChanges();
+        }
+
+        public void DeleteOption(CoveredByOption option)
+        {
+            _context.Entry(option).State = EntityState.Deleted;
             _context.SaveChanges();
         }
     }

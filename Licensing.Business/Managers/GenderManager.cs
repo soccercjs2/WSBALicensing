@@ -28,7 +28,12 @@ namespace Licensing.Business.Managers
             return _genderWorker.GetOptions();
         }
 
-        public void SetGenderOption(License license, int optionId)
+        public GenderOption GetOption(string code)
+        {
+            return _genderWorker.GetOption(code);
+        }
+
+        public void SetGender(License license, int optionId)
         {
             GenderOption option = _genderWorker.GetOption(optionId);
 
@@ -45,6 +50,95 @@ namespace Licensing.Business.Managers
         public bool IsComplete(License license)
         {
             return license.Gender != null;
+        }
+
+        public IList<GenderOption> GetAmsOptions()
+        {
+            IList<GenderOption> options = new List<GenderOption>();
+            var codes = WSBA.AMS.CodeTypesManager.GetGenderCodeList().OrderBy(c => c.Description);
+
+            foreach (var code in codes)
+            {
+                options.Add(new GenderOption() { Name = code.Description, AmsCode = code.Code, Active = true });
+            }
+
+            return options;
+        }
+
+        public void SetOption(GenderOption option)
+        {
+            if (option.GenderOptionId == 0)
+            {
+                GenderOption existingCode = _genderWorker.GetOption(option.AmsCode);
+
+                if (existingCode != null)
+                {
+                    existingCode.Active = true;
+                    existingCode.Name = option.Name;
+                    option = existingCode;
+                }
+            }
+
+            _genderWorker.SetOption(option);
+        }
+
+        public void DeleteOption(GenderOption option)
+        {
+            _genderWorker.DeleteOption(option);
+        }
+
+        public IList<GenderOption> GetCodesToBeAdded(ICollection<GenderOption> codes, ICollection<GenderOption> amsCodes)
+        {
+            return amsCodes.Where(ac => !codes.Any(c => c.AmsCode == ac.AmsCode)).ToList();
+        }
+
+        public IList<GenderOption> GetCodesToBeActivated(ICollection<GenderOption> codes, ICollection<GenderOption> amsCodes)
+        {
+            //get inactive codes
+            codes = codes.Where(c => !c.Active).ToList();
+            return codes.Where(c => amsCodes.Any(ac => c.AmsCode == ac.AmsCode)).ToList();
+        }
+
+        public IList<GenderOption> GetCodesToBeChanged(ICollection<GenderOption> codes, ICollection<GenderOption> amsCodes)
+        {
+            return amsCodes.Where(ac => codes.Any(c => c.AmsCode == ac.AmsCode && c.Name != ac.Name)).ToList();
+        }
+
+        public IList<GenderOption> GetCodesToBeDeactivated(ICollection<GenderOption> codes, ICollection<GenderOption> amsCodes)
+        {
+            //get active codes
+            codes = codes.Where(c => c.Active).ToList();
+
+            IList<GenderOption> codesToRemove = codes.Where(c => !amsCodes.Any(ac => ac.AmsCode == c.AmsCode)).ToList();
+            IList<GenderOption> codesToDeactivate = new List<GenderOption>();
+
+            foreach (GenderOption option in codesToRemove)
+            {
+                ICollection<Gender> responsesWithOption = _genderWorker.GetResponsesWithOption(option);
+                if (responsesWithOption != null && responsesWithOption.Count > 0)
+                {
+                    codesToDeactivate.Add(option);
+                }
+            }
+
+            return codesToDeactivate;
+        }
+
+        public IList<GenderOption> GetCodesToBeDeleted(ICollection<GenderOption> codes, ICollection<GenderOption> amsCodes)
+        {
+            IList<GenderOption> codesToRemove = codes.Where(c => !amsCodes.Any(ac => ac.AmsCode == c.AmsCode)).ToList();
+            IList<GenderOption> codesToDeleted = new List<GenderOption>();
+
+            foreach (GenderOption option in codesToRemove)
+            {
+                ICollection<Gender> responsesWithOption = _genderWorker.GetResponsesWithOption(option);
+                if (responsesWithOption == null || responsesWithOption.Count == 0)
+                {
+                    codesToDeleted.Add(option);
+                }
+            }
+
+            return codesToDeleted;
         }
     }
 }

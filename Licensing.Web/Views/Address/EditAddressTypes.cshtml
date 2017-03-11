@@ -1,0 +1,199 @@
+﻿@model Licensing.Business.ViewModels.AddressTypesVM
+
+@{
+    ViewBag.Title = "Edit Address Types";
+}
+
+<h2>Edit Address Types</h2>
+
+@using (Html.BeginForm("Edit", "AddressType", FormMethod.Post))
+{
+    <hr />
+
+    <div class="row">
+        @Html.ActionLink("Return to Admin Dashboard", "Index", "Admin", null, new { @class = "btn btn-primary" })
+        <input class="btn btn-success" type="submit" value="Sync" />
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-sm-4 dashboard-column">
+            <h3><u>Active Codes</u></h3>
+            @if (Model.Codes != null && Model.Codes.Count > 0)
+            {
+                <table class="standard-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Code</th>
+                        </tr>
+                    </thead>
+                    @for (int i = 0; i < Model.Codes.Count; i++)
+                    {
+                        @Html.HiddenFor(m => Model.Codes[i].AddressTypeId)
+                        @Html.HiddenFor(m => Model.Codes[i].Name)
+                        @Html.HiddenFor(m => Model.Codes[i].AmsCode)
+                        @Html.HiddenFor(m => Model.Codes[i].Active)
+
+                        <tr>
+                            <td>@Model.Codes[i].Name</td>
+                            <td>@Model.Codes[i].AmsCode</td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <span>No codes.</span>
+            }
+        </div>
+        <div class="col-sm-4 dashboard-column">
+            <h3><u>Codes to be Added</u></h3>
+            @if (Model.CodesToBeAdded != null && Model.CodesToBeAdded.Count > 0)
+            {
+                <table class="standard-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Code</th>
+                        </tr>
+                    </thead>
+                    @for (int i = 0; i < Model.CodesToBeAdded.Count; i++)
+                    {
+                        @Html.HiddenFor(m => Model.CodesToBeAdded[i].AddressTypeId)
+                        @Html.HiddenFor(m => Model.CodesToBeAdded[i].Name)
+                        @Html.HiddenFor(m => Model.CodesToBeAdded[i].AmsCode)
+                        @Html.HiddenFor(m => Model.CodesToBeAdded[i].Active)
+
+                        <tr>
+                            <td>@Model.CodesToBeAdded[i].Name</td>
+                            <td>@Model.CodesToBeAdded[i].AmsCode</td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <span>No codes will be added.</span>
+            }
+
+            <h3><u>Codes to be Activated</u></h3>
+            @if (Model.CodesToBeActivated != null && Model.CodesToBeActivated.Count > 0)
+            {
+                <table class="standard-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Code</th>
+                        </tr>
+                    </thead>
+                    @for (int i = 0; i < Model.CodesToBeActivated.Count; i++)
+                    {
+                        @Html.HiddenFor(m => Model.CodesToBeActivated[i].AddressTypeId)
+                        @Html.HiddenFor(m => Model.CodesToBeActivated[i].Name)
+                        @Html.HiddenFor(m => Model.CodesToBeActivated[i].AmsCode)
+                        @Html.HiddenFor(m => Model.CodesToBeActivated[i].Active)
+
+                        <tr>
+                            <td>@Model.CodesToBeActivated[i].Name</td>
+                            <td>@Model.CodesToBeActivated[i].AmsCode</td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <span>No codes will be activated.</span>
+            }
+
+            <h3><u>Codes to be Changed</u></h3>
+            @if (Model.CodesToBeChanged != null && Model.CodesToBeChanged.Count > 0)
+            {
+                <table class="standard-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Code</th>
+                        </tr>
+                    </thead>
+                    @for (int i = 0; i < Model.CodesToBeChanged.Count; i++)
+                    {
+                        @Html.HiddenFor(m => Model.CodesToBeChanged[i].AddressTypeId)
+                        @Html.HiddenFor(m => Model.CodesToBeChanged[i].Name)
+                        @Html.HiddenFor(m => Model.CodesToBeChanged[i].AmsCode)
+                        @Html.HiddenFor(m => Model.CodesToBeChanged[i].Active)
+
+                        <tr>
+                            <td>@Model.CodesToBeChanged[i].Name</td>
+                            <td>@Model.CodesToBeChanged[i].AmsCode</td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <span>No codes will be changed.</span>
+            }
+        </div>
+        <div class="col-sm-4 dashboard-column">
+            <h3><u>Codes to be Deactivated</u></h3>
+            @if (Model.CodesToBeDeactivated != null && Model.CodesToBeDeactivated.Count > 0)
+            {
+                <table class="standard-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Code</th>
+                        </tr>
+                    </thead>
+                    @for (int i = 0; i < Model.CodesToBeDeactivated.Count; i++)
+                    {
+                        @Html.HiddenFor(m => Model.CodesToBeDeactivated[i].AddressTypeId)
+                        @Html.HiddenFor(m => Model.CodesToBeDeactivated[i].Name)
+                        @Html.HiddenFor(m => Model.CodesToBeDeactivated[i].AmsCode)
+                        @Html.HiddenFor(m => Model.CodesToBeDeactivated[i].Active)
+
+                        <tr>
+                            <td>@Model.CodesToBeDeactivated[i].Name</td>
+                            <td>@Model.CodesToBeDeactivated[i].AmsCode</td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <span>No codes will be deactivated.</span>
+            }
+
+            <h3><u>Codes to be Deleted</u></h3>
+            @if (Model.CodesToBeDeleted != null && Model.CodesToBeDeleted.Count > 0)
+            {
+                <table class="standard-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Code</th>
+                        </tr>
+                    </thead>
+                    @for (int i = 0; i < Model.CodesToBeDeleted.Count; i++)
+                    {
+                        @Html.HiddenFor(m => Model.CodesToBeDeleted[i].AddressTypeId)
+                        @Html.HiddenFor(m => Model.CodesToBeDeleted[i].Name)
+                        @Html.HiddenFor(m => Model.CodesToBeDeleted[i].AmsCode)
+                        @Html.HiddenFor(m => Model.CodesToBeDeleted[i].Active)
+
+                        <tr>
+                            <td>@Model.CodesToBeDeleted[i].Name</td>
+                            <td>@Model.CodesToBeDeleted[i].AmsCode</td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <span>No codes will be deleted.</span>
+            }
+        </div>
+    </div>
+}

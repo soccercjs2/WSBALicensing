@@ -9,6 +9,7 @@ namespace Licensing.Business.ViewModels
 {
     public class DashboardVM
     {
+        public int LicenseId { get; set; }
         public LicenseType LicenseType { get; set; }
 
         //customer info
@@ -25,6 +26,8 @@ namespace Licensing.Business.ViewModels
         public DashboardContainerVM ProBono { get; set; }
 
         //contact information
+        public bool AgentOfServiceAddressRequired { get; set; }
+
         public DashboardContainerVM PrimaryAddress { get; set; }
         public DashboardContainerVM HomeAddress { get; set; }
         public DashboardContainerVM AgentOfServiceAddress { get; set; }

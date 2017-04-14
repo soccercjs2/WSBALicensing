@@ -1,0 +1,67 @@
+﻿@model Licensing.Business.ViewModels.ProfessionalLiabilityInsuranceOptionVM
+
+@{
+    ViewBag.Title = "Edit Professional Liability Insurance Option";
+}
+
+<h2>Edit Professional Liability Insurance Option</h2>
+
+<hr />
+
+@using (Html.BeginForm("Edit", "ProfessionalLiabilityInsuranceOption", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.ProfessionalLiabilityInsuranceOptionId)
+    
+    <div class="row">
+        @Html.LabelFor(m => m.Description)
+        @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+    </div>
+
+    <div class="row">
+        <div class="col-xs-4">
+            <div class="demographic-container">
+                <div class="demographic-container-header">
+                    <div class="demographic-container-title">@Html.LabelFor(m => m.PrivatePractice)</div>
+                </div>
+                <div class="demographics-container-body">
+                    @Html.RadioButtonFor(m => m.PrivatePractice, 1) <span>Yes</span><br />
+                    @Html.RadioButtonFor(m => m.PrivatePractice, 0) <span>No</span><br />
+                    @Html.RadioButtonFor(m => m.PrivatePractice, -1) <span>Null</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-4">
+            <div class="demographic-container">
+                <div class="demographic-container-header">
+                    <div class="demographic-container-title">@Html.LabelFor(m => m.CurrentlyInsured)</div>
+                </div>
+                <div class="demographics-container-body">
+                    @Html.RadioButtonFor(m => m.CurrentlyInsured, 1) <span>Yes</span><br />
+                    @Html.RadioButtonFor(m => m.CurrentlyInsured, 0) <span>No</span><br />
+                    @Html.RadioButtonFor(m => m.CurrentlyInsured, -1) <span>Null</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-4">
+            <div class="demographic-container">
+                <div class="demographic-container-header">
+                    <div class="demographic-container-title">@Html.LabelFor(m => m.MaintainCoverage)</div>
+                </div>
+                <div class="demographics-container-body">
+                    @Html.RadioButtonFor(m => m.MaintainCoverage, 1) <span>Yes</span><br />
+                    @Html.RadioButtonFor(m => m.MaintainCoverage, 0) <span>No</span><br />
+                    @Html.RadioButtonFor(m => m.MaintainCoverage, -1) <span>Null</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+        @Html.ActionLink("Cancel", "Options", "ProfessionalLiabilityInsuranceOption", null, new { @class = "btn btn-primary" })
+        <input class="btn btn-success" type="submit" value="Save" />
+    </div>
+}

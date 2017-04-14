@@ -43,6 +43,46 @@ namespace Licensing.Data.Workers
             return _context.AddressTypes.ToList();
         }
 
+        public AddressCountry GetAddressCountry(string code)
+        {
+            ICollection<AddressCountry> options = _context.AddressCountries.Where(c => c.AmsCode == code).ToList();
+
+            foreach (AddressCountry option in options)
+            {
+                if (option.AmsCode == code)
+                {
+                    return option;
+                }
+            }
+
+            return null;
+        }
+
+        public ICollection<AddressCountry> GetAddressCountries()
+        {
+            return _context.AddressCountries.ToList();
+        }
+
+        public AddressState GetAddressState(string countryCode, string code)
+        {
+            ICollection<AddressState> options = _context.AddressStates.Where(c => c.AmsCode == code && c.AmsCountryCode == countryCode).ToList();
+
+            foreach (AddressState option in options)
+            {
+                if (option.AmsCode == code)
+                {
+                    return option;
+                }
+            }
+
+            return null;
+        }
+
+        public ICollection<AddressState> GetAddressStates()
+        {
+            return _context.AddressStates.ToList();
+        }
+
         public void SetAddress(Address address)
         {
             _context.Entry(address).State = address.AddressId == 0 ?
@@ -54,23 +94,63 @@ namespace Licensing.Data.Workers
             _context.SaveChanges();
         }
 
-        public ICollection<Address> GetResponsesWithOption(AddressType option)
+        public ICollection<Address> GetResponsesWithAddressType(AddressType type)
         {
-            return _context.Addresses.Where(f => f.AddressType.AddressTypeId == option.AddressTypeId).ToList();
+            return _context.Addresses.Where(f => f.AddressType.AddressTypeId == type.AddressTypeId).ToList();
         }
 
-        public void SetOption(AddressType option)
+        public ICollection<Address> GetResponsesWithAddressCountry(AddressCountry country)
         {
-            _context.Entry(option).State = option.AddressTypeId == 0 ?
+            return _context.Addresses.Where(f => f.Country.AddressCountryId == country.AddressCountryId).ToList();
+        }
+
+        public ICollection<Address> GetResponsesWithAddressState(AddressState state)
+        {
+            return _context.Addresses.Where(f => f.State.AddressStateId == state.AddressStateId).ToList();
+        }
+
+        public void SetAddressType(AddressType type)
+        {
+            _context.Entry(type).State = type.AddressTypeId == 0 ?
                                    EntityState.Added :
                                    EntityState.Modified;
 
             _context.SaveChanges();
         }
 
-        public void DeleteOption(AddressType option)
+        public void DeleteAddressType(AddressType type)
         {
-            _context.Entry(option).State = EntityState.Deleted;
+            _context.Entry(type).State = EntityState.Deleted;
+            _context.SaveChanges();
+        }
+
+        public void SetAddressCountry(AddressCountry country)
+        {
+            _context.Entry(country).State = country.AddressCountryId == 0 ?
+                                   EntityState.Added :
+                                   EntityState.Modified;
+
+            _context.SaveChanges();
+        }
+
+        public void DeleteAddressCountry(AddressCountry country)
+        {
+            _context.Entry(country).State = EntityState.Deleted;
+            _context.SaveChanges();
+        }
+
+        public void SetAddressState(AddressState state)
+        {
+            _context.Entry(state).State = state.AddressStateId == 0 ?
+                                   EntityState.Added :
+                                   EntityState.Modified;
+
+            _context.SaveChanges();
+        }
+
+        public void DeleteAddressState(AddressState state)
+        {
+            _context.Entry(state).State = EntityState.Deleted;
             _context.SaveChanges();
         }
     }

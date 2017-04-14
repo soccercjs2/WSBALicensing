@@ -43,7 +43,7 @@ namespace Licensing.Web.Controllers
                 License license = licenseManager.GetLicense(sexualOrientationVM.LicenseId);
 
                 SexualOrientationManager sexualOrientationManager = new SexualOrientationManager(_context);
-                sexualOrientationManager.SetSexualOrientationOption(license, sexualOrientationVM.SelectedOptionId);
+                sexualOrientationManager.SetSexualOrientation(license, sexualOrientationVM.SelectedOptionId);
 
                 return RedirectToAction("Index", "Home");
             }

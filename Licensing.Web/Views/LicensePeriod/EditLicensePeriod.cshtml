@@ -1,0 +1,36 @@
+﻿@model Licensing.Business.ViewModels.LicensePeriodVM
+
+@{
+    ViewBag.Title = "Edit License Period";
+}
+
+<h2>@Model.LicensePeriod.EndDate.Year</h2>
+
+@using (Html.BeginForm("Edit", "LicensePeriod", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.LicensePeriod.LicensePeriodId)
+    
+    <table class="standard-table">
+        <tr>
+            <td>@Html.LabelFor(m => m.LicensePeriod.StartDate)</td>
+            <td>@Html.TextBoxFor(m => m.LicensePeriod.StartDate, "{0:MM/dd/yyyy}", new { @class = "form-control width-restricted" })</td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(m => m.LicensePeriod.EndDate)</td>
+            <td>@Html.TextBoxFor(m => m.LicensePeriod.EndDate, "{0:MM/dd/yyyy}", new { @class = "form-control width-restricted" })</td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(m => m.LicensePeriod.LateFeeDate)</td>
+            <td>@Html.TextBoxFor(m => m.LicensePeriod.LateFeeDate, "{0:MM/dd/yyyy}", new { @class = "form-control width-restricted" })</td>
+        </tr>
+    </table>
+
+    <hr />
+
+    <div class="row">
+        @Html.ActionLink("Cancel", "Index", "Admin", null, new { @class = "btn btn-primary" })
+        <input class="btn btn-success" type="submit" value="Save" />
+    </div>
+}

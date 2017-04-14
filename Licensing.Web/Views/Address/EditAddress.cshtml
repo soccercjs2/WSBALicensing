@@ -46,16 +46,22 @@
     <div>
         @Html.HiddenFor(m => m.Address.AddressId)
         @Html.HiddenFor(m => m.Address.LicenseId)
+        @Html.HiddenFor(m => m.Address.AmsAddressId)
+
         @Html.HiddenFor(m => m.Address.AddressTypeId)
         @Html.HiddenFor(m => m.Address.AddressType.AddressTypeId)
         @Html.HiddenFor(m => m.Address.AddressType.Name)
         @Html.HiddenFor(m => m.Address.AddressType.AmsCode)
+
+        @Html.HiddenFor(m => m.Address.AddressCountryId)
+        @Html.HiddenFor(m => m.Address.AddressStateId)
+
         @Html.HiddenFor(m => m.Address.CongressionalDistrict)
 
-        <div>
-            @Html.LabelFor(m => m.Address.Country)
-            @Html.TextBoxFor(m => m.Address.Country, new { @class = "form-control width-restricted" })
-        </div>
+        @*<div>
+            @Html.LabelFor(m => m.Address.Country.AmsCode)
+            @Html.TextBoxFor(m => m.Address.Country.AmsCode, new { @class = "form-control width-restricted" })
+        </div>*@
 
         <div>
             @Html.LabelFor(m => m.Address.Address1)
@@ -72,10 +78,10 @@
             @Html.TextBoxFor(m => m.Address.City, new { @class = "form-control width-restricted" })
         </div>
 
-        <div>
-            @Html.LabelFor(m => m.Address.State)
-            @Html.TextBoxFor(m => m.Address.State, new { @class = "form-control width-restricted" })
-        </div>
+        @*<div>
+            @Html.LabelFor(m => m.Address.State.AmsCode)
+            @Html.TextBoxFor(m => m.Address.State.AmsCode, new { @class = "form-control width-restricted" })
+        </div>*@
 
         <div>
             @Html.LabelFor(m => m.Address.ZipCode)

@@ -24,7 +24,8 @@
             <div class="row">
                 @if (Model.PrimaryPhoneNumber != null)
                 {
-                    <span>@Model.PrimaryPhoneNumber.Number</span>
+                    @Model.PrimaryPhoneNumber.AreaCode
+                    @Model.PrimaryPhoneNumber.Number
 
                     if (Model.PrimaryPhoneNumber.Extension != null)
                     {
@@ -54,7 +55,8 @@
             <div class="row">
                 @if (Model.HomePhoneNumber != null)
                 {
-                    <span>@Model.HomePhoneNumber.Number</span>
+                    @Model.HomePhoneNumber.AreaCode
+                    @Model.HomePhoneNumber.Number
 
                     if (Model.HomePhoneNumber.Extension != null)
                     {
@@ -84,7 +86,8 @@
             <div class="row">
                 @if (Model.FaxPhoneNumber != null)
                 {
-                    <span>@Model.FaxPhoneNumber.Number</span>
+                    @Model.FaxPhoneNumber.AreaCode
+                    @Model.FaxPhoneNumber.Number
 
                     if (Model.FaxPhoneNumber.Extension != null)
                     {

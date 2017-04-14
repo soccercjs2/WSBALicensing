@@ -10,5 +10,6 @@ namespace Licensing.Business.ViewModels
     public class AdminDashboardVM
     {
         public ICollection<LicenseType> LicenseTypes { get; set; }
+        public ICollection<LicensePeriod> LicensePeriods { get; set; }
     }
 }

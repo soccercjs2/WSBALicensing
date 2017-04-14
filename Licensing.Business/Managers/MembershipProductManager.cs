@@ -33,7 +33,7 @@ namespace Licensing.Business.Managers
                 null,
                 true,
                 "_MembershipProducts",
-                license.LicenseType.LicenseTypeProducts
+                license.LicenseType.LicenseTypeProducts.OrderByDescending(ltp => ltp.Product.Price)
             );
         }
     }

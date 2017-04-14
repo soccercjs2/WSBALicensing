@@ -1,146 +1,29 @@
-﻿@model Licensing.Business.ViewModels.LicenseTypeVM
+﻿@model Licensing.Domain.Licenses.LicenseType
 
 @{
-    ViewBag.Title = "Edit License Type";
+    ViewBag.Title = "Create License Type";
 }
 
-<h2>@Model.LicenseType.Name</h2>
+<h2>Create License Type</h2>
 
 @using (Html.BeginForm("Edit", "LicenseType", FormMethod.Post))
 {
-    @Html.HiddenFor(m => m.LicenseType.LicenseTypeId)
-    
-    <table class="standard-table">
-        <tr>
-            <td>@Html.LabelFor(m => m.LicenseType.Name)</td>
-            <td>@Html.TextBoxFor(m => m.LicenseType.Name, new { @class = "form-control width-restricted" })</td>
-        </tr>
+    <hr />
 
-        <tr>
-            <td>@Html.LabelFor(m => m.LicenseType.MembershipType)</td>
-            <td>@Html.EnumDropDownListFor(m => m.LicenseType.MembershipType, new { @class = "form-control width-restricted" })</td>
-        </tr>
+    @Html.HiddenFor(m => m.LicenseTypeId)
+    @Html.HiddenFor(m => m.LicenseTypeRequirementId)
+    @Html.HiddenFor(m => m.DefaultDonationAmount)
 
-        <tr>
-            <td>@Html.LabelFor(m => m.LicenseType.JudicialPosition)</td>
-            <td>@Html.EnumDropDownListFor(m => m.LicenseType.JudicialPosition, new { @class = "form-control width-restricted" })</td>
-        </tr>
+    @Html.LabelFor(m => m.Name)
+    @Html.TextBoxFor(m => m.Name, new { @class = "form-control width-restricted" })
 
-        <tr>
-            <td>@Html.LabelFor(m => m.LicenseType.TrustAccount)</td>
-            <td>@Html.EnumDropDownListFor(m => m.LicenseType.TrustAccount, new { @class = "form-control width-restricted" })</td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => m.LicenseType.ProfessionalLiabilityInsurance)</td>
-            <td>@Html.EnumDropDownListFor(m => m.LicenseType.ProfessionalLiabilityInsurance, new { @class = "form-control width-restricted" })</td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => m.LicenseType.FinancialResponsibility)</td>
-            <td>@Html.EnumDropDownListFor(m => m.LicenseType.FinancialResponsibility, new { @class = "form-control width-restricted" })</td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => m.LicenseType.ProBono)</td>
-            <td>@Html.EnumDropDownListFor(m => m.LicenseType.ProBono, new { @class = "form-control width-restricted" })</td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => m.LicenseType.PrimaryAddress)</td>
-            <td>@Html.EnumDropDownListFor(m => m.LicenseType.PrimaryAddress, new { @class = "form-control width-restricted" })</td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => m.LicenseType.HomeAddress)</td>
-            <td>@Html.EnumDropDownListFor(m => m.LicenseType.HomeAddress, new { @class = "form-control width-restricted" })</td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => m.LicenseType.AgentOfServiceAddress)</td>
-            <td>@Html.EnumDropDownListFor(m => m.LicenseType.AgentOfServiceAddress, new { @class = "form-control width-restricted" })</td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => m.LicenseType.PrimaryEmail)</td>
-            <td>@Html.EnumDropDownListFor(m => m.LicenseType.PrimaryEmail, new { @class = "form-control width-restricted" })</td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => m.LicenseType.PrimaryPhoneNumber)</td>
-            <td>@Html.EnumDropDownListFor(m => m.LicenseType.PrimaryPhoneNumber, new { @class = "form-control width-restricted" })</td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => m.LicenseType.HomePhoneNumber)</td>
-            <td>@Html.EnumDropDownListFor(m => m.LicenseType.HomePhoneNumber, new { @class = "form-control width-restricted" })</td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => m.LicenseType.FaxPhoneNumber)</td>
-            <td>@Html.EnumDropDownListFor(m => m.LicenseType.FaxPhoneNumber, new { @class = "form-control width-restricted" })</td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => m.LicenseType.AreasOfPractice)</td>
-            <td>@Html.EnumDropDownListFor(m => m.LicenseType.AreasOfPractice, new { @class = "form-control width-restricted" })</td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => m.LicenseType.FirmSize)</td>
-            <td>@Html.EnumDropDownListFor(m => m.LicenseType.FirmSize, new { @class = "form-control width-restricted" })</td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => m.LicenseType.Languages)</td>
-            <td>@Html.EnumDropDownListFor(m => m.LicenseType.Languages, new { @class = "form-control width-restricted" })</td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => m.LicenseType.Disability)</td>
-            <td>@Html.EnumDropDownListFor(m => m.LicenseType.Disability, new { @class = "form-control width-restricted" })</td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => m.LicenseType.Ethnicity)</td>
-            <td>@Html.EnumDropDownListFor(m => m.LicenseType.Ethnicity, new { @class = "form-control width-restricted" })</td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => m.LicenseType.Gender)</td>
-            <td>@Html.EnumDropDownListFor(m => m.LicenseType.Gender, new { @class = "form-control width-restricted" })</td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => m.LicenseType.SexualOrientation)</td>
-            <td>@Html.EnumDropDownListFor(m => m.LicenseType.SexualOrientation, new { @class = "form-control width-restricted" })</td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => m.LicenseType.Donations)</td>
-            <td>@Html.EnumDropDownListFor(m => m.LicenseType.Donations, new { @class = "form-control width-restricted" })</td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => m.LicenseType.Sections)</td>
-            <td>@Html.EnumDropDownListFor(m => m.LicenseType.Sections, new { @class = "form-control width-restricted" })</td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => m.LicenseType.BarNews)</td>
-            <td>@Html.EnumDropDownListFor(m => m.LicenseType.BarNews, new { @class = "form-control width-restricted" })</td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => m.LicenseType.PracticeAreas)</td>
-            <td>@Html.EnumDropDownListFor(m => m.LicenseType.PracticeAreas, new { @class = "form-control width-restricted" })</td>
-        </tr>
-    </table>
+    @Html.LabelFor(m => m.AmsMemberType)
+    @Html.TextBoxFor(m => m.AmsMemberType, new { @class = "form-control width-restricted" })
 
     <hr />
 
     <div class="row">
-        @Html.ActionLink("Cancel", "Index", "Admin", null, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Cancel", "LicenseTypeDashboard", "LicenseType", null, new { @class = "btn btn-primary" })
         <input class="btn btn-success" type="submit" value="Save" />
     </div>
 }

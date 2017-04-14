@@ -58,7 +58,7 @@ namespace Licensing.Web.Controllers
                 License license = licenseManager.GetLicense(firmSizeVM.LicenseId);
 
                 FirmSizeManager firmSizeManager = new FirmSizeManager(_context);
-                firmSizeManager.SetProfessionalLiabilityInsurance(license, firmSizeVM.SelectedOptionId);
+                firmSizeManager.SetFirmSize(license, firmSizeVM.SelectedOptionId);
 
                 return RedirectToAction("Index", "Home");
             }

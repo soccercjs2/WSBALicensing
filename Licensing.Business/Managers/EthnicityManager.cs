@@ -33,10 +33,22 @@ namespace Licensing.Business.Managers
             return _ethnicityWorker.GetOption(code);
         }
 
-        public void SetEthnicityOption(License license, int optionId)
+        public void SetEthnicity(License license, int optionId)
         {
             EthnicityOption option = _ethnicityWorker.GetOption(optionId);
 
+            if (license.Ethnicity == null)
+            {
+                license.Ethnicity = new Ethnicity();
+            }
+
+            license.Ethnicity.Option = option;
+
+            _context.SaveChanges();
+        }
+
+        public void SetEthnicity(License license, EthnicityOption option)
+        {
             if (license.Ethnicity == null)
             {
                 license.Ethnicity = new Ethnicity();

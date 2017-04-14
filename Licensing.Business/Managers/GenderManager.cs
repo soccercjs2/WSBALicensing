@@ -47,6 +47,18 @@ namespace Licensing.Business.Managers
             _context.SaveChanges();
         }
 
+        public void SetGender(License license, GenderOption option)
+        {
+            if (license.Gender == null)
+            {
+                license.Gender = new Gender();
+            }
+
+            license.Gender.Option = option;
+
+            _context.SaveChanges();
+        }
+
         public bool IsComplete(License license)
         {
             return license.Gender != null;

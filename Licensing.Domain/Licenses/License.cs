@@ -2,6 +2,7 @@
 using Licensing.Domain.AreasOfPractice;
 using Licensing.Domain.BarNews;
 using Licensing.Domain.ContactInformation;
+using Licensing.Domain.Customers;
 using Licensing.Domain.Disabilities;
 using Licensing.Domain.Donations;
 using Licensing.Domain.Ethnicities;
@@ -28,6 +29,9 @@ namespace Licensing.Domain.Licenses
     public class License
     {
         public int LicenseId { get; set; }
+
+        [ForeignKey("CustomerId")]
+        public virtual Customer Customer { get; set; }
         public int CustomerId { get; set; }
 
         //license details
@@ -117,5 +121,7 @@ namespace Licensing.Domain.Licenses
         public int? BarNewsResponseId { get; set; }
 
         public bool KellerDeduction { get; set; }
+
+        public DateTime? LastAmsUpdate { get; set; }
     }
 }

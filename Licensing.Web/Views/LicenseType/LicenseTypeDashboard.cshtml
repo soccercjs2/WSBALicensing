@@ -1,0 +1,30 @@
+﻿@model Licensing.Domain.Licenses.LicenseType
+
+@{
+    ViewBag.Title = "Edit License Type";
+}
+
+<h2>Edit License Type Informatioin</h2>
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="demographic-container">
+            <div class="demographic-container-header">
+                <div class="demographic-container-title">Edit @Model.Name Information</div>
+            </div>
+            <div class="demographics-container-body">
+                @Html.ActionLink("Edit " + @Model.Name, "Edit", "LicenseType", new { id = Model.LicenseTypeId }, null)<br />
+                @Html.ActionLink("Edit " + @Model.Name + " Requirements", "Edit", "LicenseTypeRequirement", new { id = Model.LicenseTypeId }, null)<br />
+                @Html.ActionLink("Edit " + @Model.Name + " Products", "Edit", "LicenseTypeProduct", new { id = Model.LicenseTypeId }, null)<br />
+                @Html.ActionLink("Edit " + @Model.Name + " Sections", "Edit", "LicenseTypeSection", new { id = Model.LicenseTypeId }, null)<br />
+                @Html.ActionLink("Edit " + @Model.Name + " Donations", "Edit", "LicenseTypeDonation", new { id = Model.LicenseTypeId }, null)<br />
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<div class="row">
+    @Html.ActionLink("Return To Admin Dashboard", "Index", "Admin", null, new { @class = "btn btn-primary" })
+</div>

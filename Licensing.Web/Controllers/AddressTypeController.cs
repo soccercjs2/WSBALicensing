@@ -24,15 +24,15 @@ namespace Licensing.Web.Controllers
         {
             AddressManager addressManager = new AddressManager(_context);
             ICollection<AddressType> codes = addressManager.GetAddressTypes().OrderBy(c => c.Name).ToList(); ;
-            ICollection<AddressType> amsCodes = addressManager.GetAmsOptions();
+            ICollection<AddressType> amsCodes = addressManager.GetAmsAddressTypes();
 
             AddressTypesVM addressTypesVM = new AddressTypesVM();
             addressTypesVM.Codes = codes.Where(c => c.Active).ToList();
-            addressTypesVM.CodesToBeAdded = addressManager.GetCodesToBeAdded(codes, amsCodes);
-            addressTypesVM.CodesToBeActivated = addressManager.GetCodesToBeActivated(codes, amsCodes);
-            addressTypesVM.CodesToBeChanged = addressManager.GetCodesToBeChanged(codes, amsCodes);
-            addressTypesVM.CodesToBeDeactivated = addressManager.GetCodesToBeDeactivated(codes, amsCodes);
-            addressTypesVM.CodesToBeDeleted = addressManager.GetCodesToBeDeleted(codes, amsCodes);
+            addressTypesVM.CodesToBeAdded = addressManager.GetAddressTypesToBeAdded(codes, amsCodes);
+            addressTypesVM.CodesToBeActivated = addressManager.GetAddressTypesToBeActivated(codes, amsCodes);
+            addressTypesVM.CodesToBeChanged = addressManager.GetAddressTypesToBeChanged(codes, amsCodes);
+            addressTypesVM.CodesToBeDeactivated = addressManager.GetAddressTypesToBeDeactivated(codes, amsCodes);
+            addressTypesVM.CodesToBeDeleted = addressManager.GetAddressTypesToBeDeleted(codes, amsCodes);
 
             return View("~/Views/Address/EditAddressTypes.cshtml", addressTypesVM);
         }
@@ -48,7 +48,7 @@ namespace Licensing.Web.Controllers
                 {
                     foreach (AddressType option in addressTypesVM.CodesToBeAdded)
                     {
-                        addressManager.SetOption(option);
+                        addressManager.SetAddressType(option);
                     }
                 }
 
@@ -57,7 +57,7 @@ namespace Licensing.Web.Controllers
                     foreach (AddressType option in addressTypesVM.CodesToBeActivated)
                     {
                         option.Active = true;
-                        addressManager.SetOption(option);
+                        addressManager.SetAddressType(option);
                     }
                 }
 
@@ -67,7 +67,7 @@ namespace Licensing.Web.Controllers
                     {
                         AddressType codeToChange = addressManager.GetAddressType(option.AmsCode);
                         codeToChange.Name = option.Name;
-                        addressManager.SetOption(codeToChange);
+                        addressManager.SetAddressType(codeToChange);
                     }
                 }
 
@@ -76,7 +76,7 @@ namespace Licensing.Web.Controllers
                     foreach (AddressType option in addressTypesVM.CodesToBeDeactivated)
                     {
                         option.Active = false;
-                        addressManager.SetOption(option);
+                        addressManager.SetAddressType(option);
                     }
                 }
 
@@ -84,7 +84,7 @@ namespace Licensing.Web.Controllers
                 {
                     foreach (AddressType option in addressTypesVM.CodesToBeDeleted)
                     {
-                        addressManager.DeleteOption(option);
+                        addressManager.DeleteAddressType(option);
                     }
                 }
 

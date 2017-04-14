@@ -29,6 +29,12 @@ namespace Licensing.Business.Managers
             else { return license.Languages; }
         }
 
+        public Language GetLanguage(License license, string amsCode)
+        {
+            if (license.Languages == null || license.Languages.Count == 0) { return null; }
+            else { return license.Languages.Where(a => a.Option.AmsCode == amsCode).FirstOrDefault(); }
+        }
+
         public ICollection<LanguageOption> GetOptions()
         {
             return _languageWorker.GetOptions();
@@ -48,6 +54,11 @@ namespace Licensing.Business.Managers
         {
             Language language = new Language();
             language.Option = GetOption(languageOptionId);
+
+            if (license.Languages == null)
+            {
+                license.Languages = new List<Language>();
+            }
 
             license.Languages.Add(language);
 
@@ -168,7 +179,7 @@ namespace Licensing.Business.Managers
 
             return new DashboardContainerVM(
                 "Additional Languages",
-                license.LicenseType.Languages,
+                license.LicenseType.LicenseTypeRequirement.Languages,
                 IsComplete(license),
                 editRoute,
                 null,

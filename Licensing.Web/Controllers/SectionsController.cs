@@ -2,6 +2,7 @@
 using Licensing.Business.ViewModels;
 using Licensing.Data.Context;
 using Licensing.Domain.Licenses;
+using Licensing.Domain.Sections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,9 +41,14 @@ namespace Licensing.Web.Controllers
             LicenseManager licenseManager = new LicenseManager(_context);
             License license = licenseManager.GetLicense(id);
 
-            SectionManager sectionManager = new SectionManager(_context);
+            List<SectionProduct> sectionProducts = new List<SectionProduct>();
 
-            return View("EditSections", new SectionVM(license, sectionManager.GetSectionProducts()));
+            foreach (LicenseTypeSection licenseTypeSection in license.LicenseType.LicenseTypeSections)
+            {
+                sectionProducts.Add(licenseTypeSection.Product);
+            }
+
+            return View("EditSections", new SectionVM(license, sectionProducts));
         }
 
         [HttpPost]

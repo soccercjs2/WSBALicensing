@@ -42,11 +42,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Addresses\Address.cs" />
+    <Compile Include="Addresses\AddressCountry.cs" />
+    <Compile Include="Addresses\AddressState.cs" />
     <Compile Include="Addresses\AddressType.cs" />
     <Compile Include="AreasOfPractice\AreaOfPractice.cs" />
     <Compile Include="AreasOfPractice\AreaOfPracticeOption.cs" />
     <Compile Include="Bar News\BarNewsResponse.cs" />
     <Compile Include="ContactInformation\Email.cs" />
+    <Compile Include="ContactInformation\PhoneNumberCountry.cs" />
     <Compile Include="ContactInformation\PhoneNumber.cs" />
     <Compile Include="ContactInformation\PhoneNumberType.cs" />
     <Compile Include="Customers\Customer.cs" />
@@ -70,6 +73,8 @@
     <Compile Include="Licenses\License.cs" />
     <Compile Include="Licenses\LicenseType.cs" />
     <Compile Include="Licenses\LicenseTypeProduct.cs" />
+    <Compile Include="Licenses\LicenseTypeRequirement.cs" />
+    <Compile Include="Licenses\LicenseTypeDonation.cs" />
     <Compile Include="Licenses\LicenseTypeSection.cs" />
     <Compile Include="Licenses\LicensePeriod.cs" />
     <Compile Include="Licenses\LicenseProduct.cs" />

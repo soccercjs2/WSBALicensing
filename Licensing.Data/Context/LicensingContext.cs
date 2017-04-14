@@ -48,12 +48,15 @@ namespace Licensing.Data.Context
 
         public DbSet<Address> Addresses { get; set; }
         public DbSet<AddressType> AddressTypes { get; set; }
+        public DbSet<AddressCountry> AddressCountries { get; set; }
+        public DbSet<AddressState> AddressStates { get; set; }
         public DbSet<AreaOfPractice> AreasOfPractice { get; set; }
         public DbSet<AreaOfPracticeOption> AreaOfPracticeOptions { get; set; }
         public DbSet<BarNewsResponse> BarNewsResponses { get; set; }
         public DbSet<Email> Emails { get; set; }
         public DbSet<PhoneNumber> PhoneNumbers { get; set; }
         public DbSet<PhoneNumberType> PhoneNumberTypes { get; set; }
+        public DbSet<PhoneNumberCountry> PhoneNumberCountries { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Disability> Disabilities { get; set; }
         public DbSet<DisabilityOption> DisabilityOptions { get; set; }
@@ -73,7 +76,10 @@ namespace Licensing.Data.Context
         public DbSet<LanguageOption> LanguageOptions { get; set; }
         public DbSet<License> Licenses { get; set; }
         public DbSet<LicenseType> LicenseTypes { get; set; }
+        public DbSet<LicenseTypeRequirement> LicenseTypeRequirements { get; set; }
+        public DbSet<LicenseTypeDonation> LicenseTypeDonations { get; set; }
         public DbSet<LicenseTypeProduct> LicenseTypeProducts { get; set; }
+        public DbSet<LicenseTypeSection> LicenseTypeSections { get; set; }
         public DbSet<LicensePeriod> LicensePeriods { get; set; }
         public DbSet<LicenseProduct> LicenseProducts { get; set; }
         public DbSet<PracticeArea> PracticeAreas { get; set; }

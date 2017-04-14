@@ -2,6 +2,7 @@
 using Licensing.Business.ViewModels;
 using Licensing.Data.Context;
 using Licensing.Data.Workers;
+using Licensing.Domain.Donations;
 using Licensing.Domain.Licenses;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,11 @@ namespace Licensing.Business.Managers
             return _licenseTypeWorker.GetLicenseType(id);
         }
 
+        public LicenseType GetLicenseType(string type)
+        {
+            return _licenseTypeWorker.GetLicenseType(type);
+        }
+
         public ICollection<LicenseType> GetLicenseTypes()
         {
             return _licenseTypeWorker.GetLicenseTypes();
@@ -37,14 +43,27 @@ namespace Licensing.Business.Managers
             return (license.LicenseType != null);
         }
 
-        public LicenseType GetInactiveType()
+        public void ChangePreviousLicenseType(License license, LicenseType licenseType)
         {
-            return _licenseTypeWorker.GetLicenseType("Inactive Attorney");
+            license.PreviousLicenseType = licenseType;
+            _context.SaveChanges();
         }
 
         public void ChangeLicenseType(License license, LicenseType licenseType)
         {
             license.LicenseType = licenseType;
+
+            DonationManager donationManager = new DonationManager(_context);
+            foreach (LicenseTypeDonation licenseTypeDonation in licenseType.LicenseTypeDonations)
+            {
+                Donation donation = donationManager.GetDonation(license, licenseTypeDonation.Product.DonationProductId);
+
+                if (donation == null)
+                {
+                    donationManager.AddDonation(license, licenseTypeDonation.Product, licenseType.DefaultDonationAmount);
+                }
+            }
+
             _context.SaveChanges();
         }
 
@@ -53,13 +72,19 @@ namespace Licensing.Business.Managers
             _licenseTypeWorker.SetLicenseType(licenseType);
         }
 
+        public void SetDefaultDonationAmount(LicenseType licenseType, decimal defaultDonationAmount)
+        {
+            licenseType.DefaultDonationAmount = defaultDonationAmount;
+            _context.SaveChanges();
+        }
+
         public DashboardContainerVM GetDashboardContainerVM(License license)
         {
             RouteContainer editRoute = new RouteContainer("MembershipType", "Edit", license.LicenseId);
 
             return new DashboardContainerVM(
                 "Membership Type",
-                license.LicenseType.MembershipType,
+                license.LicenseType.LicenseTypeRequirement.MembershipType,
                 IsComplete(license),
                 editRoute,
                 null,

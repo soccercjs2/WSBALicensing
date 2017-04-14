@@ -16,42 +16,58 @@ namespace Licensing.Web.Controllers
 {
     public class HomeController : Controller
     {
+        LicensingContext _context;
+
+        public HomeController()
+        {
+            _context = new LicensingContext();
+        }
+
         public ActionResult Index()
         {
-            DashboardVM dashboardVM = new DashboardVM();
-            LicensingContext context = new LicensingContext();
+            if (Session["CurrentUser"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
 
-            //get customer
-            Customer customer = context.Customers.Where(c => c.BarNumber == "555").FirstOrDefault();
+            DashboardVM dashboardVM = new DashboardVM();
+
+            //get current logged in user
+            string currentUserBarNumber = Session["CurrentUser"].ToString();
 
             //create managers
-            LicenseManager licenseManager = new LicenseManager(context);
-            LicenseTypeManager licenseTypeManager = new LicenseTypeManager(context);
-            LicensePeriodManager licensePeriodManager = new LicensePeriodManager(context);
-            JudicialPositionManager judicialPositionManager = new JudicialPositionManager(context);
-            PracticeAreaManager practiceAreaManager = new PracticeAreaManager(context);
-            TrustAccountManager trustAccountManager = new TrustAccountManager(context);
-            ProfessionalLiabilityInsuranceManager professionalLiabilityInsuranceManager = new ProfessionalLiabilityInsuranceManager(context);
-            FinancialResponsibilityManager financialResponsibilityManager = new FinancialResponsibilityManager(context);
-            ProBonoManager proBonoManager = new ProBonoManager(context);
-            AddressManager addressManager = new AddressManager(context);
-            EmailManager emailManager = new EmailManager(context);
-            PhoneNumberManager phoneNumberManager = new PhoneNumberManager(context);
-            AreaOfPracticeManager areaOfPracticeManager = new AreaOfPracticeManager(context);
-            FirmSizeManager firmSizeManager = new FirmSizeManager(context);
-            LanguageManager languageManager = new LanguageManager(context);
-            DemographicManager demographicManager = new DemographicManager(context);
-            MembershipProductManager membershipProductManager = new MembershipProductManager(context);
-            SectionManager sectionManager = new SectionManager(context);
-            DonationManager donationManager = new DonationManager(context);
-            BarNewsManager barNewsManager = new BarNewsManager(context);
-            StatusManager statusManager = new StatusManager(context);
+            CustomerManager customerManager = new CustomerManager(_context);
+            LicenseManager licenseManager = new LicenseManager(_context);
+            LicenseTypeManager licenseTypeManager = new LicenseTypeManager(_context);
+            LicensePeriodManager licensePeriodManager = new LicensePeriodManager(_context);
+            JudicialPositionManager judicialPositionManager = new JudicialPositionManager(_context);
+            PracticeAreaManager practiceAreaManager = new PracticeAreaManager(_context);
+            TrustAccountManager trustAccountManager = new TrustAccountManager(_context);
+            ProfessionalLiabilityInsuranceManager professionalLiabilityInsuranceManager = new ProfessionalLiabilityInsuranceManager(_context);
+            FinancialResponsibilityManager financialResponsibilityManager = new FinancialResponsibilityManager(_context);
+            ProBonoManager proBonoManager = new ProBonoManager(_context);
+            AddressManager addressManager = new AddressManager(_context);
+            EmailManager emailManager = new EmailManager(_context);
+            PhoneNumberManager phoneNumberManager = new PhoneNumberManager(_context);
+            AreaOfPracticeManager areaOfPracticeManager = new AreaOfPracticeManager(_context);
+            FirmSizeManager firmSizeManager = new FirmSizeManager(_context);
+            LanguageManager languageManager = new LanguageManager(_context);
+            DemographicManager demographicManager = new DemographicManager(_context);
+            MembershipProductManager membershipProductManager = new MembershipProductManager(_context);
+            SectionManager sectionManager = new SectionManager(_context);
+            DonationManager donationManager = new DonationManager(_context);
+            BarNewsManager barNewsManager = new BarNewsManager(_context);
+            StatusManager statusManager = new StatusManager(_context);
+
+            //get customer
+            Customer customer = customerManager.GetCustomer(currentUserBarNumber);
 
             //get license
             LicensePeriod licensePeriod = licensePeriodManager.GetCurrentLicensePeriod();
             License license = licenseManager.GetLicense(customer, licensePeriod);
 
             //set license type for displaying dashboard controls
+            dashboardVM.LicenseId = license.LicenseId;
             dashboardVM.LicenseType = license.LicenseType;
 
             //set customer information for dashboard
@@ -68,6 +84,8 @@ namespace Licensing.Web.Controllers
             dashboardVM.ProBono = proBonoManager.GetDashboardContainerVM(license);
 
             //set contact information for dashboard
+            dashboardVM.AgentOfServiceAddressRequired = addressManager.AgentOfServiceAddressRequired(license);
+
             dashboardVM.PrimaryAddress = addressManager.GetDashboardContainerVM(license, "Primary");
             dashboardVM.HomeAddress = addressManager.GetDashboardContainerVM(license, "Home");
             dashboardVM.AgentOfServiceAddress = addressManager.GetDashboardContainerVM(license, "Agent of Service");
@@ -89,6 +107,17 @@ namespace Licensing.Web.Controllers
             dashboardVM.BarNews = barNewsManager.GetDashboardContainerVM(license);
 
             return View(dashboardVM);
+        }
+
+        public ActionResult Save(int id)
+        {
+            LicenseManager licenseManager = new LicenseManager(_context);
+            License license = licenseManager.GetLicense(id);
+
+            AmsWriterManager amsWriterManager = new AmsWriterManager(_context);
+            amsWriterManager.Save(license);
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

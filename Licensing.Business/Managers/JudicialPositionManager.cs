@@ -187,7 +187,7 @@ namespace Licensing.Business.Managers
 
             return new DashboardContainerVM(
                 "Judicial Position",
-                license.LicenseType.JudicialPosition,
+                license.LicenseType.LicenseTypeRequirement.JudicialPosition,
                 IsComplete(license),
                 editRoute,
                 null,

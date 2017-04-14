@@ -28,6 +28,21 @@ namespace Licensing.Business.Managers
             return _professionalLiabilityInsuranceWorker.GetOptions();
         }
 
+        public ProfessionalLiabilityInsuranceOption GetOption(bool? privatePractice, bool? currentlyInsured, bool? maintainCoverage)
+        {
+            return _professionalLiabilityInsuranceWorker.GetOption(privatePractice, currentlyInsured, maintainCoverage);
+        }
+
+        public ProfessionalLiabilityInsuranceOption GetOption(int id)
+        {
+            return _professionalLiabilityInsuranceWorker.GetOption(id);
+        }
+
+        public void SetOption(ProfessionalLiabilityInsuranceOption option)
+        {
+            _professionalLiabilityInsuranceWorker.SetOption(option);
+        }
+
         public void SetProfessionalLiabilityInsuranceOption(License license, int optionId)
         {
             ProfessionalLiabilityInsuranceOption option = _professionalLiabilityInsuranceWorker.GetOption(optionId);
@@ -38,7 +53,6 @@ namespace Licensing.Business.Managers
             }
 
             license.ProfessionalLiabilityInsurance.Option = option;
-            license.ProfessionalLiabilityInsurance.Confirmed = true;            
 
             _context.SaveChanges();
         }
@@ -60,7 +74,7 @@ namespace Licensing.Business.Managers
 
             return new DashboardContainerVM(
                 "Professional Liability Insurance",
-                license.LicenseType.ProfessionalLiabilityInsurance,
+                license.LicenseType.LicenseTypeRequirement.ProfessionalLiabilityInsurance,
                 IsComplete(license),
                 editRoute,
                 null,

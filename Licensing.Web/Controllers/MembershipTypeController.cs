@@ -37,7 +37,7 @@ namespace Licensing.Web.Controllers
             License license = licenseManager.GetLicense(licenseTypeVM.LicenseId);
 
             LicenseTypeManager licenseTypeManager = new LicenseTypeManager(_context);
-            LicenseType inactiveLicenseType = licenseTypeManager.GetInactiveType();
+            LicenseType inactiveLicenseType = licenseTypeManager.GetLicenseType("Inactive Attorney");
 
             licenseTypeManager.ChangeLicenseType(license, inactiveLicenseType);
 

@@ -57,8 +57,8 @@ namespace Licensing.Web.Controllers
 
                 if (demographicsVM.SelectedDisabilityOptionId > 0) { disabilityManager.SetDisability(license, demographicsVM.SelectedDisabilityOptionId); }
                 if (demographicsVM.SelectedDisabilityOptionId > 0) { genderManager.SetGender(license, demographicsVM.SelectedGenderOptionId); }
-                if (demographicsVM.SelectedDisabilityOptionId > 0) { ethnicityManager.SetEthnicityOption(license, demographicsVM.SelectedEthnicityOptionId); }
-                if (demographicsVM.SelectedDisabilityOptionId > 0) { sexualOrientationManager.SetSexualOrientationOption(license, demographicsVM.SelectedSexualOrientationOptionId); }
+                if (demographicsVM.SelectedDisabilityOptionId > 0) { ethnicityManager.SetEthnicity(license, demographicsVM.SelectedEthnicityOptionId); }
+                if (demographicsVM.SelectedDisabilityOptionId > 0) { sexualOrientationManager.SetSexualOrientation(license, demographicsVM.SelectedSexualOrientationOptionId); }
 
                 return RedirectToAction("Index", "Home");
             }

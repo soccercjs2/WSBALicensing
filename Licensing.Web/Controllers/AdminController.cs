@@ -23,7 +23,10 @@ namespace Licensing.Web.Controllers
             AdminDashboardVM adminDashboardVM = new AdminDashboardVM();
 
             LicenseTypeManager licenseTypeManager = new LicenseTypeManager(_context);
+            LicensePeriodManager licensePeriodManager = new LicensePeriodManager(_context);
+
             adminDashboardVM.LicenseTypes = licenseTypeManager.GetLicenseTypes();
+            adminDashboardVM.LicensePeriods = licensePeriodManager.GetLicensePeriods();
 
             return View("Index", adminDashboardVM);
         }

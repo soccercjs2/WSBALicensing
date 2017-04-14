@@ -53,6 +53,18 @@ namespace Licensing.Business.Managers
             _context.SaveChanges();
         }
 
+        public void SetProBono(License license, bool providesService, decimal freeServiceHours, decimal limitedFeeServiceHours, bool anonymous)
+        {
+            if (license.ProBono == null) { license.ProBono = new ProBono(); }
+
+            license.ProBono.ProvidesService = providesService;
+            license.ProBono.FreeServiceHours = freeServiceHours;
+            license.ProBono.LimitedFeeServiceHours = limitedFeeServiceHours;
+            license.ProBono.Anonymous = anonymous;
+
+            _context.SaveChanges();
+        }
+
         public void SetProBonoDetails(License license, decimal freeServiceHours, decimal limitedFeeServiceHours, bool anonymous)
         {
             license.ProBono.FreeServiceHours = freeServiceHours;
@@ -73,7 +85,7 @@ namespace Licensing.Business.Managers
 
             return new DashboardContainerVM(
                 "Pro Bono",
-                license.LicenseType.ProBono,
+                license.LicenseType.LicenseTypeRequirement.ProBono,
                 IsComplete(license),
                 editRoute,
                 null,

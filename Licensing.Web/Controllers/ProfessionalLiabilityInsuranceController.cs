@@ -56,6 +56,7 @@ namespace Licensing.Web.Controllers
 
                 ProfessionalLiabilityInsuranceManager professionalLiabilityInsuranceManager = new ProfessionalLiabilityInsuranceManager(_context);
                 professionalLiabilityInsuranceManager.SetProfessionalLiabilityInsuranceOption(license, professionalLiabilityInsuranceVM.SelectedOptionId);
+                professionalLiabilityInsuranceManager.Confirm(license);
 
                 return RedirectToAction("Index", "Home");
             }

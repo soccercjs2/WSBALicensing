@@ -39,6 +39,34 @@ namespace Licensing.Business.Managers
             return _trustAccountWorker.GetTrustAccountNumber(id);
         }
 
+        public TrustAccountNumber GetTrustAccountNumber(License license, int sequenceNumber)
+        {
+            if (license.TrustAccount == null) { return null; }
+            if (license.TrustAccount.TrustAccountNumbers == null) { return null; }
+
+            return license.TrustAccount.TrustAccountNumbers.Where(t => t.AmsSequenceNumber == sequenceNumber).FirstOrDefault();
+        }
+
+        public void SetTrustAccount(License license, bool handlesTrustAccount)
+        {
+            if (license.TrustAccount != null)
+            {
+                license.TrustAccount.HandlesTrustAccount = handlesTrustAccount;
+            }
+            else
+            {
+                license.TrustAccount = new TrustAccount();
+                license.TrustAccount.HandlesTrustAccount = handlesTrustAccount;
+            }
+
+            //if ((handlesTrustAccount && license.TrustAccount.TrustAccountNumbers != null && license.TrustAccount.TrustAccountNumbers.Count > 0) || !handlesTrustAccount)
+            //{
+            //    license.TrustAccount.Confirmed = true;
+            //}
+
+            _context.SaveChanges();
+        }
+
         public void SetHandlesTrustAccount(License license)
         {
             if (license.TrustAccount != null)
@@ -81,9 +109,6 @@ namespace Licensing.Business.Managers
             //add trust account number
             license.TrustAccount.TrustAccountNumbers.Add(trustAccountNumber);
 
-            //confirm trust account
-            Confirm(license.TrustAccount);
-
             //save changes
             _context.SaveChanges();
         }
@@ -103,9 +128,14 @@ namespace Licensing.Business.Managers
             _trustAccountWorker.DeleteTrustAccountNumber(trustAccountNumberId);
         }
 
-        public void Confirm(TrustAccount trustAccount)
+        public void SetTrustAccountNumber(TrustAccountNumber trustAccountNumber)
         {
-            trustAccount.Confirmed = true;
+            _trustAccountWorker.SetTrustAccountNumber(trustAccountNumber);
+        }
+
+        public void Confirm(License license)
+        {
+            license.TrustAccount.Confirmed = true;
             _context.SaveChanges();
         }
 
@@ -123,7 +153,7 @@ namespace Licensing.Business.Managers
 
             return new DashboardContainerVM(
                 "Trust Account",
-                license.LicenseType.TrustAccount,
+                license.LicenseType.LicenseTypeRequirement.TrustAccount,
                 IsComplete(license),
                 editRoute,
                 null,

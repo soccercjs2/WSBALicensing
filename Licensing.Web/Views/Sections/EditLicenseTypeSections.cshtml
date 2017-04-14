@@ -1,0 +1,100 @@
+﻿@model Licensing.Business.ViewModels.LicenseTypeSectionsVM
+
+@{
+    ViewBag.Title = "Edit License Type Sections";
+}
+
+<h2>@Model.Name</h2>
+
+@using (Html.BeginForm("Edit", "LicenseTypeSection", FormMethod.Post))
+{    
+    @Html.HiddenFor(m => m.LicenseTypeId)
+    @Html.HiddenFor(m => m.Name)
+
+    <hr />
+
+    <div class="row">
+        @Html.ActionLink("Return to Dashboard", "Index", "Admin", null, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Cancel", "Index", "Admin", null, new { @class = "btn btn-primary" })
+        <input class="btn btn-success" type="submit" value="Save" />
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="demographic-container">
+                <div class="demographic-container-header">
+                    <div class="demographic-container-title">Included License Sections</div>
+                </div>
+                <div class="demographics-container-body">
+                    <table class="standard-table full-width">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Code</th>
+                                <th>Price</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+
+                        @for (int i = 0; i < Model.IncludedSections.Count; i++)
+                        {
+                            @Html.HiddenFor(m => m.IncludedSections[i].LicenseTypeSection.LicenseTypeSectionId)
+                            @Html.HiddenFor(m => m.IncludedSections[i].LicenseTypeSection.LicenseTypeId)
+                            @Html.HiddenFor(m => m.IncludedSections[i].LicenseTypeSection.SectionProductId)
+                            @Html.HiddenFor(m => m.IncludedSections[i].LicenseTypeSection.Product.SectionProductId)
+                            @Html.HiddenFor(m => m.IncludedSections[i].LicenseTypeSection.Product.Name)
+                            @Html.HiddenFor(m => m.IncludedSections[i].LicenseTypeSection.Product.Price)
+                            @Html.HiddenFor(m => m.IncludedSections[i].LicenseTypeSection.Product.AmsCode)
+
+                            <tr>
+                                <td>@Model.IncludedSections[i].LicenseTypeSection.Product.Name</td>
+                                <td>@Model.IncludedSections[i].LicenseTypeSection.Product.AmsCode</td>
+                                <td>@Model.IncludedSections[i].LicenseTypeSection.Product.Price</td>
+                                <td>@Html.CheckBoxFor(m => m.IncludedSections[i].Flag)</td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="demographic-container">
+                <div class="demographic-container-header">
+                    <div class="demographic-container-title">Excluded License Sections</div>
+                </div>
+                <div class="demographics-container-body">
+                    <table class="standard-table full-width">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Code</th>
+                                <th>Price</th>
+                                <th>Add</th>
+                            </tr>
+                        </thead>
+
+                        @for (int i = 0; i < Model.ExcludedSections.Count; i++)
+                        {
+                            @Html.HiddenFor(m => m.ExcludedSections[i].LicenseTypeSection.LicenseTypeSectionId)
+                            @Html.HiddenFor(m => m.ExcludedSections[i].LicenseTypeSection.LicenseTypeId)
+                            @Html.HiddenFor(m => m.ExcludedSections[i].LicenseTypeSection.SectionProductId)
+                            @Html.HiddenFor(m => m.ExcludedSections[i].LicenseTypeSection.Product.SectionProductId)
+                            @Html.HiddenFor(m => m.ExcludedSections[i].LicenseTypeSection.Product.Name)
+                            @Html.HiddenFor(m => m.ExcludedSections[i].LicenseTypeSection.Product.Price)
+                            @Html.HiddenFor(m => m.ExcludedSections[i].LicenseTypeSection.Product.AmsCode)
+
+                            <tr>
+                                <td>@Model.ExcludedSections[i].LicenseTypeSection.Product.Name</td>
+                                <td>@Model.ExcludedSections[i].LicenseTypeSection.Product.AmsCode</td>
+                                <td>@Model.ExcludedSections[i].LicenseTypeSection.Product.Price</td>
+                                <td>@Html.CheckBoxFor(m => m.ExcludedSections[i].Flag)</td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}

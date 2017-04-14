@@ -1,0 +1,21 @@
+﻿@model Licensing.Business.ViewModels.LoginVM
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+@using (Html.BeginForm("Index", "Login", FormMethod.Post))
+{
+    <div class="row">
+        @Html.LabelFor(m => m.UserName)
+        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <input class="btn btn-primary" type="submit" value="Login" />
+    </div>
+}

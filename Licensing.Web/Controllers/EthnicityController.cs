@@ -43,7 +43,7 @@ namespace Licensing.Web.Controllers
                 License license = licenseManager.GetLicense(ethnicityVM.LicenseId);
 
                 EthnicityManager ethnicityManager = new EthnicityManager(_context);
-                ethnicityManager.SetEthnicityOption(license, ethnicityVM.SelectedOptionId);
+                ethnicityManager.SetEthnicity(license, ethnicityVM.SelectedOptionId);
 
                 return RedirectToAction("Index", "Home");
             }

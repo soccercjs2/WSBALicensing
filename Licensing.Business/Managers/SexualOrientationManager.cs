@@ -33,10 +33,22 @@ namespace Licensing.Business.Managers
             return _sexualOrientationWorker.GetOption(code);
         }
 
-        public void SetSexualOrientationOption(License license, int optionId)
+        public void SetSexualOrientation(License license, int optionId)
         {
             SexualOrientationOption option = _sexualOrientationWorker.GetOption(optionId);
 
+            if (license.SexualOrientation == null)
+            {
+                license.SexualOrientation = new SexualOrientation();
+            }
+
+            license.SexualOrientation.Option = option;
+
+            _context.SaveChanges();
+        }
+
+        public void SetSexualOrientation(License license, SexualOrientationOption option)
+        {
             if (license.SexualOrientation == null)
             {
                 license.SexualOrientation = new SexualOrientation();

@@ -29,7 +29,7 @@ namespace Licensing.Web.Controllers
 
             //confirm the preloaded Trust Account
             TrustAccountManager trustAccountManager = new TrustAccountManager(_context);
-            trustAccountManager.Confirm(license.TrustAccount);
+            trustAccountManager.Confirm(license);
 
             //return updated partial view
             return RedirectToAction("Index", "Home");
@@ -147,11 +147,9 @@ namespace Licensing.Web.Controllers
 
             TrustAccountManager trustAccountManager = new TrustAccountManager(_context);
 
-            if (!trustAccountVM.HandlesTrustAccount)
-            {
-                trustAccountManager.SetDoesNotHandleTrustAccount(license);
-            }
-            else
+            trustAccountManager.SetTrustAccount(license, trustAccountVM.HandlesTrustAccount);
+
+            if (trustAccountVM.HandlesTrustAccount)
             {
                 trustAccountManager.SetHandlesTrustAccount(license);
 
@@ -171,6 +169,8 @@ namespace Licensing.Web.Controllers
                     trustAccountManager.DeleteTrustAccountNumber(trustAccountNumberVM.TrustAccountNumberId);
                 }
             }
+
+            trustAccountManager.Confirm(license);
         }
     }
 }

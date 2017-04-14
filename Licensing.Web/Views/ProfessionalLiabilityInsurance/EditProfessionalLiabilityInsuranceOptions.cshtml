@@ -1,0 +1,63 @@
+﻿@model Licensing.Business.ViewModels.ProfessionalLiabilityInsuranceOptionsVM
+
+@{
+    ViewBag.Title = "Edit Professional Liability Insurance Options";
+}
+
+<h2>Edit Professional Liability Insurance Options</h2>
+
+<hr />
+
+<div class="row">
+    @Html.ActionLink("Return to Admin Dashboard", "Index", "Admin", null, new { @class = "btn btn-primary" })
+</div>
+
+<hr />
+
+<div class="row">
+    <div class="dashboard-column">
+        <div class="demographic-container">
+            <div class="demographic-container-header fake-table">
+                <div class="demographic-container-title">Options</div>
+                <div class="fake-table-cell nowrap button-fix">
+                    @Html.ActionLink("New", "Edit", "ProfessionalLiabilityInsuranceOption", null, new { @class = "btn btn-primary btn-xs" })
+                </div>
+            </div>
+            <div class="demographics-container-body">
+                <table class="standard-table">
+                    <thead>
+                        <tr>
+                            <th>Option</th>
+                            <th>Description</th>
+                            <th>Private Practice</th>
+                            <th>Currently Insured</th>
+                            <th>Maintain Coverage</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    @foreach (var option in Model.Options)
+                    {
+                        <tr>
+                            <td>@option.ProfessionalLiabilityInsuranceOptionId</td>
+                            <td>@option.Description</td>
+                            <td>
+                                @if (option.PrivatePractice == true) { <span>Y</span> }
+                                @if (option.PrivatePractice == false) { <span>N</span> }
+                            </td>
+                            <td>
+                                @if (option.CurrentlyInsured == true) { <span>Y</span> }
+                                @if (option.CurrentlyInsured == false) { <span>N</span> }
+                            </td>
+                            <td>
+                                @if (option.MaintainCoverage == true) { <span>Y</span> }
+                                @if (option.MaintainCoverage == false) { <span>N</span> }
+                            </td>
+                            <td>@Html.ActionLink("Edit", "Edit", "ProfessionalLiabilityInsuranceOption", new { id = option.ProfessionalLiabilityInsuranceOptionId }, null)</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

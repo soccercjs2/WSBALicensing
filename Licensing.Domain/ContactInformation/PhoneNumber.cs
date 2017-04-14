@@ -17,10 +17,15 @@ namespace Licensing.Domain.ContactInformation
         public virtual PhoneNumberType PhoneNumberType { get; set; }
         public int? PhoneNumberTypeId { get; set; }
 
-        [Display(Name = "Country")]
-        public int CountryCode { get; set; }
-        [Display(Name = "Phone Number")]
+        [ForeignKey("PhoneNumberCountryId")]
+        public virtual PhoneNumberCountry Country { get; set; }
+        public int? PhoneNumberCountryId { get; set; }
+
+        [Display(Name = "Area Code")]
+        public string AreaCode { get; set; }
         public string Number { get; set; }
         public string Extension { get; set; }
+
+        public string AmsLocationCode { get; set; }
     }
 }

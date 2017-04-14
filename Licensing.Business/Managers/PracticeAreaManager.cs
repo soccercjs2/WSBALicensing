@@ -54,9 +54,39 @@ namespace Licensing.Business.Managers
             _context.SaveChanges();
         }
 
+        public void AddPracticeArea(License license, PracticeAreaOption option)
+        {
+            PracticeArea practiceArea = new PracticeArea();
+            practiceArea.Option = option;
+
+            license.PracticeAreas.Add(practiceArea);
+
+            _context.SaveChanges();
+        }
+
+        public bool HasPracticeArea(License license, int practiceAreaOptionId)
+        {
+            PracticeArea practiceArea = license.PracticeAreas.Where(p => p.Option.PracticeAreaOptionId == practiceAreaOptionId).FirstOrDefault();
+            return practiceArea != null;
+        }
+
+        public bool HasPracticeArea(License license, PracticeAreaOption option)
+        {
+            PracticeArea practiceArea = license.PracticeAreas.Where(p => p.Option.PracticeAreaOptionId == option.PracticeAreaOptionId).FirstOrDefault();
+            return practiceArea != null;
+        }
+
         public void DeletePracticeArea(License license, int practiceAreaOptionId)
         {
             PracticeArea practiceArea = license.PracticeAreas.Where(a => a.Option.PracticeAreaOptionId == practiceAreaOptionId).FirstOrDefault();
+            _practiceAreaWorker.DeletePracticeArea(practiceArea);
+
+            _context.SaveChanges();
+        }
+
+        public void DeletePracticeArea(License license, PracticeAreaOption option)
+        {
+            PracticeArea practiceArea = license.PracticeAreas.Where(a => a.Option.PracticeAreaOptionId == option.PracticeAreaOptionId).FirstOrDefault();
             _practiceAreaWorker.DeletePracticeArea(practiceArea);
 
             _context.SaveChanges();
@@ -177,7 +207,7 @@ namespace Licensing.Business.Managers
 
             return new DashboardContainerVM(
                 "Practice Areas",
-                license.LicenseType.PracticeAreas,
+                license.LicenseType.LicenseTypeRequirement.PracticeAreas,
                 complete,
                 editRoute,
                 null,

@@ -20,7 +20,7 @@ namespace Licensing.Data.Workers
 
         public LicenseType GetLicenseType(string type)
         {
-            return _context.LicenseTypes.Where(lt => lt.Name == type).FirstOrDefault();
+            return _context.LicenseTypes.Where(lt => lt.AmsMemberType == type).FirstOrDefault();
         }
 
         public LicenseType GetLicenseType(int id)

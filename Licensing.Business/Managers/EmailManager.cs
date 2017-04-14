@@ -48,7 +48,7 @@ namespace Licensing.Business.Managers
 
             return new DashboardContainerVM(
                 "Primary Email",
-                license.LicenseType.PrimaryEmail,
+                license.LicenseType.LicenseTypeRequirement.PrimaryEmail,
                 IsComplete(license),
                 editRoute,
                 null,

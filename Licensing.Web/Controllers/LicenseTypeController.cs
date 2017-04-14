@@ -20,34 +20,46 @@ namespace Licensing.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Create()
+        public ActionResult Edit(int? id)
         {
-            LicenseType licenseType = new LicenseType();
-            return View("EditLicenseType", new LicenseTypeVM(licenseType));
-        }
+            LicenseType licenseType;
 
-        [HttpGet]
-        public ActionResult Edit(int id)
-        {
-            LicenseTypeManager licenseTypeManager = new LicenseTypeManager(_context);
+            if (id == null)
+            {
+                licenseType = new LicenseType();
+            }
+            else
+            {
+                LicenseTypeManager licenseTypeManager = new LicenseTypeManager(_context);
+                licenseType = licenseTypeManager.GetLicenseType((int)id);
+            }
 
-            return View("EditLicenseType", new LicenseTypeVM(licenseTypeManager.GetLicenseType(id)));
+            return View("EditLicenseType", licenseType);
         }
 
         [HttpPost]
-        public ActionResult Edit(LicenseTypeVM licenseTypeVM)
+        public ActionResult Edit(LicenseType licenseType)
         {
             if (ModelState.IsValid)
             {
                 LicenseTypeManager licenseTypeManager = new LicenseTypeManager(_context);
-                licenseTypeManager.SetLicenseType(licenseTypeVM.LicenseType);
+                licenseTypeManager.SetLicenseType(licenseType);
 
-                return RedirectToAction("Index", "Admin");
+                return RedirectToAction("LicenseTypeDashboard", "LicenseType", new { id = licenseType.LicenseTypeId });
             }
             else
             {
-                return View("EditLicenseType", licenseTypeVM);
+                return View("CreateLicenseType", licenseType);
             }
+        }
+
+        [HttpGet]
+        public ActionResult LicenseTypeDashboard(int id)
+        {
+            LicenseTypeManager licenseTypeManager = new LicenseTypeManager(_context);
+            LicenseType licenseType = licenseTypeManager.GetLicenseType(id);
+
+            return View("LicenseTypeDashboard", licenseType);
         }
     }
 }

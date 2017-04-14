@@ -52,7 +52,7 @@ namespace Licensing.Web.Controllers
             }
             else
             {
-                return View("EditAddress", phoneNumberVM);
+                return View("EditPhoneNumber", phoneNumberVM);
             }
         }
 

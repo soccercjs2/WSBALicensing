@@ -41,6 +41,17 @@ namespace Licensing.Business.Managers
             }
         }
 
+        public void AddDonation(License license, DonationProduct product, decimal amount)
+        {
+            Donation donation = new Donation();
+            donation.Product = product;
+            donation.Amount = amount;
+
+            license.Donations.Add(donation);
+
+            _context.SaveChanges();
+        }
+
         public ICollection<DonationProduct> GetProducts()
         {
             return _donationWorker.GetProducts();
@@ -169,7 +180,7 @@ namespace Licensing.Business.Managers
 
             return new DashboardContainerVM(
                 "Donations",
-                license.LicenseType.Donations,
+                license.LicenseType.LicenseTypeRequirement.Donations,
                 IsComplete(license),
                 editRoute,
                 null,

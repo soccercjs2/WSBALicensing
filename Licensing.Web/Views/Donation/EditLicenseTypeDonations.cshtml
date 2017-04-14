@@ -1,0 +1,105 @@
+﻿@model Licensing.Business.ViewModels.LicenseTypeDonationsVM
+
+@{
+    ViewBag.Title = "Edit License Type Donations";
+}
+
+<h2>@Model.Name</h2>
+
+@using (Html.BeginForm("Edit", "LicenseTypeDonation", FormMethod.Post))
+{    
+    @Html.HiddenFor(m => m.LicenseTypeId)
+    @Html.HiddenFor(m => m.Name)
+
+    <hr />
+
+    <div class="row">
+        @Html.ActionLink("Return to Dashboard", "Index", "Admin", null, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Cancel", "Index", "Admin", null, new { @class = "btn btn-primary" })
+        <input class="btn btn-success" type="submit" value="Save" />
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="demographic-container">
+                <div class="demographic-container-header">
+                    <div class="demographic-container-title">Default Donation Amount</div>
+                </div>
+                <div class="demographics-container-body">
+                    Amount: @Html.TextBoxFor(m => m.DefaultDonationAmount, new { @class = "form-control width-restricted" })
+                </div>
+            </div>
+            
+            <div class="demographic-container">
+                <div class="demographic-container-header">
+                    <div class="demographic-container-title">Included License Donations</div>
+                </div>
+                <div class="demographics-container-body">
+                    <table class="standard-table full-width">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Code</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+
+                        @for (int i = 0; i < Model.IncludedDonations.Count; i++)
+                        {
+                            @Html.HiddenFor(m => m.IncludedDonations[i].LicenseTypeDonation.LicenseTypeDonationId)
+                            @Html.HiddenFor(m => m.IncludedDonations[i].LicenseTypeDonation.LicenseTypeId)
+                            @Html.HiddenFor(m => m.IncludedDonations[i].LicenseTypeDonation.DonationProductId)
+                            @Html.HiddenFor(m => m.IncludedDonations[i].LicenseTypeDonation.Product.DonationProductId)
+                            @Html.HiddenFor(m => m.IncludedDonations[i].LicenseTypeDonation.Product.Name)
+                            @Html.HiddenFor(m => m.IncludedDonations[i].LicenseTypeDonation.Product.Description)
+                            @Html.HiddenFor(m => m.IncludedDonations[i].LicenseTypeDonation.Product.AmsCode)
+
+                            <tr>
+                                <td>@Model.IncludedDonations[i].LicenseTypeDonation.Product.Name</td>
+                                <td>@Model.IncludedDonations[i].LicenseTypeDonation.Product.AmsCode</td>
+                                <td>@Html.CheckBoxFor(m => m.IncludedDonations[i].Flag)</td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="demographic-container">
+                <div class="demographic-container-header">
+                    <div class="demographic-container-title">Excluded License Donations</div>
+                </div>
+                <div class="demographics-container-body">
+                    <table class="standard-table full-width">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Code</th>
+                                <th>Add</th>
+                            </tr>
+                        </thead>
+
+                        @for (int i = 0; i < Model.ExcludedDonations.Count; i++)
+                        {
+                            @Html.HiddenFor(m => m.ExcludedDonations[i].LicenseTypeDonation.LicenseTypeDonationId)
+                            @Html.HiddenFor(m => m.ExcludedDonations[i].LicenseTypeDonation.LicenseTypeId)
+                            @Html.HiddenFor(m => m.ExcludedDonations[i].LicenseTypeDonation.DonationProductId)
+                            @Html.HiddenFor(m => m.ExcludedDonations[i].LicenseTypeDonation.Product.DonationProductId)
+                            @Html.HiddenFor(m => m.ExcludedDonations[i].LicenseTypeDonation.Product.Name)
+                            @Html.HiddenFor(m => m.ExcludedDonations[i].LicenseTypeDonation.Product.Description)
+                            @Html.HiddenFor(m => m.ExcludedDonations[i].LicenseTypeDonation.Product.AmsCode)
+
+                            <tr>
+                                <td>@Model.ExcludedDonations[i].LicenseTypeDonation.Product.Name</td>
+                                <td>@Model.ExcludedDonations[i].LicenseTypeDonation.Product.AmsCode</td>
+                                <td>@Html.CheckBoxFor(m => m.ExcludedDonations[i].Flag)</td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}

@@ -32,7 +32,7 @@
                 </div>
                 <div class="demographics-container-body">
                     @foreach (var option in Model.GenderOptions)
-                {
+                    {
                         <div>
                             @Html.RadioButtonFor(m => m.SelectedGenderOptionId, option.GenderOptionId) @option.Name
                         </div>

@@ -157,7 +157,7 @@ namespace Licensing.Business.Managers
 
             return new DashboardContainerVM(
                 "Financial Responsibility",
-                license.LicenseType.FinancialResponsibility,
+                license.LicenseType.LicenseTypeRequirement.FinancialResponsibility,
                 IsComplete(license),
                 editRoute,
                 null,

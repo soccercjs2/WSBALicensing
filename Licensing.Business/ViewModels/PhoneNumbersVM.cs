@@ -24,9 +24,9 @@ namespace Licensing.Business.ViewModels
             PrimaryPhoneNumber = primaryPhoneNumber;
             HomePhoneNumber = homePhoneNumber;
             FaxPhoneNumber = faxPhoneNumber;
-            PrimaryPhoneNumberRequirementType = license.LicenseType.PrimaryPhoneNumber;
-            HomePhoneNumberRequirementType = license.LicenseType.HomePhoneNumber;
-            FaxPhoneNumberRequirementType = license.LicenseType.FaxPhoneNumber;
+            PrimaryPhoneNumberRequirementType = license.LicenseType.LicenseTypeRequirement.PrimaryPhoneNumber;
+            HomePhoneNumberRequirementType = license.LicenseType.LicenseTypeRequirement.HomePhoneNumber;
+            FaxPhoneNumberRequirementType = license.LicenseType.LicenseTypeRequirement.FaxPhoneNumber;
         }
     }
 }

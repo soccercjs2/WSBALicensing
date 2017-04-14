@@ -10,5 +10,8 @@ namespace Licensing.Domain.ProfessionalLiabilityInsurances
     {
         public int ProfessionalLiabilityInsuranceOptionId { get; set; }
         public string Description { get; set; }
+        public bool? PrivatePractice { get; set; }
+        public bool? CurrentlyInsured { get; set; }
+        public bool? MaintainCoverage { get; set; }
     }
 }

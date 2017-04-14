@@ -22,9 +22,22 @@ namespace Licensing.Business.Managers
 
         public LicensePeriod GetCurrentLicensePeriod()
         {
-            DateTime endDate = new DateTime(2018, 5, 1);
+            return _licensePeriodWorker.GetLicensePeriod(DateTime.Today);
+        }
 
-            return _licensePeriodWorker.GetLicensePeriod(endDate);
+        public LicensePeriod GetLicensePeriod(int id)
+        {
+            return _licensePeriodWorker.GetLicensePeriod(id);
+        }
+
+        public ICollection<LicensePeriod> GetLicensePeriods()
+        {
+            return _licensePeriodWorker.GetLicensePeriods();
+        }
+
+        public void SetLicensePeriod(LicensePeriod licensePeriod)
+        {
+            _licensePeriodWorker.SetLicensePeriod(licensePeriod);
         }
     }
 }

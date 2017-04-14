@@ -17,5 +17,6 @@ namespace Licensing.Domain.TrustAccounts
 
         [Display(Name = "IOLTA Account Number")]
         public string AccountNumber { get; set; }
+        public int AmsSequenceNumber { get; set; }
     }
 }

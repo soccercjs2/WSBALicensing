@@ -13,60 +13,18 @@ namespace Licensing.Domain.Licenses
     {
         public int LicenseTypeId { get; set; }
         public string Name { get; set; }
-        
+
+        [Display(Name = "Member Type Code")]
+        public string AmsMemberType { get; set; }
+
+        [ForeignKey("LicenseTypeRequirementId")]
+        public virtual LicenseTypeRequirement LicenseTypeRequirement { get; set; }
+        public int? LicenseTypeRequirementId { get; set; }
+
         public virtual ICollection<LicenseTypeProduct> LicenseTypeProducts { get; set; }
         public virtual ICollection<LicenseTypeSection> LicenseTypeSections { get; set; }
+        public virtual ICollection<LicenseTypeDonation> LicenseTypeDonations { get; set; }
 
-        //licensing information
-        [Display(Name = "Membership Type")]
-        public RequirementType MembershipType { get; set; }
-        [Display(Name = "Judicial Position")]
-        public RequirementType JudicialPosition { get; set; }
-        [Display(Name = "Practice Areas")]
-        public RequirementType PracticeAreas { get; set; }
-        [Display(Name = "Trust Account")]
-        public RequirementType TrustAccount { get; set; }
-        [Display(Name = "Professional Liability Insurance")]
-        public RequirementType ProfessionalLiabilityInsurance { get; set; }
-        [Display(Name = "Financial Responsibility")]
-        public RequirementType FinancialResponsibility { get; set; }
-        [Display(Name = "Pro Bono")]
-        public RequirementType ProBono { get; set; }
-
-        //contact information
-        [Display(Name = "Primary Address")]
-        public RequirementType PrimaryAddress { get; set; }
-        [Display(Name = "Home Address")]
-        public RequirementType HomeAddress { get; set; }
-        [Display(Name = "Agent Of Service Address")]
-        public RequirementType AgentOfServiceAddress { get; set; }
-        [Display(Name = "Primary Email")]
-        public RequirementType PrimaryEmail { get; set; }
-        [Display(Name = "Primary Phone Number")]
-        public RequirementType PrimaryPhoneNumber { get; set; }
-        [Display(Name = "Home Phone Number")]
-        public RequirementType HomePhoneNumber { get; set; }
-        [Display(Name = "Fax Phone Number")]
-        public RequirementType FaxPhoneNumber { get; set; }
-
-        //practice information
-        [Display(Name = "Areas Of Practice")]
-        public RequirementType AreasOfPractice { get; set; }
-        [Display(Name = "Firm Size")]
-        public RequirementType FirmSize { get; set; }
-        public RequirementType Languages { get; set; }
-
-        //demographics
-        public RequirementType Disability { get; set; }
-        public RequirementType Ethnicity { get; set; }
-        public RequirementType Gender { get; set; }
-        [Display(Name = "Sexual Orientation")]
-        public RequirementType SexualOrientation { get; set; }
-
-        //payment information
-        public RequirementType Donations { get; set; }
-        public RequirementType Sections { get; set; }
-        [Display(Name = "Bar News")]
-        public RequirementType BarNews { get; set; }
+        public decimal DefaultDonationAmount { get; set; }
     }
 }

@@ -29,6 +29,12 @@ namespace Licensing.Business.Managers
             else { return license.AreasOfPractice; }
         }
 
+        public AreaOfPractice GetAreaOfPractice(License license, string amsCode)
+        {
+            if (license.AreasOfPractice == null || license.AreasOfPractice.Count == 0) { return null; }
+            else { return license.AreasOfPractice.Where(a => a.Option.AmsCode == amsCode).FirstOrDefault(); }
+        }
+
         public ICollection<AreaOfPracticeOption> GetOptions()
         {
             return _areaOfPracticeWorker.GetAreaOfPracticeOptions();
@@ -49,6 +55,11 @@ namespace Licensing.Business.Managers
             AreaOfPractice areaOfPractice = new AreaOfPractice();
             areaOfPractice.Option = GetOption(areaOfPracticeOptionId);
 
+            if (license.AreasOfPractice == null)
+            {
+                license.AreasOfPractice = new List<AreaOfPractice>();
+            }
+
             license.AreasOfPractice.Add(areaOfPractice);
 
             _context.SaveChanges();
@@ -60,6 +71,12 @@ namespace Licensing.Business.Managers
             _areaOfPracticeWorker.DeleteAreaOfPractice(areaOfPractice);
 
             _context.SaveChanges();
+        }
+
+        public bool HasAreaOfPractice(License license, int areaOfPracticeOptionId)
+        {
+            AreaOfPractice areaOfPractice = license.AreasOfPractice.Where(a => a.Option.AreaOfPracticeOptionId == areaOfPracticeOptionId).FirstOrDefault();
+            return areaOfPractice != null;
         }
 
         public void Confirm(License license)
@@ -168,7 +185,7 @@ namespace Licensing.Business.Managers
 
             return new DashboardContainerVM(
                 "Areas of Practice",
-                license.LicenseType.AreasOfPractice,
+                license.LicenseType.LicenseTypeRequirement.AreasOfPractice,
                 IsComplete(license),
                 editRoute,
                 null,

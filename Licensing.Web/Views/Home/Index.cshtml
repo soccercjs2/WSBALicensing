@@ -45,7 +45,7 @@
         <span class="dashboard-column-title">Contact Information</span>
         @if (Model.PrimaryAddress.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.PrimaryAddress) }
         @if (Model.HomeAddress.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.HomeAddress) }
-        @if (Model.AgentOfServiceAddress.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.AgentOfServiceAddress) }
+        @if (Model.AgentOfServiceAddress.RequirementType != RequirementType.Excluded && Model.AgentOfServiceAddressRequired) { @Html.Partial("_DashboardContainer", @Model.AgentOfServiceAddress) }
         @if (Model.Emails.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.Emails) }
         @if (Model.PhoneNumbers.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.PhoneNumbers) }
     </div>
@@ -71,7 +71,7 @@
             <table class="full-width">
                 <tr>
                     <td class="half-width">
-                        <button type="button" class="btn btn-primary full-width">Save</button>
+                        @Html.ActionLink("Save", "Save", "Home", new { Id = Model.LicenseId }, new { @class = "btn btn-primary full-width" })
                     </td>
                     <td class="half-width">
                         <button type="button" class="btn btn-success full-width">Pay Now!</button>

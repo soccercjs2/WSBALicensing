@@ -13,14 +13,32 @@
             <div class="demographic-container-header fake-table">
                 <div class="demographic-container-title">License Types</div>
                 <div class="fake-table-cell nowrap button-fix">
-                    @Html.ActionLink("New", "Create", "LicenseType", null, new { @class = "btn btn-primary btn-xs" })
+                    @Html.ActionLink("New", "Edit", "LicenseType", null, new { @class = "btn btn-primary btn-xs" })
                 </div>
             </div>
             <div class="demographics-container-body">
                 @foreach (var licenseType in Model.LicenseTypes)
                 {
                     <div>
-                        @Html.ActionLink(licenseType.Name, "Edit", "LicenseType", new { id = licenseType.LicenseTypeId }, null)
+                        @Html.ActionLink(licenseType.Name, "LicenseTypeDashboard", "LicenseType", new { id = licenseType.LicenseTypeId }, null)
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="demographic-container">
+            <div class="demographic-container-header fake-table">
+                <div class="demographic-container-title">License Periods</div>
+                <div class="fake-table-cell nowrap button-fix">
+                    @Html.ActionLink("New", "Create", "LicensePeriod", null, new { @class = "btn btn-primary btn-xs" })
+                </div>
+            </div>
+            <div class="demographics-container-body">
+                @foreach (var licensePeriod in Model.LicensePeriods)
+                {
+                    <div>
+                        @Html.ActionLink(licensePeriod.StartDate.ToShortDateString() + " - " + licensePeriod.EndDate.ToShortDateString(), 
+                            "Edit", "LicensePeriod", new { id = licensePeriod.LicensePeriodId }, null)
                     </div>
                 }
             </div>
@@ -36,11 +54,14 @@
                 @Html.ActionLink("Financial Responsibility Options", "Edit", "CoveredByOption")<br />
                 @Html.ActionLink("Judicial Position Options", "Edit", "JudicialPositionOption")<br />
                 @Html.ActionLink("Practice Area Options", "Edit", "PracticeAreaOption")<br />
-                @*@Html.ActionLink("Professional Liability Insurance Options", "Edit", "ProfessionalLiabilityInsuranceOption")<br />*@
+                @Html.ActionLink("Professional Liability Insurance Options", "Options", "ProfessionalLiabilityInsuranceOption")<br />
                 
                 <b><u>Contact Type Codes</u></b><br />
                 @Html.ActionLink("Address Types", "Edit", "AddressType")<br />
-                @*@Html.ActionLink("Phone Number Types", "Edit", "PhoneNumberType")<br />*@
+                @Html.ActionLink("Address Countries", "Edit", "AddressCountry")<br />
+                @Html.ActionLink("Address State", "Edit", "AddressState")<br />
+                @Html.ActionLink("Phone Number Types", "Edit", "PhoneNumberType")<br />
+                @Html.ActionLink("Phone Countries", "Edit", "PhoneNumberCountry")<br />
 
                 <b><u>Practice Info Codes</u></b><br />
                 @Html.ActionLink("Areas of Practice", "Edit", "AreaOfPracticeOption")<br />

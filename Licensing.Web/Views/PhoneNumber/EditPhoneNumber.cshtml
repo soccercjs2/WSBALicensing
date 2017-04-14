@@ -22,11 +22,16 @@
         @Html.HiddenFor(m => m.PhoneNumber.PhoneNumberTypeId)
         @Html.HiddenFor(m => m.PhoneNumber.PhoneNumberType.PhoneNumberTypeId)
         @Html.HiddenFor(m => m.PhoneNumber.PhoneNumberType.Name)
-        @Html.HiddenFor(m => m.PhoneNumber.PhoneNumberType.AmsCode)
+        @Html.HiddenFor(m => m.PhoneNumber.PhoneNumberCountryId)
+        @Html.HiddenFor(m => m.PhoneNumber.Country.PhoneNumberCountryId)
+        @Html.HiddenFor(m => m.PhoneNumber.Country.Name)
+        @Html.HiddenFor(m => m.PhoneNumber.Country.CountryCode)
+        @Html.HiddenFor(m => m.PhoneNumber.Country.InternationalCode)
+        @Html.HiddenFor(m => m.PhoneNumber.Country.Active)
 
         <div class="inline">
-            @Html.LabelFor(m => m.PhoneNumber.CountryCode)
-            @Html.TextBoxFor(m => m.PhoneNumber.CountryCode, new { @class = "form-control width-restricted small-text-box" })
+            @Html.LabelFor(m => m.PhoneNumber.AreaCode)
+            @Html.TextBoxFor(m => m.PhoneNumber.AreaCode, new { @class = "form-control width-restricted small-text-box" })
         </div>
         <div class="inline">
             @Html.LabelFor(m => m.PhoneNumber.Number)

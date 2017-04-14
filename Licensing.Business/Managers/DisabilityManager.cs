@@ -47,6 +47,18 @@ namespace Licensing.Business.Managers
             _context.SaveChanges();
         }
 
+        public void SetDisability(License license, DisabilityOption option)
+        {
+            if (license.Disability == null)
+            {
+                license.Disability = new Disability();
+            }
+
+            license.Disability.Option = option;
+
+            _context.SaveChanges();
+        }
+
         public bool IsComplete(License license)
         {
             return license.Disability != null;

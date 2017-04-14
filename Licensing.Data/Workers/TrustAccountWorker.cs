@@ -2,6 +2,7 @@
 using Licensing.Domain.TrustAccounts;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +31,15 @@ namespace Licensing.Data.Workers
         public void DeleteTrustAccountNumber(int trustAccountNumberId)
         {
             _context.TrustAccountNumbers.Remove(_context.TrustAccountNumbers.Find(trustAccountNumberId));
+            _context.SaveChanges();
+        }
+
+        public void SetTrustAccountNumber(TrustAccountNumber trustAccountNumber)
+        {
+            _context.Entry(trustAccountNumber).State = trustAccountNumber.TrustAccountNumberId == 0 ?
+                                   EntityState.Added :
+                                   EntityState.Modified;
+
             _context.SaveChanges();
         }
     }

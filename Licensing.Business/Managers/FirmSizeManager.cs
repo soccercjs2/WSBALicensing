@@ -33,10 +33,23 @@ namespace Licensing.Business.Managers
             return _firmSizeWorker.GetOption(amsCode);
         }
 
-        public void SetProfessionalLiabilityInsurance(License license, int optionId)
+        public void SetFirmSize(License license, int optionId)
         {
             FirmSizeOption option = _firmSizeWorker.GetOption(optionId);
 
+            if (license.FirmSize == null)
+            {
+                license.FirmSize = new FirmSize();
+            }
+
+            license.FirmSize.Option = option;
+            license.FirmSize.Confirmed = true;
+
+            _context.SaveChanges();
+        }
+
+        public void SetFirmSize(License license, FirmSizeOption option)
+        {
             if (license.FirmSize == null)
             {
                 license.FirmSize = new FirmSize();
@@ -154,7 +167,7 @@ namespace Licensing.Business.Managers
 
             return new DashboardContainerVM(
                 "Firm Size",
-                license.LicenseType.FirmSize,
+                license.LicenseType.LicenseTypeRequirement.FirmSize,
                 IsComplete(license),
                 editRoute,
                 null,

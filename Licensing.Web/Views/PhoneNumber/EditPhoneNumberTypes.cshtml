@@ -1,0 +1,48 @@
+﻿@model Licensing.Business.ViewModels.PhoneNumberTypesVM
+
+@{
+    ViewBag.Title = "Edit Phone Number Types";
+}
+
+<h2>Edit Phone Number Types</h2>
+
+@using (Html.BeginForm("Edit", "PhoneNumberType", FormMethod.Post))
+{
+    <hr />
+
+    <div class="row">
+        @Html.ActionLink("Return to Admin Dashboard", "Index", "Admin", null, new { @class = "btn btn-primary" })
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-sm-6 dashboard-column">
+            <div class="demographic-container">
+                <div class="demographic-container-header">
+                    <div class="demographic-container-title">Types</div>
+                </div>
+                <div class="demographics-container-body">
+                    @foreach (var type in Model.Types)
+                    {
+                        <div class="row padded-small">
+                            @type.Name
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 dashboard-column">
+            <div class="demographic-container">
+                <div class="demographic-container-header">
+                    <div class="demographic-container-title">Add Type</div>
+                </div>
+                <div class="demographics-container-body">
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control width-restricted inline" })
+
+                    <input class="btn btn-success" type="submit" name="submit" value="Add" />
+                </div> 
+            </div>
+        </div>
+    </div>
+}

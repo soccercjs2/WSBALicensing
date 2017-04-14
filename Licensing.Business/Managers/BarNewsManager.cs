@@ -57,7 +57,7 @@ namespace Licensing.Business.Managers
 
             return new DashboardContainerVM(
                 "Bar News",
-                license.LicenseType.BarNews,
+                license.LicenseType.LicenseTypeRequirement.BarNews,
                 IsComplete(license),
                 editRoute,
                 null,

@@ -39,18 +39,18 @@ namespace Licensing.Business.Managers
 
             RequirementType requirementType = RequirementType.Optional;
 
-            if (license.LicenseType.Disability == RequirementType.Required ||
-                license.LicenseType.Ethnicity == RequirementType.Required ||
-                license.LicenseType.Gender == RequirementType.Required ||
-                license.LicenseType.SexualOrientation == RequirementType.Required)
+            if (license.LicenseType.LicenseTypeRequirement.Disability == RequirementType.Required ||
+                license.LicenseType.LicenseTypeRequirement.Ethnicity == RequirementType.Required ||
+                license.LicenseType.LicenseTypeRequirement.Gender == RequirementType.Required ||
+                license.LicenseType.LicenseTypeRequirement.SexualOrientation == RequirementType.Required)
             {
                 requirementType = RequirementType.Required;
             }
 
-            if (license.LicenseType.Disability == RequirementType.Excluded ||
-                license.LicenseType.Ethnicity == RequirementType.Excluded ||
-                license.LicenseType.Gender == RequirementType.Excluded ||
-                license.LicenseType.SexualOrientation == RequirementType.Excluded)
+            if (license.LicenseType.LicenseTypeRequirement.Disability == RequirementType.Excluded ||
+                license.LicenseType.LicenseTypeRequirement.Ethnicity == RequirementType.Excluded ||
+                license.LicenseType.LicenseTypeRequirement.Gender == RequirementType.Excluded ||
+                license.LicenseType.LicenseTypeRequirement.SexualOrientation == RequirementType.Excluded)
             {
                 requirementType = RequirementType.Excluded;
             }

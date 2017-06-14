@@ -23,6 +23,11 @@ namespace Licensing.Business.Managers
             _genderWorker = new GenderWorker(context);
         }
 
+        public void DeleteGender(License license)
+        {
+            _genderWorker.DeleteGender(license.Gender);
+        }
+
         public ICollection<GenderOption> GetOptions()
         {
             return _genderWorker.GetOptions();

@@ -12,7 +12,10 @@ namespace Licensing.Business.ViewModels
     {
         public int LicenseTypeId { get; set; }
         public string Name { get; set; }
-        public IList<LicenseTypeProductVM> IncludedProducts { get; set; }
+        public decimal LateFeePercentage { get; set; }
+        public LicenseTypeProductVM PrimaryProduct { get; set; }
+        public IList<LicenseTypeProductVM> OtherProducts { get; set; }
+        public LicenseTypeProductVM LateFeeProduct { get; set; }
         public IList<LicenseTypeProductVM> ExcludedProducts { get; set; }
 
         public LicenseTypeProductsVM() { }
@@ -21,13 +24,16 @@ namespace Licensing.Business.ViewModels
         {
             LicenseTypeId = licenseType.LicenseTypeId;
             Name = licenseType.Name;
+            LateFeePercentage = licenseType.LateFeePercentage;
 
-            List<LicenseTypeProductVM> includedProductVMs = new List<LicenseTypeProductVM>();
+            List<LicenseTypeProductVM> otherProductVMs = new List<LicenseTypeProductVM>();
             List<LicenseTypeProductVM> excludedProductVMs = new List<LicenseTypeProductVM>();
 
             foreach (LicenseTypeProduct licenseTypeProduct in includedProducts)
             {
-                includedProductVMs.Add(new LicenseTypeProductVM(licenseTypeProduct));
+                if (licenseTypeProduct.PrimaryProduct) { PrimaryProduct = new LicenseTypeProductVM(licenseTypeProduct); }
+                else if (licenseTypeProduct.LateFeeProduct) { LateFeeProduct = new LicenseTypeProductVM(licenseTypeProduct); }
+                else { otherProductVMs.Add(new LicenseTypeProductVM(licenseTypeProduct)); }
             }
 
             foreach (LicenseTypeProduct licenseTypeProduct in excludedProducts)
@@ -35,7 +41,7 @@ namespace Licensing.Business.ViewModels
                 excludedProductVMs.Add(new LicenseTypeProductVM(licenseTypeProduct));
             }
 
-            IncludedProducts = includedProductVMs;
+            OtherProducts = otherProductVMs;
             ExcludedProducts = excludedProductVMs;
         }
     }

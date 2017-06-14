@@ -38,7 +38,7 @@ namespace Licensing.Web.Controllers
             AddressManager addressManager = new AddressManager(_context);
             Address address = addressManager.GetAddress(id);
             
-            return View("EditAddress", new AddressVM(address));
+            return View("EditAddress", new AddressVM(address, addressManager.GetAddressCountries(), addressManager.GetAddressStates(address.Country.AmsCode), address.Country.AddressCountryId));
         }
 
         [HttpPost]
@@ -47,6 +47,20 @@ namespace Licensing.Web.Controllers
             if (ModelState.IsValid)
             {
                 AddressManager addressManager = new AddressManager(_context);
+
+                if (addressVM.AddressCountryIdStatesLoadedFor != addressVM.Address.AddressCountryId)
+                {
+                    AddressCountry country = addressManager.GetAddressCountry((int)addressVM.Address.AddressCountryId);
+
+                    addressVM.Countries = addressManager.GetAddressCountries();
+                    addressVM.States = addressManager.GetAddressStates(country.AmsCode);
+                    addressVM.AddressCountryIdStatesLoadedFor = (int)addressVM.Address.AddressCountryId;
+
+                    ModelState.Clear();
+
+                    return View("EditAddress", addressVM);
+                }
+
                 addressManager.SetAddress(addressVM.Address);
 
                 return RedirectToAction("Index", "Home");
@@ -65,7 +79,10 @@ namespace Licensing.Web.Controllers
             address.LicenseId = id;
             address.AddressType = addressManager.GetAddressType("OFFICE");
 
-            return View("EditAddress", new AddressVM(address));
+            AddressCountry defaultCountry = addressManager.GetAddressCountry("USA");
+            address.AddressCountryId = defaultCountry.AddressCountryId;
+
+            return View("EditAddress", new AddressVM(address, addressManager.GetAddressCountries(), addressManager.GetAddressStates(defaultCountry.AmsCode), defaultCountry.AddressCountryId));
         }
 
         [HttpGet]
@@ -76,7 +93,10 @@ namespace Licensing.Web.Controllers
             address.LicenseId = id;
             address.AddressType = addressManager.GetAddressType("HOME");
 
-            return View("EditAddress", new AddressVM(address));
+            AddressCountry defaultCountry = addressManager.GetAddressCountry("USA");
+            address.AddressCountryId = defaultCountry.AddressCountryId;
+
+            return View("EditAddress", new AddressVM(address, addressManager.GetAddressCountries(), addressManager.GetAddressStates(defaultCountry.AmsCode), defaultCountry.AddressCountryId));
         }
 
         [HttpGet]
@@ -87,7 +107,10 @@ namespace Licensing.Web.Controllers
             address.LicenseId = id;
             address.AddressType = addressManager.GetAddressType("AGENTOFSERVICE");
 
-            return View("EditAddress", new AddressVM(address));
+            AddressCountry defaultCountry = addressManager.GetAddressCountry("USA");
+            address.AddressCountryId = defaultCountry.AddressCountryId;
+
+            return View("EditAddress", new AddressVM(address, addressManager.GetAddressCountries(), addressManager.GetAddressStates(defaultCountry.AmsCode), defaultCountry.AddressCountryId));
         }
     }
 }

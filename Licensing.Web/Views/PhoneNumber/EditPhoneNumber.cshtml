@@ -22,13 +22,12 @@
         @Html.HiddenFor(m => m.PhoneNumber.PhoneNumberTypeId)
         @Html.HiddenFor(m => m.PhoneNumber.PhoneNumberType.PhoneNumberTypeId)
         @Html.HiddenFor(m => m.PhoneNumber.PhoneNumberType.Name)
-        @Html.HiddenFor(m => m.PhoneNumber.PhoneNumberCountryId)
-        @Html.HiddenFor(m => m.PhoneNumber.Country.PhoneNumberCountryId)
-        @Html.HiddenFor(m => m.PhoneNumber.Country.Name)
-        @Html.HiddenFor(m => m.PhoneNumber.Country.CountryCode)
-        @Html.HiddenFor(m => m.PhoneNumber.Country.InternationalCode)
-        @Html.HiddenFor(m => m.PhoneNumber.Country.Active)
+        @Html.HiddenFor(m => m.PhoneNumber.AmsLocationCode)
 
+        <div class="inline">
+            @Html.LabelFor(m => m.PhoneNumber.Country)
+            @Html.DropDownListFor(m => m.PhoneNumber.PhoneNumberCountryId, Model.Countries, new { @class = "form-control width-restricted" })
+        </div>
         <div class="inline">
             @Html.LabelFor(m => m.PhoneNumber.AreaCode)
             @Html.TextBoxFor(m => m.PhoneNumber.AreaCode, new { @class = "form-control width-restricted small-text-box" })

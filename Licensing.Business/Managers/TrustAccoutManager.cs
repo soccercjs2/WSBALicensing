@@ -49,20 +49,16 @@ namespace Licensing.Business.Managers
 
         public void SetTrustAccount(License license, bool handlesTrustAccount)
         {
-            if (license.TrustAccount != null)
-            {
-                license.TrustAccount.HandlesTrustAccount = handlesTrustAccount;
-            }
-            else
-            {
-                license.TrustAccount = new TrustAccount();
-                license.TrustAccount.HandlesTrustAccount = handlesTrustAccount;
-            }
+            SetTrustAccount(license, handlesTrustAccount, 0);
+        }
 
-            //if ((handlesTrustAccount && license.TrustAccount.TrustAccountNumbers != null && license.TrustAccount.TrustAccountNumbers.Count > 0) || !handlesTrustAccount)
-            //{
-            //    license.TrustAccount.Confirmed = true;
-            //}
+        public void SetTrustAccount(License license, bool handlesTrustAccount, int amsSequenceNumber)
+        {
+            if (license.TrustAccount == null) { license.TrustAccount = new TrustAccount(); }
+
+            if (amsSequenceNumber > 0) { license.TrustAccount.AmsSequenceNumber = amsSequenceNumber; }
+
+            license.TrustAccount.HandlesTrustAccount = handlesTrustAccount;
 
             _context.SaveChanges();
         }
@@ -120,7 +116,17 @@ namespace Licensing.Business.Managers
             trustAccountNumber.Branch = branch;
             trustAccountNumber.AccountNumber = accountNumber;
 
+            if (license.TrustAccount.TrustAccountNumbers == null)
+            {
+                license.TrustAccount.TrustAccountNumbers = new List<TrustAccountNumber>();
+            }
+
             license.TrustAccount.TrustAccountNumbers.Add(trustAccountNumber);
+        }
+
+        public void DeleteTrustAccount(License license)
+        {
+            _trustAccountWorker.DeleteTrustAccount(license.TrustAccount);
         }
 
         public void DeleteTrustAccountNumber(int trustAccountNumberId)

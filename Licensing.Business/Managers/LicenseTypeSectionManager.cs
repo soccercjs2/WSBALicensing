@@ -32,17 +32,15 @@ namespace Licensing.Business.Managers
                 {
                     excluded.Add(new LicenseTypeSection() { LicenseTypeId = licenseType.LicenseTypeId, Product = sectionProduct });
                 }
-
-                bool foundMatch = false;
-
-                foreach (LicenseTypeSection licenseTypeSection in licenseType.LicenseTypeSections)
+                else
                 {
-                    foundMatch = licenseTypeSection.Product.SectionProductId == sectionProduct.SectionProductId;
-                }
+                    LicenseTypeSection licenseTypeSection = licenseType.LicenseTypeSections
+                        .Where(ltp => ltp.Product != null && ltp.Product.SectionProductId == sectionProduct.SectionProductId).FirstOrDefault();
 
-                if (!foundMatch)
-                {
-                    excluded.Add(new LicenseTypeSection() { LicenseTypeId = licenseType.LicenseTypeId, Product = sectionProduct });
+                    if (licenseTypeSection == null)
+                    {
+                        excluded.Add(new LicenseTypeSection() { LicenseTypeId = licenseType.LicenseTypeId, Product = sectionProduct });
+                    }
                 }
             }
 

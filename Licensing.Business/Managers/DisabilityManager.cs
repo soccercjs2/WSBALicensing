@@ -23,6 +23,11 @@ namespace Licensing.Business.Managers
             _disabilityWorker = new DisabilityWorker(context);
         }
 
+        public void DeleteDisability(License license)
+        {
+            _disabilityWorker.DeleteDisability(license.Disability);
+        }
+
         public ICollection<DisabilityOption> GetOptions()
         {
             return _disabilityWorker.GetOptions();

@@ -44,6 +44,11 @@ namespace Licensing.Business.Managers
             return _addressWorker.GetAddressCountry(amsCode);
         }
 
+        public AddressCountry GetAddressCountry(int id)
+        {
+            return _addressWorker.GetAddressCountry(id);
+        }
+
         public ICollection<AddressCountry> GetAddressCountries()
         {
             return _addressWorker.GetAddressCountries();
@@ -57,6 +62,11 @@ namespace Licensing.Business.Managers
         public ICollection<AddressState> GetAddressStates()
         {
             return _addressWorker.GetAddressStates();
+        }
+
+        public ICollection<AddressState> GetAddressStates(string countryCode)
+        {
+            return _addressWorker.GetAddressStates(countryCode);
         }
 
         public Address GetPrimaryAddress(License license)
@@ -96,6 +106,11 @@ namespace Licensing.Business.Managers
         {
             address.Confirmed = true;
             _addressWorker.SetAddress(address);
+        }
+
+        public void DeleteAddress(Address address)
+        {
+            _addressWorker.DeleteAddress(address);
         }
 
         public void Confirm(Address address)

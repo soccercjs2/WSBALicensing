@@ -1,0 +1,205 @@
+﻿@model Licensing.Business.ViewModels.KellerDiscountsVM
+
+@{
+    ViewBag.Title = "Edit Keller Discounts";
+}
+
+<h2>Edit Donation Products</h2>
+
+@using (Html.BeginForm("Edit", "KellerDiscount", FormMethod.Post))
+{
+    <hr />
+
+    <div class="row">
+        @Html.ActionLink("Return to Admin Dashboard", "Index", "Admin", null, new { @class = "btn btn-primary" })
+        <input class="btn btn-success" type="submit" value="Sync" />
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-sm-4 dashboard-column">
+            <h3><u>Active Discounts</u></h3>
+            @if (Model.Discounts != null && Model.Discounts.Count > 0)
+            {
+                <table class="standard-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Code</th>
+                        </tr>
+                    </thead>
+                    @for (int i = 0; i < Model.Discounts.Count; i++)
+                    {
+                        @Html.HiddenFor(m => Model.Discounts[i].KellerDiscountId)
+                        @Html.HiddenFor(m => Model.Discounts[i].Name)
+                        @Html.HiddenFor(m => Model.Discounts[i].AmsProductDiscountId)
+                        @Html.HiddenFor(m => Model.Discounts[i].DiscountPercentage)
+                        @Html.HiddenFor(m => Model.Discounts[i].Active)
+
+                        <tr>
+                            <td>@Model.Discounts[i].Name</td>
+                            <td>@Model.Discounts[i].AmsProductDiscountId</td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <span>No discounts.</span>
+            }
+        </div>
+        <div class="col-sm-4 dashboard-column">
+            <h3><u>Discounts to be Added</u></h3>
+            @if (Model.DiscountsToBeAdded != null && Model.DiscountsToBeAdded.Count > 0)
+            {
+                <table class="standard-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Code</th>
+                        </tr>
+                    </thead>
+                    @for (int i = 0; i < Model.DiscountsToBeAdded.Count; i++)
+                    {
+                        @Html.HiddenFor(m => Model.DiscountsToBeAdded[i].KellerDiscountId)
+                        @Html.HiddenFor(m => Model.DiscountsToBeAdded[i].Name)
+                        @Html.HiddenFor(m => Model.DiscountsToBeAdded[i].AmsProductDiscountId)
+                        @Html.HiddenFor(m => Model.DiscountsToBeAdded[i].DiscountPercentage)
+                        @Html.HiddenFor(m => Model.DiscountsToBeAdded[i].Active)
+
+                        <tr>
+                            <td>@Model.DiscountsToBeAdded[i].Name</td>
+                            <td>@Model.DiscountsToBeAdded[i].AmsProductDiscountId</td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <span>No discounts will be added.</span>
+            }
+
+            <h3><u>Discounts to be Activated</u></h3>
+            @if (Model.DiscountsToBeActivated != null && Model.DiscountsToBeActivated.Count > 0)
+            {
+                <table class="standard-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Code</th>
+                        </tr>
+                    </thead>
+                    @for (int i = 0; i < Model.DiscountsToBeActivated.Count; i++)
+                    {
+                        @Html.HiddenFor(m => Model.DiscountsToBeActivated[i].KellerDiscountId)
+                        @Html.HiddenFor(m => Model.DiscountsToBeActivated[i].Name)
+                        @Html.HiddenFor(m => Model.DiscountsToBeActivated[i].AmsProductDiscountId)
+                        @Html.HiddenFor(m => Model.DiscountsToBeActivated[i].DiscountPercentage)
+                        @Html.HiddenFor(m => Model.DiscountsToBeActivated[i].Active)
+
+                        <tr>
+                            <td>@Model.DiscountsToBeActivated[i].Name</td>
+                            <td>@Model.DiscountsToBeActivated[i].AmsProductDiscountId</td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <span>No discounts will be activated.</span>
+            }
+
+            <h3><u>Discounts to be Changed</u></h3>
+            @if (Model.DiscountsToBeChanged != null && Model.DiscountsToBeChanged.Count > 0)
+            {
+                <table class="standard-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Code</th>
+                        </tr>
+                    </thead>
+                    @for (int i = 0; i < Model.DiscountsToBeChanged.Count; i++)
+                    {
+                        @Html.HiddenFor(m => Model.DiscountsToBeChanged[i].KellerDiscountId)
+                        @Html.HiddenFor(m => Model.DiscountsToBeChanged[i].Name)
+                        @Html.HiddenFor(m => Model.DiscountsToBeChanged[i].AmsProductDiscountId)
+                        @Html.HiddenFor(m => Model.DiscountsToBeChanged[i].DiscountPercentage)
+                        @Html.HiddenFor(m => Model.DiscountsToBeChanged[i].Active)
+
+                        <tr>
+                            <td>@Model.DiscountsToBeChanged[i].Name</td>
+                            <td>@Model.DiscountsToBeChanged[i].AmsProductDiscountId</td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <span>No discounts will be changed.</span>
+            }
+        </div>
+        <div class="col-sm-4 dashboard-column">
+            <h3><u>Discounts to be Deactivated</u></h3>
+            @if (Model.DiscountsToBeDeactivated != null && Model.DiscountsToBeDeactivated.Count > 0)
+            {
+                <table class="standard-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Code</th>
+                        </tr>
+                    </thead>
+                    @for (int i = 0; i < Model.DiscountsToBeDeactivated.Count; i++)
+                    {
+                        @Html.HiddenFor(m => Model.DiscountsToBeDeactivated[i].KellerDiscountId)
+                        @Html.HiddenFor(m => Model.DiscountsToBeDeactivated[i].Name)
+                        @Html.HiddenFor(m => Model.DiscountsToBeDeactivated[i].AmsProductDiscountId)
+                        @Html.HiddenFor(m => Model.DiscountsToBeDeactivated[i].DiscountPercentage)
+                        @Html.HiddenFor(m => Model.DiscountsToBeDeactivated[i].Active)
+
+                        <tr>
+                            <td>@Model.DiscountsToBeDeactivated[i].Name</td>
+                            <td>@Model.DiscountsToBeDeactivated[i].AmsProductDiscountId</td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <span>No discounts will be deactivated.</span>
+            }
+
+            <h3><u>Discounts to be Deleted</u></h3>
+            @if (Model.DiscountsToBeDeleted != null && Model.DiscountsToBeDeleted.Count > 0)
+            {
+                <table class="standard-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Code</th>
+                        </tr>
+                    </thead>
+                    @for (int i = 0; i < Model.DiscountsToBeDeleted.Count; i++)
+                    {
+                        @Html.HiddenFor(m => Model.DiscountsToBeDeleted[i].KellerDiscountId)
+                        @Html.HiddenFor(m => Model.DiscountsToBeDeleted[i].Name)
+                        @Html.HiddenFor(m => Model.DiscountsToBeDeleted[i].AmsProductDiscountId)
+                        @Html.HiddenFor(m => Model.DiscountsToBeDeleted[i].DiscountPercentage)
+                        @Html.HiddenFor(m => Model.DiscountsToBeDeleted[i].Active)
+
+                        <tr>
+                            <td>@Model.DiscountsToBeDeleted[i].Name</td>
+                            <td>@Model.DiscountsToBeDeleted[i].AmsProductDiscountId</td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <span>No discounts will be deleted.</span>
+            }
+        </div>
+    </div>
+}

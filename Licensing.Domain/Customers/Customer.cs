@@ -15,6 +15,8 @@ namespace Licensing.Domain.Customers
         public string BarNumber { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public DateTime EarliestAdmissionDate { get; set; }
+        public DateTime WaAdmissionDate { get; set; }
         public virtual ICollection<License> Licenses { get; set; }
     }
 }

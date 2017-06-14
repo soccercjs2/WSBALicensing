@@ -15,5 +15,8 @@ namespace Licensing.Domain.Licenses
         [ForeignKey("LicenseProductId")]
         public virtual LicenseProduct Product { get; set; }
         public int? LicenseProductId { get; set; }
+
+        public bool PrimaryProduct { get; set; }
+        public bool LateFeeProduct { get; set; }
     }
 }

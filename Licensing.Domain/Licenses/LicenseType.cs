@@ -1,4 +1,5 @@
 ﻿using Licensing.Domain.Enums;
+using Licensing.Domain.Keller;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -26,5 +27,10 @@ namespace Licensing.Domain.Licenses
         public virtual ICollection<LicenseTypeDonation> LicenseTypeDonations { get; set; }
 
         public decimal DefaultDonationAmount { get; set; }
+        public decimal LateFeePercentage { get; set; }
+
+        [ForeignKey("KellerDiscountId")]
+        public virtual KellerDiscount KellerDiscount { get; set; }
+        public int? KellerDiscountId { get; set; }
     }
 }

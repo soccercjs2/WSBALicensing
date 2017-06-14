@@ -18,6 +18,12 @@ namespace Licensing.Data.Workers
             _context = context;
         }
 
+        public void DeleteJudicialPosition(JudicialPosition judicialPosition)
+        {
+            _context.JudicialPositions.Remove(judicialPosition);
+            _context.SaveChanges();
+        }
+
         public ICollection<JudicialPositionOption> GetOptions()
         {
             return _context.JudicialPositionOptions.ToList();

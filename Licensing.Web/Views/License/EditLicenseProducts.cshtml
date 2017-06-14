@@ -27,7 +27,6 @@
                         <tr>
                             <th>Name</th>
                             <th>Code</th>
-                            <th>Price</th>
                         </tr>
                     </thead>
                     @for (int i = 0; i < Model.Codes.Count; i++)
@@ -35,14 +34,12 @@
                         @Html.HiddenFor(m => Model.Codes[i].LicenseProductId)
                         @Html.HiddenFor(m => Model.Codes[i].Name)
                         @Html.HiddenFor(m => Model.Codes[i].AmsCode)
-                        @Html.HiddenFor(m => Model.Codes[i].AmsBasisKey)
-                        @Html.HiddenFor(m => Model.Codes[i].Price)
+                        @Html.HiddenFor(m => Model.Codes[i].AmsProductId)
                         @Html.HiddenFor(m => Model.Codes[i].Active)
 
                         <tr>
                             <td>@Model.Codes[i].Name</td>
                             <td>@Model.Codes[i].AmsCode</td>
-                            <td>@Model.Codes[i].Price</td>
                         </tr>
                     }
                 </table>
@@ -61,7 +58,6 @@
                         <tr>
                             <th>Name</th>
                             <th>Code</th>
-                            <th>Price</th>
                         </tr>
                     </thead>
                     @for (int i = 0; i < Model.CodesToBeAdded.Count; i++)
@@ -69,14 +65,12 @@
                         @Html.HiddenFor(m => Model.CodesToBeAdded[i].LicenseProductId)
                         @Html.HiddenFor(m => Model.CodesToBeAdded[i].Name)
                         @Html.HiddenFor(m => Model.CodesToBeAdded[i].AmsCode)
-                        @Html.HiddenFor(m => Model.CodesToBeAdded[i].AmsBasisKey)
-                        @Html.HiddenFor(m => Model.CodesToBeAdded[i].Price)
+                        @Html.HiddenFor(m => Model.CodesToBeAdded[i].AmsProductId)
                         @Html.HiddenFor(m => Model.CodesToBeAdded[i].Active)
 
                         <tr>
                             <td>@Model.CodesToBeAdded[i].Name</td>
                             <td>@Model.CodesToBeAdded[i].AmsCode</td>
-                            <td>@Model.CodesToBeAdded[i].Price</td>
                         </tr>
                     }
                 </table>
@@ -94,7 +88,6 @@
                         <tr>
                             <th>Name</th>
                             <th>Code</th>
-                            <th>Price</th>
                         </tr>
                     </thead>
                     @for (int i = 0; i < Model.CodesToBeActivated.Count; i++)
@@ -102,14 +95,12 @@
                         @Html.HiddenFor(m => Model.CodesToBeActivated[i].LicenseProductId)
                         @Html.HiddenFor(m => Model.CodesToBeActivated[i].Name)
                         @Html.HiddenFor(m => Model.CodesToBeActivated[i].AmsCode)
-                        @Html.HiddenFor(m => Model.CodesToBeActivated[i].AmsBasisKey)
-                        @Html.HiddenFor(m => Model.CodesToBeActivated[i].Price)
+                        @Html.HiddenFor(m => Model.CodesToBeActivated[i].AmsProductId)
                         @Html.HiddenFor(m => Model.CodesToBeActivated[i].Active)
 
                         <tr>
                             <td>@Model.CodesToBeActivated[i].Name</td>
                             <td>@Model.CodesToBeActivated[i].AmsCode</td>
-                            <td>@Model.CodesToBeActivated[i].Price</td>
                         </tr>
                     }
                 </table>
@@ -127,7 +118,6 @@
                         <tr>
                             <th>Name</th>
                             <th>Code</th>
-                            <th>Price</th>
                         </tr>
                     </thead>
                     @for (int i = 0; i < Model.CodesToBeChanged.Count; i++)
@@ -135,14 +125,12 @@
                         @Html.HiddenFor(m => Model.CodesToBeChanged[i].LicenseProductId)
                         @Html.HiddenFor(m => Model.CodesToBeChanged[i].Name)
                         @Html.HiddenFor(m => Model.CodesToBeChanged[i].AmsCode)
-                        @Html.HiddenFor(m => Model.CodesToBeChanged[i].AmsBasisKey)
-                        @Html.HiddenFor(m => Model.CodesToBeChanged[i].Price)
+                        @Html.HiddenFor(m => Model.CodesToBeChanged[i].AmsProductId)
                         @Html.HiddenFor(m => Model.CodesToBeChanged[i].Active)
 
                         <tr>
                             <td>@Model.CodesToBeChanged[i].Name</td>
                             <td>@Model.CodesToBeChanged[i].AmsCode</td>
-                            <td>@Model.CodesToBeChanged[i].Price</td>
                         </tr>
                     }
                 </table>
@@ -161,7 +149,6 @@
                         <tr>
                             <th>Name</th>
                             <th>Code</th>
-                            <th>Price</th>
                         </tr>
                     </thead>
                     @for (int i = 0; i < Model.CodesToBeDeactivated.Count; i++)
@@ -169,14 +156,12 @@
                         @Html.HiddenFor(m => Model.CodesToBeDeactivated[i].LicenseProductId)
                         @Html.HiddenFor(m => Model.CodesToBeDeactivated[i].Name)
                         @Html.HiddenFor(m => Model.CodesToBeDeactivated[i].AmsCode)
-                        @Html.HiddenFor(m => Model.CodesToBeDeactivated[i].AmsBasisKey)
-                        @Html.HiddenFor(m => Model.CodesToBeDeactivated[i].Price)
+                        @Html.HiddenFor(m => Model.CodesToBeDeactivated[i].AmsProductId)
                         @Html.HiddenFor(m => Model.CodesToBeDeactivated[i].Active)
 
                         <tr>
                             <td>@Model.CodesToBeDeactivated[i].Name</td>
                             <td>@Model.CodesToBeDeactivated[i].AmsCode</td>
-                            <td>@Model.CodesToBeDeactivated[i].Price</td>
                         </tr>
                     }
                 </table>
@@ -194,7 +179,6 @@
                         <tr>
                             <th>Name</th>
                             <th>Code</th>
-                            <th>Price</th>
                         </tr>
                     </thead>
                     @for (int i = 0; i < Model.CodesToBeDeleted.Count; i++)
@@ -202,14 +186,12 @@
                         @Html.HiddenFor(m => Model.CodesToBeDeleted[i].LicenseProductId)
                         @Html.HiddenFor(m => Model.CodesToBeDeleted[i].Name)
                         @Html.HiddenFor(m => Model.CodesToBeDeleted[i].AmsCode)
-                        @Html.HiddenFor(m => Model.CodesToBeDeleted[i].AmsBasisKey)
-                        @Html.HiddenFor(m => Model.CodesToBeDeleted[i].Price)
+                        @Html.HiddenFor(m => Model.CodesToBeDeleted[i].AmsProductId)
                         @Html.HiddenFor(m => Model.CodesToBeDeleted[i].Active)
 
                         <tr>
                             <td>@Model.CodesToBeDeleted[i].Name</td>
                             <td>@Model.CodesToBeDeleted[i].AmsCode</td>
-                            <td>@Model.CodesToBeDeleted[i].Price</td>
                         </tr>
                     }
                 </table>

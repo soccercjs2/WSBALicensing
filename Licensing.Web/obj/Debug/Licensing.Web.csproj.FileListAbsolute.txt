@@ -171,3 +171,8 @@ C:\Projects\Licensing\Licensing.Web\bin\TIMSS.Server.BusinessImplementation.dll
 C:\Projects\Licensing\Licensing.Web\bin\TIMSS.Server.Implementation.dll
 C:\Projects\Licensing\Licensing.Web\bin\TIMSS.Win.dll
 C:\Projects\Licensing\Licensing.Web\bin\Microsoft.mshtml.dll
+C:\Projects\Licensing\Licensing.Web\bin\WSBA_Invoice_Builder.dll
+C:\Projects\Licensing\Licensing.Web\bin\MigraDoc.DocumentObjectModel-WPF.dll
+C:\Projects\Licensing\Licensing.Web\bin\MigraDoc.Rendering-WPF.dll
+C:\Projects\Licensing\Licensing.Web\bin\PdfSharp-WPF.dll
+C:\Projects\Licensing\Licensing.Web\bin\PdfSharp.Charting-WPF.dll

@@ -23,6 +23,12 @@ namespace Licensing.Data.Workers
             return _context.Addresses.Find(addressId);
         }
 
+        public void DeleteAddress(Address address)
+        {
+            _context.Addresses.Remove(address);
+            _context.SaveChanges();
+        }
+
         public AddressType GetAddressType(string code)
         {
             ICollection<AddressType> options = _context.AddressTypes.Where(c => c.AmsCode == code).ToList();
@@ -58,6 +64,11 @@ namespace Licensing.Data.Workers
             return null;
         }
 
+        public AddressCountry GetAddressCountry(int id)
+        {
+            return _context.AddressCountries.Find(id);
+        }
+
         public ICollection<AddressCountry> GetAddressCountries()
         {
             return _context.AddressCountries.ToList();
@@ -81,6 +92,11 @@ namespace Licensing.Data.Workers
         public ICollection<AddressState> GetAddressStates()
         {
             return _context.AddressStates.ToList();
+        }
+
+        public ICollection<AddressState> GetAddressStates(string countryCode)
+        {
+            return _context.AddressStates.Where(s => s.AmsCountryCode == countryCode).ToList();
         }
 
         public void SetAddress(Address address)

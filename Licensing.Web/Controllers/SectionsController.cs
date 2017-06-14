@@ -39,6 +39,7 @@ namespace Licensing.Web.Controllers
         public ActionResult Edit(int id)
         {
             LicenseManager licenseManager = new LicenseManager(_context);
+            SectionManager sectionManager = new SectionManager(_context);
             License license = licenseManager.GetLicense(id);
 
             List<SectionProduct> sectionProducts = new List<SectionProduct>();
@@ -48,7 +49,7 @@ namespace Licensing.Web.Controllers
                 sectionProducts.Add(licenseTypeSection.Product);
             }
 
-            return View("EditSections", new SectionVM(license, sectionProducts));
+            return View("EditSections", new SectionVM(license, sectionProducts, sectionManager.GetSectionProductsWithBalance(license, false)));
         }
 
         [HttpPost]
@@ -65,7 +66,7 @@ namespace Licensing.Web.Controllers
                 {
                     if (product.Selected && !product.PreSelected)
                     {
-                        sectionManager.AddSection(license, product.SectionProductId);
+                        sectionManager.SetSection(license, product.SectionProductId);
                     }
                     else if (product.PreSelected && !product.Selected)
                     {

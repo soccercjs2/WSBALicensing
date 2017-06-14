@@ -30,7 +30,18 @@ namespace Licensing.Data.Workers
 
         public void DeleteTrustAccountNumber(int trustAccountNumberId)
         {
-            _context.TrustAccountNumbers.Remove(_context.TrustAccountNumbers.Find(trustAccountNumberId));
+            TrustAccountNumber trustAccountNumber = _context.TrustAccountNumbers.Find(trustAccountNumberId);
+
+            if (trustAccountNumber != null)
+            {
+                _context.TrustAccountNumbers.Remove(trustAccountNumber);
+                _context.SaveChanges();
+            }
+        }
+
+        public void DeleteTrustAccount(TrustAccount trustAccount)
+        {
+            _context.TrustAccounts.Remove(trustAccount);
             _context.SaveChanges();
         }
 

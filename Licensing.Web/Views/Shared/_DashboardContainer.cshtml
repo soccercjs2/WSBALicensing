@@ -2,8 +2,8 @@
 
 @model Licensing.Business.ViewModels.DashboardContainerVM
 
-<div class="dashboard-container @(Model.Complete && Model.RequirementType == RequirementType.Required ? "complete-border":"")">
-    <div class="row dashboard-container-header fake-table @(Model.Complete && Model.RequirementType == RequirementType.Required ? "complete-background-color":"")">
+<div class="dashboard-container"> @*@(Model.Complete && Model.RequirementType == RequirementType.Required ? "complete-border" : "")*@
+    <div class="row dashboard-container-header fake-table"> @*@(Model.Complete && Model.RequirementType == RequirementType.Required ? "complete-background-color" : "")*@
         <div class="dashboard-container-title fake-table-cell">
             @Model.Title
 

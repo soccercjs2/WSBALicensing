@@ -5,12 +5,15 @@ using Licensing.Domain.ContactInformation;
 using Licensing.Domain.Customers;
 using Licensing.Domain.Disabilities;
 using Licensing.Domain.Donations;
+using Licensing.Domain.Employers;
 using Licensing.Domain.Ethnicities;
 using Licensing.Domain.FinancialResponsibilities;
 using Licensing.Domain.FirmSizes;
 using Licensing.Domain.Genders;
+using Licensing.Domain.Hardship;
 using Licensing.Domain.Judicial;
 using Licensing.Domain.Languages;
+using Licensing.Domain.Orders;
 using Licensing.Domain.PracticeAreas;
 using Licensing.Domain.ProBonos;
 using Licensing.Domain.ProfessionalLiabilityInsurances;
@@ -33,6 +36,10 @@ namespace Licensing.Domain.Licenses
         [ForeignKey("CustomerId")]
         public virtual Customer Customer { get; set; }
         public int CustomerId { get; set; }
+
+        [ForeignKey("EmployerId")]
+        public virtual Employer Employer { get; set; }
+        public int? EmployerId { get; set; }
 
         //license details
         [ForeignKey("LicensePeriodId")]
@@ -121,7 +128,22 @@ namespace Licensing.Domain.Licenses
         public int? BarNewsResponseId { get; set; }
 
         public bool KellerDeduction { get; set; }
+        public bool LicenseFeeExempt { get; set; }
 
+        [ForeignKey("HardshipExemptionRequestId")]
+        public virtual HardshipExemptionRequest HardshipExemptionRequest { get; set; }
+        public int? HardshipExemptionRequestId { get; set; }
+
+        //orders
+        [ForeignKey("LicensingOrderId")]
+        public virtual Order LicensingOrder { get; set; }
+        public int? LicensingOrderId { get; set; }
+
+        [ForeignKey("SectionOrderId")]
+        public virtual Order SectionOrder { get; set; }
+        public int? SectionOrderId { get; set; }
+
+        //ams update tracking
         public DateTime? LastAmsUpdate { get; set; }
     }
 }

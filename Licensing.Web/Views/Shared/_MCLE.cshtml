@@ -1,0 +1,36 @@
+﻿@model Licensing.Business.ViewModels.McleVM
+
+@if (Model != null)
+{
+    <div class="row padded">
+        @if (Model.MCLETranscript.TranscriptStatus == 0)
+        {
+            <div>It is not your year to report MCLE credits.</div>
+        }
+        else
+        {
+            <div class="inline bold">Certification Status:</div>
+
+            if (Model.HasUnpaidMCLELateFee || Model.HasUnpaidMCLEComityFee)
+            {
+                <div class="inline incomplete">Incomplete</div>
+            }
+            else if (Model.MCLETranscript.TranscriptStatus == 2 || Model.MCLETranscript.TranscriptStatus == 9)
+            {
+                <div class="inline pending">Pending MCLE Review; please allow 2-3 weeks.</div>
+            }
+            else if (Model.MCLETranscript.TranscriptStatus == 4)
+            {
+                <div class="inline incomplete">Returned as Incomplete.</div>
+            }
+            else if (Model.MCLETranscript.TranscriptStatus == 6 && (Model.MCLETranscript.CreditRequirementsFulfilled || Model.MCLETranscript.CertifiedViaInboundComity || Model.MCLETranscript.SubmissionType == 1))
+            {
+                <div class="inline complete">Complete</div>
+            }
+            else
+            {
+                <div class="inline incomplete">Incomplete</div>
+            }
+        }
+    </div>
+}

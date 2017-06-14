@@ -1,0 +1,81 @@
+﻿@model Licensing.Business.ViewModels.ReceiptVM
+
+@{
+    ViewBag.Title = "Receipt";
+}
+
+<h2>Receipt</h2>
+
+<hr class="narrow-hr" />
+
+<div class="row">
+    
+    @if (Model.LicensingOrder != null)
+    {
+        <div class="demographic-container">
+            <div class="demographic-container-header">
+                <div class="demographic-container-title">Licensing Order: #@Model.LicensingOrder.AmsOrderNumber</div>
+            </div>
+            <div class="demographics-container-body">
+                @foreach (var product in Model.LicenseProducts)
+                {
+                    <div class="row padded-small fake-table">
+                        <div class="inline fake-table-cell">
+                            @product.LicenseProduct.Name
+                        </div>
+                        <div class="inline fake-table-cell">
+                            $@product.Price
+                        </div>
+                    </div>
+                }
+
+                @foreach (var product in Model.DonationProducts)
+                {
+                    <div class="row padded-small fake-table">
+                        <div class="inline fake-table-cell">
+                            @product.Name
+                        </div>
+                        <div class="inline fake-table-cell">
+                            $@product.Amount
+                        </div>
+                    </div>
+                }
+
+                <hr class="narrow-hr" />
+
+                <div class="bold large-font align-right">
+                    Total: $@Model.LicensingTotal
+                </div>
+            </div>
+        </div>
+    }
+
+    @if (Model.SectionOrder != null)
+    {
+        <div class="demographic-container">
+            <div class="demographic-container-header">
+                <div class="demographic-container-title">Section Order: #@Model.SectionOrder.AmsOrderNumber</div>
+            </div>
+            <div class="demographics-container-body">
+                @foreach (var product in Model.SectionProducts)
+                {
+                    <div class="row padded-small fake-table">
+                        <div class="inline fake-table-cell">
+                            @product.Name
+                        </div>
+                        <div class="inline fake-table-cell">
+                            $@product.Price
+                        </div>
+                    </div>
+                }
+
+                <hr class="narrow-hr" />
+
+                <div class="bold large-font align-right">
+                    Total: $@Model.SectionTotal
+                </div>
+            </div>
+        </div>
+    }
+
+</div>

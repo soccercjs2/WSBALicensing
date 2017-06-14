@@ -16,24 +16,26 @@ namespace Licensing.Business.ViewModels
 
         public SectionVM() { }
 
-        public SectionVM(License license, ICollection<SectionProduct> products)
+        public SectionVM(License license, ICollection<SectionProduct> products, ICollection<SectionProductVM> sectionProductsWithBalance)
         {
             LicenseId = license.LicenseId;
 
             Products = new List<SectionProductVM>();
 
-            foreach (SectionProduct product in products)
+            foreach (SectionProduct sectionProduct in products)
             {
-                SectionProductVM sectionProductVM = new SectionProductVM(product);
+                SectionProductVM sectionProductVM = new SectionProductVM(sectionProduct);
 
-                if (license.Sections != null)
+                if (sectionProductsWithBalance != null)
                 {
-                    foreach (Section section in license.Sections)
+                    foreach (SectionProductVM sectionProductWithBalance in sectionProductsWithBalance)
                     {
-                        if (section.Product != null && section.Product.SectionProductId == product.SectionProductId)
+                        if (sectionProductWithBalance.SectionProductId == sectionProduct.SectionProductId)
                         {
                             sectionProductVM.PreSelected = true;
                             sectionProductVM.Selected = true;
+
+                            if (sectionProductWithBalance.Price == 0) { sectionProductVM.Paid = true; }
                         }
                     }
                 }

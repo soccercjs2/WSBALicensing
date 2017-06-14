@@ -53,16 +53,22 @@ namespace Licensing.Business.Managers
             _context.SaveChanges();
         }
 
-        public void SetProBono(License license, bool providesService, decimal freeServiceHours, decimal limitedFeeServiceHours, bool anonymous)
+        public void SetProBono(License license, int amsSequenceNumber, bool providesService, decimal freeServiceHours, decimal limitedFeeServiceHours, bool anonymous)
         {
             if (license.ProBono == null) { license.ProBono = new ProBono(); }
 
+            license.ProBono.AmsSequenceNumber = amsSequenceNumber;
             license.ProBono.ProvidesService = providesService;
             license.ProBono.FreeServiceHours = freeServiceHours;
             license.ProBono.LimitedFeeServiceHours = limitedFeeServiceHours;
             license.ProBono.Anonymous = anonymous;
 
             _context.SaveChanges();
+        }
+
+        public void SetProBono(License license, bool providesService, decimal freeServiceHours, decimal limitedFeeServiceHours, bool anonymous)
+        {
+            SetProBono(license, 0, providesService, freeServiceHours, limitedFeeServiceHours, anonymous);
         }
 
         public void SetProBonoDetails(License license, decimal freeServiceHours, decimal limitedFeeServiceHours, bool anonymous)
@@ -72,6 +78,11 @@ namespace Licensing.Business.Managers
             license.ProBono.Anonymous = anonymous;
 
             _context.SaveChanges();
+        }
+
+        public void DeleteProBono(License license)
+        {
+            _proBonoWorker.DeleteProBono(license.ProBono);
         }
 
         public bool IsComplete(License license)

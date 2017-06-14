@@ -43,6 +43,7 @@ namespace Licensing.Web.Controllers
             if (ModelState.IsValid)
             {
                 LicenseManager licenseManager = new LicenseManager(_context);
+                ICollection<LicenseProduct> amsCodes = licenseManager.GetAmsOptions();
 
                 if (licenseProductsVM.CodesToBeAdded != null)
                 {
@@ -65,7 +66,7 @@ namespace Licensing.Web.Controllers
                 {
                     foreach (LicenseProduct option in licenseProductsVM.CodesToBeChanged)
                     {
-                        LicenseProduct codeToChange = licenseManager.GetProduct(option.AmsCode, option.AmsBasisKey);
+                        LicenseProduct codeToChange = licenseManager.GetProduct(option.AmsCode);
                         codeToChange.Name = option.Name;
                         licenseManager.SetOption(codeToChange);
                     }

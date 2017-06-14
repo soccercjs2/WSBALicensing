@@ -19,6 +19,11 @@ namespace Licensing.Data.Workers
             _context = context;
         }
 
+        public void DeleteEthnicity(Ethnicity ethnicity)
+        {
+            _context.Ethnicities.Remove(ethnicity);
+        }
+
         public ICollection<EthnicityOption> GetOptions()
         {
             return _context.EthnicityOptions.ToList();

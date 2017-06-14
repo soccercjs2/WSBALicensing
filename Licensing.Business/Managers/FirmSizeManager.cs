@@ -23,6 +23,11 @@ namespace Licensing.Business.Managers
             _firmSizeWorker = new FirmSizeWorker(context);
         }
 
+        public void DeleteFirmSize(License license)
+        {
+            _firmSizeWorker.DeleteFirmSize(license.FirmSize);
+        }
+
         public ICollection<FirmSizeOption> GetOptions()
         {
             return _firmSizeWorker.GetOptions();

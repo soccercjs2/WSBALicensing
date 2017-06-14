@@ -66,6 +66,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -109,19 +110,29 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ExternalReferences\AMS\WSBA.AMS.dll</HintPath>
     </Reference>
+    <Reference Include="WSBA_Invoice_Builder">
+      <HintPath>..\ExternalReferences\WSBA_Invoice_Builder.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums\LicensingStatus.cs" />
     <Compile Include="Managers\AddressManager.cs" />
     <Compile Include="Managers\AmsUpdateManager.cs" />
     <Compile Include="Managers\AmsWriterManager.cs" />
+    <Compile Include="Managers\HardshipExemptionRequestManager.cs" />
     <Compile Include="Managers\CustomerManager.cs" />
     <Compile Include="Managers\DemographicManager.cs" />
+    <Compile Include="Managers\EmployerManager.cs" />
+    <Compile Include="Managers\KellerDiscountManager.cs" />
+    <Compile Include="Managers\LicenseTypeKellerDiscountManager.cs" />
     <Compile Include="Managers\LicenseTypeDonationManager.cs" />
     <Compile Include="Managers\LicenseTypeProductManager.cs" />
     <Compile Include="Managers\LicenseTypeRequirementManager.cs" />
     <Compile Include="Managers\LicenseTypeSectionManager.cs" />
     <Compile Include="Managers\LoginManager.cs" />
+    <Compile Include="Managers\MCLEManager.cs" />
+    <Compile Include="Managers\OrderManager.cs" />
+    <Compile Include="Managers\PaymentManager.cs" />
     <Compile Include="Managers\PracticeAreaManager.cs" />
     <Compile Include="Managers\AreaOfPracticeManager.cs" />
     <Compile Include="Managers\BarNewsManager.cs" />
@@ -153,7 +164,15 @@
     <Compile Include="ViewModels\AddressVM.cs" />
     <Compile Include="ViewModels\AdminDashboardVM.cs" />
     <Compile Include="ViewModels\AreaOfPracticeOptionsVM.cs" />
+    <Compile Include="ViewModels\HardshipExemptionRequestVM.cs" />
     <Compile Include="ViewModels\BarNewsVM.cs" />
+    <Compile Include="ViewModels\KellerDiscountsVM.cs" />
+    <Compile Include="ViewModels\EmployerVM.cs" />
+    <Compile Include="ViewModels\LicenseTypeKellerDiscountVM.cs" />
+    <Compile Include="ViewModels\LicenseTypeKellerDiscountsVM.cs" />
+    <Compile Include="ViewModels\McleVM.cs" />
+    <Compile Include="ViewModels\ReceiptVM.cs" />
+    <Compile Include="ViewModels\CheckoutVM.cs" />
     <Compile Include="ViewModels\DisabilityOptionsVM.cs" />
     <Compile Include="ViewModels\DonationProductsVM.cs" />
     <Compile Include="ViewModels\EthnicityOptionsVM.cs" />
@@ -164,7 +183,10 @@
     <Compile Include="ViewModels\CoveredByOptionsVM.cs" />
     <Compile Include="ViewModels\LanguageOptionsVM.cs" />
     <Compile Include="ViewModels\LicensePeriodVM.cs" />
+    <Compile Include="ViewModels\LicenseProductPriceVM.cs" />
+    <Compile Include="ViewModels\LicenseProductPricesVM.cs" />
     <Compile Include="ViewModels\LicenseProductsVM.cs" />
+    <Compile Include="ViewModels\LicenseProductVM.cs" />
     <Compile Include="ViewModels\LicenseTypeDonationsVM.cs" />
     <Compile Include="ViewModels\LicenseTypeSectionsVM.cs" />
     <Compile Include="ViewModels\LicenseTypeDonationVM.cs" />

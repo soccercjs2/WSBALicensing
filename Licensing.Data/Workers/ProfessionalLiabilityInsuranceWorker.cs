@@ -19,6 +19,12 @@ namespace Licensing.Data.Workers
             _context = context;
         }
 
+        public void DeleteProfessionalLiabilityInsurance(ProfessionalLiabilityInsurance professionalLiabilityInsurance)
+        {
+            _context.ProfessionalLiabilityInsurances.Remove(professionalLiabilityInsurance);
+            _context.SaveChanges();
+        }
+
         public ICollection<ProfessionalLiabilityInsuranceOption> GetOptions()
         {
             return _context.ProfessionalLiabilityInsuranceOptions.OrderBy(o => o.ProfessionalLiabilityInsuranceOptionId).ToList();

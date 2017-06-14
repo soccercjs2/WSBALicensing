@@ -14,5 +14,7 @@ namespace Licensing.Domain.ProfessionalLiabilityInsurances
         [ForeignKey("ProfessionalLiabilityInsuranceOptionId")]
         public virtual ProfessionalLiabilityInsuranceOption Option { get; set; }
         public int? ProfessionalLiabilityInsuranceOptionId { get; set; }
+
+        public int AmsSequenceNumber { get; set; }
     }
 }

@@ -19,6 +19,11 @@ namespace Licensing.Data.Workers
             _context = context;
         }
 
+        public void DeleteDisability(Disability disability)
+        {
+            _context.Disabilities.Remove(disability);
+        }
+
         public ICollection<DisabilityOption> GetOptions()
         {
             return _context.DisabilityOptions.ToList();

@@ -40,6 +40,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -222,11 +223,110 @@
     <Compile Include="Migrations\201704131714333_Adding AmsLocationCode to PhoneNumber.Designer.cs">
       <DependentUpon>201704131714333_Adding AmsLocationCode to PhoneNumber.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704171926226_adding AmsFinancialResponsibilityId to FinancialResponsibility.cs" />
+    <Compile Include="Migrations\201704171926226_adding AmsFinancialResponsibilityId to FinancialResponsibility.Designer.cs">
+      <DependentUpon>201704171926226_adding AmsFinancialResponsibilityId to FinancialResponsibility.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704172112560_adding AmsSequenceNumber to ProBono.cs" />
+    <Compile Include="Migrations\201704172112560_adding AmsSequenceNumber to ProBono.Designer.cs">
+      <DependentUpon>201704172112560_adding AmsSequenceNumber to ProBono.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704172126497_adding AmsSequenceNumber to ProfessionalLiabilityInsurance.cs" />
+    <Compile Include="Migrations\201704172126497_adding AmsSequenceNumber to ProfessionalLiabilityInsurance.Designer.cs">
+      <DependentUpon>201704172126497_adding AmsSequenceNumber to ProfessionalLiabilityInsurance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704172144313_adding AmsSequenceNumber to TrustAccount.cs" />
+    <Compile Include="Migrations\201704172144313_adding AmsSequenceNumber to TrustAccount.Designer.cs">
+      <DependentUpon>201704172144313_adding AmsSequenceNumber to TrustAccount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704261539192_moving license product pricing to it%27s own table.cs" />
+    <Compile Include="Migrations\201704261539192_moving license product pricing to it%27s own table.Designer.cs">
+      <DependentUpon>201704261539192_moving license product pricing to it%27s own table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704261941147_adding primary and latefee flags to licensetypeproduct.cs" />
+    <Compile Include="Migrations\201704261941147_adding primary and latefee flags to licensetypeproduct.Designer.cs">
+      <DependentUpon>201704261941147_adding primary and latefee flags to licensetypeproduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704261957100_added latefeepercentage to license type.cs" />
+    <Compile Include="Migrations\201704261957100_added latefeepercentage to license type.Designer.cs">
+      <DependentUpon>201704261957100_added latefeepercentage to license type.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704271746539_i thought virtual stuff didn%27t matterr....cs" />
+    <Compile Include="Migrations\201704271746539_i thought virtual stuff didn%27t matterr....Designer.cs">
+      <DependentUpon>201704271746539_i thought virtual stuff didn%27t matterr....cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704272024084_adding admission dates to customer.cs" />
+    <Compile Include="Migrations\201704272024084_adding admission dates to customer.Designer.cs">
+      <DependentUpon>201704272024084_adding admission dates to customer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704272049178_making admission dates nullable.cs" />
+    <Compile Include="Migrations\201704272049178_making admission dates nullable.Designer.cs">
+      <DependentUpon>201704272049178_making admission dates nullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704272101403_actually, admission dates shouldn%27t be nullable.cs" />
+    <Compile Include="Migrations\201704272101403_actually, admission dates shouldn%27t be nullable.Designer.cs">
+      <DependentUpon>201704272101403_actually, admission dates shouldn%27t be nullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704272102209_actually, admission dates shouldn%27t be nullable 2.cs" />
+    <Compile Include="Migrations\201704272102209_actually, admission dates shouldn%27t be nullable 2.Designer.cs">
+      <DependentUpon>201704272102209_actually, admission dates shouldn%27t be nullable 2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704282108075_adding payments and tying to license.cs" />
+    <Compile Include="Migrations\201704282108075_adding payments and tying to license.Designer.cs">
+      <DependentUpon>201704282108075_adding payments and tying to license.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705091758118_adding orders.cs" />
+    <Compile Include="Migrations\201705091758118_adding orders.Designer.cs">
+      <DependentUpon>201705091758118_adding orders.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705101813426_Renaming payments to transactions.cs" />
+    <Compile Include="Migrations\201705101813426_Renaming payments to transactions.Designer.cs">
+      <DependentUpon>201705101813426_Renaming payments to transactions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705152043195_adding AmsProductId to products.cs" />
+    <Compile Include="Migrations\201705152043195_adding AmsProductId to products.Designer.cs">
+      <DependentUpon>201705152043195_adding AmsProductId to products.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705241841273_adding employer.cs" />
+    <Compile Include="Migrations\201705241841273_adding employer.Designer.cs">
+      <DependentUpon>201705241841273_adding employer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705241929527_altering employer mastercustomerid to amsmastercustomerid.cs" />
+    <Compile Include="Migrations\201705241929527_altering employer mastercustomerid to amsmastercustomerid.Designer.cs">
+      <DependentUpon>201705241929527_altering employer mastercustomerid to amsmastercustomerid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705302127512_adding mcle requirement.cs" />
+    <Compile Include="Migrations\201705302127512_adding mcle requirement.Designer.cs">
+      <DependentUpon>201705302127512_adding mcle requirement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705311822557_adding keller deduction and hardship exemption to requirements, license fee exempt to license, keller deduction percentage to license type.cs" />
+    <Compile Include="Migrations\201705311822557_adding keller deduction and hardship exemption to requirements, license fee exempt to license, keller deduction percentage to license type.Designer.cs">
+      <DependentUpon>201705311822557_adding keller deduction and hardship exemption to requirements, license fee exempt to license, keller deduction percentage to license type.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706011924584_removing keller deduction percentage from license type, adding keller discount table, adding relationship to license type.cs" />
+    <Compile Include="Migrations\201706011924584_removing keller deduction percentage from license type, adding keller discount table, adding relationship to license type.Designer.cs">
+      <DependentUpon>201706011924584_removing keller deduction percentage from license type, adding keller discount table, adding relationship to license type.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706051914402_changing DiscountPercentage precision to allow 4 decimal places on KellerDiscount.cs" />
+    <Compile Include="Migrations\201706051914402_changing DiscountPercentage precision to allow 4 decimal places on KellerDiscount.Designer.cs">
+      <DependentUpon>201706051914402_changing DiscountPercentage precision to allow 4 decimal places on KellerDiscount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706132102460_adding hardship exemption requests.cs" />
+    <Compile Include="Migrations\201706132102460_adding hardship exemption requests.Designer.cs">
+      <DependentUpon>201706132102460_adding hardship exemption requests.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Workers\HardshipExemptionRequestWorker.cs" />
     <Compile Include="Workers\CustomerWorker.cs" />
+    <Compile Include="Workers\EmployerWorker.cs" />
+    <Compile Include="Workers\KellerDiscountWorker.cs" />
+    <Compile Include="Workers\LicenseTypeKellerDiscountWorker.cs" />
     <Compile Include="Workers\LicenseTypeDonationWorker.cs" />
     <Compile Include="Workers\LicenseTypeProductWorker.cs" />
     <Compile Include="Workers\LicenseTypeRequirementWorker.cs" />
     <Compile Include="Workers\LicenseTypeSectionWorker.cs" />
+    <Compile Include="Workers\MCLEWorker.cs" />
+    <Compile Include="Workers\OrderWorker.cs" />
+    <Compile Include="Workers\PaymentWorker.cs" />
     <Compile Include="Workers\PracticeAreaWorker.cs" />
     <Compile Include="Workers\BarNewsWorker.cs" />
     <Compile Include="Workers\DisabilityWorker.cs" />
@@ -444,6 +544,75 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704131714333_Adding AmsLocationCode to PhoneNumber.resx">
       <DependentUpon>201704131714333_Adding AmsLocationCode to PhoneNumber.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704171926226_adding AmsFinancialResponsibilityId to FinancialResponsibility.resx">
+      <DependentUpon>201704171926226_adding AmsFinancialResponsibilityId to FinancialResponsibility.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704172112560_adding AmsSequenceNumber to ProBono.resx">
+      <DependentUpon>201704172112560_adding AmsSequenceNumber to ProBono.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704172126497_adding AmsSequenceNumber to ProfessionalLiabilityInsurance.resx">
+      <DependentUpon>201704172126497_adding AmsSequenceNumber to ProfessionalLiabilityInsurance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704172144313_adding AmsSequenceNumber to TrustAccount.resx">
+      <DependentUpon>201704172144313_adding AmsSequenceNumber to TrustAccount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704261539192_moving license product pricing to it%27s own table.resx">
+      <DependentUpon>201704261539192_moving license product pricing to it%27s own table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704261941147_adding primary and latefee flags to licensetypeproduct.resx">
+      <DependentUpon>201704261941147_adding primary and latefee flags to licensetypeproduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704261957100_added latefeepercentage to license type.resx">
+      <DependentUpon>201704261957100_added latefeepercentage to license type.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704271746539_i thought virtual stuff didn%27t matterr....resx">
+      <DependentUpon>201704271746539_i thought virtual stuff didn%27t matterr....cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704272024084_adding admission dates to customer.resx">
+      <DependentUpon>201704272024084_adding admission dates to customer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704272049178_making admission dates nullable.resx">
+      <DependentUpon>201704272049178_making admission dates nullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704272101403_actually, admission dates shouldn%27t be nullable.resx">
+      <DependentUpon>201704272101403_actually, admission dates shouldn%27t be nullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704272102209_actually, admission dates shouldn%27t be nullable 2.resx">
+      <DependentUpon>201704272102209_actually, admission dates shouldn%27t be nullable 2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704282108075_adding payments and tying to license.resx">
+      <DependentUpon>201704282108075_adding payments and tying to license.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705091758118_adding orders.resx">
+      <DependentUpon>201705091758118_adding orders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705101813426_Renaming payments to transactions.resx">
+      <DependentUpon>201705101813426_Renaming payments to transactions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705152043195_adding AmsProductId to products.resx">
+      <DependentUpon>201705152043195_adding AmsProductId to products.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705241841273_adding employer.resx">
+      <DependentUpon>201705241841273_adding employer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705241929527_altering employer mastercustomerid to amsmastercustomerid.resx">
+      <DependentUpon>201705241929527_altering employer mastercustomerid to amsmastercustomerid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705302127512_adding mcle requirement.resx">
+      <DependentUpon>201705302127512_adding mcle requirement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705311822557_adding keller deduction and hardship exemption to requirements, license fee exempt to license, keller deduction percentage to license type.resx">
+      <DependentUpon>201705311822557_adding keller deduction and hardship exemption to requirements, license fee exempt to license, keller deduction percentage to license type.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706011924584_removing keller deduction percentage from license type, adding keller discount table, adding relationship to license type.resx">
+      <DependentUpon>201706011924584_removing keller deduction percentage from license type, adding keller discount table, adding relationship to license type.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706051914402_changing DiscountPercentage precision to allow 4 decimal places on KellerDiscount.resx">
+      <DependentUpon>201706051914402_changing DiscountPercentage precision to allow 4 decimal places on KellerDiscount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706132102460_adding hardship exemption requests.resx">
+      <DependentUpon>201706132102460_adding hardship exemption requests.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

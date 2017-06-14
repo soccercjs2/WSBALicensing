@@ -10,6 +10,7 @@ namespace Licensing.Domain.FinancialResponsibilities
     public class FinancialResponsibility : Preloadable
     {
         public int FinancialResponsibilityId { get; set; }
+        public int AmsFinancialResponsibilityId { get; set; }
         public string Company { get; set; }
         public string PolicyNumber { get; set; }
 

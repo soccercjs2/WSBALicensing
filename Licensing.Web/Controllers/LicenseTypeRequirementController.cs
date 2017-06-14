@@ -74,7 +74,7 @@ namespace Licensing.Web.Controllers
                 LicenseTypeRequirementManager licenseTypeRequirementManager = new LicenseTypeRequirementManager(_context);
                 licenseTypeRequirementManager.SetLicenseTypeRequirement(licenseType, licenseTypeRequirementVM.LicenseTypeRequirement);
 
-                return RedirectToAction("Edit", "LicenseType", new { id = licenseType.LicenseTypeId });
+                return RedirectToAction("LicenseTypeDashboard", "LicenseType", new { id = licenseType.LicenseTypeId });
             }
             else
             {

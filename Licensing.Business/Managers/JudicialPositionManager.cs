@@ -23,6 +23,11 @@ namespace Licensing.Business.Managers
             _judicialPositionWorker = new JudicialPositionWorker(context);
         }
 
+        public void DeleteJudicialPosition(License license)
+        {
+            _judicialPositionWorker.DeleteJudicialPosition(license.JudicialPosition);
+        }
+
         public ICollection<JudicialPositionOption> GetOptions()
         {
             return _judicialPositionWorker.GetOptions();

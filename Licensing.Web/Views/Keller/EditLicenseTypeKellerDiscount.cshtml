@@ -1,0 +1,96 @@
+﻿@model Licensing.Business.ViewModels.LicenseTypeKellerDiscountsVM
+
+@{
+    ViewBag.Title = "Edit License Type Keller Discount";
+}
+
+<h2>@Model.Name</h2>
+
+@using (Html.BeginForm("Edit", "LicenseTypeKellerDiscount", FormMethod.Post))
+{    
+    @Html.HiddenFor(m => m.LicenseTypeId)
+    @Html.HiddenFor(m => m.Name)
+
+    <hr />
+
+    <div class="row">
+        @Html.ActionLink("Return to Dashboard", "Index", "Admin", null, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Cancel", "Index", "Admin", null, new { @class = "btn btn-primary" })
+        <input class="btn btn-success" type="submit" value="Save" />
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="demographic-container">
+                <div class="demographic-container-header">
+                    <div class="demographic-container-title">@Model.Name Keller Discount</div>
+                </div>
+                <div class="demographics-container-body">
+                    <table class="standard-table full-width">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Code</th>
+                                <th>Percentage</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+
+                        @if (Model.KellerDiscountVM != null)
+                        {
+                            @Html.HiddenFor(m => m.KellerDiscountVM.KellerDiscount.KellerDiscountId)
+                            @Html.HiddenFor(m => m.KellerDiscountVM.KellerDiscount.Name)
+                            @Html.HiddenFor(m => m.KellerDiscountVM.KellerDiscount.AmsProductDiscountId)
+                            @Html.HiddenFor(m => m.KellerDiscountVM.KellerDiscount.DiscountPercentage)
+                            @Html.HiddenFor(m => m.KellerDiscountVM.KellerDiscount.Active)
+
+                            <tr>
+                                <td>@Model.KellerDiscountVM.KellerDiscount.Name</td>
+                                <td>@Model.KellerDiscountVM.KellerDiscount.AmsProductDiscountId</td>
+                                <td>@Model.KellerDiscountVM.KellerDiscount.DiscountPercentage</td>
+                                <td>@Html.CheckBoxFor(m => m.KellerDiscountVM.Flag)</td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="demographic-container">
+                <div class="demographic-container-header">
+                    <div class="demographic-container-title">Excluded Keller Discounts</div>
+                </div>
+                <div class="demographics-container-body">
+                    <table class="standard-table full-width">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Code</th>
+                                <th>Percentage</th>
+                                <th>Add</th>
+                            </tr>
+                        </thead>
+
+                        @for (int i = 0; i < Model.ExcludedKellerDiscounts.Count; i++)
+                        {
+                            @Html.HiddenFor(m => m.ExcludedKellerDiscounts[i].KellerDiscount.KellerDiscountId)
+                            @Html.HiddenFor(m => m.ExcludedKellerDiscounts[i].KellerDiscount.Name)
+                            @Html.HiddenFor(m => m.ExcludedKellerDiscounts[i].KellerDiscount.AmsProductDiscountId)
+                            @Html.HiddenFor(m => m.ExcludedKellerDiscounts[i].KellerDiscount.DiscountPercentage)
+                            @Html.HiddenFor(m => m.ExcludedKellerDiscounts[i].KellerDiscount.Active)
+
+                            <tr>
+                                <td>@Model.ExcludedKellerDiscounts[i].KellerDiscount.Name</td>
+                                <td>@Model.ExcludedKellerDiscounts[i].KellerDiscount.AmsProductDiscountId</td>
+                                <td>@Model.ExcludedKellerDiscounts[i].KellerDiscount.DiscountPercentage</td>
+                                <td>@Html.CheckBoxFor(m => m.ExcludedKellerDiscounts[i].Flag)</td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}

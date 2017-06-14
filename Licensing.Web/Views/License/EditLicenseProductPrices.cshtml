@@ -1,0 +1,163 @@
+﻿@model Licensing.Business.ViewModels.LicenseProductPricesVM
+
+@{
+    ViewBag.Title = "Edit License Product Prices";
+}
+
+<h2>Edit License Products</h2>
+
+@using (Html.BeginForm("Edit", "LicenseProductPrices", FormMethod.Post))
+{
+    <hr />
+
+    <div class="row">
+        @Html.ActionLink("Return to Admin Dashboard", "Index", "Admin", null, new { @class = "btn btn-primary" })
+        <input class="btn btn-success" type="submit" value="Sync" />
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-sm-4 dashboard-column">
+            <h3><u>Active Codes</u></h3>
+            @if (Model.Prices != null && Model.Prices.Count > 0)
+            {
+                <table class="standard-table">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Price</th>
+                            <th>Basis From</th>
+                            <th>Basis To</th>
+                        </tr>
+                    </thead>
+                    @for (int i = 0; i < Model.Prices.Count; i++)
+                    {
+                        @Html.HiddenFor(m => Model.Prices[i].LicenseProductPrice.LicenseProductPriceId)
+                        @Html.HiddenFor(m => Model.Prices[i].LicenseProductPrice.LicenseProductId)
+                        @Html.HiddenFor(m => Model.Prices[i].LicenseProductPrice.Price)
+                        @Html.HiddenFor(m => Model.Prices[i].LicenseProductPrice.AmsBasisFrom)
+                        @Html.HiddenFor(m => Model.Prices[i].LicenseProductPrice.AmsBasisTo)
+
+                        <tr>
+                            <td>@Model.Prices[i].AmsCode</td>
+                            <td>@Model.Prices[i].LicenseProductPrice.Price</td>
+                            <td>@Model.Prices[i].LicenseProductPrice.AmsBasisFrom</td>
+                            <td>@Model.Prices[i].LicenseProductPrice.AmsBasisTo</td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <span>No codes.</span>
+            }
+        </div>
+
+        <div class="col-sm-4 dashboard-column">
+            <h3><u>Codes to be Added</u></h3>
+            @if (Model.PricesToBeAdded != null && Model.PricesToBeAdded.Count > 0)
+            {
+                <table class="standard-table">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Price</th>
+                            <th>Basis From</th>
+                            <th>Basis To</th>
+                        </tr>
+                    </thead>
+                    @for (int i = 0; i < Model.PricesToBeAdded.Count; i++)
+                    {
+                        @Html.HiddenFor(m => Model.PricesToBeAdded[i].LicenseProductPrice.LicenseProductPriceId)
+                        @Html.HiddenFor(m => Model.PricesToBeAdded[i].LicenseProductPrice.LicenseProductId)
+                        @Html.HiddenFor(m => Model.PricesToBeAdded[i].LicenseProductPrice.Price)
+                        @Html.HiddenFor(m => Model.PricesToBeAdded[i].LicenseProductPrice.AmsBasisFrom)
+                        @Html.HiddenFor(m => Model.PricesToBeAdded[i].LicenseProductPrice.AmsBasisTo)
+
+                        <tr>
+                            <td>@Model.PricesToBeAdded[i].AmsCode</td>
+                            <td>@Model.PricesToBeAdded[i].LicenseProductPrice.Price</td>
+                            <td>@Model.PricesToBeAdded[i].LicenseProductPrice.AmsBasisFrom</td>
+                            <td>@Model.PricesToBeAdded[i].LicenseProductPrice.AmsBasisTo</td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <span>No codes will be added.</span>
+            }
+
+            <h3><u>Codes to be Changed</u></h3>
+            @if (Model.PricesToBeChanged != null && Model.PricesToBeChanged.Count > 0)
+            {
+                <table class="standard-table">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Price</th>
+                            <th>Basis From</th>
+                            <th>Basis To</th>
+                        </tr>
+                    </thead>
+                    @for (int i = 0; i < Model.PricesToBeChanged.Count; i++)
+                    {
+                        @Html.HiddenFor(m => Model.PricesToBeChanged[i].LicenseProductPrice.LicenseProductPriceId)
+                        @Html.HiddenFor(m => Model.PricesToBeChanged[i].LicenseProductPrice.LicenseProductId)
+                        @Html.HiddenFor(m => Model.PricesToBeChanged[i].LicenseProductPrice.Price)
+                        @Html.HiddenFor(m => Model.PricesToBeChanged[i].LicenseProductPrice.AmsBasisFrom)
+                        @Html.HiddenFor(m => Model.PricesToBeChanged[i].LicenseProductPrice.AmsBasisTo)
+
+                        <tr>
+                            <td>@Model.PricesToBeChanged[i].AmsCode</td>
+                            <td>@Model.PricesToBeChanged[i].LicenseProductPrice.Price</td>
+                            <td>@Model.PricesToBeChanged[i].LicenseProductPrice.AmsBasisFrom</td>
+                            <td>@Model.PricesToBeChanged[i].LicenseProductPrice.AmsBasisTo</td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <span>No codes will be changed.</span>
+            }
+        </div>
+
+        <div class="col-sm-4 dashboard-column">
+            <h3><u>Codes to be Deleted</u></h3>
+            @if (Model.PricesToBeDeleted != null && Model.PricesToBeDeleted.Count > 0)
+            {
+                <table class="standard-table">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Price</th>
+                            <th>Basis From</th>
+                            <th>Basis To</th>
+                        </tr>
+                    </thead>
+                    @for (int i = 0; i < Model.PricesToBeDeleted.Count; i++)
+                    {
+                        @Html.HiddenFor(m => Model.PricesToBeDeleted[i].LicenseProductPrice.LicenseProductPriceId)
+                        @Html.HiddenFor(m => Model.PricesToBeDeleted[i].LicenseProductPrice.LicenseProductId)
+                        @Html.HiddenFor(m => Model.PricesToBeDeleted[i].LicenseProductPrice.Price)
+                        @Html.HiddenFor(m => Model.PricesToBeDeleted[i].LicenseProductPrice.AmsBasisFrom)
+                        @Html.HiddenFor(m => Model.PricesToBeDeleted[i].LicenseProductPrice.AmsBasisTo)
+
+                        <tr>
+                            <td>@Model.PricesToBeDeleted[i].AmsCode</td>
+                            <td>@Model.PricesToBeDeleted[i].LicenseProductPrice.Price</td>
+                            <td>@Model.PricesToBeDeleted[i].LicenseProductPrice.AmsBasisFrom</td>
+                            <td>@Model.PricesToBeDeleted[i].LicenseProductPrice.AmsBasisTo</td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <span>No codes will be deleted.</span>
+            }
+        </div>
+    </div>
+}

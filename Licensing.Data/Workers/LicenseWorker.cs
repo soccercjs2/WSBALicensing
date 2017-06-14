@@ -44,9 +44,9 @@ namespace Licensing.Data.Workers
             return _context.LicenseProducts.Find(id);
         }
 
-        public LicenseProduct GetProduct(string code, string amsBasisKey)
+        public LicenseProduct GetProduct(string code)
         {
-            ICollection<LicenseProduct> options = _context.LicenseProducts.Where(c => c.AmsCode == code && c.AmsBasisKey == amsBasisKey).ToList();
+            ICollection<LicenseProduct> options = _context.LicenseProducts.Where(c => c.AmsCode == code).ToList();
 
             foreach (LicenseProduct option in options)
             {
@@ -77,6 +77,31 @@ namespace Licensing.Data.Workers
         {
             _context.Entry(option).State = EntityState.Deleted;
             _context.SaveChanges();
+        }
+
+        public void SetPrice(LicenseProductPrice price)
+        {
+            _context.Entry(price).State = price.LicenseProductPriceId == 0 ?
+                                   EntityState.Added :
+                                   EntityState.Modified;
+
+            _context.SaveChanges();
+        }
+
+        public void DeletePrice(LicenseProductPrice price)
+        {
+            _context.Entry(price).State = EntityState.Deleted;
+            _context.SaveChanges();
+        }
+
+        public ICollection<LicenseProductPrice> GetPrices(LicenseProduct product)
+        {
+            return _context.LicenseProductPrices.Where(p => p.LicenseProductId == product.LicenseProductId).ToList();
+        }
+
+        public ICollection<LicenseProductPrice> GetPrices()
+        {
+            return _context.LicenseProductPrices.ToList();
         }
     }
 }

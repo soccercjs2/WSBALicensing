@@ -50,8 +50,11 @@ namespace Licensing.Business.Managers
             return excluded;
         }
 
-        public void AddLicenseTypeProduct(LicenseType licenseType, LicenseTypeProduct licenseTypeProduct)
+        public void AddLicenseTypeProduct(LicenseType licenseType, LicenseTypeProduct licenseTypeProduct, bool primary, bool lateFee)
         {
+            licenseTypeProduct.PrimaryProduct = primary;
+            licenseTypeProduct.LateFeeProduct = lateFee;
+
             _licenseTypeProductWorker.AddLicenseTypeProduct(licenseTypeProduct);
         }
 

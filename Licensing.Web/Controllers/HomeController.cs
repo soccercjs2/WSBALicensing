@@ -46,6 +46,7 @@ namespace Licensing.Web.Controllers
             ProfessionalLiabilityInsuranceManager professionalLiabilityInsuranceManager = new ProfessionalLiabilityInsuranceManager(_context);
             FinancialResponsibilityManager financialResponsibilityManager = new FinancialResponsibilityManager(_context);
             ProBonoManager proBonoManager = new ProBonoManager(_context);
+            MCLEManager mcleManager = new MCLEManager(_context);
             AddressManager addressManager = new AddressManager(_context);
             EmailManager emailManager = new EmailManager(_context);
             PhoneNumberManager phoneNumberManager = new PhoneNumberManager(_context);
@@ -57,7 +58,9 @@ namespace Licensing.Web.Controllers
             SectionManager sectionManager = new SectionManager(_context);
             DonationManager donationManager = new DonationManager(_context);
             BarNewsManager barNewsManager = new BarNewsManager(_context);
+            OrderManager orderManager = new OrderManager(_context);
             StatusManager statusManager = new StatusManager(_context);
+            EmployerManager employerManager = new EmployerManager(_context);
 
             //get customer
             Customer customer = customerManager.GetCustomer(currentUserBarNumber);
@@ -82,6 +85,7 @@ namespace Licensing.Web.Controllers
             dashboardVM.ProfessionalLiabilityInsurance = professionalLiabilityInsuranceManager.GetDashboardContainerVM(license);
             dashboardVM.FinancialResponsibility = financialResponsibilityManager.GetDashboardContainerVM(license);
             dashboardVM.ProBono = proBonoManager.GetDashboardContainerVM(license);
+            dashboardVM.MCLE = mcleManager.GetDashboardContainerVM(license);
 
             //set contact information for dashboard
             dashboardVM.AgentOfServiceAddressRequired = addressManager.AgentOfServiceAddressRequired(license);
@@ -105,6 +109,16 @@ namespace Licensing.Web.Controllers
             dashboardVM.Sections = sectionManager.GetDashboardContainerVM(license);
             dashboardVM.Donations = donationManager.GetDashboardContainerVM(license);
             dashboardVM.BarNews = barNewsManager.GetDashboardContainerVM(license);
+
+            //balance information
+            decimal licensingBalance = membershipProductManager.GetBalanceDue(license);
+            decimal sectionBalance = sectionManager.GetBalanceDue(license);
+            decimal donationBalance = donationManager.GetBalanceDue(license);
+
+            dashboardVM.BalanceDue = licensingBalance + sectionBalance + donationBalance;
+
+            //bulk payment information
+            dashboardVM.BulkPayment = employerManager.GetDashboardContainerVM(license, licensingBalance);
 
             return View(dashboardVM);
         }

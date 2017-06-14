@@ -113,6 +113,11 @@ namespace Licensing.Web.Controllers
 
             int tanIndex = (int)TempData["LastTANIndex"];
 
+            if (trustAccountVM.TrustAccountNumbers == null)
+            {
+                trustAccountVM.TrustAccountNumbers = new List<TrustAccountNumberVM>();
+            }
+
             trustAccountVM.TrustAccountNumbers.Add(
                 new TrustAccountNumberVM(
                     tanIndex,

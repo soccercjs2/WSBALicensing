@@ -9,7 +9,7 @@
 
 <div class="row">
     <div class="col-lg-3 col-sm-6 dashboard-column">
-        <div class="demographic-container">
+        <div class="demographic-container margin-top">
             <div class="demographic-container-header fake-table">
                 <div class="demographic-container-title">License Types</div>
                 <div class="fake-table-cell nowrap button-fix">
@@ -26,7 +26,7 @@
             </div>
         </div>
 
-        <div class="demographic-container">
+        <div class="demographic-container margin-top">
             <div class="demographic-container-header fake-table">
                 <div class="demographic-container-title">License Periods</div>
                 <div class="fake-table-cell nowrap button-fix">
@@ -45,7 +45,7 @@
         </div>
     </div>
     <div class="col-lg-3 col-sm-6 dashboard-column">
-        <div class="demographic-container">
+        <div class="demographic-container margin-top">
             <div class="demographic-container-header">
                 <div class="demographic-container-title">Personify Codes</div>
             </div>
@@ -76,8 +76,10 @@
 
                 <b><u>Product Codes</u></b><br />
                 @Html.ActionLink("Donation Products", "Edit", "DonationProduct")<br />
+                @Html.ActionLink("Section Products", "Edit", "SectionProduct")<br />
                 @Html.ActionLink("License Products", "Edit", "LicenseProduct")<br />
-                @Html.ActionLink("Section Products", "Edit", "SectionProduct")
+                @Html.ActionLink("License Product Prices", "Edit", "LicenseProductPrices")<br />
+                @Html.ActionLink("Keller Discounts", "Edit", "KellerDiscount")<br />
             </div>
         </div>
     </div>

@@ -18,6 +18,11 @@ namespace Licensing.Data.Workers
             _context = context;
         }
 
+        public void DeleteFirmSize(FirmSize firmSize)
+        {
+            _context.FirmSizes.Remove(firmSize);
+        }
+
         public ICollection<FirmSizeOption> GetOptions()
         {
             return _context.FirmSizeOptions.ToList();

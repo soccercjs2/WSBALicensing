@@ -44,22 +44,40 @@ namespace Licensing.Business.Managers
             return _sectionWorker.GetProduct(code);
         }
 
-        public void AddSection(License license, int sectionProductId)
+        public void SetSection(License license, int sectionProductId)
         {
-            Section section = new Section();
-            section.Product = GetProduct(sectionProductId);
+            Section matchedSection = null;
 
-            license.Sections.Add(section);
+            if (license.Sections != null)
+            {
+                matchedSection = license.Sections.Where(s => s.Product.SectionProductId == sectionProductId).FirstOrDefault();
+            }
 
-            _context.SaveChanges();
+            if (matchedSection == null)
+            {
+                Section section = new Section();
+                section.Product = GetProduct(sectionProductId);
+
+                if (license.Sections == null)
+                {
+                    license.Sections = new List<Section>();
+                }
+
+                license.Sections.Add(section);
+
+                _context.SaveChanges();
+            }
         }
 
         public void DeleteSection(License license, int sectionProductId)
         {
-            Section section = license.Sections.Where(a => a.Product.SectionProductId == sectionProductId).FirstOrDefault();
-            _sectionWorker.DeleteSection(section);
+            if (license.Sections != null)
+            {
+                Section section = license.Sections.Where(a => a.Product.SectionProductId == sectionProductId).FirstOrDefault();
+                _sectionWorker.DeleteSection(section);
 
-            _context.SaveChanges();
+                _context.SaveChanges();
+            }
         }
 
         public void Confirm(License license)
@@ -70,7 +88,7 @@ namespace Licensing.Business.Managers
 
         public bool IsComplete(License license)
         {
-            return license.SectionsConfirmed;
+            return GetBalanceDue(license) <= 0;
         }
 
         public IList<SectionProduct> GetAmsOptions()
@@ -80,7 +98,7 @@ namespace Licensing.Business.Managers
 
             foreach (var code in codes)
             {
-                options.Add(new SectionProduct() { Name = code.Description, AmsCode = code.Code, Price = code.Price, Active = true });
+                options.Add(new SectionProduct() { Name = code.Description, AmsCode = code.Code, Price = code.Price, AmsProductId = code.ProductId, Active = true });
             }
 
             return options;
@@ -160,6 +178,85 @@ namespace Licensing.Business.Managers
             }
 
             return codesToDeleted;
+        }
+
+        public decimal GetBalanceDue(License license)
+        {
+            decimal balance = 0;
+
+            if (license.Sections != null)
+            {
+                foreach (var section in license.Sections)
+                {
+                    if (license.SectionOrder != null)
+                    {
+                        var transactions =
+                            (license.SectionOrder != null) ?
+                            license.SectionOrder.Transactions.Where(p => p.AmsCode == section.Product.AmsCode).ToList() :
+                            null;
+
+                        if (transactions == null) { balance += section.Product.Price; }
+                        else
+                        {
+                            decimal transactionTotal = 0;
+                            foreach (var transaction in transactions)
+                            {
+                                transactionTotal += transaction.Amount;
+                            }
+
+                            balance += section.Product.Price + transactionTotal;
+                        }
+                    }
+                    else { balance += section.Product.Price; }
+                }
+            }
+
+            return Math.Max(balance, 0);
+        }
+
+        public ICollection<SectionProductVM> GetSectionProductsWithBalance(License license, bool onlyProductsWithBalance)
+        {
+            if (license.Sections == null) { return null; }
+
+            var sectionProductVMs = license.Sections.Select(s =>
+                new SectionProductVM(s.Product, s.Product.Price + GetPaymentTotal(license, s.Product)));
+
+            if (onlyProductsWithBalance)
+            {
+                sectionProductVMs = sectionProductVMs.Where(spvm => spvm.Price > 0);
+            }
+
+            return sectionProductVMs.OrderByDescending(spvm => spvm.Price).ToList();
+        }
+
+        public ICollection<SectionProductVM> GetSectionProductsWithPayment(License license)
+        {
+            if (license.Sections == null) { return null; }
+
+            return license.Sections.Select(s =>
+                new SectionProductVM(s.Product, -GetPaymentTotal(license, s.Product)))
+                .Where(spvm => spvm.Price > 0)
+                .OrderByDescending(spvm => spvm.Price).ToList();
+        }
+
+        public decimal GetPaymentTotal(License license, SectionProduct sectionProduct)
+        {
+            var transactions = 
+                (license.SectionOrder != null) ?
+                license.SectionOrder.Transactions.Where(p => p.AmsCode == sectionProduct.AmsCode).ToList() :
+                null;
+
+            if (transactions == null) { return 0; }
+            else
+            {
+                decimal amountPaid = 0;
+                foreach (var transaction in transactions)
+                {
+                    amountPaid += transaction.Amount;
+                }
+
+                return amountPaid;
+            }
         }
 
         public DashboardContainerVM GetDashboardContainerVM(License license)

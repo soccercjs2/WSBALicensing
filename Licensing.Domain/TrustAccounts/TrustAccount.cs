@@ -10,6 +10,7 @@ namespace Licensing.Domain.TrustAccounts
     {
         public int TrustAccountId { get; set; }
         public bool HandlesTrustAccount { get; set; }
+        public int AmsSequenceNumber { get; set; }
         public virtual ICollection<TrustAccountNumber> TrustAccountNumbers { get; set; }
     }
 }

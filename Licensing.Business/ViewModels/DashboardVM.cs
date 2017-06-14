@@ -24,6 +24,7 @@ namespace Licensing.Business.ViewModels
         public DashboardContainerVM ProfessionalLiabilityInsurance { get; set; }
         public DashboardContainerVM FinancialResponsibility { get; set; }
         public DashboardContainerVM ProBono { get; set; }
+        public DashboardContainerVM MCLE { get; set; }
 
         //contact information
         public bool AgentOfServiceAddressRequired { get; set; }
@@ -47,5 +48,9 @@ namespace Licensing.Business.ViewModels
         public DashboardContainerVM Donations { get; set; }
         public DashboardContainerVM BarNews { get; set; }
         public DashboardContainerVM Payment { get; set; }
+        public decimal BalanceDue { get; set; }
+
+        //bulk payment
+        public DashboardContainerVM BulkPayment { get; set; }
     }
 }

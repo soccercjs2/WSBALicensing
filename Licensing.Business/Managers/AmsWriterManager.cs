@@ -63,8 +63,12 @@ namespace Licensing.Business.Managers
         {
             if (license.FinancialResponsibility != null && license.LicenseType.LicenseTypeRequirement.FinancialResponsibility != RequirementType.Excluded)
             {
-                WSBA.AMS.MemberManager.SetFinancialResponsibility(masterCustomerId, license.LicensePeriod.EndDate.Year,
-                    license.FinancialResponsibility.Option.AmsCode, license.FinancialResponsibility.Company, license.FinancialResponsibility.PolicyNumber);
+                int amsFinancialResponsibilityId = WSBA.AMS.MemberManager.SetFinancialResponsibility(masterCustomerId, license.LicensePeriod.EndDate.Year,
+                        license.FinancialResponsibility.Option.AmsCode, license.FinancialResponsibility.Company, license.FinancialResponsibility.PolicyNumber);
+
+                FinancialResponsibilityManager financialResponsibilityManager = new FinancialResponsibilityManager(_context);
+                financialResponsibilityManager.SetFinancialResponsibility(license, 
+                    license.FinancialResponsibility.Company, license.FinancialResponsibility.PolicyNumber, license.FinancialResponsibility.Option.CoveredByOptionId);
             }
         }
 
@@ -175,7 +179,7 @@ namespace Licensing.Business.Managers
                 modifyAddress.Address1 = primaryAddress.Address1;
                 modifyAddress.Address2 = primaryAddress.Address2;
                 modifyAddress.City = primaryAddress.City;
-                modifyAddress.State = primaryAddress.State.AmsCode;
+                modifyAddress.State = (primaryAddress.State != null) ? primaryAddress.State.AmsCode : null;
                 modifyAddress.PostalCode = primaryAddress.ZipCode;
                 modifyAddress.CountryCode = primaryAddress.Country.AmsCode;
 

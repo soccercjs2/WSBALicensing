@@ -12,5 +12,6 @@ namespace Licensing.Domain.Donations
         public string Name { get; set; }
         public string Description { get; set; }
         public string AmsCode { get; set; }
+        public int AmsProductId { get; set; }
     }
 }

@@ -18,6 +18,12 @@ namespace Licensing.Data.Workers
             _context = context;
         }
 
+        public void DeleteFinancialResponsibility(FinancialResponsibility financialResponsibility)
+        {
+            _context.FinancialResponsibilities.Remove(financialResponsibility);
+            _context.SaveChanges();
+        }
+
         public ICollection<CoveredByOption> GetOptions()
         {
             return _context.CoveredByOptions.ToList();

@@ -1,16 +1,16 @@
-﻿@model IEnumerable<Licensing.Domain.Licenses.LicenseTypeProduct>
+﻿@model IEnumerable<Licensing.Business.ViewModels.LicenseProductVM>
 
 @if (Model != null)
 {
     <div class="padded">
-        @foreach (var product in Model)
+        @foreach (var productVM in Model)
         {
             <div class="row padded-small fake-table">
                 <div class="inline bold fake-table-cell">
-                    @product.Product.Name
+                    @productVM.LicenseProduct.Name
                 </div>
                 <div class="inline fake-table-cell">
-                    $@product.Product.Price
+                    $@productVM.Price
                 </div>
             </div>
         }

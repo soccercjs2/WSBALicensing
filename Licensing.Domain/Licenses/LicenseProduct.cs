@@ -10,8 +10,9 @@ namespace Licensing.Domain.Licenses
     {
         public int LicenseProductId { get; set; }
         public string Name { get; set; }
-        public decimal Price { get; set; }
         public string AmsCode { get; set; }
-        public string AmsBasisKey { get; set; }
+        public int AmsProductId { get; set; }
+
+        public virtual ICollection<LicenseProductPrice> Prices { get; set; }
     }
 }

@@ -78,6 +78,12 @@ namespace Licensing.Business.Managers
             _context.SaveChanges();
         }
 
+        public void SetLateFeePercentage(LicenseType licenseType, decimal lateFeePercentage)
+        {
+            licenseType.LateFeePercentage = lateFeePercentage;
+            _context.SaveChanges();
+        }
+
         public DashboardContainerVM GetDashboardContainerVM(License license)
         {
             RouteContainer editRoute = new RouteContainer("MembershipType", "Edit", license.LicenseId);

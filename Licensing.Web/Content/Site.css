@@ -12,6 +12,7 @@
 .vertical-center {
     display: flex;
     align-items: center;
+    vertical-align: middle !important;
 }
 
 .inline {
@@ -66,6 +67,10 @@
     max-width: 280px;
 }
 
+.half-width-restricted {
+    max-width: 138px;
+}
+
 .non-button {
   background: transparent;
     border: 0px;
@@ -82,6 +87,18 @@
 }
 
 .required {
+    color: red;
+}
+
+.complete {
+    color: green;
+}
+
+.pending {
+    color: darkorange;
+}
+
+.incomplete {
     color: red;
 }
 
@@ -112,8 +129,17 @@
     text-align: right;
 }
 
+.align-right {
+    text-align: right;
+}
+
 .button-fix {
     padding-top: 1px;
+}
+
+.bulk-payment-title {
+    font-weight: bold;
+    color: red;
 }
 
 /* Table Styles */
@@ -133,4 +159,8 @@
 
 .alert {
     margin-bottom: 5px;
+}
+
+.large-font {
+    font-size: large;
 }

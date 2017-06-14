@@ -23,6 +23,11 @@ namespace Licensing.Business.Managers
             _sexualOrientationWorker = new SexualOrientationWorker(context);
         }
 
+        public void DeleteSexualOrientation(License license)
+        {
+            _sexualOrientationWorker.DeleteSexualOrientation(license.SexualOrientation);
+        }
+
         public ICollection<SexualOrientationOption> GetOptions()
         {
             return _sexualOrientationWorker.GetOptions();

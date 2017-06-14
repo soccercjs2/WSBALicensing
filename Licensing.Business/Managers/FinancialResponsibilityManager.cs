@@ -38,17 +38,32 @@ namespace Licensing.Business.Managers
             return _financialResponsibilityWorker.GetOption(amsCode);
         }
 
-        public void SetFinancialResponsibility(License license, string company, string policyNumber, int coveredById)
+        public void SetFinancialResponsibility(License license, int amsFinancialResponsibilityId, string company, string policyNumber, int coveredById)
         {
             CoveredByOption option = _financialResponsibilityWorker.GetOption(coveredById);
 
-            license.FinancialResponsibility = new FinancialResponsibility();
+            if (license.FinancialResponsibility == null)
+            {
+                license.FinancialResponsibility = new FinancialResponsibility();
+            }
+
+            license.FinancialResponsibility.AmsFinancialResponsibilityId = amsFinancialResponsibilityId;
             license.FinancialResponsibility.Company = company;
             license.FinancialResponsibility.PolicyNumber = policyNumber;
             license.FinancialResponsibility.Option = option;
             license.FinancialResponsibility.Confirmed = true;
 
             _context.SaveChanges();
+        }
+
+        public void SetFinancialResponsibility(License license, string company, string policyNumber, int coveredById)
+        {
+            SetFinancialResponsibility(license, 0, company, policyNumber, coveredById);
+        }
+
+        public void DeleteFinancialResponsibility(License license)
+        {
+            _financialResponsibilityWorker.DeleteFinancialResponsibility(license.FinancialResponsibility);
         }
 
         public void Confirm(FinancialResponsibility financialResponsibility)

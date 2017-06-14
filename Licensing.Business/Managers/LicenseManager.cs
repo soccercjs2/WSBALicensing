@@ -48,6 +48,7 @@ namespace Licensing.Business.Managers
             }
 
             amsUpdateManager.UpdateLicense(ref license);
+            amsUpdateManager.UpdateOrders(ref license);
 
             return license;
         }
@@ -67,9 +68,9 @@ namespace Licensing.Business.Managers
             return _licenseWorker.GetProduct(id);
         }
 
-        public LicenseProduct GetProduct(string code, string amsBasisKey)
+        public LicenseProduct GetProduct(string code)
         {
-            return _licenseWorker.GetProduct(code, amsBasisKey);
+            return _licenseWorker.GetProduct(code);
         }
 
         public void SetLastAmsUpdate(License license, DateTime lastAmsUpdate)
@@ -85,14 +86,7 @@ namespace Licensing.Business.Managers
 
             foreach (var code in codes)
             {
-                string amsBasisKey = null;
-
-                if (code.MinBasis != null || code.MaxBasis != null)
-                {
-                    amsBasisKey = code.MinBasis + "-" + code.MaxBasis;
-                }
-
-                options.Add(new LicenseProduct() { Name = code.Description, AmsCode = code.Code, AmsBasisKey = amsBasisKey, Price = code.Price, Active = true });
+                options.Add(new LicenseProduct() { Name = code.Description, AmsCode = code.Code, AmsProductId = code.ProductId, Active = true });
             }
 
             return options;
@@ -102,13 +96,12 @@ namespace Licensing.Business.Managers
         {
             if (option.LicenseProductId == 0)
             {
-                LicenseProduct existingCode = _licenseWorker.GetProduct(option.AmsCode, option.AmsBasisKey);
+                LicenseProduct existingCode = _licenseWorker.GetProduct(option.AmsCode);
 
                 if (existingCode != null)
                 {
                     existingCode.Active = true;
                     existingCode.Name = option.Name;
-                    existingCode.Price = option.Price;
                     option = existingCode;
                 }
             }
@@ -123,22 +116,19 @@ namespace Licensing.Business.Managers
 
         public IList<LicenseProduct> GetCodesToBeAdded(ICollection<LicenseProduct> codes, ICollection<LicenseProduct> amsCodes)
         {
-            return amsCodes.Where(ac => !codes.Any(c => c.AmsCode == ac.AmsCode && 
-                (c.AmsBasisKey == ac.AmsBasisKey || (c.AmsBasisKey == null && ac.AmsBasisKey == null)))).ToList();
+            return amsCodes.Where(ac => !codes.Any(c => c.AmsCode == ac.AmsCode)).ToList();
         }
 
         public IList<LicenseProduct> GetCodesToBeActivated(ICollection<LicenseProduct> codes, ICollection<LicenseProduct> amsCodes)
         {
             //get inactive codes
             codes = codes.Where(c => !c.Active).ToList();
-            return codes.Where(c => amsCodes.Any(ac => c.AmsCode == ac.AmsCode && 
-                (c.AmsBasisKey == ac.AmsBasisKey || (c.AmsBasisKey == null && ac.AmsBasisKey == null)))).ToList();
+            return codes.Where(c => amsCodes.Any(ac => c.AmsCode == ac.AmsCode)).ToList();
         }
 
         public IList<LicenseProduct> GetCodesToBeChanged(ICollection<LicenseProduct> codes, ICollection<LicenseProduct> amsCodes)
         {
-            return amsCodes.Where(ac => codes.Any(c => c.AmsCode == ac.AmsCode && (c.Name != ac.Name || c.Price != ac.Price) &&
-                (c.AmsBasisKey == ac.AmsBasisKey || (c.AmsBasisKey == null && ac.AmsBasisKey == null)))).ToList();
+            return amsCodes.Where(ac => codes.Any(c => c.AmsCode == ac.AmsCode && c.Name != ac.Name)).ToList();
         }
 
         public IList<LicenseProduct> GetCodesToBeDeactivated(ICollection<LicenseProduct> codes, ICollection<LicenseProduct> amsCodes)
@@ -146,8 +136,7 @@ namespace Licensing.Business.Managers
             //get active codes
             codes = codes.Where(c => c.Active).ToList();
 
-            IList<LicenseProduct> codesToRemove = codes.Where(c => !amsCodes.Any(ac => ac.AmsCode == c.AmsCode && 
-                (c.AmsBasisKey == ac.AmsBasisKey || (c.AmsBasisKey == null && ac.AmsBasisKey == null)))).ToList();
+            IList<LicenseProduct> codesToRemove = codes.Where(c => !amsCodes.Any(ac => ac.AmsCode == c.AmsCode)).ToList();
 
             IList<LicenseProduct> codesToDeactivate = new List<LicenseProduct>();
 
@@ -165,8 +154,7 @@ namespace Licensing.Business.Managers
 
         public IList<LicenseProduct> GetCodesToBeDeleted(ICollection<LicenseProduct> codes, ICollection<LicenseProduct> amsCodes)
         {
-            IList<LicenseProduct> codesToRemove = codes.Where(c => !amsCodes.Any(ac => ac.AmsCode == c.AmsCode &&
-                (c.AmsBasisKey == ac.AmsBasisKey || (c.AmsBasisKey == null && ac.AmsBasisKey == null)))).ToList();
+            IList<LicenseProduct> codesToRemove = codes.Where(c => !amsCodes.Any(ac => ac.AmsCode == c.AmsCode)).ToList();
 
             IList<LicenseProduct> codesToDeleted = new List<LicenseProduct>();
 
@@ -180,6 +168,95 @@ namespace Licensing.Business.Managers
             }
 
             return codesToDeleted;
+        }
+
+        public ICollection<LicenseProductPrice> GetPrices()
+        {
+            return _licenseWorker.GetPrices();
+        }
+
+        public void SetPrice(LicenseProductPrice price)
+        {
+            _licenseWorker.SetPrice(price);
+        }
+
+        public void DeletePrice(LicenseProductPrice price)
+        {
+            _licenseWorker.DeletePrice(price);
+        }
+
+        public IList<LicenseProductPrice> GetPricesToBeAdded(ICollection<LicenseProduct> codes)
+        {
+            IList <LicenseProductPrice> pricesToBeAdded = new List<LicenseProductPrice>();
+
+            foreach (LicenseProduct product in codes)
+            {
+                var amsPrices = WSBA.AMS.CodeTypesManager.GetProductPricingList(product.AmsCode);
+                var prices = _licenseWorker.GetPrices(product);
+
+                foreach (var amsPrice in amsPrices)
+                {
+                    var foundPrice = prices.Where(p => (p.AmsBasisFrom == amsPrice.MinBasis || (p.AmsBasisFrom == null && amsPrice.MinBasis == null)) &&
+                        (p.AmsBasisTo == amsPrice.MaxBasis || (p.AmsBasisTo == null && amsPrice.MaxBasis == null))).FirstOrDefault();
+
+                    if (foundPrice == null)
+                    {
+                        pricesToBeAdded.Add(new LicenseProductPrice()
+                        {
+                            LicenseProductId = product.LicenseProductId,
+                            Price = amsPrice.Price,
+                            AmsBasisFrom = amsPrice.MinBasis,
+                            AmsBasisTo = amsPrice.MaxBasis
+                        });
+                    }
+                }
+            }
+
+            return pricesToBeAdded;
+        }
+
+        public IList<LicenseProductPrice> GetPricesToBeChanged(ICollection<LicenseProduct> codes)
+        {
+            IList<LicenseProductPrice> pricesToBeChanged = new List<LicenseProductPrice>();
+
+            foreach (LicenseProduct product in codes)
+            {
+                var amsPrices = WSBA.AMS.CodeTypesManager.GetProductPricingList(product.AmsCode);
+                var prices = _licenseWorker.GetPrices(product);
+
+                foreach (var amsPrice in amsPrices)
+                {
+                    var foundPrice = prices.Where(p => (p.AmsBasisFrom == amsPrice.MinBasis || (p.AmsBasisFrom == null && amsPrice.MinBasis == null)) &&
+                        (p.AmsBasisTo == amsPrice.MaxBasis || (p.AmsBasisTo == null && amsPrice.MaxBasis == null)) &&
+                        p.Price != amsPrice.Price).FirstOrDefault();
+
+                    if (foundPrice != null)
+                    {
+                        foundPrice.Price = amsPrice.Price;
+                        pricesToBeChanged.Add(foundPrice);
+                    }
+                }
+            }
+
+            return pricesToBeChanged;
+        }
+
+        public IList<LicenseProductPrice> GetPricesToBeDeleted(ICollection<LicenseProduct> codes)
+        {
+            IList<LicenseProductPrice> pricesToBeDeleted = new List<LicenseProductPrice>();
+            var prices = _licenseWorker.GetPrices();
+
+            foreach (var price in prices)
+            {
+                var foundProduct = codes.Where(c => c.LicenseProductId == price.LicenseProductId).FirstOrDefault();
+
+                if (foundProduct == null)
+                {
+                    pricesToBeDeleted.Add(price);
+                }
+            }
+
+            return pricesToBeDeleted;
         }
     }
 }

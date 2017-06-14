@@ -23,6 +23,11 @@ namespace Licensing.Business.Managers
             _professionalLiabilityInsuranceWorker = new ProfessionalLiabilityInsuranceWorker(context);
         }
 
+        public void DeleteProfessionalLiabilityInsurance(License license)
+        {
+            _professionalLiabilityInsuranceWorker.DeleteProfessionalLiabilityInsurance(license.ProfessionalLiabilityInsurance);
+        }
+
         public ICollection<ProfessionalLiabilityInsuranceOption> GetOptions()
         {
             return _professionalLiabilityInsuranceWorker.GetOptions();
@@ -43,7 +48,12 @@ namespace Licensing.Business.Managers
             _professionalLiabilityInsuranceWorker.SetOption(option);
         }
 
-        public void SetProfessionalLiabilityInsuranceOption(License license, int optionId)
+        public void SetProfessionalLiabilityInsurance(License license, int optionId)
+        {
+            SetProfessionalLiabilityInsurance(license, 0, optionId);
+        }
+
+        public void SetProfessionalLiabilityInsurance(License license, int amsSequenceNumber, int optionId)
         {
             ProfessionalLiabilityInsuranceOption option = _professionalLiabilityInsuranceWorker.GetOption(optionId);
 
@@ -52,6 +62,7 @@ namespace Licensing.Business.Managers
                 license.ProfessionalLiabilityInsurance = new ProfessionalLiabilityInsurance();
             }
 
+            license.ProfessionalLiabilityInsurance.AmsSequenceNumber = amsSequenceNumber;
             license.ProfessionalLiabilityInsurance.Option = option;
 
             _context.SaveChanges();

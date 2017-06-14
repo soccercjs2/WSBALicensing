@@ -26,6 +26,7 @@ namespace Licensing.Business.Managers
             ProfessionalLiabilityInsuranceManager professionalLiabilityInsuranceManager = new ProfessionalLiabilityInsuranceManager(_context);
             FinancialResponsibilityManager financialResponsibilityManager = new FinancialResponsibilityManager(_context);
             ProBonoManager proBonoManager = new ProBonoManager(_context);
+            MCLEManager mcleManager = new MCLEManager(_context);
             AddressManager addressManager = new AddressManager(_context);
             EmailManager emailManager = new EmailManager(_context);
             PhoneNumberManager phoneNumberManager = new PhoneNumberManager(_context);
@@ -48,6 +49,7 @@ namespace Licensing.Business.Managers
             if (license.LicenseType.LicenseTypeRequirement.ProfessionalLiabilityInsurance == RequirementType.Required && !professionalLiabilityInsuranceManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
             if (license.LicenseType.LicenseTypeRequirement.FinancialResponsibility == RequirementType.Required && !financialResponsibilityManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
             if (license.LicenseType.LicenseTypeRequirement.ProBono == RequirementType.Required && !proBonoManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
+            if (license.LicenseType.LicenseTypeRequirement.MCLE == RequirementType.Required && !mcleManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
 
             if (license.LicenseType.LicenseTypeRequirement.PrimaryAddress == RequirementType.Required && !addressManager.IsComplete(addressManager.GetPrimaryAddress(license))) { licensingStatus = LicensingStatus.Incomplete; }
             if (license.LicenseType.LicenseTypeRequirement.HomeAddress == RequirementType.Required && !addressManager.IsComplete(addressManager.GetHomeAddress(license))) { licensingStatus = LicensingStatus.Incomplete; }
@@ -66,6 +68,7 @@ namespace Licensing.Business.Managers
             if (license.LicenseType.LicenseTypeRequirement.Disability == RequirementType.Required && !disabilityManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
             if (license.LicenseType.LicenseTypeRequirement.SexualOrientation == RequirementType.Required && !sexualOrientationManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
 
+            if (!membershipProductManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
             if (license.LicenseType.LicenseTypeRequirement.Sections == RequirementType.Required && !sectionManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
             if (license.LicenseType.LicenseTypeRequirement.Donations == RequirementType.Required && !donationManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
             if (license.LicenseType.LicenseTypeRequirement.BarNews == RequirementType.Required && !barNewsManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }

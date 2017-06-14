@@ -47,6 +47,7 @@
                             @Html.HiddenFor(m => m.IncludedSections[i].LicenseTypeSection.Product.Name)
                             @Html.HiddenFor(m => m.IncludedSections[i].LicenseTypeSection.Product.Price)
                             @Html.HiddenFor(m => m.IncludedSections[i].LicenseTypeSection.Product.AmsCode)
+                            @Html.HiddenFor(m => m.IncludedSections[i].LicenseTypeSection.Product.AmsProductId)
 
                             <tr>
                                 <td>@Model.IncludedSections[i].LicenseTypeSection.Product.Name</td>
@@ -84,6 +85,7 @@
                             @Html.HiddenFor(m => m.ExcludedSections[i].LicenseTypeSection.Product.Name)
                             @Html.HiddenFor(m => m.ExcludedSections[i].LicenseTypeSection.Product.Price)
                             @Html.HiddenFor(m => m.ExcludedSections[i].LicenseTypeSection.Product.AmsCode)
+                            @Html.HiddenFor(m => m.ExcludedSections[i].LicenseTypeSection.Product.AmsProductId)
 
                             <tr>
                                 <td>@Model.ExcludedSections[i].LicenseTypeSection.Product.Name</td>

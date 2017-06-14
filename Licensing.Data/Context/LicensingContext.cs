@@ -27,6 +27,11 @@ using Licensing.Domain.SexualOrientations;
 using Licensing.Domain.BarNews;
 using Licensing.Domain.Judicial;
 using Licensing.Domain.PracticeAreas;
+using Licensing.Domain.Transactions;
+using Licensing.Domain.Orders;
+using Licensing.Domain.Employers;
+using Licensing.Domain.Keller;
+using Licensing.Domain.Hardship;
 
 namespace Licensing.Data.Context
 {
@@ -62,6 +67,7 @@ namespace Licensing.Data.Context
         public DbSet<DisabilityOption> DisabilityOptions { get; set; }
         public DbSet<Donation> Donations { get; set; }
         public DbSet<DonationProduct> DonationProducts { get; set; }
+        public DbSet<Employer> Employers { get; set; }
         public DbSet<Ethnicity> Ethnicities { get; set; }
         public DbSet<EthnicityOption> EthnicityOptions { get; set; }
         public DbSet<FinancialResponsibility> FinancialResponsibilities { get; set; }
@@ -70,8 +76,10 @@ namespace Licensing.Data.Context
         public DbSet<FirmSizeOption> FirmSizeOptions { get; set; }
         public DbSet<Gender> Genders { get; set; }
         public DbSet<GenderOption> GenderOptions { get; set; }
+        public DbSet<HardshipExemptionRequest> HardshipExemptionRequests { get; set; }
         public DbSet<JudicialPosition> JudicialPositions { get; set; }
         public DbSet<JudicialPositionOption> JudicialPositionOptions { get; set; }
+        public DbSet<KellerDiscount> KellerDiscounts { get; set; }
         public DbSet<Language> Languages { get; set; }
         public DbSet<LanguageOption> LanguageOptions { get; set; }
         public DbSet<License> Licenses { get; set; }
@@ -82,21 +90,25 @@ namespace Licensing.Data.Context
         public DbSet<LicenseTypeSection> LicenseTypeSections { get; set; }
         public DbSet<LicensePeriod> LicensePeriods { get; set; }
         public DbSet<LicenseProduct> LicenseProducts { get; set; }
+        public DbSet<LicenseProductPrice> LicenseProductPrices { get; set; }
         public DbSet<PracticeArea> PracticeAreas { get; set; }
         public DbSet<PracticeAreaOption> PracticeAreaOptions { get; set; }
         public DbSet<ProBono> ProBonos { get; set; }
+        public DbSet<Order> Orders { get; set; }
         public DbSet<ProfessionalLiabilityInsurance> ProfessionalLiabilityInsurances { get; set; }
         public DbSet<ProfessionalLiabilityInsuranceOption> ProfessionalLiabilityInsuranceOptions { get; set; }
         public DbSet<Section> Sections { get; set; }
         public DbSet<SectionProduct> SectionProducts { get; set; }
         public DbSet<SexualOrientation> SexualOrientations { get; set; }
         public DbSet<SexualOrientationOption> SexualOrientationOptions { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
         public DbSet<TrustAccount> TrustAccounts { get; set; }
         public DbSet<TrustAccountNumber> TrustAccountNumbers { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            modelBuilder.Entity<KellerDiscount>().Property(x => x.DiscountPercentage).HasPrecision(18, 4);
         }
     }
 }

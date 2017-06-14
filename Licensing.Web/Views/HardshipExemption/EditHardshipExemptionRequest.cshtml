@@ -1,0 +1,122 @@
+﻿@model Licensing.Business.ViewModels.HardshipExemptionRequestVM
+
+@{
+    ViewBag.Title = "Edit Hardship Exemption Request";
+}
+
+<h2>Hardship Exemption</h2>
+
+<hr />
+
+@using (Html.BeginForm("Edit", "HardshipExemption", FormMethod.Post))
+{
+    <div>
+        @Html.HiddenFor(m => m.LicenseId)
+        @Html.HiddenFor(m => m.Name)
+        @Html.HiddenFor(m => m.BarNumber)
+        @Html.HiddenFor(m => m.LateFeeDate)
+        @Html.HiddenFor(m => m.Attested)
+        @Html.HiddenFor(m => m.HardshipExemptionRequest.HardshipExemptionRequestId)
+
+        <p><b>Article III, section I of the bylaws provides:</b></p>
+        <div style="margin-left:20px;">
+            <p>5. License Fee and Assessment Exemptions Due to Hardship</p>
+            <p>
+                In case of proven extreme financial hardship, which must entail a current annual household income equal to or less than 200% of the federal poverty level
+                as determined based on the member's household income for the calendar year immediately preceding the calendar year for which the member is seeking to be
+                exempted from license fees, the Executive Director may grant a one-time exemption from payment of annual license fees and assessments by any Active
+                member. Hardship exemptions are for one licensing period only, and a request must be submitted on or before February 1st of the year for which the
+                exemption is requested. Denial of an exemption request is not appealable.
+            </p>
+        </div>
+        <hr />
+        <!-- Poverty grid -->
+        <div align="center">
+            <p><b>The @(Model.LateFeeDate.Year - 1) Federal Poverty Guidelines for the 48 Contiguous States and the District of Columbia</b></p>
+            <table>
+                <tr class="gridHeader">
+                    <td class="hardshipExemptions_header">Persons in Family</td>
+                    <td class="hardshipExemptions_header">Annual <span class="style1">Gross Household</span> Income - Poverty Guideline</td>
+                    <td class="hardshipExemptions_header">200%</td>
+                </tr>
+                <tr>
+                    <td class="hardshipExemptions_cells">1</td>
+                    <td class="hardshipExemptions_cells">$11,880</td>
+                    <td class="hardshipExemptions_cells">$23,760</td>
+                </tr>
+                <tr>
+                    <td class="hardshipExemptions_cells">2</td>
+                    <td class="hardshipExemptions_cells">$16,020</td>
+                    <td class="hardshipExemptions_cells">$32,040</td>
+                </tr>
+                <tr>
+                    <td class="hardshipExemptions_cells">3</td>
+                    <td class="hardshipExemptions_cells">$20,160</td>
+                    <td class="hardshipExemptions_cells">$40,320</td>
+                </tr>
+                <tr>
+                    <td class="hardshipExemptions_cells">4</td>
+                    <td class="hardshipExemptions_cells">$24,300</td>
+                    <td class="hardshipExemptions_cells">$48,600</td>
+                </tr>
+                <tr>
+                    <td class="hardshipExemptions_cells">5</td>
+                    <td class="hardshipExemptions_cells">$28,440</td>
+                    <td class="hardshipExemptions_cells">$56,880</td>
+                </tr>
+                <tr>
+                    <td class="hardshipExemptions_cells">6</td>
+                    <td class="hardshipExemptions_cells">$32,580</td>
+                    <td class="hardshipExemptions_cells">$65,160</td>
+                </tr>
+                <tr>
+                    <td class="hardshipExemptions_cells">7</td>
+                    <td class="hardshipExemptions_cells">$36,730</td>
+                    <td class="hardshipExemptions_cells">$73,460</td>
+                </tr>
+                <tr>
+                    <td class="hardshipExemptions_cells">8</td>
+                    <td class="hardshipExemptions_cells">$40,890</td>
+                    <td class="hardshipExemptions_cells">$81,780</td>
+                </tr>
+                <tr>
+                    <td class="hardshipExemptions_cells" colspan="3" align="center">For families with more than 8 persons, add $4,160 for each additional person.</td>
+                </tr>
+            </table>
+        </div>
+        <hr />
+
+        <p>
+            If your request is denied and payment is not made online or postmarked or received by @Model.LateFeeDate.ToShortDateString(), a 30% late fee will be assessed.
+            You will only be denied if you do not meet the criteria outlined in the bylaw. Supporting documentation may be requested.<br /><br />
+        </p>
+
+        <hr />
+
+        <div class="row margin-top">
+            @Html.CheckBoxFor(m => m.Attested) I, @Model.Name, WSBA #@Model.BarNumber, hereby submit a request for a <b>one-time</b> exemption 
+            from payment of the annual license fee and assessment for the @Model.LateFeeDate.Year license year, based on the following:
+        </div>
+
+        <hr />
+
+        <div>
+            <div>
+                @Html.LabelFor(m => m.HardshipExemptionRequest.Income)
+                @Html.TextBoxFor(m => m.HardshipExemptionRequest.Income, new { @class = "form-control width-restricted" })
+            </div>
+
+            <div>
+                @Html.LabelFor(m => m.HardshipExemptionRequest.FamilySize)
+                @Html.TextBoxFor(m => m.HardshipExemptionRequest.FamilySize, new { @class = "form-control width-restricted" })
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+        @Html.ActionLink("Cancel", "Index", "Home", null, new { @class = "btn btn-primary" })
+        <input class="btn btn-success" type="submit" value="Save" />
+    </div>
+}

@@ -40,6 +40,7 @@
         @if (Model.ProfessionalLiabilityInsurance.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.ProfessionalLiabilityInsurance) }
         @if (Model.FinancialResponsibility.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.FinancialResponsibility) }
         @if (Model.ProBono.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.ProBono) }
+        @if (Model.MCLE.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.MCLE) }
     </div>
     <div class="col-lg-3 col-sm-6 dashboard-column">
         <span class="dashboard-column-title">Contact Information</span>
@@ -62,22 +63,49 @@
     </div>
     <div class="col-lg-3 col-sm-6 dashboard-column">
         <span class="dashboard-column-title">Payment</span>
-        @Html.Partial("_DashboardContainer", @Model.MembershipProducts)
-        @if (Model.Sections.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.Sections) }
-        @if (Model.Donations.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.Donations) }
-        @if (Model.BarNews.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.BarNews) }
-        
-        <div class="row margin-top">
-            <table class="full-width">
-                <tr>
-                    <td class="half-width">
-                        @Html.ActionLink("Save", "Save", "Home", new { Id = Model.LicenseId }, new { @class = "btn btn-primary full-width" })
-                    </td>
-                    <td class="half-width">
-                        <button type="button" class="btn btn-success full-width">Pay Now!</button>
-                    </td>
-                </tr>
-            </table>
-        </div>
+
+        @if (Model.BulkPayment == null)
+        {
+            @Html.Partial("_DashboardContainer", @Model.MembershipProducts)
+
+            if (Model.Sections.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.Sections) }
+            if (Model.Donations.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.Donations) }
+            if (Model.BarNews.RequirementType != RequirementType.Excluded) { @Html.Partial("_DashboardContainer", @Model.BarNews) }
+
+            <div class="dashboard-container @(Model.BalanceDue == 0 ? "complete-border" : "")">
+                <div class="row dashboard-container-header fake-table @(Model.BalanceDue == 0 ? "complete-background-color" : "")">
+                    <div class="dashboard-container-title fake-table-cell">
+                        Balance Due
+                    </div>
+                    <div class="vertical-center fake-table-cell @(Model.BalanceDue == 0 ? "bold":"")">
+                        $@Model.BalanceDue
+                    </div>
+                </div>
+            </div>
+
+            <div class="row margin-top">
+                <table class="full-width">
+                    <tr>
+                        <td class="half-width">
+                            @Html.ActionLink("Save", "Save", "Home", new { Id = Model.LicenseId }, new { @class = "btn btn-primary full-width" })
+                        </td>
+                        <td class="half-width">
+                            @if (Model.BalanceDue > 0)
+                            {
+                                @Html.ActionLink("Pay Now!", "Checkout", "Payment", new { Id = Model.LicenseId }, new { @class = "btn btn-success full-width" })
+                            }
+                            else
+                            {
+                                @Html.ActionLink("View Receipt", "Receipt", "Payment", new { Id = Model.LicenseId }, new { @class = "btn btn-default full-width" })
+                            }
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        }
+        else
+        {
+            @Html.Partial("_DashboardContainer", @Model.BulkPayment)
+        }
     </div>
 </div>

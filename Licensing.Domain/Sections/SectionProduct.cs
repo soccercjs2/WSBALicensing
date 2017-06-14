@@ -12,5 +12,6 @@ namespace Licensing.Domain.Sections
         public string Name { get; set; }
         public decimal Price { get; set; }
         public string AmsCode { get; set; }
+        public int AmsProductId { get; set; }
     }
 }

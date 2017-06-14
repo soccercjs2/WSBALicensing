@@ -7,14 +7,21 @@
 
         @if (Model.Address2 != null)
         {
-        <div class="row">@Model.Address2</div>
+            <div class="row">@Model.Address2</div>
         }
 
-        <div class="row">@Model.City, @Model.State.AmsCode @Model.ZipCode</div>
+        <div class="row">
+            @Model.City, 
+
+            @if (Model.State != null)
+            { @Model.State.AmsCode }
+
+            @Model.ZipCode
+        </div>
 
         @if (Model.Country.AmsCode != "USA")
         {
-            <div class="row">@Model.Country</div>
+            <div class="row">@Model.Country.Name</div>
         }
     </div>
 }

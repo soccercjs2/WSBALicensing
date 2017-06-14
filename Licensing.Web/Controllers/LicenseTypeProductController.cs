@@ -41,27 +41,45 @@ namespace Licensing.Web.Controllers
                 LicenseTypeManager licenseTypeManager = new LicenseTypeManager(_context);
                 LicenseType licenseType = licenseTypeManager.GetLicenseType(licenseTypeProductsVM.LicenseTypeId);
 
+                licenseTypeManager.SetLateFeePercentage(licenseType, licenseTypeProductsVM.LateFeePercentage);
+
                 LicenseTypeProductManager licenseTypeProductManager = new LicenseTypeProductManager(_context);
 
                 if (licenseTypeProductsVM.ExcludedProducts != null)
                 {
                     foreach (LicenseTypeProductVM productVM in licenseTypeProductsVM.ExcludedProducts)
                     {
-                        if (productVM.Flag)
+                        if (productVM.Primary || productVM.Other || productVM.LateFee)
                         {
-                            licenseTypeProductManager.AddLicenseTypeProduct(licenseType, productVM.LicenseTypeProduct);
+                            licenseTypeProductManager.AddLicenseTypeProduct(licenseType, productVM.LicenseTypeProduct, productVM.Primary, productVM.LateFee);
                         }
                     }
                 }
 
-                if (licenseTypeProductsVM.IncludedProducts != null)
+                if (licenseTypeProductsVM.PrimaryProduct != null)
                 {
-                    foreach (LicenseTypeProductVM productVM in licenseTypeProductsVM.IncludedProducts)
+                    if (licenseTypeProductsVM.PrimaryProduct.Delete)
                     {
-                        if (productVM.Flag)
+                        licenseTypeProductManager.DeleteLicenseTypeProduct(licenseType, licenseTypeProductsVM.PrimaryProduct.LicenseTypeProduct);
+                    }
+                }
+
+                if (licenseTypeProductsVM.OtherProducts != null)
+                {
+                    foreach (LicenseTypeProductVM productVM in licenseTypeProductsVM.OtherProducts)
+                    {
+                        if (productVM.Delete)
                         {
                             licenseTypeProductManager.DeleteLicenseTypeProduct(licenseType, productVM.LicenseTypeProduct);
                         }
+                    }
+                }
+
+                if (licenseTypeProductsVM.LateFeeProduct != null)
+                {
+                    if (licenseTypeProductsVM.LateFeeProduct.Delete)
+                    {
+                        licenseTypeProductManager.DeleteLicenseTypeProduct(licenseType, licenseTypeProductsVM.LateFeeProduct.LicenseTypeProduct);
                     }
                 }
 

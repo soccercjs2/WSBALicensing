@@ -222,6 +222,7 @@
     <Compile Include="Controllers\AddressTypeController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AreaOfPracticeOptionController.cs" />
+    <Compile Include="Controllers\HardshipExemptionController.cs" />
     <Compile Include="Controllers\DisabilityOptionController.cs" />
     <Compile Include="Controllers\DonationProductController.cs" />
     <Compile Include="Controllers\EthnicityOptionController.cs" />
@@ -230,10 +231,13 @@
     <Compile Include="Controllers\JudicialPositionOptionController.cs" />
     <Compile Include="Controllers\DemographicsController.cs" />
     <Compile Include="Controllers\CoveredByOptionController.cs" />
+    <Compile Include="Controllers\KellerDiscountController.cs" />
     <Compile Include="Controllers\LanguageOptionController.cs" />
     <Compile Include="Controllers\LicensePeriodController.cs" />
+    <Compile Include="Controllers\LicenseProductPricesController.cs" />
     <Compile Include="Controllers\LicenseProductController.cs" />
     <Compile Include="Controllers\LicenseTypeController.cs" />
+    <Compile Include="Controllers\LicenseTypeKellerDiscountController.cs" />
     <Compile Include="Controllers\LicenseTypeDonationController.cs" />
     <Compile Include="Controllers\LicenseTypeProductController.cs" />
     <Compile Include="Controllers\LicenseTypeRequirementController.cs" />
@@ -326,11 +330,13 @@
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="Content\TrustAccount.css" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\WSBA_logo.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Fonts\C39_60HB.TTF" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
@@ -431,26 +437,23 @@
     <Content Include="Views\Sections\EditLicenseTypeSections.cshtml" />
     <Content Include="Views\Donation\EditLicenseTypeDonations.cshtml" />
     <Content Include="Views\ProfessionalLiabilityInsurance\EditProfessionalLiabilityInsuranceOption.cshtml" />
+    <Content Include="Views\License\EditLicenseProductPrices.cshtml" />
+    <Content Include="Views\Payment\Checkout.cshtml" />
+    <Content Include="Views\Payment\Receipt.cshtml" />
+    <Content Include="Views\Shared\_BulkPayment.cshtml" />
+    <Content Include="Views\Shared\_MCLE.cshtml" />
+    <Content Include="Views\Keller\EditKellerDiscounts.cshtml" />
+    <Content Include="Views\Keller\EditLicenseTypeKellerDiscount.cshtml" />
+    <Content Include="Views\HardshipExemption\EditHardshipExemptionRequest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\AddressCountry\" />
-    <Folder Include="Views\AddressState\" />
-    <Folder Include="Views\DonationProduct\" />
-    <Folder Include="Views\LicenseProduct\" />
-    <Folder Include="Views\LicenseTypeDonation\" />
-    <Folder Include="Views\LicenseTypeRequirement\" />
-    <Folder Include="Views\LicenseTypeSection\" />
-    <Folder Include="Views\PhoneNumberCountry\" />
-    <Folder Include="Views\PhoneNumberType\" />
-    <Folder Include="Views\ProfessionalLiabilityInsuranceOption\" />
-    <Folder Include="Views\SectionProducts\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
   </ItemGroup>

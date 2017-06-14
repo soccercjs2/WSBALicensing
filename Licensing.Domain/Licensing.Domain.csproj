@@ -57,6 +57,7 @@
     <Compile Include="Disabilities\DisabilityOption.cs" />
     <Compile Include="Donations\Donation.cs" />
     <Compile Include="Donations\DonationProduct.cs" />
+    <Compile Include="Employers\Employer.cs" />
     <Compile Include="Enums\RequirementType.cs" />
     <Compile Include="Ethnicities\Ethnicity.cs" />
     <Compile Include="Ethnicities\EthnicityOption.cs" />
@@ -66,11 +67,14 @@
     <Compile Include="Firm Sizes\FirmSizeOption.cs" />
     <Compile Include="Genders\Gender.cs" />
     <Compile Include="Genders\GenderOption.cs" />
+    <Compile Include="HardshipExemption\HardshipExemptionRequest.cs" />
     <Compile Include="Judicial\JudicialPosition.cs" />
     <Compile Include="Judicial\JudicialPositionOption.cs" />
+    <Compile Include="Keller\KellerDiscount.cs" />
     <Compile Include="Languages\Language.cs" />
     <Compile Include="Languages\LanguageOption.cs" />
     <Compile Include="Licenses\License.cs" />
+    <Compile Include="Licenses\LicenseProductPrice.cs" />
     <Compile Include="Licenses\LicenseType.cs" />
     <Compile Include="Licenses\LicenseTypeProduct.cs" />
     <Compile Include="Licenses\LicenseTypeRequirement.cs" />
@@ -78,6 +82,9 @@
     <Compile Include="Licenses\LicenseTypeSection.cs" />
     <Compile Include="Licenses\LicensePeriod.cs" />
     <Compile Include="Licenses\LicenseProduct.cs" />
+    <Compile Include="MCLE\MCLETranscript.cs" />
+    <Compile Include="Orders\Order.cs" />
+    <Compile Include="Transactions\Transaction.cs" />
     <Compile Include="Practice Areas\PracticeArea.cs" />
     <Compile Include="Practice Areas\PracticeAreaOption.cs" />
     <Compile Include="Activatable.cs" />

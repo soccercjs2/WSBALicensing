@@ -1,0 +1,230 @@
+﻿@model Licensing.Business.ViewModels.CheckoutVM
+
+@{
+    ViewBag.Title = "Checkout";
+}
+
+<h2>Checkout</h2>
+
+<hr class="narrow-hr" />
+
+@using (Html.BeginForm("Checkout", "Payment", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.LicenseId)
+    @Html.HiddenFor(m => m.Total)
+    @Html.HiddenFor(m => m.KellerRequirementType)
+    @Html.HiddenFor(m => m.HasKellerDeduction)
+
+    <div class="row">
+        <div class="col-xs-12 col-md-8 dashboard-column">
+            <div>
+                @if (Model.LicenseProducts != null && Model.LicenseProducts.Count > 0)
+                {
+                    for (int i = 0; i < Model.LicenseProducts.Count; i++)
+                    {
+                        @Html.HiddenFor(m => m.LicenseProducts[i].Price)
+                        @Html.HiddenFor(m => m.LicenseProducts[i].PrimaryProduct)
+                        @Html.HiddenFor(m => m.LicenseProducts[i].LateFeeProduct)
+                        @Html.HiddenFor(m => m.LicenseProducts[i].LicenseProduct.LicenseProductId)
+                        @Html.HiddenFor(m => m.LicenseProducts[i].LicenseProduct.Name)
+                        @Html.HiddenFor(m => m.LicenseProducts[i].LicenseProduct.AmsCode)
+                        @Html.HiddenFor(m => m.LicenseProducts[i].LicenseProduct.AmsProductId)
+                        @Html.HiddenFor(m => m.LicenseProducts[i].LicenseProduct.Active)
+
+                        <div class="row padded-small fake-table">
+                            <div class="inline fake-table-cell">
+                                @Model.LicenseProducts[i].LicenseProduct.Name
+                            </div>
+                            <div class="inline fake-table-cell">
+                                $@Model.LicenseProducts[i].Price
+                            </div>
+                        </div>
+                    }
+                }
+
+                @if (Model.DonationProducts != null && Model.DonationProducts.Count > 0)
+                {
+                    if (Model.LicenseProducts != null && Model.LicenseProducts.Count > 0)
+                    {
+                        <hr class="narrow-hr" />
+                    }
+
+                    for (int i = 0; i < Model.DonationProducts.Count; i++)
+                    {
+                        @Html.HiddenFor(m => m.DonationProducts[i].DonationProductId)
+                        @Html.HiddenFor(m => m.DonationProducts[i].Amount)
+                        @Html.HiddenFor(m => m.DonationProducts[i].DonationProductId)
+                        @Html.HiddenFor(m => m.DonationProducts[i].Name)
+                        @Html.HiddenFor(m => m.DonationProducts[i].AmsCode)
+                        @Html.HiddenFor(m => m.DonationProducts[i].AmsProductId)
+                        @Html.HiddenFor(m => m.DonationProducts[i].Description)
+
+                        <div class="row padded-small fake-table">
+                            <div class="inline fake-table-cell">
+                                @Model.DonationProducts[i].Name
+                            </div>
+                            <div class="inline fake-table-cell">
+                                $@Model.DonationProducts[i].Amount
+                            </div>
+                        </div>
+                    }
+                }
+
+                @if (Model.SectionProducts != null && Model.SectionProducts.Count > 0)
+                {
+                    if ((Model.LicenseProducts != null && Model.LicenseProducts.Count > 0) ||
+                        (Model.DonationProducts != null && Model.DonationProducts.Count > 0))
+                    {
+                        <hr class="narrow-hr" />
+                    }
+
+                    for (int i = 0; i < Model.SectionProducts.Count; i++)
+                    {
+                        @Html.HiddenFor(m => m.SectionProducts[i].SectionProductId)
+                        @Html.HiddenFor(m => m.SectionProducts[i].Name)
+                        @Html.HiddenFor(m => m.SectionProducts[i].Price)
+                        @Html.HiddenFor(m => m.SectionProducts[i].PreSelected)
+                        @Html.HiddenFor(m => m.SectionProducts[i].Selected)
+                        @Html.HiddenFor(m => m.SectionProducts[i].AmsCode)
+                        @Html.HiddenFor(m => m.SectionProducts[i].AmsProductId)
+
+                        <div class="row padded-small fake-table">
+                            <div class="inline fake-table-cell">
+                                @Model.SectionProducts[i].Name Section
+                            </div>
+                            <div class="inline fake-table-cell">
+                                $@Model.SectionProducts[i].Price
+                            </div>
+                        </div>
+                    }
+                }
+
+                <hr class="narrow-hr" />
+
+                <div class="bold large-font align-right">
+                    Total: $@Model.Total
+                </div>
+            </div>
+
+            @if (Model.KellerRequirementType != Licensing.Domain.Enums.RequirementType.Excluded)
+            {
+                <div class="demographic-container margin-top">
+                    <div class="demographic-container-header">
+                        <div class="demographic-container-title">Keller Deduction</div>
+                    </div>
+                    <div class="demographics-container-body">
+                        Blah blah blah... here is some stuff about Keller Deductions. There are a lot of good details that can be shared about Keller Deductions
+                        like how it decreases your licensing fee, and other things!
+
+                        @if (Model.HasKellerDeduction)
+                        {
+                            <button class="btn btn-link" name="submit" type="submit" value="RemoveKeller">Remove the Keller Deduction from my License Renewal</button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-link" name="submit" type="submit" value="AddKeller">Add the Keller Deduction to my License Renewal</button>
+                        }
+                    </div>
+                </div>
+            }
+
+            @if (Model.HardshipExemptionRequestRequirementType != Licensing.Domain.Enums.RequirementType.Excluded)
+            {
+                <div class="demographic-container margin-top">
+                    <div class="demographic-container-header">
+                        <div class="demographic-container-title">Hardship Exemption Request</div>
+                    </div>
+
+                    @if (Model.HasHardshipExemptionRequest)
+                    {
+                        <div class="demographics-container-body">
+                            <b>WARNING:</b> You have requested a Hardship Exemption to your licensing fee. You will be contacted regarding the status of your request.
+                            Please wait to be contacted before submitting payment.
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="demographics-container-body">
+                            A member with proven extreme financial hardship may request a one-time exemption from payment of the license fee and assessment.<br />
+                            @Html.ActionLink("Request a Financial Hardship Exemption", "Edit", "HardshipExemption", new { Id = Model.LicenseId }, new { @class = "btn btn-link" })
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+        <div class="col-xs-12 col-md-4 dashboard-column">
+            <div class="demographic-container">
+                <div class="demographics-container-body">
+                    <p>
+                        <b>Please note:</b> Our service provider will charge you a separate, non-deductible transaction fee of 2.5% on all bank card transactions.
+                        There is no transaction fee if you print an invoice and mail in your donation.
+                    </p>
+
+                    <div>
+                        @Html.RadioButton("PM", "Check", false, new { @onclick = "ShowPaymentMethod('Check');" }) Mail Check<br />
+                        @Html.RadioButton("PM", "CreditCard", false, new { @onclick = "ShowPaymentMethod('CreditCard');" }) Credit Card (with 2.5% transaction fee)<br />
+                        @Html.RadioButton("PM", "EFT", false, new { @onclick = "ShowPaymentMethod('EFT');" }) Electronic Funds Transfer
+                    </div>
+
+                    <div id="divCheck" class="padded hidden">
+                        <hr class="narrow-hr" />
+
+                        Please print an invoice using the button below and mail it with your check.<br /><br />
+                        <button class="btn btn-success" name="submit" type="submit" value="Check">Print Invoice</button>
+                    </div>
+
+                    <div id="divCreditCard" class="padded hidden">
+                        <hr class="narrow-hr" />
+
+                        @Html.LabelFor(m => m.CreditCardType)
+                        @Html.DropDownListFor(m => m.CreditCardType, Model.CreditCardTypes, new { @class = "form-control width-restricted" })
+
+                        @Html.LabelFor(m => m.CreditCardNumber)
+                        @Html.TextBoxFor(m => m.CreditCardNumber, new { @class = "form-control width-restricted" })
+
+                        @Html.LabelFor(m => m.SecurityCode)
+                        @Html.TextBoxFor(m => m.SecurityCode, new { @class = "form-control width-restricted" })
+
+                        @Html.LabelFor(m => m.ExpirationMonth)
+                        <div>
+                            @Html.DropDownListFor(m => m.ExpirationMonth, Model.ExpirationMonths, new { @class = "form-control half-width-restricted inline" })
+                            @Html.DropDownListFor(m => m.ExpirationYear, Model.ExpirationYears, new { @class = "form-control half-width-restricted inline" })
+                        </div>
+
+                        @Html.LabelFor(m => m.NameOnCard)
+                        @Html.TextBoxFor(m => m.NameOnCard, new { @class = "form-control width-restricted" })
+                        
+                        <br />
+                        <button class="btn btn-success" name="submit" type="submit" value="CreditCard">Submit Payment</button>
+                    </div>
+
+                    <div id="divEFT" class="padded hidden">
+                        <hr class="narrow-hr" />
+
+                        @Html.LabelFor(m => m.RoutingNumber)
+                        @Html.TextBoxFor(m => m.RoutingNumber, new { @class = "form-control width-restricted" })
+
+                        @Html.LabelFor(m => m.AccountNumber)
+                        @Html.TextBoxFor(m => m.AccountNumber, new { @class = "form-control width-restricted" })
+
+                        <br />
+                        <button class="btn btn-success" name="submit" type="submit" value="EFT">Submit Payment</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    function ShowPaymentMethod(method) {
+        if (method == 'Check') { $("#divCheck").removeClass("hidden"); }
+        else { $("#divCheck").addClass("hidden"); }
+
+        if (method == 'CreditCard') { $("#divCreditCard").removeClass("hidden"); }
+        else { $("#divCreditCard").addClass("hidden"); }
+
+        if (method == 'EFT') { $("#divEFT").removeClass("hidden"); }
+        else { $("#divEFT").addClass("hidden"); }
+    }
+</script>

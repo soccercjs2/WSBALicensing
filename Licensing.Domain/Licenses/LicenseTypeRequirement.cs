@@ -27,6 +27,7 @@ namespace Licensing.Domain.Licenses
         public RequirementType FinancialResponsibility { get; set; }
         [Display(Name = "Pro Bono")]
         public RequirementType ProBono { get; set; }
+        public RequirementType MCLE { get; set; }
 
         //contact information
         [Display(Name = "Primary Address")]
@@ -63,5 +64,9 @@ namespace Licensing.Domain.Licenses
         public RequirementType Sections { get; set; }
         [Display(Name = "Bar News")]
         public RequirementType BarNews { get; set; }
+        [Display(Name = "Hardship Exemption")]
+        public RequirementType HardshipExemption { get; set; }
+        [Display(Name = "Keller Deduction")]
+        public RequirementType KellerDeduction { get; set; }
     }
 }

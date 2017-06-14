@@ -25,12 +25,33 @@
         {
             <tr>
                 @Html.HiddenFor(m => m.Products[i].SectionProductId)
+                @Html.HiddenFor(m => m.Products[i].AmsCode)
                 @Html.HiddenFor(m => m.Products[i].Name)
                 @Html.HiddenFor(m => m.Products[i].PreSelected)
+                @Html.HiddenFor(m => m.Products[i].Paid)
 
-                <td class="padded-sides">@Html.CheckBoxFor(o => Model.Products[i].Selected)</td>
+                <td class="padded-sides">
+                    @if (Model.Products[i].Paid)
+                    {
+                        @Html.HiddenFor(m => m.Products[i].Selected)
+                        @Html.CheckBoxFor(o => Model.Products[i].Selected, new { @disabled = "disabled" })
+                    }
+                    else
+                    {
+                        @Html.CheckBoxFor(o => Model.Products[i].Selected)
+                    }
+                </td>
                 <td class="padded-sides">@Model.Products[i].Name</td>
-                <td class="padded-sides">$@Model.Products[i].Price</td>
+                <td class="padded-sides">
+                    @if (Model.Products[i].Paid)
+                    {
+                        <b>Paid</b>
+                    }
+                    else
+                    {
+                        <span>$@Model.Products[i].Price</span>
+                    }
+                </td>
             </tr>
         }
     </table>

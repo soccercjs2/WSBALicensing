@@ -23,6 +23,11 @@ namespace Licensing.Business.Managers
             _ethnicityWorker = new EthnicityWorker(context);
         }
 
+        public void DeleteEthnicity(License license)
+        {
+            _ethnicityWorker.DeleteEthnicity(license.Ethnicity);
+        }
+
         public ICollection<EthnicityOption> GetOptions()
         {
             return _ethnicityWorker.GetOptions();

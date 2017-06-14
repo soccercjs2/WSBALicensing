@@ -80,16 +80,16 @@ namespace Licensing.Business.Managers
         {
             PracticeArea practiceArea = license.PracticeAreas.Where(a => a.Option.PracticeAreaOptionId == practiceAreaOptionId).FirstOrDefault();
             _practiceAreaWorker.DeletePracticeArea(practiceArea);
-
-            _context.SaveChanges();
         }
 
         public void DeletePracticeArea(License license, PracticeAreaOption option)
         {
             PracticeArea practiceArea = license.PracticeAreas.Where(a => a.Option.PracticeAreaOptionId == option.PracticeAreaOptionId).FirstOrDefault();
-            _practiceAreaWorker.DeletePracticeArea(practiceArea);
 
-            _context.SaveChanges();
+            if (practiceArea != null)
+            {
+                _practiceAreaWorker.DeletePracticeArea(practiceArea);
+            }
         }
 
         public void Confirm(License license)

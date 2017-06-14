@@ -19,6 +19,11 @@ namespace Licensing.Data.Workers
             _context = context;
         }
 
+        public void DeleteGender(Gender gender)
+        {
+            _context.Genders.Remove(gender);
+        }
+
         public ICollection<GenderOption> GetOptions()
         {
             return _context.GenderOptions.ToList();

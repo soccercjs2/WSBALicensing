@@ -1,0 +1,36 @@
+﻿@model Licensing.Business.ViewModels.EmployerVM
+
+@if (Model != null)
+{
+    <div class="padded">
+        @if (Model.LicensingBalance > 0)
+        {
+            <p class="bulk-payment-title">Our records indicate that your employer, @Model.Employer.Name, is paying for this year's licensing fees.</p>
+            <p>This does not guarantee that payment will be made. You are still responsible for payment and completion of your license renewal to avoid suspension.</p>
+            <p>
+                Prior to <b>@Model.LateFeeDate.ToLongDateString()</b>, please check back to determine the status of your payment.
+                For any questions concerning your license fee payment, contact the licensing coordinator of your company.
+            </p>
+            <p>If you believe this is a mistake or want to pay the licensing fees yourself, please opt out of this option by clicking the edit button above.</p>
+        }
+        else
+        {
+            <p class="bold">Our records indicate that your employer, @Model.Employer.Name, has already paid for this year's licensing fees.</p>
+        }
+
+        <p>
+            If you have any questions or concerns about the license renewal process, please call the WSBA Service Center at 800-945-WSBA (9722) or 206-443-WSBA (9722) or email
+            <a href="mailto:questions@wsba.org">questions@wsba.org</a>.
+        </p>
+
+        <hr />
+
+        <p>More information about the <a href="http://www.wsba.org/Licensing-and-Lawyer-Conduct/Annual-License-Renewal/Keller-Deduction">Keller Deduction Notice to Members.</a></p>
+
+        <p>More information about <a href="http://www.wsba.org/About-WSBA/Washington-State-Bar-Foundation">Washington State Bar Foundation</a>.</p>
+
+        <p>More information about <a href="https://c4ej.org/">Campaign for Equal Justice</a>.</p>
+
+        <p>To join a section, please visit the <a href="">CLE Store</a>.</p>
+    </div>
+}

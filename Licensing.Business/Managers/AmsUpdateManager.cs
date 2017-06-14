@@ -11,6 +11,7 @@ using Licensing.Domain.Genders;
 using Licensing.Domain.Judicial;
 using Licensing.Domain.Languages;
 using Licensing.Domain.Licenses;
+using Licensing.Domain.Orders;
 using Licensing.Domain.PracticeAreas;
 using Licensing.Domain.ProfessionalLiabilityInsurances;
 using Licensing.Domain.SexualOrientations;
@@ -39,6 +40,8 @@ namespace Licensing.Business.Managers
             var amsCustomer = WSBA.AMS.CustomerManager.GetCustomer(masterCustomerId);
             customer.FirstName = amsCustomer.FirstName;
             customer.LastName = amsCustomer.LastName;
+            customer.WaAdmissionDate = WSBA.AMS.MemberManager.GetWSBAAdmissionDate(masterCustomerId);
+            customer.EarliestAdmissionDate = WSBA.AMS.MemberManager.GetEarliestAdmissionDate(masterCustomerId);
         }
 
         public void UpdateLicense(ref License license)
@@ -48,6 +51,7 @@ namespace Licensing.Business.Managers
             DateTime nextAmsUpdate = DateTime.Now;
 
             UpdateMemberType(ref license, masterCustomerId, nextAmsUpdate);
+            UpdateEmployer(ref license, masterCustomerId, nextAmsUpdate);
             UpdateFinancialResponsibility(ref license, masterCustomerId, nextAmsUpdate);
             UpdateJudicialPosition(ref license, masterCustomerId, nextAmsUpdate);
             UpdatePracticeAreas(ref license, masterCustomerId, nextAmsUpdate);
@@ -69,9 +73,20 @@ namespace Licensing.Business.Managers
             UpdateAreasOfPractice(ref license, masterCustomerId, nextAmsUpdate);
             UpdateFirmSize(ref license, masterCustomerId, nextAmsUpdate);
             UpdateLanguages(ref license, masterCustomerId, nextAmsUpdate);
+            UpdateSections(ref license, masterCustomerId, nextAmsUpdate);
+            UpdateLicenseFeeExemption(ref license, masterCustomerId, nextAmsUpdate);
 
             LicenseManager licenseManager = new LicenseManager(_context);
             licenseManager.SetLastAmsUpdate(license, nextAmsUpdate);
+        }
+
+        public void UpdateOrders(ref License license)
+        {
+            //create master customer id
+            string masterCustomerId = "000000000000".Substring(0, 12 - license.Customer.BarNumber.Length) + license.Customer.BarNumber;
+
+            UpdateLicenseOrder(ref license, masterCustomerId);
+            UpdateSectionOrder(ref license, masterCustomerId);
         }
 
         private void UpdateMemberType(ref License license, string masterCustomerId, DateTime nextAmsUpdate)
@@ -84,15 +99,37 @@ namespace Licensing.Business.Managers
                 (license.LastAmsUpdate <= amsCurrentMemberStatus.ModifiedDate && amsCurrentMemberStatus.ModifiedDate < nextAmsUpdate))
             {
                 LicenseTypeManager licenseTypeManager = new LicenseTypeManager(_context);
-                LicenseType currentLicenseType = licenseTypeManager.GetLicenseType(amsCurrentMemberStatus.MemberTypeDescr.ToString());
+                LicenseType currentLicenseType = licenseTypeManager.GetLicenseType(amsCurrentMemberStatus.MemberTypeCode);
                 licenseTypeManager.ChangeLicenseType(license, currentLicenseType);
 
                 if (license.LastAmsUpdate == null)
                 {
                     var amsLicenseStartMemberStatus = WSBA.AMS.MemberManager.GetMemberStatusByDate(masterCustomerId, license.LicensePeriod.StartDate);
-                    LicenseType licenseStartLicenseType = licenseTypeManager.GetLicenseType(amsLicenseStartMemberStatus.MemberType.ToString());
+                    LicenseType licenseStartLicenseType = licenseTypeManager.GetLicenseType(amsLicenseStartMemberStatus.MemberTypeCode);
                     licenseTypeManager.ChangePreviousLicenseType(license, licenseStartLicenseType);
                 }
+            }
+        }
+
+        private void UpdateEmployer(ref License license, string masterCustomerId, DateTime nextAmsUpdate)
+        {
+            var amsEmployer = WSBA.AMS.MemberManager.GetBulkPayor(masterCustomerId);
+
+            //update license type
+            if (amsEmployer != null)
+            {
+                if (license.LastAmsUpdate == null ||
+                    (license.LastAmsUpdate <= amsEmployer.AddedDate && amsEmployer.AddedDate < nextAmsUpdate) ||
+                    (license.LastAmsUpdate <= amsEmployer.ModifiedDate && amsEmployer.ModifiedDate < nextAmsUpdate))
+                {
+                    EmployerManager employerManager = new EmployerManager(_context);
+                    employerManager.SetEmployer(license, int.Parse(amsEmployer.MasterCustomerId), amsEmployer.Name);
+                }
+            }
+            else if (amsEmployer == null && license.Employer != null)
+            {
+                EmployerManager employerManager = new EmployerManager(_context);
+                employerManager.DeleteEmployer(license);
             }
         }
 
@@ -114,7 +151,12 @@ namespace Licensing.Business.Managers
             {
                 FinancialResponsibilityManager financialResponsibilityManager = new FinancialResponsibilityManager(_context);
                 CoveredByOption option = financialResponsibilityManager.GetOption(amsFinancialResponsibility.CoveredBy);
-                financialResponsibilityManager.SetFinancialResponsibility(license, amsFinancialResponsibility.Company, amsFinancialResponsibility.PolicyNumber, option.CoveredByOptionId);
+                financialResponsibilityManager.SetFinancialResponsibility(license, (int)amsFinancialResponsibility.FinancialResponsibilityId, amsFinancialResponsibility.Company, amsFinancialResponsibility.PolicyNumber, option.CoveredByOptionId);
+            }
+            else if (amsFinancialResponsibility == null && license.FinancialResponsibility != null && license.FinancialResponsibility.AmsFinancialResponsibilityId > 0)
+            {
+                FinancialResponsibilityManager financialResponsibilityManager = new FinancialResponsibilityManager(_context);
+                financialResponsibilityManager.DeleteFinancialResponsibility(license);
             }
         }
 
@@ -132,11 +174,17 @@ namespace Licensing.Business.Managers
                 JudicialPositionOption option = judicialPositionManager.GetOption(amsJudicialPosition.DemographicSubcode);
                 judicialPositionManager.SetJudicialPosition(license, option);
             }
+            else if (amsJudicialPosition == null && license.JudicialPosition != null && license.LastAmsUpdate != null &&
+                WSBA.AMS.DemographicManager.HasJudicialPositionRecentlyExpired(masterCustomerId, (DateTime)license.LastAmsUpdate))
+            {
+                JudicialPositionManager judicialPositionManager = new JudicialPositionManager(_context);
+                judicialPositionManager.DeleteJudicialPosition(license);
+            }
         }
 
         private void UpdatePracticeAreas(ref License license, string masterCustomerId, DateTime nextAmsUpdate)
         {
-            var amsPracticeAreas = WSBA.AMS.MemberManager.GetActivePracticeAreas(masterCustomerId);
+            var amsPracticeAreas = WSBA.AMS.MemberManager.GetPracticeAreas(masterCustomerId);
 
             if (amsPracticeAreas != null)
             {
@@ -151,7 +199,7 @@ namespace Licensing.Business.Managers
                     {
                         PracticeAreaOption option = practiceAreaManager.GetOption(amsPracticeArea.PracticeArea);
 
-                        if (amsPracticeArea.StartDate <= DateTime.Today && (amsPracticeArea.EndDate == null || amsPracticeArea.EndDate > DateTime.Today))
+                        if (amsPracticeArea.StartDate <= DateTime.Today && (amsPracticeArea.EndDate == DateTime.MinValue || amsPracticeArea.EndDate > DateTime.Today))
                         {
                             if (!practiceAreaManager.HasPracticeArea(license, option))
                             {
@@ -180,7 +228,12 @@ namespace Licensing.Business.Managers
                 bool provededService = (amsProBono.FreeServiceHours > 0 || amsProBono.LimitedFeeServiceHours > 0);
 
                 ProBonoManager proBonoManager = new ProBonoManager(_context);
-                proBonoManager.SetProBono(license, provededService, amsProBono.FreeServiceHours, amsProBono.LimitedFeeServiceHours, amsProBono.Anonymous);
+                proBonoManager.SetProBono(license, amsProBono.SequenceNumber, provededService, amsProBono.FreeServiceHours, amsProBono.LimitedFeeServiceHours, amsProBono.Anonymous);
+            }
+            else if (amsProBono == null && license.ProBono != null && license.ProBono.AmsSequenceNumber > 0)
+            {
+                ProBonoManager proBonoManager = new ProBonoManager(_context);
+                proBonoManager.DeleteProBono(license);
             }
         }
 
@@ -204,7 +257,12 @@ namespace Licensing.Business.Managers
                 ProfessionalLiabilityInsuranceOption option = professionalLiabilityInsuranceManager.GetOption(
                     amsProfessionalLiabilityInsurance.PrivatePractice, amsProfessionalLiabilityInsurance.CurrentlyInsured, amsProfessionalLiabilityInsurance.MaintainCoverage);
 
-                professionalLiabilityInsuranceManager.SetProfessionalLiabilityInsuranceOption(license, option.ProfessionalLiabilityInsuranceOptionId);
+                professionalLiabilityInsuranceManager.SetProfessionalLiabilityInsurance(license, amsProfessionalLiabilityInsurance.SequenceNumber, option.ProfessionalLiabilityInsuranceOptionId);
+            }
+            else if (amsProfessionalLiabilityInsurance == null && license.ProfessionalLiabilityInsurance != null && license.ProfessionalLiabilityInsurance.AmsSequenceNumber > 0)
+            {
+                ProfessionalLiabilityInsuranceManager professionalLiabilityInsuranceManager = new ProfessionalLiabilityInsuranceManager(_context);
+                professionalLiabilityInsuranceManager.DeleteProfessionalLiabilityInsurance(license);
             }
         }
 
@@ -225,8 +283,23 @@ namespace Licensing.Business.Managers
                 (license.LastAmsUpdate <= amsTrustAccount.ModifiedDate && amsTrustAccount.ModifiedDate < nextAmsUpdate)))
             {
                 TrustAccountManager trustAccountManager = new TrustAccountManager(_context);
-                trustAccountManager.SetTrustAccount(license, amsTrustAccount.Status == "DOES_HANDLE");
+                trustAccountManager.SetTrustAccount(license, amsTrustAccount.Status == "DOES_HANDLE", amsTrustAccount.SequenceNumber);
             }
+            else if (amsTrustAccount == null && license.TrustAccount != null && license.TrustAccount.AmsSequenceNumber > 0)
+            {
+                TrustAccountManager trustAccountManager = new TrustAccountManager(_context);
+
+                if (license.TrustAccount.TrustAccountNumbers != null)
+                {
+                    foreach (TrustAccountNumber trustAccountNumber in license.TrustAccount.TrustAccountNumbers.ToList())
+                    {
+                        trustAccountManager.DeleteTrustAccountNumber(trustAccountNumber.TrustAccountId);
+                    }
+                }
+
+                trustAccountManager.DeleteTrustAccount(license);
+            }
+
         }
 
         private void UpdateTrustAccountNumbers(ref License license, string masterCustomerId, DateTime nextAmsUpdate)
@@ -270,11 +343,14 @@ namespace Licensing.Business.Managers
                     }
                 }
 
-                foreach (TrustAccountNumber trustAccountNumber in license.TrustAccount.TrustAccountNumbers)
+                if (license.TrustAccount != null && license.TrustAccount.TrustAccountNumbers != null)
                 {
-                    if (trustAccountNumber.AmsSequenceNumber > 0 && !amsSequenceNumbers.Contains(trustAccountNumber.AmsSequenceNumber))
+                    foreach (TrustAccountNumber trustAccountNumber in license.TrustAccount.TrustAccountNumbers)
                     {
-                        trustAccountManager.DeleteTrustAccountNumber(trustAccountNumber.TrustAccountNumberId);
+                        if (trustAccountNumber.AmsSequenceNumber > 0 && !amsSequenceNumbers.Contains(trustAccountNumber.AmsSequenceNumber))
+                        {
+                            trustAccountManager.DeleteTrustAccountNumber(trustAccountNumber.TrustAccountNumberId);
+                        }
                     }
                 }
             }
@@ -313,6 +389,16 @@ namespace Licensing.Business.Managers
 
                 addressManager.SetAddress(primaryAddress);
             }
+            else if (amsPrimaryAddress == null || amsPrimaryAddress.AddressTypeCode == WSBA.AMS.Enums.AddressTypeCode.NONE)
+            {
+                AddressManager addressManager = new AddressManager(_context);
+                Address primaryAddress = addressManager.GetPrimaryAddress(license);
+
+                if (primaryAddress != null && primaryAddress.AmsAddressId > 0)
+                {
+                    addressManager.DeleteAddress(primaryAddress);
+                }
+            }
         }
 
         private void UpdateHomeAddress(ref License license, string masterCustomerId, DateTime nextAmsUpdate)
@@ -337,6 +423,7 @@ namespace Licensing.Business.Managers
                     };
                 }
 
+                homeAddress.AmsAddressId = (int)amsHomeAddress.AddressId;
                 homeAddress.Address1 = amsHomeAddress.Address1;
                 homeAddress.Address2 = amsHomeAddress.Address2;
                 homeAddress.City = amsHomeAddress.City;
@@ -346,6 +433,16 @@ namespace Licensing.Business.Managers
                 homeAddress.CongressionalDistrict = amsHomeAddress.CongressionalDistrict;
 
                 addressManager.SetAddress(homeAddress);
+            }
+            else if (amsHomeAddress == null)
+            {
+                AddressManager addressManager = new AddressManager(_context);
+                Address homeAddress = addressManager.GetHomeAddress(license);
+
+                if (homeAddress != null && homeAddress.AmsAddressId > 0)
+                {
+                    addressManager.DeleteAddress(homeAddress);
+                }
             }
         }
 
@@ -371,6 +468,7 @@ namespace Licensing.Business.Managers
                     };
                 }
 
+                agentOfServiceAddress.AmsAddressId = (int)amsAgentOfServiceAddress.AddressId;
                 agentOfServiceAddress.Address1 = amsAgentOfServiceAddress.Address1;
                 agentOfServiceAddress.Address2 = amsAgentOfServiceAddress.Address2;
                 agentOfServiceAddress.City = amsAgentOfServiceAddress.City;
@@ -380,6 +478,16 @@ namespace Licensing.Business.Managers
                 agentOfServiceAddress.CongressionalDistrict = amsAgentOfServiceAddress.CongressionalDistrict;
 
                 addressManager.SetAddress(agentOfServiceAddress);
+            }
+            else if (amsAgentOfServiceAddress == null)
+            {
+                AddressManager addressManager = new AddressManager(_context);
+                Address agentOfServiceAddress = addressManager.GetAgentOfServiceAddress(license);
+
+                if (agentOfServiceAddress != null && agentOfServiceAddress.AmsAddressId > 0)
+                {
+                    addressManager.DeleteAddress(agentOfServiceAddress);
+                }
             }
         }
 
@@ -414,7 +522,7 @@ namespace Licensing.Business.Managers
             var amsPrimaryPhoneNumber = WSBA.AMS.CommunicationManager.GetPrimaryPhone(masterCustomerId);
 
             //update primary phone number
-            if (amsPrimaryPhoneNumber != null &&
+            if (amsPrimaryPhoneNumber != null && amsPrimaryPhoneNumber.PhoneCommLocationCode != WSBA.AMS.Enums.CommunicationLocationCode.NONE &&
                 (license.LastAmsUpdate == null || 
                 (license.LastAmsUpdate <= amsPrimaryPhoneNumber.AddedDate && amsPrimaryPhoneNumber.AddedDate < nextAmsUpdate) || 
                 (license.LastAmsUpdate <= amsPrimaryPhoneNumber.ModifiedDate && amsPrimaryPhoneNumber.ModifiedDate < nextAmsUpdate)))
@@ -450,7 +558,7 @@ namespace Licensing.Business.Managers
             var amsHomePhoneNumber = WSBA.AMS.CommunicationManager.GetHomePhone(masterCustomerId);
 
             //update home phone number
-            if (amsHomePhoneNumber != null &&
+            if (amsHomePhoneNumber != null && amsHomePhoneNumber.PhoneCommLocationCode != WSBA.AMS.Enums.CommunicationLocationCode.NONE &&
                 (license.LastAmsUpdate == null || 
                 (license.LastAmsUpdate <= amsHomePhoneNumber.AddedDate && amsHomePhoneNumber.AddedDate < nextAmsUpdate) || 
                 (license.LastAmsUpdate <= amsHomePhoneNumber.ModifiedDate && amsHomePhoneNumber.ModifiedDate < nextAmsUpdate)))
@@ -467,6 +575,7 @@ namespace Licensing.Business.Managers
                     };
                 }
 
+                homePhoneNumber.AmsLocationCode = WSBA.AMS.Enums.GetEnumDescription(amsHomePhoneNumber.PhoneCommLocationCode);
                 homePhoneNumber.Country = phoneNumberManager.GetCountry(amsHomePhoneNumber.PhoneCountryCode);
                 homePhoneNumber.AreaCode = amsHomePhoneNumber.PhoneAreaCode;
                 homePhoneNumber.Number = amsHomePhoneNumber.PhoneNumber;
@@ -485,33 +594,34 @@ namespace Licensing.Business.Managers
             var amsFaxPhoneNumber = WSBA.AMS.CommunicationManager.GetFax(masterCustomerId);
 
             //update fax number
-            if (amsFaxPhoneNumber != null &&
+            if (amsFaxPhoneNumber != null && amsFaxPhoneNumber.PhoneCommLocationCode != WSBA.AMS.Enums.CommunicationLocationCode.NONE &&
                 (license.LastAmsUpdate == null || 
                 (license.LastAmsUpdate <= amsFaxPhoneNumber.AddedDate && amsFaxPhoneNumber.AddedDate < nextAmsUpdate) || 
                 (license.LastAmsUpdate <= amsFaxPhoneNumber.ModifiedDate && amsFaxPhoneNumber.ModifiedDate < nextAmsUpdate)))
             {
                 PhoneNumberManager phoneNumberManager = new PhoneNumberManager(_context);
-                PhoneNumber homePhoneNumber = phoneNumberManager.GetFaxPhoneNumber(license);
+                PhoneNumber faxPhoneNumber = phoneNumberManager.GetFaxPhoneNumber(license);
 
-                if (homePhoneNumber == null)
+                if (faxPhoneNumber == null)
                 {
-                    homePhoneNumber = new PhoneNumber()
+                    faxPhoneNumber = new PhoneNumber()
                     {
                         LicenseId = license.LicenseId,
                         PhoneNumberType = phoneNumberManager.GetPhoneNumberType("Fax")
                     };
                 }
 
-                homePhoneNumber.Country = phoneNumberManager.GetCountry(amsFaxPhoneNumber.PhoneCountryCode);
-                homePhoneNumber.AreaCode = amsFaxPhoneNumber.PhoneAreaCode;
-                homePhoneNumber.Number = amsFaxPhoneNumber.PhoneNumber;
+                faxPhoneNumber.AmsLocationCode = WSBA.AMS.Enums.GetEnumDescription(amsFaxPhoneNumber.PhoneCommLocationCode);
+                faxPhoneNumber.Country = phoneNumberManager.GetCountry(amsFaxPhoneNumber.PhoneCountryCode);
+                faxPhoneNumber.AreaCode = amsFaxPhoneNumber.PhoneAreaCode;
+                faxPhoneNumber.Number = amsFaxPhoneNumber.PhoneNumber;
 
                 if (amsFaxPhoneNumber.PhoneExtension != null && amsFaxPhoneNumber.PhoneExtension.Length > 0)
                 {
-                    homePhoneNumber.Extension = amsFaxPhoneNumber.PhoneExtension;
+                    faxPhoneNumber.Extension = amsFaxPhoneNumber.PhoneExtension;
                 }
 
-                phoneNumberManager.SetPhoneNumber(homePhoneNumber);
+                phoneNumberManager.SetPhoneNumber(faxPhoneNumber);
             }
         }
 
@@ -529,6 +639,12 @@ namespace Licensing.Business.Managers
                 GenderOption option = genderManager.GetOption(amsGender.DemographicSubcode);
                 genderManager.SetGender(license, option);
             }
+            else if (amsGender == null && license.Gender != null && license.LastAmsUpdate != null &&
+                WSBA.AMS.DemographicManager.HasGenderRecentlyExpired(masterCustomerId, (DateTime)license.LastAmsUpdate))
+            {
+                GenderManager genderManager = new GenderManager(_context);
+                genderManager.DeleteGender(license);
+            }
         }
 
         private void UpdateEthnicity(ref License license, string masterCustomerId, DateTime nextAmsUpdate)
@@ -544,6 +660,12 @@ namespace Licensing.Business.Managers
                 EthnicityManager ethnicityManager = new EthnicityManager(_context);
                 EthnicityOption option = ethnicityManager.GetOption(amsEthnicity.DemographicSubcode);
                 ethnicityManager.SetEthnicity(license, option);
+            }
+            else if (amsEthnicity == null && license.Ethnicity != null && license.LastAmsUpdate != null &&
+                WSBA.AMS.DemographicManager.HasEthnicityRecentlyExpired(masterCustomerId, (DateTime)license.LastAmsUpdate))
+            {
+                EthnicityManager ethnicityManager = new EthnicityManager(_context);
+                ethnicityManager.DeleteEthnicity(license);
             }
         }
 
@@ -561,6 +683,12 @@ namespace Licensing.Business.Managers
                 SexualOrientationOption option = sexualOrientationManager.GetOption(amsSexualOrientation.DemographicSubcode);
                 sexualOrientationManager.SetSexualOrientation(license, option);
             }
+            else if (amsSexualOrientation == null && license.SexualOrientation != null && license.LastAmsUpdate != null &&
+                WSBA.AMS.DemographicManager.HasSexualOrientationRecentlyExpired(masterCustomerId, (DateTime)license.LastAmsUpdate))
+            {
+                SexualOrientationManager sexualOrientationManager = new SexualOrientationManager(_context);
+                sexualOrientationManager.DeleteSexualOrientation(license);
+            }
         }
 
         private void UpdateDisability(ref License license, string masterCustomerId, DateTime nextAmsUpdate)
@@ -577,11 +705,17 @@ namespace Licensing.Business.Managers
                 DisabilityOption option = disabilityManager.GetOption(amsDisability.DemographicSubcode);
                 disabilityManager.SetDisability(license, option);
             }
+            else if (amsDisability == null && license.Disability != null && license.LastAmsUpdate != null &&
+                WSBA.AMS.DemographicManager.HasDisabilityRecentlyExpired(masterCustomerId, (DateTime)license.LastAmsUpdate))
+            {
+                DisabilityManager disabilityManager = new DisabilityManager(_context);
+                disabilityManager.DeleteDisability(license);
+            }
         }
 
         private void UpdateAreasOfPractice(ref License license, string masterCustomerId, DateTime nextAmsUpdate)
         {
-            var amsAreasOfPractice = WSBA.AMS.DemographicManager.GetActiveAreasOfPractice(masterCustomerId);
+            var amsAreasOfPractice = WSBA.AMS.DemographicManager.GetAreasOfPractice(masterCustomerId);
 
             //update areas of practice
             if (amsAreasOfPractice != null)
@@ -609,25 +743,6 @@ namespace Licensing.Business.Managers
                         }
                     }
                 }
-
-                //delete areas of practice
-                //foreach (AreaOfPractice areaOfPractice in license.AreasOfPractice)
-                //{
-                //    bool existsInAms = false;
-
-                //    foreach (var amsAreaOfPractice in amsAreasOfPractice)
-                //    {
-                //        if (amsAreaOfPractice.DemographicSubcode == areaOfPractice.Option.AmsCode)
-                //        {
-                //            existsInAms = true;
-                //        }
-                //    }
-
-                //    if (!existsInAms)
-                //    {
-                //        areaOfPracticeManager.DeleteAreaOfPractice(license, areaOfPractice.Option.AreaOfPracticeOptionId);
-                //    }
-                //}
             }
         }
 
@@ -645,11 +760,17 @@ namespace Licensing.Business.Managers
                 FirmSizeOption option = firmSizeManager.GetOption(amsFirmSize.DemographicSubcode);
                 firmSizeManager.SetFirmSize(license, option);
             }
+            else if (amsFirmSize == null && license.FirmSize != null && license.LastAmsUpdate != null &&
+                WSBA.AMS.DemographicManager.HasFirmSizeRecentlyExpired(masterCustomerId, (DateTime)license.LastAmsUpdate))
+            {
+                FirmSizeManager firmSizeManager = new FirmSizeManager(_context);
+                firmSizeManager.DeleteFirmSize(license);
+            }
         }
 
         private void UpdateLanguages(ref License license, string masterCustomerId, DateTime nextAmsUpdate)
         {
-            var amsLanguages = WSBA.AMS.DemographicManager.GetActiveLanguages(masterCustomerId);
+            var amsLanguages = WSBA.AMS.DemographicManager.GetLanguages(masterCustomerId);
 
             //update languages
             if (amsLanguages != null)
@@ -677,25 +798,298 @@ namespace Licensing.Business.Managers
                         }
                     }
                 }
+            }
+        }
 
-                //delete areas of practice
-                //foreach (Language language in license.Languages)
-                //{
-                //    bool existsInAms = false;
+        private void UpdateSections(ref License license, string masterCustomerId, DateTime nextAmsUpdate)
+        {
+            SectionManager sectionManager = new SectionManager(_context);
+            
+            //get cycle end date
+            DateTime cycleEndDate = new DateTime(license.LicensePeriod.EndDate.Year, 12, 31);
 
-                //    foreach (var amsLanguage in amsLanguages)
-                //    {
-                //        if (amsLanguage.DemographicSubcode == language.Option.AmsCode)
-                //        {
-                //            existsInAms = true;
-                //        }
-                //    }
+            var amsCanceledSectionOrders = WSBA.AMS.OrderManager.GetCanceledSectionOrderDetail(masterCustomerId, cycleEndDate);
+            var amsActiveSectionOrders = WSBA.AMS.OrderManager.GetActiveSectionOrderDetail(masterCustomerId, cycleEndDate);
+            var amsProformaSectionOrders = WSBA.AMS.OrderManager.GetProformaSectionOrderDetail(masterCustomerId, cycleEndDate);
 
-                //    if (!existsInAms)
-                //    {
-                //        languageManager.DeleteLanguage(license, language.Option.LanguageOptionId);
-                //    }
-                //}
+            //delete canceled sections
+            foreach (var amsCanceledSectionOrder in amsCanceledSectionOrders)
+            {
+                if (license.LastAmsUpdate == null ||
+                    (license.LastAmsUpdate <= amsCanceledSectionOrder.AddedDate && amsCanceledSectionOrder.AddedDate < nextAmsUpdate) ||
+                    (license.LastAmsUpdate <= amsCanceledSectionOrder.ModifiedDate && amsCanceledSectionOrder.ModifiedDate < nextAmsUpdate))
+                {
+                    var section = sectionManager.GetProduct(amsCanceledSectionOrder.ProductCode);
+                    sectionManager.DeleteSection(license, section.SectionProductId);
+                }
+            }
+
+            //set active sections
+            foreach (var amsActiveSectionOrder in amsActiveSectionOrders)
+            {
+                if (license.LastAmsUpdate == null ||
+                    (license.LastAmsUpdate <= amsActiveSectionOrder.AddedDate && amsActiveSectionOrder.AddedDate < nextAmsUpdate) ||
+                    (license.LastAmsUpdate <= amsActiveSectionOrder.ModifiedDate && amsActiveSectionOrder.ModifiedDate < nextAmsUpdate))
+                {
+                    var section = sectionManager.GetProduct(amsActiveSectionOrder.ProductCode);
+                    sectionManager.SetSection(license, section.SectionProductId);
+                }
+            }
+
+            //set proforma sections
+            foreach (var amsProformaSectionOrder in amsProformaSectionOrders)
+            {
+                if (license.LastAmsUpdate == null ||
+                    (license.LastAmsUpdate <= amsProformaSectionOrder.AddedDate && amsProformaSectionOrder.AddedDate < nextAmsUpdate) ||
+                    (license.LastAmsUpdate <= amsProformaSectionOrder.ModifiedDate && amsProformaSectionOrder.ModifiedDate < nextAmsUpdate))
+                {
+                    var section = sectionManager.GetProduct(amsProformaSectionOrder.ProductCode);
+                    sectionManager.SetSection(license, section.SectionProductId);
+                }
+            }
+        }
+
+        private void UpdateLicenseFeeExemption(ref License license, string masterCustomerId, DateTime nextAmsUpdate)
+        {
+            //get cycle end date
+            DateTime cycleEndDate = new DateTime(license.LicensePeriod.EndDate.Year, 12, 31);
+
+            //load exemption orders
+            var amsHardshipExemption = WSBA.AMS.OrderManager.GetHardshipExemption(masterCustomerId, cycleEndDate);
+            var amsArmedForcesExemption = WSBA.AMS.OrderManager.GetArmedForcesExemption(masterCustomerId, cycleEndDate);
+
+            bool hasHardshipExemption = false;
+            bool hasArmedForcesExemption = false;
+
+            //determine whether member has hardship exemption
+            if (amsHardshipExemption.OrderNumber_OrderDetail != null && amsHardshipExemption.OrderNumber_OrderDetail != "")
+            {
+                if (license.LastAmsUpdate == null ||
+                    (license.LastAmsUpdate <= amsHardshipExemption.AddedDate && amsHardshipExemption.AddedDate < nextAmsUpdate) ||
+                    (license.LastAmsUpdate <= amsHardshipExemption.ModifiedDate && amsHardshipExemption.ModifiedDate < nextAmsUpdate))
+                {
+                    if (amsHardshipExemption.OrderLineStatus == WSBA.AMS.Enums.OrderLineStatusCode.Active)
+                    {
+                        hasHardshipExemption = true;
+                    }
+                }
+            }
+
+            //determine whether member has armed forces exemption
+            if (amsArmedForcesExemption.OrderNumber_OrderDetail != null && amsArmedForcesExemption.OrderNumber_OrderDetail != "")
+            {
+                if (license.LastAmsUpdate == null ||
+                    (license.LastAmsUpdate <= amsArmedForcesExemption.AddedDate && amsArmedForcesExemption.AddedDate < nextAmsUpdate) ||
+                    (license.LastAmsUpdate <= amsArmedForcesExemption.ModifiedDate && amsArmedForcesExemption.ModifiedDate < nextAmsUpdate))
+                {
+                    if (amsArmedForcesExemption.OrderLineStatus == WSBA.AMS.Enums.OrderLineStatusCode.Active)
+                    {
+                        hasArmedForcesExemption = true;
+                    }
+                }
+            }
+
+            bool hasLicenseFeeExemption = hasHardshipExemption || hasArmedForcesExemption;
+            MembershipProductManager membershipProductManager = new MembershipProductManager(_context);
+            membershipProductManager.SetLicenseFeeExeption(license, hasLicenseFeeExemption);
+        }
+
+        private void UpdateLicenseOrder(ref License license, string masterCustomerId)
+        {
+            //get primary licensing product
+            MembershipProductManager membershipProductManager = new MembershipProductManager(_context);
+            PaymentManager paymentManager = new PaymentManager(_context);
+            OrderManager orderManager = new OrderManager(_context);
+
+            //get primary license product for license type
+            var primaryLicenseProduct = membershipProductManager.GetPrimaryLicenseTypeProduct(license.LicenseType).Product;
+
+            //get cycle end date
+            DateTime cycleEndDate = new DateTime(license.LicensePeriod.EndDate.Year, 12, 31);
+
+            //find paid order with right cycle date and primary license product
+            var licenseOrder = WSBA.AMS.OrderManager.GetActiveOrderDetail(masterCustomerId, primaryLicenseProduct.AmsCode, cycleEndDate);
+
+            //if no paid order, find proforma order with right cycle date and primary license product
+            if (licenseOrder.OrderNumber_OrderDetail == null || licenseOrder.OrderNumber_OrderDetail == "")
+            {
+                licenseOrder = WSBA.AMS.OrderManager.GetProformaOrderDetail(masterCustomerId, primaryLicenseProduct.AmsCode, cycleEndDate);
+            }
+
+            if (licenseOrder.OrderNumber_OrderDetail != null && licenseOrder.OrderNumber_OrderDetail != "")
+            {
+                //get order number of primary license product
+                int orderNumber = Convert.ToInt32(licenseOrder.OrderNumber_OrderDetail);
+
+                //save order with order number
+                orderManager.SetLicenseOrder(license, orderNumber);
+
+                //get license type products
+                var licenseTypeProducts = membershipProductManager.GetLicenseTypeProducts(license);
+
+                //loop through license type products and update payment for each product
+                if (licenseTypeProducts != null)
+                {
+                    foreach (var licenseTypeProduct in licenseTypeProducts)
+                    {
+                        var amsTransactions = WSBA.AMS.PaymentManager.GetTransactions(masterCustomerId, licenseTypeProduct.Product.AmsCode, orderNumber.ToString());
+
+                        if (amsTransactions == null || amsTransactions.Count == 0)
+                        {
+                            paymentManager.DeleteTransactions(license.LicensingOrder, licenseTypeProduct.Product.AmsCode);
+                        }
+                        else
+                        {
+                            var transactionsToDelete =
+                                (license.LicensingOrder.Transactions != null) ?
+                                license.LicensingOrder.Transactions.Where(t => t.AmsCode == licenseTypeProduct.Product.AmsCode).Select(t => t.AmsTransactionId).ToList() :
+                                null;
+
+                            //loop through ams transactions
+                            foreach (var amsTransaction in amsTransactions)
+                            {
+                                paymentManager.SetTransaction(license.LicensingOrder,
+                                    licenseTypeProduct.Product.AmsCode, amsTransaction.TransactionNumber, amsTransaction.ActualAmount, amsTransaction.TransactionDate);
+
+                                if (transactionsToDelete != null && transactionsToDelete.Contains(amsTransaction.TransactionNumber))
+                                {
+                                    transactionsToDelete.Remove(amsTransaction.TransactionNumber);
+                                }
+                            }
+
+                            //delete transactions that don't exists in ams
+                            if (transactionsToDelete != null)
+                            {
+                                foreach (var amsTransactionId in transactionsToDelete)
+                                {
+                                    paymentManager.DeleteTransaction(license.LicensingOrder, amsTransactionId);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                //loop through license type products and update payment for each product
+                if (license.Donations != null)
+                {
+                    foreach (var donation in license.Donations)
+                    {
+                        var amsTransactions = WSBA.AMS.PaymentManager.GetTransactions(masterCustomerId, donation.Product.AmsCode, orderNumber.ToString());
+
+                        if (amsTransactions == null || amsTransactions.Count == 0)
+                        {
+                            paymentManager.DeleteTransactions(license.LicensingOrder, donation.Product.AmsCode);
+                        }
+                        else
+                        {
+                            var transactionsToDelete =
+                                (license.LicensingOrder.Transactions != null) ?
+                                license.LicensingOrder.Transactions.Where(t => t.AmsCode == donation.Product.AmsCode).Select(t => t.AmsTransactionId).ToList() :
+                                null;
+
+                            //loop through ams transactions
+                            foreach (var amsTransaction in amsTransactions)
+                            {
+                                paymentManager.SetTransaction(license.LicensingOrder,
+                                    donation.Product.AmsCode, amsTransaction.TransactionNumber, amsTransaction.ActualAmount, amsTransaction.TransactionDate);
+
+                                if (transactionsToDelete != null && transactionsToDelete.Contains(amsTransaction.TransactionNumber))
+                                {
+                                    transactionsToDelete.Remove(amsTransaction.TransactionNumber);
+                                }
+                            }
+
+                            //delete transactions that don't exists in ams
+                            if (transactionsToDelete != null)
+                            {
+                                foreach (var amsTransactionId in transactionsToDelete)
+                                {
+                                    paymentManager.DeleteTransaction(license.LicensingOrder, amsTransactionId);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else if (license.LicensingOrder != null)
+            {
+                orderManager.DeleteOrder(license.LicensingOrder);
+            }
+        }
+
+        private void UpdateSectionOrder(ref License license, string masterCustomerId)
+        {
+            //get primary licensing product
+            PaymentManager paymentManager = new PaymentManager(_context);
+            OrderManager orderManager = new OrderManager(_context);
+
+            //get cycle end date
+            DateTime cycleEndDate = new DateTime(license.LicensePeriod.EndDate.Year, 12, 31);
+
+            //find paid order with right cycle date and section products
+            var sectionOrders = WSBA.AMS.OrderManager.GetActiveSectionOrderDetail(masterCustomerId, cycleEndDate);
+
+            //if no paid order, find proforma order with right cycle date and section products
+            if (sectionOrders == null || sectionOrders.Count() == 0)
+            {
+                sectionOrders = WSBA.AMS.OrderManager.GetProformaSectionOrderDetail(masterCustomerId, cycleEndDate);
+            }
+
+            if (sectionOrders != null && sectionOrders.Count() > 0)
+            {
+                var sectionOrder = sectionOrders.FirstOrDefault();
+                
+                //get order number of primary license product
+                int orderNumber = Convert.ToInt32(sectionOrder.OrderNumber_OrderDetail);
+
+                //save order with order number
+                orderManager.SetSectionOrder(license, orderNumber);
+
+                //loop through sections and update payment for each section product
+                if (license.Sections != null)
+                {
+                    foreach (var section in license.Sections)
+                    {
+                        var amsTransactions = WSBA.AMS.PaymentManager.GetTransactions(masterCustomerId, section.Product.AmsCode, orderNumber.ToString());
+
+                        if (amsTransactions == null || amsTransactions.Count == 0)
+                        {
+                            paymentManager.DeleteTransactions(license.SectionOrder, section.Product.AmsCode);
+                        }
+                        else
+                        {
+                            var transactionsToDelete =
+                                (license.SectionOrder.Transactions != null) ?
+                                license.SectionOrder.Transactions.Where(t => t.AmsCode == section.Product.AmsCode).Select(t => t.AmsTransactionId).ToList() :
+                                null;
+
+                            //loop through ams transactions
+                            foreach (var amsTransaction in amsTransactions)
+                            {
+                                paymentManager.SetTransaction(license.SectionOrder, 
+                                    section.Product.AmsCode, amsTransaction.TransactionNumber, amsTransaction.ActualAmount, amsTransaction.TransactionDate);
+
+                                if (transactionsToDelete != null && transactionsToDelete.Contains(amsTransaction.TransactionNumber))
+                                {
+                                    transactionsToDelete.Remove(amsTransaction.TransactionNumber);
+                                }
+                            }
+
+                            //delete transactions that don't exists in ams
+                            if (transactionsToDelete != null)
+                            {
+                                foreach (var amsTransactionId in transactionsToDelete)
+                                {
+                                    paymentManager.DeleteTransaction(license.SectionOrder, amsTransactionId);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else if (license.SectionOrder != null)
+            {
+                orderManager.DeleteOrder(license.SectionOrder);
             }
         }
     }

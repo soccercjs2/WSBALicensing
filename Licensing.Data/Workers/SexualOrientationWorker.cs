@@ -19,6 +19,11 @@ namespace Licensing.Data.Workers
             _context = context;
         }
 
+        public void DeleteSexualOrientation(SexualOrientation sexualOrientation)
+        {
+            _context.SexualOrientations.Remove(sexualOrientation);
+        }
+
         public ICollection<SexualOrientationOption> GetOptions()
         {
             return _context.SexualOrientationOptions.ToList();

@@ -1,4 +1,5 @@
 ﻿using Licensing.Data.Context;
+using Licensing.Domain.ProBonos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,12 @@ namespace Licensing.Data.Workers
         public ProBonoWorker(LicensingContext context)
         {
             _context = context;
+        }
+
+        public void DeleteProBono(ProBono proBono)
+        {
+            _context.ProBonos.Remove(proBono);
+            _context.SaveChanges();
         }
     }
 }

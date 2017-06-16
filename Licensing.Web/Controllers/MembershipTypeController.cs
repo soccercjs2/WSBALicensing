@@ -31,7 +31,7 @@ namespace Licensing.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult GoInactive(MembershipTypeVM licenseTypeVM)
+        public ActionResult SwitchLicenseType(MembershipTypeVM licenseTypeVM)
         {
             LicenseManager licenseManager = new LicenseManager(_context);
             License license = licenseManager.GetLicense(licenseTypeVM.LicenseId);

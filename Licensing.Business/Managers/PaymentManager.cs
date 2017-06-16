@@ -422,6 +422,9 @@ namespace Licensing.Business.Managers
                 }
             }
 
+            //track if all payments are paid successfully
+            bool paymentsSuccessful = true;
+
             if (license.LicensingOrder != null && hasLicensingBalance)
             {
                 string paymentErrorMessage = null;
@@ -435,6 +438,19 @@ namespace Licensing.Business.Managers
                     checkoutVM.ExpirationYear,
                     checkoutVM.SecurityCode,
                     checkoutVM.NameOnCard, ref receiptNumber, ref paymentErrorMessage);
+
+                if (isPaymentSuccessful)
+                {
+                    if (license.PreviousLicenseType.LicenseTypeId == license.LicenseType.LicenseTypeId)
+                    {
+                        //set new membership type
+                        WSBA.AMS.MemberManager.SetMemberStatus(masterCustomerId, license.LicenseType.AmsMemberType);
+                    }
+                }
+                else
+                {
+                    paymentsSuccessful = false;
+                }
             }
 
             if (license.SectionOrder != null && hasSectionBalance)
@@ -450,6 +466,20 @@ namespace Licensing.Business.Managers
                     checkoutVM.ExpirationYear,
                     checkoutVM.SecurityCode,
                     checkoutVM.NameOnCard, ref receiptNumber, ref paymentErrorMessage);
+
+                if (!isPaymentSuccessful)
+                {
+                    paymentsSuccessful = false;
+                }
+            }
+
+            if (paymentsSuccessful)
+            {
+                //get cycle end date
+                DateTime cycleEndDate = new DateTime(license.LicensePeriod.EndDate.Year, 12, 31);
+
+                //cancel all proforma orders
+                WSBA.AMS.OrderManager.CancelLicensingOrdersWithBalance(masterCustomerId, cycleEndDate);
             }
         }
     }

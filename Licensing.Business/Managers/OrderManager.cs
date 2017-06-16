@@ -63,7 +63,7 @@ namespace Licensing.Business.Managers
         public void DeleteOrder(Order order)
         {
             //delete payments for the order
-            DeletePayments(order);
+            //DeletePayments(order);
 
             //delete order
             _orderWorker.DeleteOrder(order);
@@ -72,7 +72,7 @@ namespace Licensing.Business.Managers
         public void DeletePayments(Order order)
         {
             //load payments for order
-            List<Transaction> transactions = order.Transactions.ToList();
+            var transactions = order.Transactions.ToList();
 
             //loop through payments and delete them
             transactions.ForEach(t => order.Transactions.Remove(t));

@@ -23,7 +23,7 @@
         </div>
 
         <div>
-            @Html.LabelFor(m => m.PolicyNumber)
+            @Html.LabelFor(m => m.SelectedCoveredByOptionId)
             @Html.DropDownListFor(m => m.SelectedCoveredByOptionId, new SelectList(Model.Options, "CoveredByOptionId", "Name"), new { @class = "form-control width-restricted" })
         </div>
     </div>

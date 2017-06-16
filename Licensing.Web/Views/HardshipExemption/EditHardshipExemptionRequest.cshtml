@@ -33,54 +33,58 @@
         <!-- Poverty grid -->
         <div align="center">
             <p><b>The @(Model.LateFeeDate.Year - 1) Federal Poverty Guidelines for the 48 Contiguous States and the District of Columbia</b></p>
-            <table>
-                <tr class="gridHeader">
-                    <td class="hardshipExemptions_header">Persons in Family</td>
-                    <td class="hardshipExemptions_header">Annual <span class="style1">Gross Household</span> Income - Poverty Guideline</td>
-                    <td class="hardshipExemptions_header">200%</td>
+            <table class="standard-table">
+                <thead>
+                    <tr>
+                        <th>Persons in Family</th>
+                        <th>Annual <span class="style1">Gross Household</span> Income - Poverty Guideline</th>
+                        <th>200%</th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td>1</td>
+                    <td>$11,880</td>
+                    <td>$23,760</td>
                 </tr>
                 <tr>
-                    <td class="hardshipExemptions_cells">1</td>
-                    <td class="hardshipExemptions_cells">$11,880</td>
-                    <td class="hardshipExemptions_cells">$23,760</td>
+                    <td>2</td>
+                    <td>$16,020</td>
+                    <td>$32,040</td>
                 </tr>
                 <tr>
-                    <td class="hardshipExemptions_cells">2</td>
-                    <td class="hardshipExemptions_cells">$16,020</td>
-                    <td class="hardshipExemptions_cells">$32,040</td>
+                    <td>3</td>
+                    <td>$20,160</td>
+                    <td>$40,320</td>
                 </tr>
                 <tr>
-                    <td class="hardshipExemptions_cells">3</td>
-                    <td class="hardshipExemptions_cells">$20,160</td>
-                    <td class="hardshipExemptions_cells">$40,320</td>
+                    <td>4</td>
+                    <td>$24,300</td>
+                    <td>$48,600</td>
                 </tr>
                 <tr>
-                    <td class="hardshipExemptions_cells">4</td>
-                    <td class="hardshipExemptions_cells">$24,300</td>
-                    <td class="hardshipExemptions_cells">$48,600</td>
+                    <td>5</td>
+                    <td>$28,440</td>
+                    <td>$56,880</td>
                 </tr>
                 <tr>
-                    <td class="hardshipExemptions_cells">5</td>
-                    <td class="hardshipExemptions_cells">$28,440</td>
-                    <td class="hardshipExemptions_cells">$56,880</td>
+                    <td>6</td>
+                    <td>$32,580</td>
+                    <td>$65,160</td>
                 </tr>
                 <tr>
-                    <td class="hardshipExemptions_cells">6</td>
-                    <td class="hardshipExemptions_cells">$32,580</td>
-                    <td class="hardshipExemptions_cells">$65,160</td>
+                    <td>7</td>
+                    <td>$36,730</td>
+                    <td>$73,460</td>
                 </tr>
                 <tr>
-                    <td class="hardshipExemptions_cells">7</td>
-                    <td class="hardshipExemptions_cells">$36,730</td>
-                    <td class="hardshipExemptions_cells">$73,460</td>
+                    <td>8</td>
+                    <td>$40,890</td>
+                    <td>$81,780</td>
                 </tr>
                 <tr>
-                    <td class="hardshipExemptions_cells">8</td>
-                    <td class="hardshipExemptions_cells">$40,890</td>
-                    <td class="hardshipExemptions_cells">$81,780</td>
-                </tr>
-                <tr>
-                    <td class="hardshipExemptions_cells" colspan="3" align="center">For families with more than 8 persons, add $4,160 for each additional person.</td>
+                    <td colspan="3" align="center">
+                        For families with more than 8 persons, add $4,160 for each additional person.
+                    </td>
                 </tr>
             </table>
         </div>
@@ -88,7 +92,7 @@
 
         <p>
             If your request is denied and payment is not made online or postmarked or received by @Model.LateFeeDate.ToShortDateString(), a 30% late fee will be assessed.
-            You will only be denied if you do not meet the criteria outlined in the bylaw. Supporting documentation may be requested.<br /><br />
+            You will only be denied if you do not meet the criteria outlined in the bylaw. Supporting documentation may be requested.
         </p>
 
         <hr />

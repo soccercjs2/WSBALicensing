@@ -18,6 +18,10 @@ namespace Licensing.Domain.Licenses
         [Display(Name = "Member Type Code")]
         public string AmsMemberType { get; set; }
 
+        [ForeignKey("SwitchableLicenseTypeId")]
+        public virtual LicenseType SwitchableLicenseType { get; set; }
+        public int? SwitchableLicenseTypeId { get; set; }
+
         [ForeignKey("LicenseTypeRequirementId")]
         public virtual LicenseTypeRequirement LicenseTypeRequirement { get; set; }
         public int? LicenseTypeRequirementId { get; set; }

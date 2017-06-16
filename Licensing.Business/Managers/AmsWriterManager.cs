@@ -28,7 +28,6 @@ namespace Licensing.Business.Managers
             //create master customer id
             string masterCustomerId = "000000000000".Substring(0, 12 - license.Customer.BarNumber.Length) + license.Customer.BarNumber;
 
-            //WriteMemberType(license, masterCustomerId);
             WriteFinancialResponsibility(license, masterCustomerId);
             WriteJudicialPosition(license, masterCustomerId);
             WritePracticeAreas(license, masterCustomerId);

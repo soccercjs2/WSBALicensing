@@ -1,0 +1,5 @@
+C:\Projects\Licensing\Licensing.Domain\bin\Test\Licensing.Domain.dll
+C:\Projects\Licensing\Licensing.Domain\bin\Test\Licensing.Domain.pdb
+C:\Projects\Licensing\Licensing.Domain\obj\Test\Licensing.Domain.dll
+C:\Projects\Licensing\Licensing.Domain\obj\Test\Licensing.Domain.pdb
+C:\Projects\Licensing\Licensing.Domain\obj\Test\Licensing.Domain.csprojResolveAssemblyReference.cache

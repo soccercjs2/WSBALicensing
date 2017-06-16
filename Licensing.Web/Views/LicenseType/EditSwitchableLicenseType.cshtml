@@ -1,0 +1,25 @@
+﻿@model Licensing.Business.ViewModels.SwitchableLicenseTypeVM
+
+@{
+    ViewBag.Title = "License Type " + Model.LicenseTypeName + " Members can Switch To";
+}
+
+<h2>License Type @Model.LicenseTypeName Members can Switch To</h2>
+
+@using (Html.BeginForm("SwitchableLicenseType", "LicenseType", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.LicenseTypeId)
+    @Html.HiddenFor(m => m.LicenseTypeName)
+
+    <hr />
+
+    @Html.LabelFor(m => m.SelectedLicenseTypeId)
+    @Html.DropDownListFor(m => m.SelectedLicenseTypeId, new SelectList(Model.OtherLicenseTypes, "LicenseTypeId", "Name"), new { @class = "form-control width-restricted" })
+
+    <hr />
+
+    <div class="row">
+        @Html.ActionLink("Cancel", "LicenseTypeDashboard", "LicenseType", new { Id = Model.LicenseTypeId }, new { @class = "btn btn-primary" })
+        <input class="btn btn-success" type="submit" value="Save" />
+    </div>
+}

@@ -4,6 +4,7 @@ using Licensing.Data.Context;
 using Licensing.Data.Workers;
 using Licensing.Domain.Donations;
 using Licensing.Domain.Licenses;
+using Licensing.Domain.Transactions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -183,11 +184,16 @@ namespace Licensing.Business.Managers
         {
             decimal balance = 0;
 
-            if (license.Donations != null && license.LicensingOrder != null && license.LicensingOrder.Transactions != null)
+            if (license.Donations != null)
             {
                 foreach (var donation in license.Donations)
                 {
-                    var transactions = license.LicensingOrder.Transactions.Where(p => p.AmsCode == donation.Product.AmsCode).ToList();
+                    List<Transaction> transactions = null;
+
+                    if (license.LicensingOrder != null)
+                    {
+                        transactions = license.LicensingOrder.Transactions.Where(p => p.AmsCode == donation.Product.AmsCode).ToList();
+                    }
 
                     if (transactions == null) { balance += donation.Amount; }
                     else

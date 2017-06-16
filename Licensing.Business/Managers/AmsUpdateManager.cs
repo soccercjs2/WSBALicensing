@@ -901,22 +901,46 @@ namespace Licensing.Business.Managers
             PaymentManager paymentManager = new PaymentManager(_context);
             OrderManager orderManager = new OrderManager(_context);
 
-            //get primary license product for license type
-            var primaryLicenseProduct = membershipProductManager.GetPrimaryLicenseTypeProduct(license.LicenseType).Product;
+            WSBA.AMS.Order licenseOrder = null;
 
             //get cycle end date
             DateTime cycleEndDate = new DateTime(license.LicensePeriod.EndDate.Year, 12, 31);
 
-            //find paid order with right cycle date and primary license product
-            var licenseOrder = WSBA.AMS.OrderManager.GetActiveOrderDetail(masterCustomerId, primaryLicenseProduct.AmsCode, cycleEndDate);
-
-            //if no paid order, find proforma order with right cycle date and primary license product
-            if (licenseOrder.OrderNumber_OrderDetail == null || licenseOrder.OrderNumber_OrderDetail == "")
+            if (license.LicenseType.LicenseTypeProducts != null && license.LicenseType.LicenseTypeProducts.Count > 0)
             {
-                licenseOrder = WSBA.AMS.OrderManager.GetProformaOrderDetail(masterCustomerId, primaryLicenseProduct.AmsCode, cycleEndDate);
+                //get primary license product for license type
+                var primaryLicenseProduct = membershipProductManager.GetPrimaryLicenseTypeProduct(license.LicenseType).Product;
+
+                //find paid order with right cycle date and primary license product
+                licenseOrder = WSBA.AMS.OrderManager.GetActiveOrderDetail(masterCustomerId, primaryLicenseProduct.AmsCode, cycleEndDate);
+
+                //if no paid order, find proforma order with right cycle date and primary license product
+                if (licenseOrder.OrderNumber_OrderDetail == null || licenseOrder.OrderNumber_OrderDetail == "")
+                {
+                    licenseOrder = WSBA.AMS.OrderManager.GetProformaOrderDetail(masterCustomerId, primaryLicenseProduct.AmsCode, cycleEndDate);
+                }
             }
 
-            if (licenseOrder.OrderNumber_OrderDetail != null && licenseOrder.OrderNumber_OrderDetail != "")
+            //if license type doesn't have license products, get licensing donation order
+            if (licenseOrder == null && license.LicenseType.LicenseTypeDonations != null && license.LicenseType.LicenseTypeDonations.Count > 0)
+            {
+                foreach (var licenseTypeDonation in license.LicenseType.LicenseTypeDonations)
+                {
+                    if (licenseOrder == null || licenseOrder.OrderNumber_OrderDetail == null || licenseOrder.OrderNumber_OrderDetail == "")
+                    {
+                        //find paid order with right cycle date and donation product
+                        licenseOrder = WSBA.AMS.OrderManager.GetActiveOrderDetail(masterCustomerId, licenseTypeDonation.Product.AmsCode, cycleEndDate);
+
+                        //if no paid order, find proforma order with right cycle date and donation product
+                        if (licenseOrder.OrderNumber_OrderDetail == null || licenseOrder.OrderNumber_OrderDetail == "")
+                        {
+                            licenseOrder = WSBA.AMS.OrderManager.GetProformaOrderDetail(masterCustomerId, licenseTypeDonation.Product.AmsCode, cycleEndDate);
+                        }
+                    }
+                }
+            }
+
+            if (licenseOrder != null && licenseOrder.OrderNumber_OrderDetail != null && licenseOrder.OrderNumber_OrderDetail != "")
             {
                 //get order number of primary license product
                 int orderNumber = Convert.ToInt32(licenseOrder.OrderNumber_OrderDetail);

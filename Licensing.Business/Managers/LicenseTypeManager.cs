@@ -38,6 +38,11 @@ namespace Licensing.Business.Managers
             return _licenseTypeWorker.GetLicenseTypes();
         }
 
+        public ICollection<LicenseType> GetOtherLicenseTypes(int id)
+        {
+            return _licenseTypeWorker.GetOtherLicenseTypes(id);
+        }
+
         public bool IsComplete(License license)
         {
             return (license.LicenseType != null);
@@ -70,6 +75,12 @@ namespace Licensing.Business.Managers
         public void SetLicenseType(LicenseType licenseType)
         {
             _licenseTypeWorker.SetLicenseType(licenseType);
+        }
+
+        public void SetSwitchableLicenseType(LicenseType licenseType, int switchableLicenseTypeId)
+        {
+            licenseType.SwitchableLicenseTypeId = switchableLicenseTypeId;
+            _context.SaveChanges();
         }
 
         public void SetDefaultDonationAmount(LicenseType licenseType, decimal defaultDonationAmount)

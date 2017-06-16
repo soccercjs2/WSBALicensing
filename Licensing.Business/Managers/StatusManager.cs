@@ -44,34 +44,37 @@ namespace Licensing.Business.Managers
 
             LicensingStatus licensingStatus = LicensingStatus.Complete;
 
-            if (license.LicenseType.LicenseTypeRequirement.JudicialPosition == RequirementType.Required && !judicialPositionManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
-            if (license.LicenseType.LicenseTypeRequirement.TrustAccount == RequirementType.Required && !trustAccountManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
-            if (license.LicenseType.LicenseTypeRequirement.ProfessionalLiabilityInsurance == RequirementType.Required && !professionalLiabilityInsuranceManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
-            if (license.LicenseType.LicenseTypeRequirement.FinancialResponsibility == RequirementType.Required && !financialResponsibilityManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
-            if (license.LicenseType.LicenseTypeRequirement.ProBono == RequirementType.Required && !proBonoManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
-            if (license.LicenseType.LicenseTypeRequirement.MCLE == RequirementType.Required && !mcleManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
+            if (license.LicenseType.LicenseTypeRequirement != null)
+            {
+                if (license.LicenseType.LicenseTypeRequirement.JudicialPosition == RequirementType.Required && !judicialPositionManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
+                if (license.LicenseType.LicenseTypeRequirement.TrustAccount == RequirementType.Required && !trustAccountManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
+                if (license.LicenseType.LicenseTypeRequirement.ProfessionalLiabilityInsurance == RequirementType.Required && !professionalLiabilityInsuranceManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
+                if (license.LicenseType.LicenseTypeRequirement.FinancialResponsibility == RequirementType.Required && !financialResponsibilityManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
+                if (license.LicenseType.LicenseTypeRequirement.ProBono == RequirementType.Required && !proBonoManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
+                if (license.LicenseType.LicenseTypeRequirement.MCLE == RequirementType.Required && !mcleManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
 
-            if (license.LicenseType.LicenseTypeRequirement.PrimaryAddress == RequirementType.Required && !addressManager.IsComplete(addressManager.GetPrimaryAddress(license))) { licensingStatus = LicensingStatus.Incomplete; }
-            if (license.LicenseType.LicenseTypeRequirement.HomeAddress == RequirementType.Required && !addressManager.IsComplete(addressManager.GetHomeAddress(license))) { licensingStatus = LicensingStatus.Incomplete; }
-            if (license.LicenseType.LicenseTypeRequirement.AgentOfServiceAddress == RequirementType.Required && !addressManager.IsComplete(addressManager.GetAgentOfServiceAddress(license)) && addressManager.AgentOfServiceAddressRequired(license)) { licensingStatus = LicensingStatus.Incomplete; }
-            if (license.LicenseType.LicenseTypeRequirement.PrimaryEmail == RequirementType.Required && !emailManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
-            if (license.LicenseType.LicenseTypeRequirement.PrimaryPhoneNumber == RequirementType.Required && !phoneNumberManager.IsComplete(phoneNumberManager.GetPrimaryPhoneNumber(license))) { licensingStatus = LicensingStatus.Incomplete; }
-            if (license.LicenseType.LicenseTypeRequirement.HomePhoneNumber == RequirementType.Required && !phoneNumberManager.IsComplete(phoneNumberManager.GetHomePhoneNumber(license))) { licensingStatus = LicensingStatus.Incomplete; }
-            if (license.LicenseType.LicenseTypeRequirement.FaxPhoneNumber == RequirementType.Required && addressManager.AgentOfServiceAddressRequired(license) && !phoneNumberManager.IsComplete(phoneNumberManager.GetFaxPhoneNumber(license))) { licensingStatus = LicensingStatus.Incomplete; }
+                if (license.LicenseType.LicenseTypeRequirement.PrimaryAddress == RequirementType.Required && !addressManager.IsComplete(addressManager.GetPrimaryAddress(license))) { licensingStatus = LicensingStatus.Incomplete; }
+                if (license.LicenseType.LicenseTypeRequirement.HomeAddress == RequirementType.Required && !addressManager.IsComplete(addressManager.GetHomeAddress(license))) { licensingStatus = LicensingStatus.Incomplete; }
+                if (license.LicenseType.LicenseTypeRequirement.AgentOfServiceAddress == RequirementType.Required && !addressManager.IsComplete(addressManager.GetAgentOfServiceAddress(license)) && addressManager.AgentOfServiceAddressRequired(license)) { licensingStatus = LicensingStatus.Incomplete; }
+                if (license.LicenseType.LicenseTypeRequirement.PrimaryEmail == RequirementType.Required && !emailManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
+                if (license.LicenseType.LicenseTypeRequirement.PrimaryPhoneNumber == RequirementType.Required && !phoneNumberManager.IsComplete(phoneNumberManager.GetPrimaryPhoneNumber(license))) { licensingStatus = LicensingStatus.Incomplete; }
+                if (license.LicenseType.LicenseTypeRequirement.HomePhoneNumber == RequirementType.Required && !phoneNumberManager.IsComplete(phoneNumberManager.GetHomePhoneNumber(license))) { licensingStatus = LicensingStatus.Incomplete; }
+                if (license.LicenseType.LicenseTypeRequirement.FaxPhoneNumber == RequirementType.Required && addressManager.AgentOfServiceAddressRequired(license) && !phoneNumberManager.IsComplete(phoneNumberManager.GetFaxPhoneNumber(license))) { licensingStatus = LicensingStatus.Incomplete; }
 
-            if (license.LicenseType.LicenseTypeRequirement.AreasOfPractice == RequirementType.Required && !areaOfPracticeManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
-            if (license.LicenseType.LicenseTypeRequirement.FirmSize == RequirementType.Required && !firmSizeManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
-            if (license.LicenseType.LicenseTypeRequirement.Languages == RequirementType.Required && !languageManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
+                if (license.LicenseType.LicenseTypeRequirement.AreasOfPractice == RequirementType.Required && !areaOfPracticeManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
+                if (license.LicenseType.LicenseTypeRequirement.FirmSize == RequirementType.Required && !firmSizeManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
+                if (license.LicenseType.LicenseTypeRequirement.Languages == RequirementType.Required && !languageManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
 
-            if (license.LicenseType.LicenseTypeRequirement.Ethnicity == RequirementType.Required && !ethnicityManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
-            if (license.LicenseType.LicenseTypeRequirement.Gender == RequirementType.Required && !genderManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
-            if (license.LicenseType.LicenseTypeRequirement.Disability == RequirementType.Required && !disabilityManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
-            if (license.LicenseType.LicenseTypeRequirement.SexualOrientation == RequirementType.Required && !sexualOrientationManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
+                if (license.LicenseType.LicenseTypeRequirement.Ethnicity == RequirementType.Required && !ethnicityManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
+                if (license.LicenseType.LicenseTypeRequirement.Gender == RequirementType.Required && !genderManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
+                if (license.LicenseType.LicenseTypeRequirement.Disability == RequirementType.Required && !disabilityManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
+                if (license.LicenseType.LicenseTypeRequirement.SexualOrientation == RequirementType.Required && !sexualOrientationManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
 
-            if (!membershipProductManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
-            if (license.LicenseType.LicenseTypeRequirement.Sections == RequirementType.Required && !sectionManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
-            if (license.LicenseType.LicenseTypeRequirement.Donations == RequirementType.Required && !donationManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
-            if (license.LicenseType.LicenseTypeRequirement.BarNews == RequirementType.Required && !barNewsManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
+                if (!membershipProductManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
+                if (license.LicenseType.LicenseTypeRequirement.Sections == RequirementType.Required && !sectionManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
+                if (license.LicenseType.LicenseTypeRequirement.Donations == RequirementType.Required && !donationManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
+                if (license.LicenseType.LicenseTypeRequirement.BarNews == RequirementType.Required && !barNewsManager.IsComplete(license)) { licensingStatus = LicensingStatus.Incomplete; }
+            }
 
             return licensingStatus;
         }

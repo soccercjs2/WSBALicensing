@@ -61,5 +61,32 @@ namespace Licensing.Web.Controllers
 
             return View("LicenseTypeDashboard", licenseType);
         }
+
+        [HttpGet]
+        public ActionResult SwitchableLicenseType(int id)
+        {
+            LicenseTypeManager licenseTypeManager = new LicenseTypeManager(_context);
+            LicenseType licenseType = licenseTypeManager.GetLicenseType(id);
+            ICollection<LicenseType> otherLicenseTypes = licenseTypeManager.GetOtherLicenseTypes(id);
+
+            return View("EditSwitchableLicenseType", new SwitchableLicenseTypeVM(licenseType, otherLicenseTypes));
+        }
+
+        [HttpPost]
+        public ActionResult SwitchableLicenseType(SwitchableLicenseTypeVM switchableLicenseTypeVM)
+        {
+            if (ModelState.IsValid)
+            {
+                LicenseTypeManager licenseTypeManager = new LicenseTypeManager(_context);
+                LicenseType licenseType = licenseTypeManager.GetLicenseType(switchableLicenseTypeVM.LicenseTypeId);
+                licenseTypeManager.SetSwitchableLicenseType(licenseType, switchableLicenseTypeVM.SelectedLicenseTypeId);
+
+                return RedirectToAction("LicenseTypeDashboard", "LicenseType", new { id = switchableLicenseTypeVM.LicenseTypeId });
+            }
+            else
+            {
+                return View("EditSwitchableLicenseType", switchableLicenseTypeVM);
+            }
+        }
     }
 }

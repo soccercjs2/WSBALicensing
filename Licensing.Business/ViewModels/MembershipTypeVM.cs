@@ -9,18 +9,26 @@ namespace Licensing.Business.ViewModels
 {
     public class MembershipTypeVM
     {
-        public License License { get; set; }
         public int LicenseId { get; set; }
-        public bool InactiveChecked { get; set; }
+
+        public LicenseType CurrentLicenseType { get; set; }
+        public LicenseType PreviousLicenseType { get; set; }
+        public LicenseType SwitchableLicenseType { get; set; }
+
+        public bool SwitchChecked { get; set; }
         public bool ResignChecked { get; set; }
 
         public MembershipTypeVM() { }
 
         public MembershipTypeVM(License license)
         {
-            License = license;
             LicenseId = license.LicenseId;
-            InactiveChecked = false;
+
+            CurrentLicenseType = license.LicenseType;
+            PreviousLicenseType = license.PreviousLicenseType;
+            SwitchableLicenseType = license.LicenseType.SwitchableLicenseType;
+
+            SwitchChecked = false;
             ResignChecked = false;
         }
     }

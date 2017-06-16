@@ -1,0 +1,3 @@
+C:\Projects\Licensing\Licensing.Domain\bin\Dev\Licensing.Domain.dll
+C:\Projects\Licensing\Licensing.Domain\obj\Dev\Licensing.Domain.dll
+C:\Projects\Licensing\Licensing.Domain\obj\Dev\Licensing.Domain.csprojResolveAssemblyReference.cache

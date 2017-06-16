@@ -7,23 +7,27 @@
 <h2>Membership Type Changes</h2>
 
 <div class="row">
-    @if (Model.License.LicenseTypeId != Model.License.PreviousLicenseTypeId)
+    @if (Model.CurrentLicenseType.LicenseTypeId != Model.PreviousLicenseType.LicenseTypeId)
     {
         using (Html.BeginForm("RevertLicenseTypeChange", "MembershipType", FormMethod.Post))
         {
             <div class="col-xs-12 col-md-6">
                 @Html.HiddenFor(m => m.LicenseId)
+                @Html.HiddenFor(m => m.CurrentLicenseType.LicenseTypeId)
+                @Html.HiddenFor(m => m.PreviousLicenseType.LicenseTypeId)
+                @Html.HiddenFor(m => m.CurrentLicenseType.Name)
+                @Html.HiddenFor(m => m.PreviousLicenseType.Name)
 
                 <div class="license-type-container">
-                    <div class="license-type-header">Return to @Model.License.LicenseType.Name</div>
+                    <div class="license-type-header">Return to @Model.PreviousLicenseType.Name</div>
                     <div class="license-type-body">
-                        You previously selected to change your Membership Type from <b>@Model.License.LicenseType.Name</b> to
-                        <b>@Model.License.PreviousLicenseType.Name</b>.<br /><br />
+                        You previously selected to change your Membership Type from <b>@Model.PreviousLicenseType.Name</b> to
+                        <b>@Model.CurrentLicenseType.Name</b>.<br /><br />
 
-                        Would you like to return to <b>@Model.License.LicenseType.Name</b>?
+                        Would you like to return to <b>@Model.PreviousLicenseType.Name</b>?
 
                         <div class="license-type-button-container">
-                            <input class="btn btn-primary full-width" type="submit" value="Return to @Model.License.PreviousLicenseType.Name" />
+                            <input class="btn btn-primary full-width" type="submit" value="Return to @Model.PreviousLicenseType.Name" />
                         </div>
                     </div>
                 </div>
@@ -31,39 +35,55 @@
         }
     }
 
-    @if (Model.License.LicenseType.Name == "Active Attorney")
+    @if (Model.SwitchableLicenseType != null)
     {
-        using (Html.BeginForm("GoInactive", "MembershipType", FormMethod.Post))
+        using (Html.BeginForm("SwitchLicenseType", "MembershipType", FormMethod.Post))
         {
+            @Html.HiddenFor(m => m.LicenseId)
+            @Html.HiddenFor(m => m.CurrentLicenseType.LicenseTypeId)
+            @Html.HiddenFor(m => m.PreviousLicenseType.LicenseTypeId)
+            @Html.HiddenFor(m => m.SwitchableLicenseType.LicenseTypeId)
+            @Html.HiddenFor(m => m.CurrentLicenseType.Name)
+            @Html.HiddenFor(m => m.PreviousLicenseType.Name)
+            @Html.HiddenFor(m => m.SwitchableLicenseType.Name)
+
             <div class="col-xs-12 col-md-6">
-                @Html.HiddenFor(m => m.LicenseId)
-
                 <div class="license-type-container">
-                    <div class="license-type-header">Go Inactive</div>
+                    <div class="license-type-header">Switch to @Model.SwitchableLicenseType.Name</div>
                     <div class="license-type-body">
-                        <b>Please note:</b><br />
 
-                        <ul>
-                            <li>The Inactive license fee is $200.</li>
-                            <li>The change to Inactive will be effective immediately upon payment.</li>
-                            <li>You are not permitted to practice law in Washington State while an Inactive member.</li>
-                        </ul>
+                        @if (Model.SwitchableLicenseType.Name == "Inactive Attorney")
+                        {
+                            <b>Please note:</b><br />
 
-                        @Html.CheckBoxFor(m => m.InactiveChecked) <b>Please change my WSBA membership to Inactive.</b><br /><br />
+                            <ul>
+                                <li>The Inactive license fee is $200.</li>
+                                <li>The change to Inactive will be effective immediately upon payment.</li>
+                                <li>You are not permitted to practice law in Washington State while an Inactive member.</li>
+                            </ul>
 
-                        <b>By checking this box, I acknowledge that</b> I am aware that to become an Active member again I must submit an
-                        application that will be subject to full investigation as to both my character and competency to practice law,
-                        and that I must be compliant with all continuing legal education and licensing requirements necessary for that
-                        membership change at that time. Further, I understand that the Board of Governors may require that I take the
-                        Washington State Bar Examination and/or conduct a hearing in connection with my application to return to Active membership. Please review the
-                        <a href="http://www.wsba.org/Licensing-and-Lawyer-Conduct/Membership-Changes/Inactive" target="_blank">Inactive Membership and Return to Active Membership</a>
-                        webpage for more details.<br /><br />
+                            <div>
+                                @Html.CheckBoxFor(m => m.SwitchChecked) <b>Please change my WSBA membership to Inactive.</b>
+                            </div><br />
 
-                        <b>I certify that</b> I will not engage in the practice of law in the State of Washington nor be employed in
-                        any capacity requiring Active membership while I am an Inactive member.
+                            <div>
+                                <b>By checking this box, I acknowledge that</b> I am aware that to become an Active member again I must submit an
+                                application that will be subject to full investigation as to both my character and competency to practice law,
+                                and that I must be compliant with all continuing legal education and licensing requirements necessary for that
+                                membership change at that time. Further, I understand that the Board of Governors may require that I take the
+                                Washington State Bar Examination and/or conduct a hearing in connection with my application to return to Active membership. Please review the
+                                <a href="http://www.wsba.org/Licensing-and-Lawyer-Conduct/Membership-Changes/Inactive" target="_blank">Inactive Membership and Return to Active Membership</a>
+                                webpage for more details.
+                            </div><br />
+
+                            <div>
+                                <b>I certify that</b> I will not engage in the practice of law in the State of Washington nor be employed in
+                                any capacity requiring Active membership while I am an Inactive member.
+                            </div>
+                        }
 
                         <div class="license-type-button-container">
-                            <input class="btn btn-primary full-width" type="submit" value="Go Inactive" />
+                            <input class="btn btn-primary full-width" type="submit" value="Switch to @Model.SwitchableLicenseType.Name" />
                         </div>
                     </div>
                 </div>
@@ -75,6 +95,8 @@
     {
         <div class="col-xs-12 col-md-6">
             @Html.HiddenFor(m => m.LicenseId)
+            @Html.HiddenFor(m => m.CurrentLicenseType.LicenseTypeId)
+            @Html.HiddenFor(m => m.CurrentLicenseType.Name)
 
             <div class="license-type-container">
                 <div class="license-type-header">Resign</div>

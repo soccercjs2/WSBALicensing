@@ -29,6 +29,27 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Integration|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Integration\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|AnyCPU'">
+    <OutputPath>bin\Test\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Dev|AnyCPU'">
+    <OutputPath>bin\Dev\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
@@ -314,6 +335,14 @@
     <Compile Include="Migrations\201706132102460_adding hardship exemption requests.cs" />
     <Compile Include="Migrations\201706132102460_adding hardship exemption requests.Designer.cs">
       <DependentUpon>201706132102460_adding hardship exemption requests.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706151712107_adding switchable license type.cs" />
+    <Compile Include="Migrations\201706151712107_adding switchable license type.Designer.cs">
+      <DependentUpon>201706151712107_adding switchable license type.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706151759455_moving SwitchableLicenseType from License to LicenseType.cs" />
+    <Compile Include="Migrations\201706151759455_moving SwitchableLicenseType from License to LicenseType.Designer.cs">
+      <DependentUpon>201706151759455_moving SwitchableLicenseType from License to LicenseType.cs</DependentUpon>
     </Compile>
     <Compile Include="Workers\HardshipExemptionRequestWorker.cs" />
     <Compile Include="Workers\CustomerWorker.cs" />
@@ -613,6 +642,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706132102460_adding hardship exemption requests.resx">
       <DependentUpon>201706132102460_adding hardship exemption requests.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706151712107_adding switchable license type.resx">
+      <DependentUpon>201706151712107_adding switchable license type.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706151759455_moving SwitchableLicenseType from License to LicenseType.resx">
+      <DependentUpon>201706151759455_moving SwitchableLicenseType from License to LicenseType.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

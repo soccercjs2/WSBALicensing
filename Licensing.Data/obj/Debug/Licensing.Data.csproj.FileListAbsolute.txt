@@ -98,3 +98,5 @@ C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.addingk
 C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.removingkellerdeductionpercentagefromlicensetypeaddingkellerdiscounttableaddingrelationshiptolicensetype.resources
 C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.changingDiscountPercentageprecisiontoallow4decimalplacesonKellerDiscount.resources
 C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.addinghardshipexemptionrequests.resources
+C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.addingswitchablelicensetype.resources
+C:\Projects\Licensing\Licensing.Data\obj\Debug\Licensing.Data.Migrations.movingSwitchableLicenseTypefromLicensetoLicenseType.resources

@@ -14,6 +14,7 @@
             </div>
             <div class="demographics-container-body">
                 @Html.ActionLink("Edit " + @Model.Name, "Edit", "LicenseType", new { id = Model.LicenseTypeId }, null)<br />
+                @Html.ActionLink("Edit " + @Model.Name + " Switchable License Type", "SwitchableLicenseType", "LicenseType", new { id = Model.LicenseTypeId }, null)<br />
                 @Html.ActionLink("Edit " + @Model.Name + " Requirements", "Edit", "LicenseTypeRequirement", new { id = Model.LicenseTypeId }, null)<br />
                 @Html.ActionLink("Edit " + @Model.Name + " Products", "Edit", "LicenseTypeProduct", new { id = Model.LicenseTypeId }, null)<br />
                 @Html.ActionLink("Edit " + @Model.Name + " Sections", "Edit", "LicenseTypeSection", new { id = Model.LicenseTypeId }, null)<br />
